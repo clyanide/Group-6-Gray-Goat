@@ -15,7 +15,6 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Bangershare_Backend
 {

@@ -15,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 namespace Bangershare_Backend
 {
@@ -46,8 +47,12 @@ namespace Bangershare_Backend
             var builder = new SqlConnectionStringBuilder(
                 Configuration.GetConnectionString("AWS"));
 
-            services.AddDbContext<BangerShareContext>(options =>
-                options.UseSqlServer(builder.ConnectionString));
+            services.AddDbContextPool<BangerShareContext>(options => options
+                // replace with your connection string
+                .UseMySql(builder.ConnectionString
+                //.UseMySql(builder.ConnectionString, mySqlOptions => mySqlOptions
+                //    .ServerVersion(new Version("5.7.22"), ServerType.MySql)
+            ));
 
             // swagger 
             services.AddSwaggerGen(c =>
@@ -73,7 +78,7 @@ namespace Bangershare_Backend
             // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
             // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c => {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Flatmate Management API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "BangerShare API");
                 c.RoutePrefix = string.Empty; // launch swagger from root
             });
 

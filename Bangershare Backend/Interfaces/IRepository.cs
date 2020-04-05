@@ -11,6 +11,6 @@ namespace Bangershare_Backend.Interfaces
         Task<T> Get(params object[] keys);
         Task Add(T entity);
         void Update(T entity);
-        void Delete(params object[] keys);
+        void Delete(T entity);
     }
 }

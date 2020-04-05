@@ -11,7 +11,7 @@ namespace Bangershare_Backend.Interfaces
     {
         Task<ICollection<TEntity>> GetAll();
         Task<TEntity> Get(params object[] keys);
-        Task<TResponse> Add(TEntity entity, params object[] keys);
+        Task<TResponse> Add(TEntity entity);
         Task<TResponse> Update(TEntity entity, params object[] keys);
         Task<TResponse> Delete(TEntity entity, params object[] keys);
     }

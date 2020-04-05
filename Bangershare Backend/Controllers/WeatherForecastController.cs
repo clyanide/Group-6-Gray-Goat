@@ -4,6 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Bangershare_Backend.Interfaces;
+using Bangershare_Backend.Services.Communications;
+using Bangershare_Backend.Models;
 
 namespace Bangershare_Backend.Controllers
 {
@@ -17,23 +20,77 @@ namespace Bangershare_Backend.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IService<User, BaseResponse<User>> _userService;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IService<User, BaseResponse<User>> userService)
         {
             _logger = logger;
+            _userService = userService;
         }
 
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpPost]
+        public async Task<IActionResult> Add(User user)
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            var response = await _userService.Add(user);
+
+            if (!response.Success)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                return BadRequest(response.Message);
+            }
+
+            return Ok(user);
+        }
+
+
+        [HttpGet]
+        public async Task<IActionResult> GetAll()
+        {
+            var users = await _userService.GetAll();
+
+            if(users.Count == 0)
+            {
+                return NotFound();
+            }
+
+            return Ok(users);
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Get(int id)
+        {
+            var user = await _userService.Get(id);
+
+            if(user == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete(int id, User user)
+        {
+            var response = await _userService.Delete(user, id);
+
+            if (!response.Success)
+            {
+                return BadRequest();
+            }
+
+            return Ok(user);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> Update(int id, User user)
+        {
+            var response = await _userService.Update(user, id);
+
+            if (!response.Success)
+            {
+                return BadRequest();
+            }
+
+            return Ok(user);
         }
     }
 }

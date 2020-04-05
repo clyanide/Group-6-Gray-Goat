@@ -27,14 +27,6 @@ namespace Bangershare_Backend.Services
         
         public virtual async Task<TResponse> Add(TEntity entity, params object[] keys)
         {
-            TEntity existingEntity = await _repository.Get(keys);
-
-            if (existingEntity != null)
-            {
-                // Indicates entity already exists in database
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), null);
-            }
-
             try
             {
                 await _repository.Add(entity);

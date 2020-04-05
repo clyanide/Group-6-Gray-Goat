@@ -12,9 +12,9 @@ namespace Bangershare_Backend.Services
     public abstract class BaseService<TContext, TEntity, TRepository, TResponse, TUnitOfWork> : IService<TEntity, TResponse>
         where TContext : DbContext
         where TEntity : class
-        where TRepository : BaseRepository<TEntity, TContext>
+        where TRepository : IRepository<TEntity>
         where TResponse : BaseResponse<TEntity>
-        where TUnitOfWork : UnitOfWork<TContext>
+        where TUnitOfWork : IUnitOfWork
     {
         private readonly TRepository _repository;
         private readonly TUnitOfWork _unitOfWork;

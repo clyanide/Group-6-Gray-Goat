@@ -12,7 +12,7 @@ namespace Bangershare_Backend.Services.Communications
         public T Resource { get; private set; }
 
         // Constructor for returning entities, suceess is based on whether object is found
-        protected BaseResponse(T entity)
+        public BaseResponse(T entity)
         {
             if(entity == null)
             {
@@ -27,7 +27,7 @@ namespace Bangershare_Backend.Services.Communications
         }
 
         // Constructor for a failed response 
-        protected BaseResponse(string message)
+        public BaseResponse(string message)
         {
             Success = false;
             Message = message;

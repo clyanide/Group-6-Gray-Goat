@@ -25,18 +25,18 @@ namespace Bangershare_Backend.Services
             _unitOfWork = unitOfWork;
         }
         
-        public virtual async Task<TResponse> Add(TEntity entity, params object[] keys)
+        public virtual async Task<TResponse> Add(TEntity entity)
         {
             try
             {
                 await _repository.Add(entity);
                 await _unitOfWork.CompleteAsync();
 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), entity);
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { entity } );
             } 
             catch (Exception e)
             {
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), $"An error occurred when adding the entity: {e.Message}");
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when adding the entity: {e.Message}" });
             }
             throw new NotImplementedException();
         }
@@ -45,11 +45,10 @@ namespace Bangershare_Backend.Services
         {
             TEntity existingEntity = await _repository.Get(keys);
 
-
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), null);
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
             }
 
             try
@@ -57,11 +56,11 @@ namespace Bangershare_Backend.Services
                 _repository.Delete(entity);
                 await _unitOfWork.CompleteAsync();
 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), entity);
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { entity });
             } 
             catch(Exception e)
             {
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), $"An error occurred when deleting the entity: {e.Message}");
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when deleting the entity: {e.Message}" });
             }
 
             throw new NotImplementedException();
@@ -85,7 +84,7 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), null);
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
             }
 
             existingEntity = entity;
@@ -95,11 +94,11 @@ namespace Bangershare_Backend.Services
                 _repository.Update(existingEntity);
                 await _unitOfWork.CompleteAsync();
 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), existingEntity);
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { existingEntity });
             } 
             catch (Exception e)
             {
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), $"An error occurred when updating the entity: {e.Message}");
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when updating the entity: {e.Message}" });
             }
         }
     }

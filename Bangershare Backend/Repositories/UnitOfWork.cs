@@ -7,7 +7,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Bangershare_Backend.Repositories
 {
-    public class UnitOfWork<TContext> : IUnitOfWork where TContext : DbContext
+    public class UnitOfWork<TContext> : IUnitOfWork 
+        where TContext : DbContext
     {
         private readonly TContext _context;
 

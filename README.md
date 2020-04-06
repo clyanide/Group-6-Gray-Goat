@@ -1,8 +1,5 @@
 # BangerShare
 
-![Build: Server](https://github.com/BennyChun/Group-6-Gray-Goat/workflows/CD_SERVER/badge.svg)
-![Build: Frontend](https://github.com/BennyChun/Group-6-Gray-Goat/workflows/CD_FRONTEND/badge.svg)
-
 Brought to you by SOFTENG 750 Group 6, BangerShare is a music platform that allows users to listen to music from a variety of other platforms (e.g. Youtube, Spotify) all in one place.
 
 ## Getting Started

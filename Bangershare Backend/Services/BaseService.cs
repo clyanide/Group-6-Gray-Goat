@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -48,7 +48,7 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse));
             }
 
             try
@@ -84,14 +84,12 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse));
             }
-
-            existingEntity = entity;
 
             try
             {
-                _repository.Update(existingEntity);
+                _repository.Update(entity, existingEntity);
                 await _unitOfWork.CompleteAsync();
 
                 return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { existingEntity });

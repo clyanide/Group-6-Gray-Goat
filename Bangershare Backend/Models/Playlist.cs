@@ -13,6 +13,7 @@ namespace Bangershare_Backend.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+        [MaxLength(150)]
         public string Name { get; set; }
         public virtual ICollection<Song> Songs { get; set; }
         public virtual ICollection<UserPlaylist> UserPlaylists { get; set; }

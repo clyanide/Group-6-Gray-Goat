@@ -41,22 +41,22 @@ namespace Bangershare_Backend.Services
             throw new NotImplementedException();
         }
 
-        public virtual async Task<TResponse> Delete(TEntity entity, params object[] keys)
+        public virtual async Task<TResponse> Delete(params object[] keys)
         {
             TEntity existingEntity = await _repository.Get(keys);
 
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse));
             }
 
             try
             {
-                _repository.Delete(entity);
+                _repository.Delete(existingEntity);
                 await _unitOfWork.CompleteAsync();
 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { entity });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { existingEntity });
             } 
             catch(Exception e)
             {
@@ -84,14 +84,12 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { null });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse));
             }
-
-            existingEntity = entity;
 
             try
             {
-                _repository.Update(existingEntity);
+                _repository.Update(entity, existingEntity);
                 await _unitOfWork.CompleteAsync();
 
                 return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { existingEntity });

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bangershare_Backend.Migrations
 {
@@ -11,8 +12,8 @@ namespace Bangershare_Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -24,10 +25,10 @@ namespace Bangershare_Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Email = table.Column<string>(nullable: true),
-                    Username = table.Column<string>(nullable: true),
-                    Password = table.Column<string>(nullable: true)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Email = table.Column<string>(maxLength: 150, nullable: true),
+                    Username = table.Column<string>(maxLength: 150, nullable: true),
+                    Password = table.Column<string>(maxLength: 150, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -39,13 +40,13 @@ namespace Bangershare_Backend.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsPending = table.Column<bool>(nullable: false),
                     Hearts = table.Column<int>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    Artist = table.Column<string>(nullable: true),
-                    Link = table.Column<string>(nullable: true),
-                    SongType = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(maxLength: 150, nullable: true),
+                    Artist = table.Column<string>(maxLength: 150, nullable: true),
+                    Link = table.Column<string>(maxLength: 300, nullable: true),
+                    SongType = table.Column<string>(maxLength: 150, nullable: false),
                     PlaylistId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -65,7 +66,7 @@ namespace Bangershare_Backend.Migrations
                 {
                     User1Id = table.Column<int>(nullable: false),
                     User2Id = table.Column<int>(nullable: false),
-                    FriendType = table.Column<string>(nullable: false)
+                    FriendType = table.Column<string>(maxLength: 150, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -123,15 +124,13 @@ namespace Bangershare_Backend.Migrations
                 name: "IX_User_Email",
                 table: "User",
                 column: "Email",
-                unique: true,
-                filter: "[Email] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_User_Username",
                 table: "User",
                 column: "Username",
-                unique: true,
-                filter: "[Username] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserPlaylists_PlaylistId",

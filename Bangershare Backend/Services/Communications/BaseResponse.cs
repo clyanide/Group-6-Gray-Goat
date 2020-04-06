@@ -11,17 +11,17 @@ namespace Bangershare_Backend.Services.Communications
         public string Message { get; private set; }
         public T Resource { get; private set; }
 
+        public BaseResponse()
+        {
+            Success = false;
+            Message = "Entity Not found";
+            Resource = default;
+        }
+
         // Constructor for returning entities, suceess is based on whether object is found
         public BaseResponse(T entity)
         {
-            if(entity == null)
-            {
-                Success = false;
-            } else
-            {
-                Success = true;
-            }
-
+            Success = true;
             Message = string.Empty;
             Resource = entity;
         }

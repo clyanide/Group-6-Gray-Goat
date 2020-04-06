@@ -38,9 +38,10 @@ namespace Bangershare_Backend.Repositories
             return await _context.Set<TEntity>().ToListAsync();
         }
 
-        public virtual void Update(TEntity entity)
+        public virtual void Update(TEntity entity, TEntity existingEntity)
         {
-            _context.Set<TEntity>().Update(entity);
+            _context.Entry(existingEntity).State = EntityState.Detached;
+            _context.Entry(entity).State = EntityState.Modified;
         }
     }
 }

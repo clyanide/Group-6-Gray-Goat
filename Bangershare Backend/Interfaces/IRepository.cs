@@ -10,7 +10,7 @@ namespace Bangershare_Backend.Interfaces
         Task<ICollection<T>> GetAll();
         Task<T> Get(params object[] keys);
         Task Add(T entity);
-        void Update(T entity);
+        void Update(T entity, T existingEntity);
         void Delete(T entity);
     }
 }

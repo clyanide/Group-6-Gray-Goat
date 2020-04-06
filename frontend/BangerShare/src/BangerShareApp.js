@@ -1,10 +1,11 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { Container, Text } from "native-base";
+import Constants from "expo-constants";
 
 const BangerShareApp = () => (
-  <View>
-    <Text>Open up App.js to start working on your app!</Text>
-  </View>
+  <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
+    <Text>Open up App.js to start working on your app!123</Text>
+  </Container>
 );
 
 export default BangerShareApp;

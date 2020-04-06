@@ -44,7 +44,8 @@ namespace Bangershare_Backend.Models
                 entity.Property(e => e.FriendType)
                     .HasConversion(
                         e => e.ToString(),
-                        e => (FriendType)Enum.Parse(typeof(FriendType), e));
+                        e => (FriendType)Enum.Parse(typeof(FriendType), e))
+                    .HasMaxLength(150);
             });
 
             modelBuilder.Entity<UserPlaylist>(entity => {
@@ -71,7 +72,8 @@ namespace Bangershare_Backend.Models
                 entity.Property(e => e.SongType)
                     .HasConversion(
                         e => e.ToString(),
-                        e => (SongType)Enum.Parse(typeof(SongType), e));
+                        e => (SongType)Enum.Parse(typeof(SongType), e))
+                    .HasMaxLength(150);
             });
         }
     }

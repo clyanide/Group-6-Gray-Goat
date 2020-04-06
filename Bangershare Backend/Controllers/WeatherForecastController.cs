@@ -68,16 +68,16 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id, User user)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _userService.Delete(user, id);
+            var response = await _userService.Delete(id);
 
             if (!response.Success)
             {
-                return BadRequest();
+                return BadRequest(response.Message);
             }
 
-            return Ok(user);
+            return Ok(response.Resource);
         }
 
         [HttpPut]
@@ -87,7 +87,7 @@ namespace Bangershare_Backend.Controllers
 
             if (!response.Success)
             {
-                return BadRequest();
+                return BadRequest(response.Message);
             }
 
             return Ok(user);

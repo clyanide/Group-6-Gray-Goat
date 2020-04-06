@@ -15,6 +15,10 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
+using Bangershare_Backend.Repositories;
+using Bangershare_Backend.Services;
+using Bangershare_Backend.Interfaces;
+using Bangershare_Backend.Services.Communications;
 
 namespace Bangershare_Backend
 {
@@ -52,6 +56,12 @@ namespace Bangershare_Backend
                 //.UseMySql(builder.ConnectionString, mySqlOptions => mySqlOptions
                 //    .ServerVersion(new Version("5.7.22"), ServerType.MySql)
             ));
+
+            services.AddScoped<IService<User, BaseResponse<User>>, UserService>();
+
+            services.AddScoped<IRepository<User>, UserRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
 
             // swagger 
             services.AddSwaggerGen(c =>

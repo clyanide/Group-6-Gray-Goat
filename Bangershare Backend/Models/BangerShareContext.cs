@@ -9,10 +9,7 @@ namespace Bangershare_Backend.Models
 {
     public class BangerShareContext : DbContext
     {
-        public BangerShareContext(DbContextOptions<BangerShareContext> options) : base(options)
-        {
-
-        }
+        public BangerShareContext(DbContextOptions<BangerShareContext> options) : base(options) { }
 
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<Friend> Friend { get; set; }

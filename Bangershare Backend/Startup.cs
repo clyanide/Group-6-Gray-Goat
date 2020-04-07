@@ -19,6 +19,7 @@ using Bangershare_Backend.Repositories;
 using Bangershare_Backend.Services;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
+using AutoMapper;
 
 namespace Bangershare_Backend
 {
@@ -62,6 +63,8 @@ namespace Bangershare_Backend
             services.AddScoped<IRepository<User>, UserRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
+
+            services.AddAutoMapper(typeof(Startup));
 
             // swagger 
             services.AddSwaggerGen(c =>

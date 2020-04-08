@@ -7,6 +7,8 @@ using Microsoft.Extensions.Logging;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
 using Bangershare_Backend.Models;
+using Bangershare_Backend.Dtos;
+using AutoMapper;
 
 namespace Bangershare_Backend.Controllers
 {
@@ -21,15 +23,19 @@ namespace Bangershare_Backend.Controllers
 
         private readonly ILogger<WeatherForecastController> _logger;
         private readonly IService<User, BaseResponse<User>> _userService;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IService<User, BaseResponse<User>> userService)
+        private readonly IMapper _mapper;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IService<User, BaseResponse<User>> userService, IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(User user)
+        public async Task<IActionResult> Add(UserDto userDto)
         {
+            var user = _mapper.Map<UserDto, User>(userDto);
+
             var response = await _userService.Add(user);
 
             if (!response.Success)
@@ -37,7 +43,9 @@ namespace Bangershare_Backend.Controllers
                 return BadRequest(response.Message);
             }
 
-            return Ok(user);
+            userDto = _mapper.Map<User, UserDto>(response.Resource);
+
+            return Ok(userDto);
         }
 
 

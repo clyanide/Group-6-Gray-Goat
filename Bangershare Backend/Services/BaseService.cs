@@ -47,7 +47,7 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse));
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { "Entity not found" });
             }
 
             try
@@ -83,7 +83,7 @@ namespace Bangershare_Backend.Services
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse));
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { "Entity not found" });
             }
 
             try

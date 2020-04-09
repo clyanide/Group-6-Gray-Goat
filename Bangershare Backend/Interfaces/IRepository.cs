@@ -14,6 +14,7 @@ namespace Bangershare_Backend.Interfaces
             Expression<Func<T, bool>> filter = null,
             Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
             string includeProperties = "");
+        Task<T> FindFirstOrDefault(Expression<Func<T, bool>> filter = null);
         Task Add(T entity);
         void Update(T entity, T existingEntity);
         void Delete(T entity);

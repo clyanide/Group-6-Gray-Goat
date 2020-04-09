@@ -72,5 +72,10 @@ namespace Bangershare_Backend.Repositories
             _context.Entry(existingEntity).State = EntityState.Detached;
             _context.Entry(entity).State = EntityState.Modified;
         }
+
+        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return await _dbSet.FirstOrDefaultAsync(filter);
+        }
     }
 }

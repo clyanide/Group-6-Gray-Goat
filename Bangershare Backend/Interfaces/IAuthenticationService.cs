@@ -1,0 +1,16 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Bangershare_Backend.Services.Communications;
+using Bangershare_Backend.Models.Security;
+
+namespace Bangershare_Backend.Interfaces
+{
+    interface IAuthenticationService
+    {
+        Task<BaseResponse<AccessToken>> CreateAccessToken(string email, string password);
+        Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string email);
+        void RevokeRefreshToken(string refreshToken);
+    }
+}

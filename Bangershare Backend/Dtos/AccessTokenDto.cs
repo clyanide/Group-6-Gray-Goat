@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bangershare_Backend.Dtos;
 
 namespace Bangershare_Backend.Dtos
 {

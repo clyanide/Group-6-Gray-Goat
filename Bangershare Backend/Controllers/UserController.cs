@@ -21,10 +21,11 @@ namespace Bangershare_Backend.Controllers
         private readonly UserService _userService;
         private readonly IAuthenticationService _authenticationService;
 
-        public UserController(IMapper mapper, UserService userService)
+        public UserController(IMapper mapper, UserService userService, IAuthenticationService authenticationService)
         {
             _mapper = mapper;
             _userService = userService;
+            _authenticationService = authenticationService;
         }
 
         [HttpPost("/register")]
@@ -57,6 +58,29 @@ namespace Bangershare_Backend.Controllers
             var accessTokenDto = _mapper.Map<AccessToken, AccessTokenDto>(response.Resource);
 
             return Ok(accessTokenDto);
+        }
+
+        [HttpPost("/token/refresh")]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
+        {
+            var response = await _authenticationService.RefreshToken(refreshTokenDto.Token, refreshTokenDto.Username);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            var accessTokenDto = _mapper.Map<AccessToken, AccessTokenDto>(response.Resource);
+
+            return Ok(accessTokenDto);
+        }
+
+        [HttpPost("/token/revoke")]
+        public IActionResult RevokeToken([FromBody] RevokeTokenDto revokeTokenDto)
+        {
+            _authenticationService.RevokeRefreshToken(revokeTokenDto.Token);
+
+            return NoContent();
         }
     }
 }

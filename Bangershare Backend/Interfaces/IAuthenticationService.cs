@@ -7,7 +7,7 @@ using Bangershare_Backend.Models.Security;
 
 namespace Bangershare_Backend.Interfaces
 {
-    interface IAuthenticationService
+    public interface IAuthenticationService
     {
         Task<BaseResponse<AccessToken>> CreateAccessToken(string username, string password);
         Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string username);

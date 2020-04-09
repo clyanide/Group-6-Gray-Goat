@@ -1,6 +1,10 @@
 import React from "react";
-import { Text, Content } from "native-base";
+import { Text, Container } from "native-base";
 
-const Greeting = () => <Text>Hello Allen</Text>;
+const Greeting = () => (
+  <Container>
+    <Text>Hello Allen</Text>
+  </Container>
+);
 
 export default Greeting;

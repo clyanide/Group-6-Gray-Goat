@@ -1,5 +1,4 @@
 import React from "react";
-import { Image } from "react-native";
 import {
   Container,
   Text,
@@ -7,7 +6,6 @@ import {
   Card,
   CardItem,
   Body,
-  Thumbnail,
   Left,
 } from "native-base";
 
@@ -25,30 +23,26 @@ const RecentPlaylists = () => (
       style={{
         flexDirection: "row",
         flexWrap: "wrap",
-        justifyContent: "space-around",
       }}
     >
       {playlists.map((playlist) => (
         <Container
           key={playlist.playlist}
           style={{
-            height: "10.5%",
-            width: 100,
+            height: "11%",
             minWidth: "50%",
           }}
         >
-          <Content>
-            <Card>
-              <CardItem button onPress={() => alert(playlist.playlist)}>
-                <Left>
-                  <Body>
-                    <Text>{playlist.playlist}</Text>
-                    <Text note>{playlist.owner}</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-            </Card>
-          </Content>
+          <Card>
+            <CardItem button onPress={() => alert(playlist.playlist)}>
+              <Left>
+                <Body>
+                  <Text>{playlist.playlist}</Text>
+                  <Text note>{playlist.owner}</Text>
+                </Body>
+              </Left>
+            </CardItem>
+          </Card>
         </Container>
       ))}
     </Container>

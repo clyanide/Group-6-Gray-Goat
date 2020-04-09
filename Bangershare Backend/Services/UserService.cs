@@ -24,14 +24,14 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<User>> CreateUser(User user)
         {
-            var existingUser = await _userRepository.FindFirstOrDefault(e => e.Username.Equals(user.Username));
+            var existingUser = await _userRepository.FindFirstOrDefault(u => u.Username.Equals(user.Username));
 
             if(existingUser != null)
             {
                 return new BaseResponse<User>("Username already in use");
             }
 
-            existingUser = await _userRepository.FindFirstOrDefault(e => e.Email.Equals(user.Email));
+            existingUser = await _userRepository.FindFirstOrDefault(u => u.Email.Equals(user.Email));
 
             if(existingUser != null)
             {

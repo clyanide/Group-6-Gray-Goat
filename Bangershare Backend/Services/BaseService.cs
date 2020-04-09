@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Bangershare_Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Bangershare_Backend.Services.Communications;
+using System.Linq.Expressions;
 
 namespace Bangershare_Backend.Services
 {
@@ -64,7 +65,7 @@ namespace Bangershare_Backend.Services
             throw new NotImplementedException();
         }
 
-        public virtual async Task<TEntity> Get(params object[] keys)
+        public virtual async Task<TEntity> GetByKeys(params object[] keys)
         {
             return await _repository.GetByKey(keys);
         }
@@ -96,6 +97,11 @@ namespace Bangershare_Backend.Services
             {
                 return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when updating the entity: {e.Message}" });
             }
+        }
+
+        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        {
+            return await _repository.FindFirstOrDefault(filter);
         }
     }
 }

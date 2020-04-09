@@ -20,8 +20,8 @@ using Bangershare_Backend.Services;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
 using Bangershare_Backend.Security.Hashing;
-using AutoMapper;
 using Bangershare_Backend.Security.Tokens;
+using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -67,6 +67,7 @@ namespace Bangershare_Backend
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
 
+            services.AddScoped<IAuthenticationService, AuthenticationService>();
             services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));

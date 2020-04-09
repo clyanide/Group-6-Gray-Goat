@@ -21,6 +21,9 @@ using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
 using Bangershare_Backend.Security.Hashing;
 using AutoMapper;
+using Bangershare_Backend.Security.Tokens;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 namespace Bangershare_Backend
 {
@@ -65,6 +68,27 @@ namespace Bangershare_Backend
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
 
             services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+            services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
+            var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+            var signingConfigurations = new SigningConfigurations();
+            services.AddSingleton(signingConfigurations);
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(jwtBearerOptions =>
+                {
+                    jwtBearerOptions.TokenValidationParameters = new TokenValidationParameters()
+                    {
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = tokenOptions.Issuer,
+                        ValidAudience = tokenOptions.Audience,
+                        IssuerSigningKey = signingConfigurations.Key,
+                        ClockSkew = TimeSpan.Zero
+                    };
+                });
 
             services.AddAutoMapper(typeof(Startup));
 

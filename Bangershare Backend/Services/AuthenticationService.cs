@@ -21,9 +21,9 @@ namespace Bangershare_Backend.Services
             _tokenHandler = tokenHandler;
         }
         
-        public async Task<BaseResponse<AccessToken>> CreateAccessToken(string email, string password)
+        public async Task<BaseResponse<AccessToken>> CreateAccessToken(string username, string password)
         {
-            var user = await _userService.FindFirstOrDefault(u => u.Email.Equals(email));
+            var user = await _userService.FindFirstOrDefault(u => u.Username.Equals(username));
 
             if(user == null || !_passwordHasher.PasswordMatches(password, user.Password))
             {
@@ -35,7 +35,7 @@ namespace Bangershare_Backend.Services
             return new BaseResponse<AccessToken>(token);
         }
 
-        public async Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string email)
+        public async Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string username)
         {
             var token = _tokenHandler.TakeRefreshToken(refreshToken);
 
@@ -49,7 +49,7 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<AccessToken>("Expired refresh token");
             }
 
-            var user = await _userService.FindFirstOrDefault(u => u.Email.Equals(email));
+            var user = await _userService.FindFirstOrDefault(u => u.Username.Equals(username));
 
             if(user == null)
             {

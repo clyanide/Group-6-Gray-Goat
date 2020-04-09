@@ -9,8 +9,8 @@ namespace Bangershare_Backend.Interfaces
 {
     interface IAuthenticationService
     {
-        Task<BaseResponse<AccessToken>> CreateAccessToken(string email, string password);
-        Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string email);
+        Task<BaseResponse<AccessToken>> CreateAccessToken(string username, string password);
+        Task<BaseResponse<AccessToken>> RefreshToken(string refreshToken, string username);
         void RevokeRefreshToken(string refreshToken);
     }
 }

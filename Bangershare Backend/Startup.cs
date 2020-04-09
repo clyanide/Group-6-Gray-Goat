@@ -19,6 +19,7 @@ using Bangershare_Backend.Repositories;
 using Bangershare_Backend.Services;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
+using Bangershare_Backend.Security.Hashing;
 using AutoMapper;
 
 namespace Bangershare_Backend
@@ -58,11 +59,12 @@ namespace Bangershare_Backend
                 //    .ServerVersion(new Version("5.7.22"), ServerType.MySql)
             ));
 
-            services.AddScoped<IService<User, BaseResponse<User>>, UserService>();
+            services.AddScoped<UserService>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
-
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
+
+            services.AddScoped<IPasswordHasher, PasswordHasher>();
 
             services.AddAutoMapper(typeof(Startup));
 

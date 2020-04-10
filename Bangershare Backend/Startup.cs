@@ -56,7 +56,6 @@ namespace Bangershare_Backend
                 Configuration.GetConnectionString("AWS"));
 
             services.AddDbContextPool<BangerShareContext>(options => options
-                // replace with your connection string
                 .UseMySql(builder.ConnectionString
                 //.UseMySql(builder.ConnectionString, mySqlOptions => mySqlOptions
                 //    .ServerVersion(new Version("5.7.22"), ServerType.MySql)
@@ -98,6 +97,38 @@ namespace Bangershare_Backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BangerShare API", Version = "v1" });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. " + Environment.NewLine +
+                      "Enter 'Bearer' [space] and then your token in the text input below. " + Environment.NewLine +
+                      "Example: 'Bearer 12345abcdef'",
+                    Name = "Authorization",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement()
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            },
+                            Scheme = "oauth2",
+                            Name = "Bearer",
+                            In = ParameterLocation.Header,
+                            },
+                            new List<string>()
+                    }
+                });
+                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //c.IncludeXmlComments(xmlPath);
             });
         }
 

@@ -14,14 +14,7 @@ namespace Bangershare_Backend.Services.Communications
         // Constructor for returning entities, suceess is based on whether object is found
         public BaseResponse(T entity)
         {
-            if(entity == null)
-            {
-                Success = false;
-            } else
-            {
-                Success = true;
-            }
-
+            Success = true;
             Message = string.Empty;
             Resource = entity;
         }

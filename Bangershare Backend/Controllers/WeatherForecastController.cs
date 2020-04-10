@@ -7,6 +7,9 @@ using Microsoft.Extensions.Logging;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Services.Communications;
 using Bangershare_Backend.Models;
+using Bangershare_Backend.Dtos;
+using AutoMapper;
+using Bangershare_Backend.Services;
 
 namespace Bangershare_Backend.Controllers
 {
@@ -20,16 +23,20 @@ namespace Bangershare_Backend.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IService<User, BaseResponse<User>> _userService;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IService<User, BaseResponse<User>> userService)
+        private readonly UserService _userService;
+        private readonly IMapper _mapper;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, UserService userService, IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
+            _mapper = mapper;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Add(User user)
+        public async Task<IActionResult> Add(UserDto userDto)
         {
+            var user = _mapper.Map<UserDto, User>(userDto);
+
             var response = await _userService.Add(user);
 
             if (!response.Success)
@@ -37,7 +44,9 @@ namespace Bangershare_Backend.Controllers
                 return BadRequest(response.Message);
             }
 
-            return Ok(user);
+            userDto = _mapper.Map<User, UserDto>(response.Resource);
+
+            return Ok(userDto);
         }
 
 
@@ -57,7 +66,7 @@ namespace Bangershare_Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _userService.Get(id);
+            var user = await _userService.GetByKeys(id);
 
             if(user == null)
             {
@@ -68,16 +77,16 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete(int id, User user)
+        public async Task<IActionResult> Delete(int id)
         {
-            var response = await _userService.Delete(user, id);
+            var response = await _userService.Delete(id);
 
             if (!response.Success)
             {
-                return BadRequest();
+                return BadRequest(response.Message);
             }
 
-            return Ok(user);
+            return Ok(response.Resource);
         }
 
         [HttpPut]
@@ -87,7 +96,7 @@ namespace Bangershare_Backend.Controllers
 
             if (!response.Success)
             {
-                return BadRequest();
+                return BadRequest(response.Message);
             }
 
             return Ok(user);

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace Bangershare_Backend.Interfaces
@@ -10,9 +11,10 @@ namespace Bangershare_Backend.Interfaces
         where TResponse : class
     {
         Task<ICollection<TEntity>> GetAll();
-        Task<TEntity> Get(params object[] keys);
+        Task<TEntity> GetByKeys(params object[] keys);
+        Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null);
         Task<TResponse> Add(TEntity entity);
         Task<TResponse> Update(TEntity entity, params object[] keys);
-        Task<TResponse> Delete(TEntity entity, params object[] keys);
+        Task<TResponse> Delete(params object[] keys);
     }
 }

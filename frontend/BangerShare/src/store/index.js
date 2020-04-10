@@ -7,7 +7,7 @@ import logger from "redux-logger";
 // Configures AsyncStorage which allows state to be saved locally on the device
 const persistConfig = {
   key: "root",
-  storage: AsyncStorage
+  storage: AsyncStorage,
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

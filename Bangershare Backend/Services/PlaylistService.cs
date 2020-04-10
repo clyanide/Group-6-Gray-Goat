@@ -49,9 +49,37 @@ namespace Bangershare_Backend.Services
                 await _unitOfWork.CompleteAsync();
 
                 return response;
-            } catch(Exception e)
+            } 
+            catch(Exception e)
             {
                 return new BaseResponse<Playlist>($"An error occurred when adding the playlist: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)
+        {
+            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+
+            if(userPlaylist == null)
+            {
+                return new BaseResponse<Playlist>("Playlist for user does not exist");
+            } 
+            else if (!userPlaylist.IsOwner)
+            {
+                return new BaseResponse<Playlist>("User does not have permission to delete playlist");
+            }
+
+            try
+            {
+                _userPlaylistRepository.Delete(userPlaylist);
+                await _unitOfWork.CompleteAsync();
+
+                var response = await Delete(playlistId);
+
+                return response;
+            } catch(Exception e)
+            {
+                return new BaseResponse<Playlist>($"An error occurred when deleting the playlist: {e.Message}");
             }
         }
     }

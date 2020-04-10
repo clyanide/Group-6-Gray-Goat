@@ -87,9 +87,8 @@ namespace Bangershare_Backend.Security.Tokens
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Email)
+                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString())
             };
 
             return claims;

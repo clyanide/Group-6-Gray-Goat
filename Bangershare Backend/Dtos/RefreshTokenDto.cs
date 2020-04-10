@@ -5,10 +5,9 @@ using System.Threading.Tasks;
 
 namespace Bangershare_Backend.Dtos
 {
-    public class UserDto
+    public class RefreshTokenDto
     {
-        public string Email { get; set; }
+        public string Token { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
     }
 }

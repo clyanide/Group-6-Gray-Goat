@@ -9,6 +9,7 @@ using Bangershare_Backend.Services.Communications;
 using Bangershare_Backend.Models;
 using Bangershare_Backend.Dtos;
 using AutoMapper;
+using Bangershare_Backend.Services;
 
 namespace Bangershare_Backend.Controllers
 {
@@ -22,9 +23,9 @@ namespace Bangershare_Backend.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-        private readonly IService<User, BaseResponse<User>> _userService;
+        private readonly UserService _userService;
         private readonly IMapper _mapper;
-        public WeatherForecastController(ILogger<WeatherForecastController> logger, IService<User, BaseResponse<User>> userService, IMapper mapper)
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, UserService userService, IMapper mapper)
         {
             _logger = logger;
             _userService = userService;
@@ -65,7 +66,7 @@ namespace Bangershare_Backend.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(int id)
         {
-            var user = await _userService.Get(id);
+            var user = await _userService.GetByKeys(id);
 
             if(user == null)
             {

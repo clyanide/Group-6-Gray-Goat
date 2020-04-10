@@ -23,14 +23,18 @@ jobs:
           node-version: 12
 
       # ESLint and Prettier must be in `package.json`
-      - name: Install Node.js dependencies
-        run: npm install
-        working-directory: ./frontend/BangerShare
+      - name: Install Prettier
+        run: npm install prettier 
+      
+      - name: Install ESLint
+        run: npm Install eslint
 
       - name: Run linters
         uses: samuelmeuli/lint-action@v1
         with:
           github_token: ${{ secrets.github_token }}
+          # Enables auto fix of linting errors
+          auto_fix: ${{ github.event_name == 'pull_request' }}
           # Enable linters
-          eslint: false
+          eslint: true
           prettier: true

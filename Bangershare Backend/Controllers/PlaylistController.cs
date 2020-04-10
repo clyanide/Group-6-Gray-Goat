@@ -44,5 +44,23 @@ namespace Bangershare_Backend.Controllers
 
             return Ok(playlistDto);
         }
+
+        [HttpDelete("{playlistId}")]
+        [Authorize]
+        public async Task<IActionResult> DeletePlaylist([FromRoute] int playlistId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _playlistService.DeletePlaylist(userId, playlistId);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            var playlistDto = _mapper.Map<Playlist, PlaylistDto>(response.Resource);
+
+            return Ok(playlistDto);
+        }
     }
 }

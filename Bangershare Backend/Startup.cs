@@ -66,8 +66,8 @@ namespace Bangershare_Backend
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();
 
-            services.AddScoped<IPasswordHasher, PasswordHasher>();
-            services.AddScoped<ITokenHandler, Security.Tokens.TokenHandler>();
+            services.AddSingleton<IPasswordHasher, PasswordHasher>();
+            services.AddSingleton<ITokenHandler, Security.Tokens.TokenHandler>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));

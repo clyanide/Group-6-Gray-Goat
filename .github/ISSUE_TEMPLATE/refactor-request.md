@@ -1,10 +1,9 @@
 ---
 name: Refactor request
 about: Refactoring existing functionality in the project.
-title: ''
+title: ""
 labels: refactor
-assignees: ''
-
+assignees: ""
 ---
 
 **What is being refactored?**
@@ -17,4 +16,4 @@ Ex. Renaming the properties in the class to be the same as the properties in the
 
 **Why is this happening?**
 Briefly mention why the change is happening, if not inherently obvious, and how it effects the quality attributes
-Ex.  To ensure consistency between the DTO objects and the models and increase extensibility/modifiability.
+Ex. To ensure consistency between the DTO objects and the models and increase extensibility/modifiability.

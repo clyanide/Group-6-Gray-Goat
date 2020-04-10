@@ -2,6 +2,4 @@ Closes #
 
 ## Proposed Changes
 
-  -
-  -
-  -
+- - -

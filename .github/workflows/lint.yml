@@ -22,12 +22,11 @@ jobs:
         with:
           node-version: 12
 
-      # ESLint and Prettier must be in `package.json`
       - name: Install Prettier
-        run: npm install prettier 
-      
+        run: npm install prettier
+
       - name: Install ESLint
-        run: npm Install eslint
+        run: npm install eslint
 
       - name: Run linters
         uses: samuelmeuli/lint-action@v1
@@ -36,5 +35,5 @@ jobs:
           # Enables auto fix of linting errors
           auto_fix: ${{ github.event_name == 'pull_request' }}
           # Enable linters
-          eslint: true
+          eslint: false
           prettier: true

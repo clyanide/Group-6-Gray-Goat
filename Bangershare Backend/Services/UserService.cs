@@ -40,10 +40,9 @@ namespace Bangershare_Backend.Services
 
             user.Password = _passwordHasher.HashPassword(user.Password);
 
-            await _userRepository.Add(user);
-            await _unitOfWork.CompleteAsync();
+            var response = await Add(user);
 
-            return new BaseResponse<User>(user);
+            return response;
         }
     }
 }

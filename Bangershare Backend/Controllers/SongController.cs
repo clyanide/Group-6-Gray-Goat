@@ -62,5 +62,25 @@ namespace Bangershare_Backend.Controllers
 
             return Ok(songDto);
         }
+
+        [HttpPut("{songId}")]
+        public async Task<IActionResult> UpdateSong([FromRoute] int songId, [FromBody] SongDto songDto)
+        {
+            if(songDto.Id != songId)
+            {
+                return BadRequest("ID of songs, don't match");
+            }
+
+            var song = _mapper.Map<SongDto, Song>(songDto);
+
+            var response = await _songService.UpdateSong(songId, song);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            return Ok(songDto);
+        }
     }
 }

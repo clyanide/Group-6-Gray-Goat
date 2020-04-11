@@ -19,5 +19,10 @@ namespace Bangershare_Backend.Repositories
         {
             _context.Song.RemoveRange(songs);
         }
+
+        public void UpdateSong(Song song)
+        {
+            _context.Song.Update(song);
+        }
     }
 }

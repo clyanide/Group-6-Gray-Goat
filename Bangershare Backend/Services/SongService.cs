@@ -94,5 +94,34 @@ namespace Bangershare_Backend.Services
 
             return response;
         }
+
+        public async Task<BaseResponse<Song>> UpdateSong(int songId, Song song)
+        {
+            var existingSong = await GetByKeys(songId);
+
+            if(existingSong == null)
+            {
+                return new BaseResponse<Song>("Song does not exist");
+            }
+
+            existingSong.Artist = song.Artist;
+            existingSong.Hearts = song.Hearts;
+            existingSong.IsPending = song.IsPending;
+            existingSong.Link = song.Link;
+            existingSong.Name = song.Name;
+            existingSong.SongType = song.SongType;
+
+            try
+            {
+                _songRepository.UpdateSong(existingSong);
+                await _unitOfWork.CompleteAsync();
+
+                return new BaseResponse<Song>(existingSong);
+            }
+            catch(Exception e)
+            {
+                return new BaseResponse<Song>($"An error occurred when updating the song: {e.Message}");
+            }
+        }
     }
 }

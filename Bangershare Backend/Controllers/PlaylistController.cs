@@ -51,14 +51,14 @@ namespace Bangershare_Backend.Controllers
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
 
-            var playlists = await _playlistService.GetPlaylistsForUser(userId);
+            var playlistSongs = await _playlistService.GetPlaylistsForUser(userId);
 
-            if(playlists.Count == 0)
+            if(playlistSongs.Count == 0)
             {
                 return NotFound("No playlists for user");
             }
 
-            var playlistsDto = _mapper.Map<ICollection<Playlist>, ICollection<PlaylistDto>>(playlists);
+            var playlistsDto = _mapper.Map<ICollection<PlaylistSong>, ICollection<PlaylistSongDto>>(playlistSongs);
 
             return Ok(playlistsDto);
         }

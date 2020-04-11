@@ -11,11 +11,13 @@ namespace Bangershare_Backend.Services
     public class PlaylistService : BaseService<BangerShareContext, Playlist, IRepository<Playlist>, BaseResponse<Playlist>, IUnitOfWork>
     {
         private readonly UserService _userService;
+        private readonly IRepository<Playlist> _playlistRepository;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
         private readonly IUnitOfWork _unitOfWork;
         public PlaylistService(UserService userService, IRepository<Playlist> playlistRepository, IRepository<UserPlaylist> userPlaylistRepository, IUnitOfWork unitOfWork) : base(playlistRepository, unitOfWork)
         {
             _userService = userService;
+            _playlistRepository = playlistRepository;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
         }
@@ -53,17 +55,21 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<ICollection<Playlist>> GetPlaylistsForUser(int userId)
+        public async Task<ICollection<PlaylistSong>> GetPlaylistsForUser(int userId)
         {
             var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId));
 
-            var playlists = await GetAll();
+            ICollection<PlaylistSong> playlistSongs = new List<PlaylistSong>();
 
-            playlists = (from p in playlists
-                         join u in userPlaylists on p.Id equals u.PlaylistId
-                         select p).ToList();
+            foreach(UserPlaylist userPlaylist in userPlaylists)
+            {
+                var playlist = await FindFirstOrDefault(p => p.Id.Equals(userPlaylist.PlaylistId), "Songs");
+                var owner = await _userPlaylistRepository.FindFirstOrDefault(u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId), "User");
 
-            return playlists;
+                playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner));
+            }
+
+            return playlistSongs;
         }
 
         public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)

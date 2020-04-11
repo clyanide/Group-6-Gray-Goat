@@ -111,7 +111,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Playlist>> FollowPlaylist(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if(userPlaylist != null)
             {
@@ -151,7 +151,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Playlist>> UnfollowPlaylist(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if(userPlaylist == null)
             {
@@ -190,7 +190,7 @@ namespace Bangershare_Backend.Services
 
         private async Task<BaseResponse<UserPlaylist>> UserPlaylistChecker(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if (userPlaylist == null)
             {

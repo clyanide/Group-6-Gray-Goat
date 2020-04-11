@@ -30,7 +30,7 @@ namespace Bangershare_Backend.Repositories
             _dbSet.Remove(entity);
         }
 
-        public virtual async Task<TEntity> GetByKey(params object[] keys)
+        public virtual async Task<TEntity> GetByKeys(params object[] keys)
         {
             return await _dbSet.FindAsync(keys);
         }

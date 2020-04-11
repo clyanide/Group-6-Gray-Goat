@@ -41,7 +41,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TResponse> Delete(params object[] keys)
         {
-            TEntity existingEntity = await _repository.GetByKey(keys);
+            TEntity existingEntity = await _repository.GetByKeys(keys);
 
             if (existingEntity == null)
             {
@@ -65,7 +65,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TEntity> GetByKeys(params object[] keys)
         {
-            return await _repository.GetByKey(keys);
+            return await _repository.GetByKeys(keys);
         }
 
         public virtual async Task<ICollection<TEntity>> GetAll()
@@ -75,7 +75,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TResponse> Update(TEntity entity, params object[] keys)
         {
-            TEntity existingEntity = await _repository.GetByKey(keys);
+            TEntity existingEntity = await _repository.GetByKeys(keys);
 
             if (existingEntity == null)
             {

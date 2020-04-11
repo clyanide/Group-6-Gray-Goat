@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -33,7 +33,7 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<Song>("Playlist does not exist");
             }
 
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if(userPlaylist == null)
             {

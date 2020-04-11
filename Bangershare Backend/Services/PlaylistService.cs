@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Models;
-using Bangershare_Backend.Repositories;
 using Bangershare_Backend.Services.Communications;
 
 namespace Bangershare_Backend.Services
@@ -12,13 +11,11 @@ namespace Bangershare_Backend.Services
     public class PlaylistService : BaseService<BangerShareContext, Playlist, IRepository<Playlist>, BaseResponse<Playlist>, IUnitOfWork>
     {
         private readonly UserService _userService;
-        private readonly IRepository<Playlist> _playlistRepository;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
         private readonly IUnitOfWork _unitOfWork;
         public PlaylistService(UserService userService, IRepository<Playlist> playlistRepository, IRepository<UserPlaylist> userPlaylistRepository, IUnitOfWork unitOfWork) : base(playlistRepository, unitOfWork)
         {
             _userService = userService;
-            _playlistRepository = playlistRepository;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
         }

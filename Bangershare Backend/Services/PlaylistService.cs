@@ -56,6 +56,19 @@ namespace Bangershare_Backend.Services
             }
         }
 
+        public async Task<ICollection<Playlist>> GetPlaylistsForUser(int userId)
+        {
+            var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId));
+
+            var playlists = await GetAll();
+
+            playlists = (from p in playlists
+                         join u in userPlaylists on p.Id equals u.PlaylistId
+                         select p).ToList();
+
+            return playlists;
+        }
+
         public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)
         {
             var userPlaylistResponse = await UserPlaylistChecker(userId, playlistId);

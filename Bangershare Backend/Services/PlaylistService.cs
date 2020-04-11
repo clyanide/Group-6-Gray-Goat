@@ -58,28 +58,55 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylistResponse = await UserPlaylistChecker(userId, playlistId);
 
-            if(userPlaylist == null)
+            if (!userPlaylistResponse.Success)
             {
-                return new BaseResponse<Playlist>("Playlist for user does not exist");
-            } 
-            else if (!userPlaylist.IsOwner)
-            {
-                return new BaseResponse<Playlist>("User does not have permission to delete playlist");
+                return new BaseResponse<Playlist>(userPlaylistResponse.Message);
             }
 
             try
             {
-                _userPlaylistRepository.Delete(userPlaylist);
+                _userPlaylistRepository.Delete(userPlaylistResponse.Resource);
                 await _unitOfWork.CompleteAsync();
 
-                var response = await Delete(playlistId);
+                var playlistResponse = await Delete(playlistId);
 
-                return response;
+                return playlistResponse;
             } catch(Exception e)
             {
                 return new BaseResponse<Playlist>($"An error occurred when deleting the playlist: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<Playlist>> UpdatePlaylist(int userId, int playlistId, Playlist playlist)
+        {
+            var userPlaylistResponse = await UserPlaylistChecker(userId, playlistId);
+
+            if (!userPlaylistResponse.Success)
+            {
+                return new BaseResponse<Playlist>(userPlaylistResponse.Message);
+            }
+
+            var playlistResponse = await Update(playlist, playlistId);
+
+            return playlistResponse;
+        }
+
+        private async Task<BaseResponse<UserPlaylist>> UserPlaylistChecker(int userId, int playlistId)
+        {
+            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+
+            if (userPlaylist == null)
+            {
+                return new BaseResponse<UserPlaylist>("Playlist for user does not exist");
+            }
+            else if (!userPlaylist.IsOwner)
+            {
+                return new BaseResponse<UserPlaylist>("User does not have permission to delete playlist");
+            } else
+            {
+                return new BaseResponse<UserPlaylist>(userPlaylist);
             }
         }
     }

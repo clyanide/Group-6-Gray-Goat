@@ -73,9 +73,19 @@ namespace Bangershare_Backend.Repositories
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> FindFirstOrDefault(
+            Expression<Func<TEntity, bool>> filter = null, 
+            string includeProperties = "")
         {
-            return await _dbSet.FirstOrDefaultAsync(filter);
+            IQueryable<TEntity> query = _dbSet;
+
+            foreach (var includeProperty in includeProperties.Split
+                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                query = query.Include(includeProperty);
+            }
+
+            return await query.FirstOrDefaultAsync(filter);
         }
     }
 }

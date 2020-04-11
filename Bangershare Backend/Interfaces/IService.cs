@@ -12,7 +12,9 @@ namespace Bangershare_Backend.Interfaces
     {
         Task<ICollection<TEntity>> GetAll();
         Task<TEntity> GetByKeys(params object[] keys);
-        Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null);
+        Task<TEntity> FindFirstOrDefault(
+            Expression<Func<TEntity, bool>> filter = null,
+            string includeProperties = "");
         Task<TResponse> Add(TEntity entity);
         Task<TResponse> Update(TEntity entity, params object[] keys);
         Task<TResponse> Delete(params object[] keys);

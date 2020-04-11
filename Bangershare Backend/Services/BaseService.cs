@@ -96,9 +96,9 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null, string includeProperties = "")
         {
-            return await _repository.FindFirstOrDefault(filter);
+            return await _repository.FindFirstOrDefault(filter, includeProperties);
         }
     }
 }

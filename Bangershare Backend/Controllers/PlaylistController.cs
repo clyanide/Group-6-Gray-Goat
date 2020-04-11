@@ -62,5 +62,25 @@ namespace Bangershare_Backend.Controllers
 
             return Ok(playlistDto);
         }
+
+        [HttpPut("{playlistId}")]
+        [Authorize]
+        public async Task<IActionResult> UpdatePlaylist([FromRoute] int playlistId, [FromBody] PlaylistDto playlistDto)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var playlist = _mapper.Map<PlaylistDto, Playlist>(playlistDto);
+
+            var response = await _playlistService.UpdatePlaylist(userId, playlistId, playlist);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            playlistDto = _mapper.Map<Playlist, PlaylistDto>(response.Resource);
+
+            return Ok(playlistDto);
+        }
     }
 }

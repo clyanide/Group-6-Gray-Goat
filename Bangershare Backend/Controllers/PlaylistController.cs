@@ -83,6 +83,11 @@ namespace Bangershare_Backend.Controllers
         [HttpPut("{playlistId}")]
         public async Task<IActionResult> UpdatePlaylist([FromRoute] int playlistId, [FromBody] PlaylistDto playlistDto)
         {
+            if(playlistId != playlistDto.Id)
+            {
+                return BadRequest("ID's of playlist don't match");
+            }
+
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
 
             var playlist = _mapper.Map<PlaylistDto, Playlist>(playlistDto);

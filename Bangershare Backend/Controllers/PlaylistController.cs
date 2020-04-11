@@ -45,6 +45,24 @@ namespace Bangershare_Backend.Controllers
             return Ok(playlistDto);
         }
 
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetPlaylistForUser()
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var playlists = await _playlistService.GetPlaylistsForUser(userId);
+
+            if(playlists.Count == 0)
+            {
+                return NotFound("No playlists for user");
+            }
+
+            var playlistsDto = _mapper.Map<ICollection<Playlist>, ICollection<PlaylistDto>>(playlists);
+
+            return Ok(playlistsDto);
+        }
+
         [HttpDelete("{playlistId}")]
         [Authorize]
         public async Task<IActionResult> DeletePlaylist([FromRoute] int playlistId)
@@ -81,6 +99,15 @@ namespace Bangershare_Backend.Controllers
             playlistDto = _mapper.Map<Playlist, PlaylistDto>(response.Resource);
 
             return Ok(playlistDto);
+        }
+
+        [HttpPost("{playlistId}")]
+        [Authorize]
+        public async Task<IActionResult> FollowPlaylist([FromRoute] int playlistId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            throw new NotImplementedException();
         }
     }
 }

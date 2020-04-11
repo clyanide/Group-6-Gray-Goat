@@ -75,10 +75,16 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<Playlist>(userPlaylistResponse.Message);
             }
 
+            var userPlaylists = await _userPlaylistRepository.Get(u => u.PlaylistId.Equals(playlistId));
+
             try
             {
-                _userPlaylistRepository.Delete(userPlaylistResponse.Resource);
-                await _unitOfWork.CompleteAsync();
+                // Deletes entries of all users following that playlist
+                foreach(UserPlaylist userPlaylist in userPlaylists)
+                {
+                    _userPlaylistRepository.Delete(userPlaylist);
+                    await _unitOfWork.CompleteAsync();
+                }
 
                 var playlistResponse = await Delete(playlistId);
 
@@ -140,6 +146,45 @@ namespace Bangershare_Backend.Services
             catch (Exception e)
             {
                 return new BaseResponse<Playlist>($"An error occurred when adding a user to the playlist: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<Playlist>> UnfollowPlaylist(int userId, int playlistId)
+        {
+            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+
+            if(userPlaylist == null)
+            {
+                return new BaseResponse<Playlist>("User does not follow playlist");
+            }
+
+            var playlist = await GetByKeys(playlistId);
+
+            if(playlist == null)
+            {
+                return new BaseResponse<Playlist>("Playlist does not exist");
+            }
+
+            try
+            {
+                _userPlaylistRepository.Delete(userPlaylist);
+                await _unitOfWork.CompleteAsync();
+
+                var userPlaylists = await _userPlaylistRepository.Get(u => u.PlaylistId.Equals(playlistId));
+                
+                // Deletes the playlist when it reaches 0 followers
+                if (userPlaylists.Count == 0)
+                {
+                    var response = await Delete(playlistId);
+
+                    return response;
+                }
+
+                return new BaseResponse<Playlist>(playlist);
+            } 
+            catch(Exception e)
+            {
+                return new BaseResponse<Playlist>($"An error occurred when removing a user to the playlist: {e.Message}");
             }
         }
 

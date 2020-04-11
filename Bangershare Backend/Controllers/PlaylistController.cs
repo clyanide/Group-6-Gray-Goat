@@ -115,5 +115,22 @@ namespace Bangershare_Backend.Controllers
 
             return Ok(playlistDto);
         }
+
+        [HttpDelete("unfollow/{playlistId}")]
+        public async Task<IActionResult> UnfollowPlaylist([FromRoute] int playlistId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _playlistService.UnfollowPlaylist(userId, playlistId);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            var playlistDto = _mapper.Map<Playlist, PlaylistDto>(response.Resource);
+
+            return Ok(playlistDto);
+        }
     }
 }

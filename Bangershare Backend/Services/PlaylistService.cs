@@ -106,6 +106,46 @@ namespace Bangershare_Backend.Services
             return playlistResponse;
         }
 
+        public async Task<BaseResponse<Playlist>> FollowPlaylist(int userId, int playlistId)
+        {
+            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+
+            if(userPlaylist != null)
+            {
+                return new BaseResponse<Playlist>("User already follows playlist");
+            }
+
+            var playlist = await GetByKeys(playlistId);
+
+            if (playlist == null)
+            {
+                return new BaseResponse<Playlist>("Playlist does not exist");
+            }
+
+            var user = await _userService.GetByKeys(userId);
+
+            userPlaylist = new UserPlaylist
+            {
+                PlaylistId = playlistId,
+                Playlist = playlist,
+                UserId = userId,
+                User = user,
+                IsOwner = false
+            };
+
+            try
+            {
+                await _userPlaylistRepository.Add(userPlaylist);
+                await _unitOfWork.CompleteAsync();
+
+                return new BaseResponse<Playlist>(playlist);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse<Playlist>($"An error occurred when adding a user to the playlist: {e.Message}");
+            }
+        }
+
         private async Task<BaseResponse<UserPlaylist>> UserPlaylistChecker(int userId, int playlistId)
         {
             var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);

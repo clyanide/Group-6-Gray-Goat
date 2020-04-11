@@ -15,10 +15,12 @@ namespace Bangershare_Backend.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class PlaylistController : ControllerBase
     {
         private readonly IMapper _mapper;
         private readonly PlaylistService _playlistService;
+
         public PlaylistController(IMapper mapper, PlaylistService playlistService)
         {
             _mapper = mapper;
@@ -26,7 +28,6 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpPost]
-        [Authorize]
         public async Task<IActionResult> CreatePlaylist([FromBody] PlaylistDto playlistDto)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
@@ -46,7 +47,6 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpGet]
-        [Authorize]
         public async Task<IActionResult> GetPlaylistForUser()
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
@@ -64,7 +64,6 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpDelete("{playlistId}")]
-        [Authorize]
         public async Task<IActionResult> DeletePlaylist([FromRoute] int playlistId)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
@@ -82,7 +81,6 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpPut("{playlistId}")]
-        [Authorize]
         public async Task<IActionResult> UpdatePlaylist([FromRoute] int playlistId, [FromBody] PlaylistDto playlistDto)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
@@ -101,13 +99,21 @@ namespace Bangershare_Backend.Controllers
             return Ok(playlistDto);
         }
 
-        [HttpPost("{playlistId}")]
-        [Authorize]
+        [HttpPost("follow/{playlistId}")]
         public async Task<IActionResult> FollowPlaylist([FromRoute] int playlistId)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
 
-            throw new NotImplementedException();
+            var response = await _playlistService.FollowPlaylist(userId, playlistId);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            var playlistDto = _mapper.Map<Playlist, PlaylistDto>(response.Resource);
+
+            return Ok(playlistDto);
         }
     }
 }

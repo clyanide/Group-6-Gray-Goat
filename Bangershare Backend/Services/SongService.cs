@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -44,16 +44,53 @@ namespace Bangershare_Backend.Services
             if(userPlaylist.IsOwner)
             {
                 song.IsPending = false;
-            } else
+            } 
+            else
             {
                 song.IsPending = true;
             }
-
+            
+            song.Hearts = 0;
             song.PlaylistId = playlistId;
             song.Playlist = playlist;
-            song.Hearts = 0;
 
             var response = await Add(song);
+
+            return response;
+        }
+
+        public async Task<BaseResponse<Song>> DeleteSongFromPlaylist(int userId, int playlistId, int songId)
+        {
+            var playlist = await _playlistService.GetByKeys(playlistId);
+
+            if (playlist == null)
+            {
+                return new BaseResponse<Song>("Playlist does not exist");
+            }
+
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
+
+            if (userPlaylist == null)
+            {
+                return new BaseResponse<Song>("User does not follow playlist");
+            } 
+            else if (!userPlaylist.IsOwner)
+            {
+                return new BaseResponse<Song>("User does not have permission to remove songs");
+            }
+
+            var song = await GetByKeys(songId);
+
+            if(song == null)
+            {
+                return new BaseResponse<Song>("Song does not exist");
+            } 
+            else if(song.PlaylistId != playlistId)
+            {
+                return new BaseResponse<Song>("Song does not belong in playlist");
+            }
+
+            var response = await Delete(songId);
 
             return response;
         }

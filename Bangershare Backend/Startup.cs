@@ -63,6 +63,7 @@ namespace Bangershare_Backend
 
             services.AddScoped<UserService>();
             services.AddScoped<PlaylistService>();
+            services.AddScoped<SongService>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<UserPlaylist>, UserPlaylistRepository>();

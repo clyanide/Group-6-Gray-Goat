@@ -15,6 +15,7 @@ namespace Bangershare_Backend.Dtos
             CreateMap<User, UserDto>();
             CreateMap<Song, SongDto>();
             CreateMap<Playlist, PlaylistDto>();
+            CreateMap<PlaylistSong, PlaylistSongDto>();
             CreateMap<RefreshToken, RefreshTokenDto>();
             CreateMap<AccessToken, AccessTokenDto>()
                 .ForMember(a => a.AccessToken, opt => opt.MapFrom(a => a.Token))

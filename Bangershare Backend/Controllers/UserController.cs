@@ -29,7 +29,7 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpPost("/register")]
-        public async Task<IActionResult> CreateUser([FromBody] UserDto userDto)
+        public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
             var user = _mapper.Map<UserDto, User>(userDto);
 

@@ -37,7 +37,6 @@ namespace Bangershare_Backend.Services
             {
                 return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when adding the entity: {e.Message}" });
             }
-            throw new NotImplementedException();
         }
 
         public virtual async Task<TResponse> Delete(params object[] keys)
@@ -62,7 +61,6 @@ namespace Bangershare_Backend.Services
                 return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { $"An error occurred when deleting the entity: {e.Message}" });
             }
 
-            throw new NotImplementedException();
         }
 
         public virtual async Task<TEntity> GetByKeys(params object[] keys)
@@ -79,7 +77,6 @@ namespace Bangershare_Backend.Services
         {
             TEntity existingEntity = await _repository.GetByKey(keys);
 
-
             if (existingEntity == null)
             {
                 // Indicates entity does not exist 
@@ -91,7 +88,7 @@ namespace Bangershare_Backend.Services
                 _repository.Update(entity, existingEntity);
                 await _unitOfWork.CompleteAsync();
 
-                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { existingEntity });
+                return (TResponse)Activator.CreateInstance(typeof(TResponse), new object[] { entity });
             } 
             catch (Exception e)
             {

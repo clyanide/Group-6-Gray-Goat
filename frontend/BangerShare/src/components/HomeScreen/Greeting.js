@@ -3,7 +3,7 @@ import { Text, Container } from "native-base";
 
 const Greeting = () => (
   <Container>
-    <Text>Hello Allen</Text>
+    <Text>Hello dfdghj</Text>
   </Container>
 );
 

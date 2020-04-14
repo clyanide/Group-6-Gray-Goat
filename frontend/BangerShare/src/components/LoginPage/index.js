@@ -5,12 +5,16 @@ import LogoDisplay from "./LogoDisplay";
 import InputField from "./InputField";
 import LoginButton from "./LoginButton";
 import StaySignedInToggle from "./StaySignedInToggle"
+import LoginSignUpToggle from "./LoginSignUpToggle";
 
 const LoginPage = () => (
   <Container>
     <Grid>
       <Row size={2}>
-        <LogoDisplay />
+        <LogoDisplay/>
+      </Row>
+      <Row size={1}>
+        <LoginSignUpToggle />
       </Row>
       <Row size={1}>
         <InputField />

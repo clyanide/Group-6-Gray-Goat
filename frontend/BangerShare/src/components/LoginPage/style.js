@@ -10,9 +10,8 @@ loginScreenContainer: {
 
 logoText: {
   fontSize: 40,
-  fontWeight: "800",
-  marginTop: 100,
-  marginBottom: 30,
+  marginTop: '30%',
+  marginBottom: '0%',
   textAlign: 'center',
 },
 

@@ -7,8 +7,8 @@ namespace Bangershare_Backend.Models.Security
 {
     public class SpotifyToken
     {
-        public string AccessToken { get; set; }
-        public string TokenType { get; set; }
-        public long ExpiresIn { get; set; }
+        public string access_token { get; set; }
+        public string token_type { get; set; }
+        public long expires_in { get; set; }
     }
 }

@@ -64,6 +64,7 @@ namespace Bangershare_Backend
             services.AddScoped<UserService>();
             services.AddScoped<PlaylistService>();
             services.AddScoped<SongService>();
+            services.AddScoped<SpotifyAPIService>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<UserPlaylist>, UserPlaylistRepository>();
@@ -76,6 +77,9 @@ namespace Bangershare_Backend
             services.AddSingleton<ITokenHandler, Security.Tokens.TokenHandler>();
             services.AddScoped<IAuthenticationService, AuthenticationService>();
 
+            var spoitfyConfig = new SpotifyConfig();
+            Configuration.Bind("Spotify", spoitfyConfig);
+            services.AddSingleton(spoitfyConfig);
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

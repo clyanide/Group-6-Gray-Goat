@@ -14,10 +14,10 @@ namespace Bangershare_Backend.Services
 {
     public class SpotifyAPIService
     {
-        private string trackURL = "https://api.spotify.com/v1/tracks/";
         private string authURL = "https://accounts.spotify.com/api/token";
-        private static HttpClient _client;
+        private string trackURL = "https://api.spotify.com/v1/tracks/";
 
+        private static HttpClient _client;
         private readonly SpotifyConfig _spotifyConfig;
 
         public SpotifyAPIService(SpotifyConfig spotifyConfig) 
@@ -48,9 +48,16 @@ namespace Bangershare_Backend.Services
             if (result.IsSuccessStatusCode)
             {
                 var jsonString = await result.Content.ReadAsStringAsync();
-                var obj = JsonConvert.DeserializeObject<SpotifySongModel>(jsonString);
+                SpotifySong spotifySong = JsonConvert.DeserializeObject<SpotifySong>(jsonString);
 
-                throw new NotImplementedException();
+                var song = new Song 
+                { 
+                    Artist = spotifySong.artists[0].name, 
+                    Link = spotifySong.uri, 
+                    Name = spotifySong.name 
+                };
+
+                return new BaseResponse<Song>(song);
             }
             else
             {
@@ -91,14 +98,15 @@ namespace Bangershare_Backend.Services
         public long expires_in { get; set; }
     }
 
-    internal class SpotifyArtistModel
+    internal class SpotifyArtist
     {
         public string name { get; set; }
     }
 
-    internal class SpotifySongModel
+    internal class SpotifySong
     {
-        public SpotifyArtistModel[] artists { get; set; }
+        public SpotifyArtist[] artists { get; set; }
         public string name { get; set; }
+        public string uri { get; set; }
     }
 }

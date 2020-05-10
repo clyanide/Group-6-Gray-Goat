@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bangershare_Backend.Controllers
 {
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
-    [Route("api/[controller]")]
     public class SongController : ControllerBase
     {
         private readonly IMapper _mapper;

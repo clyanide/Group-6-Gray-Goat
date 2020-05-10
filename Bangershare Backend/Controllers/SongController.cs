@@ -46,7 +46,7 @@ namespace Bangershare_Backend.Controllers
             return Ok(songDto);
         }
 
-        [HttpPost("Spotify")]
+        [HttpPost("spotify")]
         public async Task<IActionResult> AddSpotifySongToPlaylist([FromQuery] int playlistId, [FromQuery] string spotifySongId)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);

@@ -13,9 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bangershare_Backend.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [Route("api/[controller]")]
     public class SongController : ControllerBase
     {
         private readonly IMapper _mapper;
@@ -42,6 +42,23 @@ namespace Bangershare_Backend.Controllers
             }
 
             songDto = _mapper.Map<Song, SongDto>(response.Resource);
+
+            return Ok(songDto);
+        }
+
+        [HttpPost("Spotify")]
+        public async Task<IActionResult> AddSpotifySongToPlaylist([FromQuery] int playlistId, [FromQuery] string spotifySongId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _songService.AddSpotifySongToPlaylist(userId, playlistId, spotifySongId);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            SongDto songDto = _mapper.Map<Song, SongDto>(response.Resource);
 
             return Ok(songDto);
         }

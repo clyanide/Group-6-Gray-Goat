@@ -28,7 +28,7 @@ namespace Bangershare_Backend.Controllers
             _authenticationService = authenticationService;
         }
 
-        [HttpPost("/register")]
+        [HttpPost("register")]
         public async Task<IActionResult> Register([FromBody] UserDto userDto)
         {
             var user = _mapper.Map<UserDto, User>(userDto);
@@ -45,7 +45,7 @@ namespace Bangershare_Backend.Controllers
             return Ok(userDto);
         }
 
-        [HttpPost("/login")]
+        [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] UserDto userDto)
         {
             var response = await _authenticationService.CreateAccessToken(userDto.Username, userDto.Password);
@@ -60,7 +60,7 @@ namespace Bangershare_Backend.Controllers
             return Ok(accessTokenDto);
         }
 
-        [HttpPost("/token/refresh")]
+        [HttpPost("token/refresh")]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenDto refreshTokenDto)
         {
             var response = await _authenticationService.RefreshToken(refreshTokenDto.Token, refreshTokenDto.Username);
@@ -75,7 +75,7 @@ namespace Bangershare_Backend.Controllers
             return Ok(accessTokenDto);
         }
 
-        [HttpPost("/token/revoke")]
+        [HttpPost("token/revoke")]
         public IActionResult RevokeToken([FromBody] RevokeTokenDto revokeTokenDto)
         {
             _authenticationService.RevokeRefreshToken(revokeTokenDto.Token);

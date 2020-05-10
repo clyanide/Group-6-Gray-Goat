@@ -13,15 +13,33 @@ namespace Bangershare_Backend.Services
     {
         private readonly SongRepository _songRepository;
         private readonly PlaylistService _playlistService;
+        private readonly SpotifyAPIService _spotifyAPIService;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
         private readonly IUnitOfWork _unitOfWork;
         
-        public SongService(SongRepository songRepository, PlaylistService playlistService, IRepository<UserPlaylist> userPlaylistRepository, IUnitOfWork unitOfWork) : base(songRepository, unitOfWork)
+        public SongService(SongRepository songRepository,
+                           PlaylistService playlistService,
+                           SpotifyAPIService spotifyAPIService,
+                           IRepository<UserPlaylist> userPlaylistRepository,
+                           IUnitOfWork unitOfWork) : base(songRepository, unitOfWork)
         {
             _songRepository = songRepository;
             _playlistService = playlistService;
+            _spotifyAPIService = spotifyAPIService;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
+        }
+
+        public async Task<BaseResponse<Song>> AddSpotifySongToPlaylist(int userId, int playlistId, string spotifySongId)
+        {
+            var result = await _spotifyAPIService.getSpotifySongInformation(spotifySongId);
+
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            return await AddSongToPlaylist(userId, playlistId, result.Resource);
         }
 
         public async Task<BaseResponse<Song>> AddSongToPlaylist(int userId, int playlistId, Song song)

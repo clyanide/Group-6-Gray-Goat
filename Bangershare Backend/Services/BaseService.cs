@@ -5,6 +5,8 @@ using Bangershare_Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Bangershare_Backend.Services.Communications;
 using System.Linq.Expressions;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Bangershare_Backend.Services
 {
@@ -96,9 +98,11 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null, string includeProperties = "")
+        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
-            return await _repository.FindFirstOrDefault(filter, includeProperties);
+            return await _repository.FindFirstOrDefault(filter, orderBy, include);
         }
     }
 }

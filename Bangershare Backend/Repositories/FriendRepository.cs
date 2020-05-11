@@ -8,6 +8,16 @@ namespace Bangershare_Backend.Repositories
 {
     public class FriendRepository : BaseRepository<Friend, BangerShareContext>
     {
-        public FriendRepository(BangerShareContext context) : base(context) { }
+        private readonly BangerShareContext _context;
+
+        public FriendRepository(BangerShareContext context) : base(context) 
+        {
+            _context = context;
+        }
+
+        public void UpdateFriendRequest(Friend friendRequest)
+        {
+            _context.Update(friendRequest);
+        }
     }
 }

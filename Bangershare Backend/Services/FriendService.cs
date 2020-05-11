@@ -129,10 +129,18 @@ namespace Bangershare_Backend.Services
                                             .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Pending)))
                                             .ToList();
 
+            List<PlaylistSong> friendSong = new List<PlaylistSong>();
+
+            foreach(Friend friend in friends)
+            {
+                friendSong.AddRange(await _playlistService.GetPlaylistUserOwns(friend.SenderId != userId ? friend.SenderId : friend.ReceiverId));
+            }
+
             UserFriends userFriends = new UserFriends 
             { 
                 AcceptedFriends = friends, 
-                PendingFriends = pendingFriends 
+                PendingFriends = pendingFriends,
+                AcceptedFriendSongs = friendSong
             };
 
             return new BaseResponse<UserFriends>(userFriends);

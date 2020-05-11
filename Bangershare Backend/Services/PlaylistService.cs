@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Models;
 using Bangershare_Backend.Services.Communications;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bangershare_Backend.Services
 {
@@ -63,8 +64,10 @@ namespace Bangershare_Backend.Services
 
             foreach(UserPlaylist userPlaylist in userPlaylists)
             {
-                var playlist = await FindFirstOrDefault(p => p.Id.Equals(userPlaylist.PlaylistId), "Songs");
-                var owner = await _userPlaylistRepository.FindFirstOrDefault(u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId), "User");
+                var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
+                                                        include: source => source.Include(p => p.Songs));
+                var owner = await _userPlaylistRepository.FindFirstOrDefault(filter: u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId),
+                                                                             include: source => source.Include(u => u.User));
 
                 playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner));
             }

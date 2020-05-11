@@ -2,6 +2,7 @@
 using Bangershare_Backend.Models;
 using Bangershare_Backend.Repositories;
 using Bangershare_Backend.Services.Communications;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,12 +14,17 @@ namespace Bangershare_Backend.Services
     {
         private readonly FriendRepository _friendRepository;
         private readonly UserService _userService;
+        private readonly PlaylistService _playlistService;
         private readonly IUnitOfWork _unitOfWork;
 
-        public FriendService(FriendRepository friendRepository, UserService userService, IUnitOfWork unitOfWork) : base(friendRepository, unitOfWork)
+        public FriendService(FriendRepository friendRepository,
+                             UserService userService,
+                             PlaylistService playlistService,
+                             IUnitOfWork unitOfWork) : base(friendRepository, unitOfWork)
         {
             _friendRepository = friendRepository;
             _userService = userService;
+            _playlistService = playlistService;
             _unitOfWork = unitOfWork;
         }
 
@@ -54,14 +60,15 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Friend>> UpdateFriendRequest(string senderUsername, string receiverUsername, FriendType friendType, int userId)
         {
-            Friend friendRequest = await FindFirstOrDefault(f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername), "Sender,Receiver");
+            Friend friendRequest = await FindFirstOrDefault(filter: f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername),
+                                                            include: source => source.Include(f => f.Sender).Include(f => f.Receiver));
 
             if (friendRequest == null)
             {
                 return new BaseResponse<Friend>("Friend request does not exist");
             }
 
-            if (friendRequest.ReceiverId != userId || friendRequest.SenderId != userId)
+            if (friendRequest.ReceiverId != userId)
             {
                 return new BaseResponse<Friend>("User does not have permission to access friend request");
             }
@@ -97,12 +104,38 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<Friend>("Receiver does not exist");
             }
 
-            if(sender.Id != userId || receiver.Id != userId)
+            if (sender.Id != userId || receiver.Id != userId)
             {
                 return new BaseResponse<Friend>("User does not have permission to delete friend request");
             }
 
             return await Delete(sender.Id, receiver.Id);
+        }
+
+        public async Task<BaseResponse<UserFriends>> GetFriends(int userId)
+        {
+            User user = await _userService.FindFirstOrDefault(filter: u => u.Id.Equals(userId),
+                                                              include: source => source
+                                                                .Include(u => u.Sent)
+                                                                .ThenInclude(s => s.Sender)
+                                                                .Include(u => u.Receieved)
+                                                                .ThenInclude(r => r.Receiver));
+
+            List<Friend> friends = user.Sent.Where(s => s.FriendType.Equals(FriendType.Friend))
+                                            .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Friend)))
+                                            .ToList();
+
+            List<Friend> pendingFriends = user.Sent.Where(s => s.FriendType.Equals(FriendType.Pending))
+                                            .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Pending)))
+                                            .ToList();
+
+            UserFriends userFriends = new UserFriends 
+            { 
+                AcceptedFriends = friends, 
+                PendingFriends = pendingFriends 
+            };
+
+            return new BaseResponse<UserFriends>(userFriends);
         }
     }
 }

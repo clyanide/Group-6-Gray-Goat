@@ -7,7 +7,7 @@ namespace Bangershare_Backend.Models
 {
     public enum FriendType
     {
-        Friend, Pending, Blocked
+        Friend, Pending
     }
 
     public class Friend

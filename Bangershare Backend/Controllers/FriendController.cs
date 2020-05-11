@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,7 +47,12 @@ namespace Bangershare_Backend.Controllers
         [HttpPut]
         public async Task<IActionResult> AcceptFriendRequest([FromBody] FriendDto friendDto)
         {
-            var response = await _friendService.UpdateFriendRequest(friendDto.SenderUsername, friendDto.ReceiverUsername, FriendType.Friend);
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _friendService.UpdateFriendRequest(friendDto.SenderUsername,
+                                                                    friendDto.ReceiverUsername,
+                                                                    FriendType.Friend,
+                                                                    userId);
 
             if (!response.Success)
             {
@@ -62,7 +67,9 @@ namespace Bangershare_Backend.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteFriendRequest([FromBody] FriendDto friendDto)
         {
-            var response = await _friendService.DeleteFriendRequest(friendDto.SenderUsername, friendDto.ReceiverUsername);
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _friendService.DeleteFriendRequest(friendDto.SenderUsername, friendDto.ReceiverUsername, userId);
 
             if (!response.Success)
             {

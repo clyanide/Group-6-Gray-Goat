@@ -52,13 +52,18 @@ namespace Bangershare_Backend.Services
             return await Add(friendRequest);
         }
 
-        public async Task<BaseResponse<Friend>> UpdateFriendRequest(string senderUsername, string receiverUsername, FriendType friendType)
+        public async Task<BaseResponse<Friend>> UpdateFriendRequest(string senderUsername, string receiverUsername, FriendType friendType, int userId)
         {
             Friend friendRequest = await _friendRepository.FindFirstOrDefault(f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername), "Sender,Receiver");
 
-            if(friendRequest == null)
+            if (friendRequest == null)
             {
                 return new BaseResponse<Friend>("Friend request does not exist");
+            }
+
+            if (friendRequest.ReceiverId != userId || friendRequest.SenderId != userId)
+            {
+                return new BaseResponse<Friend>("User does not have permission to access friend request");
             }
 
             friendRequest.FriendType = friendType;
@@ -76,7 +81,7 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<BaseResponse<Friend>> DeleteFriendRequest(string senderUsername, string receiverUsername)
+        public async Task<BaseResponse<Friend>> DeleteFriendRequest(string senderUsername, string receiverUsername, int userId)
         {
             User sender = await _userService.FindFirstOrDefault(u => u.Username.Equals(senderUsername));
             
@@ -90,6 +95,11 @@ namespace Bangershare_Backend.Services
             if (receiver == null)
             {
                 return new BaseResponse<Friend>("Receiver does not exist");
+            }
+
+            if(sender.Id != userId || receiver.Id != userId)
+            {
+                return new BaseResponse<Friend>("User does not have permission to delete friend request");
             }
 
             return await Delete(sender.Id, receiver.Id);

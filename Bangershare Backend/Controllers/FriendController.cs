@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -79,6 +79,23 @@ namespace Bangershare_Backend.Controllers
             friendDto = _mapper.Map<Friend, FriendDto>(response.Resource);
 
             return Ok(friendDto);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetFriends()
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var response = await _friendService.GetFriends(userId);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            var userFriendsDto = _mapper.Map<UserFriends, UserFriendsDto>(response.Resource);
+
+            return Ok(userFriendsDto);
         }
     }
 }

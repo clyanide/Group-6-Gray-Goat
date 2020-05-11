@@ -12,10 +12,10 @@ namespace Bangershare_Backend.Models
 
     public class Friend
     {
-        public int User1Id { get; set; }
-        public int User2Id { get; set; }
+        public int SenderId { get; set; }
+        public int ReceiverId { get; set; }
         public FriendType FriendType { get; set; }
-        public virtual User User1 { get; set; }
-        public virtual User User2 { get; set; }
+        public virtual User Sender { get; set; }
+        public virtual User Receiver { get; set; }
     }
 }

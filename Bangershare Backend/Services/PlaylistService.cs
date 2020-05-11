@@ -75,6 +75,23 @@ namespace Bangershare_Backend.Services
             return playlistSongs;
         }
 
+        public async Task<ICollection<PlaylistSong>> GetPlaylistUserOwns(int userId)
+        {
+            var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId) && u.IsOwner.Equals(true));
+
+            ICollection<PlaylistSong> playlistSongs = new List<PlaylistSong>();
+
+            foreach(UserPlaylist userPlaylist in userPlaylists)
+            {
+                var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
+                                        include: source => source.Include(p => p.Songs));
+
+                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, true));
+            }
+
+            return playlistSongs;
+        }
+
         public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)
         {
             var userPlaylistResponse = await UserPlaylistChecker(userId, playlistId);

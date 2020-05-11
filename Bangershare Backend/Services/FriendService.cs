@@ -24,7 +24,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Friend>> AddFriendRequest(int senderId, string receiverUsername)
         {
-            Friend friendRequest = await _friendRepository.FindFirstOrDefault(f => f.SenderId.Equals(senderId) && f.Receiver.Username.Equals(receiverUsername));
+            Friend friendRequest = await FindFirstOrDefault(f => f.SenderId.Equals(senderId) && f.Receiver.Username.Equals(receiverUsername));
 
             if(friendRequest != null)
             {
@@ -54,7 +54,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Friend>> UpdateFriendRequest(string senderUsername, string receiverUsername, FriendType friendType, int userId)
         {
-            Friend friendRequest = await _friendRepository.FindFirstOrDefault(f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername), "Sender,Receiver");
+            Friend friendRequest = await FindFirstOrDefault(f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername), "Sender,Receiver");
 
             if (friendRequest == null)
             {

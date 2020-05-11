@@ -64,11 +64,13 @@ namespace Bangershare_Backend
             services.AddScoped<UserService>();
             services.AddScoped<PlaylistService>();
             services.AddScoped<SongService>();
+            services.AddScoped<FriendService>();
             services.AddScoped<SpotifyAPIService>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<UserPlaylist>, UserPlaylistRepository>();
             services.AddScoped<IRepository<Playlist>, PlaylistRepository>();
+            services.AddScoped<IRepository<Friend>, FriendRepository>();
             services.AddScoped<SongRepository>();
 
             services.AddScoped<IUnitOfWork, UnitOfWork<BangerShareContext>>();

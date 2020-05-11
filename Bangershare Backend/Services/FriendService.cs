@@ -13,13 +13,86 @@ namespace Bangershare_Backend.Services
     {
         private readonly FriendRepository _friendRepository;
         private readonly UserService _userService;
+        private readonly IUnitOfWork _unitOfWork;
 
         public FriendService(FriendRepository friendRepository, UserService userService, IUnitOfWork unitOfWork) : base(friendRepository, unitOfWork)
         {
             _friendRepository = friendRepository;
             _userService = userService;
+            _unitOfWork = unitOfWork;
         }
 
+        public async Task<BaseResponse<Friend>> AddFriendRequest(int senderId, string receiverUsername)
+        {
+            Friend friendRequest = await _friendRepository.FindFirstOrDefault(f => f.SenderId.Equals(senderId) && f.Receiver.Username.Equals(receiverUsername));
 
+            if(friendRequest != null)
+            {
+                return new BaseResponse<Friend>("Friend request already exists between users");
+            }
+
+            User receiver = await _userService.FindFirstOrDefault(u => u.Username.Equals(receiverUsername));
+
+            if(receiver == null)
+            {
+                return new BaseResponse<Friend>("Username does not exist");
+            }
+
+            User sender = await _userService.GetByKeys(senderId);
+
+            friendRequest = new Friend 
+            { 
+                Sender = sender, 
+                SenderId = sender.Id, 
+                Receiver = receiver, 
+                ReceiverId = receiver.Id, 
+                FriendType = FriendType.Pending 
+            };
+
+            return await Add(friendRequest);
+        }
+
+        public async Task<BaseResponse<Friend>> UpdateFriendRequest(string senderUsername, string receiverUsername, FriendType friendType)
+        {
+            Friend friendRequest = await _friendRepository.FindFirstOrDefault(f => f.Sender.Username.Equals(senderUsername) && f.Receiver.Username.Equals(receiverUsername), "Sender,Receiver");
+
+            if(friendRequest == null)
+            {
+                return new BaseResponse<Friend>("Friend request does not exist");
+            }
+
+            friendRequest.FriendType = friendType;
+
+            try
+            {
+                _friendRepository.UpdateFriendRequest(friendRequest);
+                await _unitOfWork.CompleteAsync();
+
+                return new BaseResponse<Friend>(friendRequest);
+            }
+            catch (Exception e)
+            {
+                return new BaseResponse<Friend>($"An error occurred when updating friend request: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<Friend>> DeleteFriendRequest(string senderUsername, string receiverUsername)
+        {
+            User sender = await _userService.FindFirstOrDefault(u => u.Username.Equals(senderUsername));
+            
+            if (sender == null)
+            {
+                return new BaseResponse<Friend>("Sender not found");
+            }
+
+            User receiver = await _userService.FindFirstOrDefault(u => u.Username.Equals(receiverUsername));
+
+            if (receiver == null)
+            {
+                return new BaseResponse<Friend>("Receiver does not exist");
+            }
+
+            return await Delete(sender.Id, receiver.Id);
+        }
     }
 }

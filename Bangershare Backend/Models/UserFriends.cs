@@ -7,8 +7,7 @@ namespace Bangershare_Backend.Models
 {
     public class UserFriends
     {
-        public ICollection<Friend> AcceptedFriends { get; set; }
-        public ICollection<PlaylistSong> AcceptedFriendSongs { get; set; }
+        public ICollection<FriendSong> FriendSongs { get; set; }
         public ICollection<Friend> PendingFriends { get; set; }
     }
 }

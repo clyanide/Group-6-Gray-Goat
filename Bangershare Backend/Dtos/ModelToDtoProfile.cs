@@ -25,6 +25,9 @@ namespace Bangershare_Backend.Dtos
                 .ForMember(a => a.FriendType, opt => opt.MapFrom(a => a.FriendType))
                 .ForMember(a => a.SenderUsername, opt => opt.MapFrom(a => a.Sender.Username))
                 .ForMember(a => a.ReceiverUsername, opt => opt.MapFrom(a => a.Receiver.Username));
+            CreateMap<FriendSong, FriendSongDto>()
+                .ForMember(a => a.Username, opt => opt.MapFrom(a => a.Username))
+                .ForMember(a => a.PlaylistSongs, opt => opt.MapFrom(a => a.PlaylistSongs));
             CreateMap<UserFriends, UserFriendsDto>();
 
             CreateMap<UserDto, User>();

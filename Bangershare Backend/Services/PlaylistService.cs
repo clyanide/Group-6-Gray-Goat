@@ -66,6 +66,7 @@ namespace Bangershare_Backend.Services
             {
                 var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
                                                         include: source => source.Include(p => p.Songs));
+
                 var owner = await _userPlaylistRepository.FindFirstOrDefault(filter: u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId),
                                                                              include: source => source.Include(u => u.User));
 

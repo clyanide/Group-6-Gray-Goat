@@ -2,14 +2,16 @@
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bangershare_Backend.Migrations
 {
     [DbContext(typeof(BangerShareContext))]
-    partial class BangerShareContextModelSnapshot : ModelSnapshot
+    [Migration("20200511010511_FriendUpdateMigration")]
+    partial class FriendUpdateMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

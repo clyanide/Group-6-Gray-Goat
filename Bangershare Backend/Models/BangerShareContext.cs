@@ -29,16 +29,16 @@ namespace Bangershare_Backend.Models
             });
 
             modelBuilder.Entity<Friend>(entity => {
-                entity.HasKey(e => new { e.User1Id, e.User2Id });
+                entity.HasKey(e => new { e.SenderId, e.ReceiverId });
 
-                entity.HasOne(e => e.User1)
-                    .WithMany(e => e.User2)
-                    .HasForeignKey(e => e.User1Id)
+                entity.HasOne(e => e.Sender)
+                    .WithMany(e => e.Receieved)
+                    .HasForeignKey(e => e.SenderId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
-                entity.HasOne(e => e.User2)
-                    .WithMany(e => e.User1)
-                    .HasForeignKey(e => e.User2Id)
+                entity.HasOne(e => e.Receiver)
+                    .WithMany(e => e.Sent)
+                    .HasForeignKey(e => e.ReceiverId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.Property(e => e.FriendType)

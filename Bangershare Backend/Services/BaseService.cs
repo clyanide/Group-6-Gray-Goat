@@ -5,6 +5,8 @@ using Bangershare_Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using Bangershare_Backend.Services.Communications;
 using System.Linq.Expressions;
+using System.Linq;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Bangershare_Backend.Services
 {
@@ -41,7 +43,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TResponse> Delete(params object[] keys)
         {
-            TEntity existingEntity = await _repository.GetByKey(keys);
+            TEntity existingEntity = await _repository.GetByKeys(keys);
 
             if (existingEntity == null)
             {
@@ -65,7 +67,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TEntity> GetByKeys(params object[] keys)
         {
-            return await _repository.GetByKey(keys);
+            return await _repository.GetByKeys(keys);
         }
 
         public virtual async Task<ICollection<TEntity>> GetAll()
@@ -75,7 +77,7 @@ namespace Bangershare_Backend.Services
 
         public virtual async Task<TResponse> Update(TEntity entity, params object[] keys)
         {
-            TEntity existingEntity = await _repository.GetByKey(keys);
+            TEntity existingEntity = await _repository.GetByKeys(keys);
 
             if (existingEntity == null)
             {
@@ -96,9 +98,11 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
-            return await _repository.FindFirstOrDefault(filter);
+            return await _repository.FindFirstOrDefault(filter, orderBy, include);
         }
     }
 }

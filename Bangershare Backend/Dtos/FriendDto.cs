@@ -8,9 +8,8 @@ namespace Bangershare_Backend.Dtos
 {
     public class FriendDto
     {
-        public int Id { get; set; }
-        public string Username { get; set; }
+        public string SenderUsername { get; set; }
+        public string ReceiverUsername { get; set; }
         public FriendType FriendType { get; set; }
-        public ICollection<PlaylistDto> Playlists { get; set; }
     }
 }

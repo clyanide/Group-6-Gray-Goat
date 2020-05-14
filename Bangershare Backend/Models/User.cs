@@ -19,8 +19,8 @@ namespace Bangershare_Backend.Models
         public string Username { get; set; }
         [MaxLength(150)]
         public string Password { get; set; }
-        public virtual ICollection<Friend> User1 { get; set; }
-        public virtual ICollection<Friend> User2 { get; set; }
+        public virtual ICollection<Friend> Sent { get; set; }
+        public virtual ICollection<Friend> Receieved { get; set; }
         public virtual ICollection<UserPlaylist> UserPlaylists { get; set; }
     }
 }

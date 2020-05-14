@@ -5,17 +5,20 @@ using System.Threading.Tasks;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Models;
 using Bangershare_Backend.Services.Communications;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bangershare_Backend.Services
 {
     public class PlaylistService : BaseService<BangerShareContext, Playlist, IRepository<Playlist>, BaseResponse<Playlist>, IUnitOfWork>
     {
         private readonly UserService _userService;
+        private readonly IRepository<Playlist> _playlistRepository;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
         private readonly IUnitOfWork _unitOfWork;
         public PlaylistService(UserService userService, IRepository<Playlist> playlistRepository, IRepository<UserPlaylist> userPlaylistRepository, IUnitOfWork unitOfWork) : base(playlistRepository, unitOfWork)
         {
             _userService = userService;
+            _playlistRepository = playlistRepository;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
         }
@@ -53,17 +56,41 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<ICollection<Playlist>> GetPlaylistsForUser(int userId)
+        public async Task<ICollection<PlaylistSong>> GetPlaylistsForUser(int userId)
         {
             var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId));
 
-            var playlists = await GetAll();
+            ICollection<PlaylistSong> playlistSongs = new List<PlaylistSong>();
 
-            playlists = (from p in playlists
-                         join u in userPlaylists on p.Id equals u.PlaylistId
-                         select p).ToList();
+            foreach(UserPlaylist userPlaylist in userPlaylists)
+            {
+                var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
+                                                        include: source => source.Include(p => p.Songs));
 
-            return playlists;
+                var owner = await _userPlaylistRepository.FindFirstOrDefault(filter: u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId),
+                                                                             include: source => source.Include(u => u.User));
+
+                playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner));
+            }
+
+            return playlistSongs;
+        }
+
+        public async Task<ICollection<PlaylistSong>> GetPlaylistUserOwns(int userId)
+        {
+            var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId) && u.IsOwner.Equals(true));
+
+            ICollection<PlaylistSong> playlistSongs = new List<PlaylistSong>();
+
+            foreach(UserPlaylist userPlaylist in userPlaylists)
+            {
+                var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
+                                        include: source => source.Include(p => p.Songs));
+
+                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, true));
+            }
+
+            return playlistSongs;
         }
 
         public async Task<BaseResponse<Playlist>> DeletePlaylist(int userId, int playlistId)
@@ -111,7 +138,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Playlist>> FollowPlaylist(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if(userPlaylist != null)
             {
@@ -151,7 +178,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Playlist>> UnfollowPlaylist(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if(userPlaylist == null)
             {
@@ -190,7 +217,7 @@ namespace Bangershare_Backend.Services
 
         private async Task<BaseResponse<UserPlaylist>> UserPlaylistChecker(int userId, int playlistId)
         {
-            var userPlaylist = await _userPlaylistRepository.GetByKey(userId, playlistId);
+            var userPlaylist = await _userPlaylistRepository.GetByKeys(userId, playlistId);
 
             if (userPlaylist == null)
             {

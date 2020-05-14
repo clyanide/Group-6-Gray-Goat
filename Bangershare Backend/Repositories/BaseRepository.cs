@@ -5,6 +5,7 @@ using System.Linq.Expressions;
 using System.Threading.Tasks;
 using Bangershare_Backend.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Bangershare_Backend.Repositories
 {
@@ -30,7 +31,7 @@ namespace Bangershare_Backend.Repositories
             _dbSet.Remove(entity);
         }
 
-        public virtual async Task<TEntity> GetByKey(params object[] keys)
+        public virtual async Task<TEntity> GetByKeys(params object[] keys)
         {
             return await _dbSet.FindAsync(keys);
         }
@@ -73,9 +74,30 @@ namespace Bangershare_Backend.Repositories
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public async Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null)
+        public Task<TEntity> FindFirstOrDefault(Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>> include = null)
         {
-            return await _dbSet.FirstOrDefaultAsync(filter);
+            IQueryable<TEntity> query = _dbSet;
+
+            if (include != null)
+            {
+                query = include(query);
+            }
+
+            if (filter != null)
+            {
+                query = query.Where(filter);
+            }
+
+            if (orderBy != null)
+            {
+                return orderBy(query).FirstOrDefaultAsync();
+            }
+            else
+            {
+                return query.FirstOrDefaultAsync();
+            }
         }
     }
 }

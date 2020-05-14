@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore.Query;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -16,7 +17,8 @@ namespace Bangershare_Backend.Interfaces
             string includeProperties = "");
         Task<T> FindFirstOrDefault(
             Expression<Func<T, bool>> filter = null,
-            string includeProperties = "");
+            Func<IQueryable<T>, IOrderedQueryable<T>> orderBy = null,
+            Func<IQueryable<T>, IIncludableQueryable<T, object>> include = null);
         Task Add(T entity);
         void Update(T entity, T existingEntity);
         void Delete(T entity);

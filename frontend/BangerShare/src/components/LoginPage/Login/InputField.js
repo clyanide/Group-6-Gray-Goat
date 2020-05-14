@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 
-import styles from "./style";
+import styles from "../style";
 import {View, TextInput} from 'react-native';
 
 export default class InputField extends Component {

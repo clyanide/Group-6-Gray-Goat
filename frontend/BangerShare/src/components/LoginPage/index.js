@@ -1,32 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container } from "native-base";
-import { Col, Row, Grid } from "react-native-easy-grid";
-import LogoDisplay from "./LogoDisplay";
-import InputField from "./InputField";
-import LoginButton from "./LoginButton";
-import StaySignedInToggle from "./StaySignedInToggle"
-import LoginSignUpToggle from "./LoginSignUpToggle";
 
-const LoginPage = () => (
-  <Container>
-    <Grid>
-      <Row size={2}>
-        <LogoDisplay/>
-      </Row>
-      <Row size={1}>
-        <LoginSignUpToggle />
-      </Row>
-      <Row size={1}>
-        <InputField />
-      </Row>
-      <Row size={1}>
-        <StaySignedInToggle />
-      </Row>
-      <Row size={1}>
-        <LoginButton />
-      </Row>
-    </Grid>
-  </Container>
-);
+import { Col, Row, Grid } from "react-native-easy-grid";
+import Header from "./Header";
+import Login from "./Login";
+import Signup from "./SignUp";
+
+
+const LoginPage = () => {
+
+  const [isSignUp, setSignUp] = useState(false);
+
+  const toggleSignup = () => {
+      setSignUp(!isSignUp)
+  }
+
+  return (
+    <Container>
+      <Grid>
+        <Row size={2}>
+          <Header handleSignupClick={toggleSignup}/>
+        </Row>
+        <Row size={3}>
+          {isSignUp && <Signup />}
+          {!isSignUp && <Login />}
+        </Row>
+      </Grid>
+    </Container>
+  )
+};
 
 export default LoginPage;

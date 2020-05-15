@@ -2,6 +2,8 @@ import { actionType } from "../actions/User"
 
 const initialState = {
     currentUser: "",
+    error: "",
+    accessToken: "",
     loginInfo: {
         username: "",
         password: ""
@@ -19,6 +21,18 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 signUpInfo: action.signUpInfo
+            }
+        }
+        case actionType.REGISTER_USER_SUCCESS: {
+            return {
+                ...state,
+                currentUser: action.username
+            }
+        }
+        case actionType.REGISTER_USER_FAIL: {
+            return {
+                ...state,
+                error: action.error
             }
         }
         default:

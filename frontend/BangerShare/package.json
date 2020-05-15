@@ -8,7 +8,8 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "~36.0.0",
+    "expo": "^36.0.2",
+    "expo-cli": "^3.17.24",
     "expo-constants": "^9.0.0",
     "expo-font": "~8.0.0",
     "native-base": "^2.13.8",

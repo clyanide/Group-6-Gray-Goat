@@ -5,7 +5,7 @@ import Greeting from "./Greeting";
 import RecentPlaylists from "./RecentPlaylists";
 import MyPlaylists from "./MyPlaylists";
 import Explore from "./Explore";
-import Color from "./Color";
+import Color from "../../containers/Color";
 
 const HomeScreen = () => (
   <Container>

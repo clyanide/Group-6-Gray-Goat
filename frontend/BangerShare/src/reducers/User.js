@@ -4,11 +4,7 @@ const initialState = {
     currentUser: "",
     error: "",
     accessToken: "",
-    loginInfo: {
-        username: "",
-        password: ""
-    },
-    signUpInfo: {
+    userInfo: {
         username: "",
         password: "",
         email: ""
@@ -20,7 +16,7 @@ const userReducer = (state = initialState, action) => {
         case actionType.REGISTER_USER: {
             return {
                 ...state,
-                signUpInfo: action.signUpInfo
+                userInfo: action.userInfo
             }
         }
         case actionType.REGISTER_USER_SUCCESS: {
@@ -33,6 +29,12 @@ const userReducer = (state = initialState, action) => {
             return {
                 ...state,
                 error: action.error
+            }
+        }
+        case actionType.LOGIN_USER: {
+            return {
+                ...state,
+                userInfo: action.userInfo
             }
         }
         default:

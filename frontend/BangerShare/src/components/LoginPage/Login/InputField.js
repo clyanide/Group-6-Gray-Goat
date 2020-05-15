@@ -4,7 +4,7 @@ import styles from "../style";
 import { View, TextInput } from "react-native";
 
 const InputField = (props) => {
-  const { handlePasswordChange, handleUsernameChange, loginInfo } = props;
+  const { handlePasswordChange, handleUsernameChange, userInfo } = props;
 
   return (
     <View style={styles.loginScreenContainer}>
@@ -12,7 +12,7 @@ const InputField = (props) => {
         placeholder="Username"
         placeholderColor="#c4c3cb"
         style={styles.loginFormTextInput}
-        value={loginInfo.username}
+        value={userInfo.username}
         onChange={(e) => handleUsernameChange(e)}
       />
       <TextInput
@@ -20,7 +20,7 @@ const InputField = (props) => {
         placeholderColor="#c4c3cb"
         style={styles.loginFormTextInput}
         secureTextEntry={true}
-        value={loginInfo.password}
+        value={userInfo.password}
         onChange={(e) => handlePasswordChange(e)}
       />
     </View>

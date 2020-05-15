@@ -9,12 +9,12 @@ export const registerUser = (action$, store) =>
     action$.pipe(
         filter((action) => action.type === actionType.REGISTER_USER),
         mergeMap(async (action) => {
-            const signUpInfo = store.value.UserReducer.signUpInfo
+            const userInfo = store.value.UserReducer.userInfo
             const response = await rpc
                 .post("/register", {
-                    email: signUpInfo.email,
-                    username: signUpInfo.username,
-                    password: signUpInfo.password
+                    email: userInfo.email,
+                    username: userInfo.username,
+                    password: userInfo.password
                 })
                 .then((res) => {
                     return res.data.username

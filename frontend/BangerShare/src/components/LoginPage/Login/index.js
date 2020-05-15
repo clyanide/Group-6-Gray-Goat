@@ -5,40 +5,21 @@ import InputField from "./InputField";
 import StaySignedInToggle from "./StaySignedInToggle";
 import LoginButton from "./LoginButton";
 
-const Login = () => {
-  const [loginInfo, setLoginInfo] = useState({
-    username: "",
-    password: ""
-  })
+const Login = (props) => {
 
-  const setUsename = (e) => {
-    setLoginInfo({
-      ...loginInfo,
-      username: e.nativeEvent.text
-    });
-  }
-
-  const setPassword = (e) => {
-    setLoginInfo({
-      ...loginInfo,
-      password: e.nativeEvent.text
-    });
-  }
-
-  // useEffect(() => {
-  // }, [loginInfo])
+  const { userInfo, setPassword, setUsename } = props;
 
   return (
     <Container>
       <Grid>
         <Row size={2}>
-          <InputField handlePasswordChange={setPassword} handleUsernameChange={setUsename} loginInfo={loginInfo} />
+          <InputField handlePasswordChange={setPassword} handleUsernameChange={setUsename} userInfo={userInfo} />
         </Row>
         <Row size={2}>
           <StaySignedInToggle />
         </Row>
         <Row size={9}>
-          <LoginButton loginInfo={loginInfo} />
+          <LoginButton userInfo={userInfo} />
         </Row>
       </Grid>
     </Container>

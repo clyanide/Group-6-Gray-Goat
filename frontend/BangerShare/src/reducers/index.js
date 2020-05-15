@@ -1,6 +1,14 @@
 import { combineReducers } from "redux";
-import SelectedFooter from "./selectedFooter";
+import ColorReducer from "./Color";
 
-export default combineReducers({
-  SelectedFooter,
+const appReducer = combineReducers({
+  ColorReducer,
 });
+
+const rootReducer = (state, action) => {
+  let stateCopy = { ...state };
+
+  return appReducer(stateCopy, action);
+};
+
+export default rootReducer;

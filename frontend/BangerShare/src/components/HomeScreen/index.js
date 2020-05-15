@@ -5,11 +5,13 @@ import Greeting from "./Greeting";
 import RecentPlaylists from "./RecentPlaylists";
 import MyPlaylists from "./MyPlaylists";
 import Explore from "./Explore";
+import Color from "../../containers/Color";
 
 const HomeScreen = () => (
   <Container>
     <Grid>
       <Row size={1}>
+        <Color />
         <Greeting />
       </Row>
       <Row size={3}>

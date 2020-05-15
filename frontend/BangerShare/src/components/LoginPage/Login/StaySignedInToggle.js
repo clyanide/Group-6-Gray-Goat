@@ -1,5 +1,13 @@
-import React, { Component } from 'react';
-import { Container, Header, Content, ListItem, CheckBox, Text, Body } from 'native-base';
+import React, { Component } from "react";
+import {
+  Container,
+  Header,
+  Content,
+  ListItem,
+  CheckBox,
+  Text,
+  Body,
+} from "native-base";
 
 export default class StaySignedInToggle extends Component {
   render() {
@@ -7,7 +15,7 @@ export default class StaySignedInToggle extends Component {
       <Container>
         <Content>
           <ListItem>
-            <CheckBox checked={false}/>
+            <CheckBox checked={false} />
             <Body>
               <Text>Stay logged in</Text>
             </Body>
@@ -16,5 +24,4 @@ export default class StaySignedInToggle extends Component {
       </Container>
     );
   }
-
 }

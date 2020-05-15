@@ -6,20 +6,18 @@ import Header from "./Header";
 import Login from "./Login";
 import Signup from "./SignUp";
 
-
 const LoginPage = () => {
-
   const [isSignUp, setSignUp] = useState(false);
 
   const toggleSignup = () => {
-      setSignUp(!isSignUp)
-  }
+    setSignUp(!isSignUp);
+  };
 
   return (
     <Container>
       <Grid>
         <Row size={2}>
-          <Header handleSignupClick={toggleSignup}/>
+          <Header handleSignupClick={toggleSignup} />
         </Row>
         <Row size={3}>
           {isSignUp && <Signup />}
@@ -27,7 +25,7 @@ const LoginPage = () => {
         </Row>
       </Grid>
     </Container>
-  )
+  );
 };
 
 export default LoginPage;

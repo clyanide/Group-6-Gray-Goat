@@ -5,12 +5,11 @@ import InputField from "./InputField";
 import StaySignedInToggle from "./StaySignedInToggle";
 import LoginButton from "./LoginButton";
 
-
 const Login = () => (
   <Container>
     <Grid>
       <Row size={2}>
-        <InputField/>
+        <InputField />
       </Row>
       <Row size={2}>
         <StaySignedInToggle />

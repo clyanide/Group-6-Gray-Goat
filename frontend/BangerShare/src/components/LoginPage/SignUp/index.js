@@ -4,12 +4,11 @@ import { Col, Row, Grid } from "react-native-easy-grid";
 import SignupButton from "./SignupButton";
 import SignupField from "./SignupField";
 
-
 const Signup = () => (
   <Container>
     <Grid>
       <Row size={1}>
-        <SignupField/>
+        <SignupField />
       </Row>
       <Row size={2}>
         <SignupButton />

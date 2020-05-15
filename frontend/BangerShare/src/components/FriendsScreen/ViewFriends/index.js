@@ -1,6 +1,6 @@
 import React from "react";
 import { ListItem } from "react-native-elements";
-import { Container } from "native-base";
+import { Container, Button } from "native-base";
 
 const mockFriendsList = [
   {

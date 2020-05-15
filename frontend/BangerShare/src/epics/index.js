@@ -1,6 +1,6 @@
-import { combineEpics } from "redux-observable"
-import { getColor } from "./Color"
+import { combineEpics } from "redux-observable";
+import { getColor } from "./Color";
 
-const rootEpic = combineEpics(getColor)
+const rootEpic = combineEpics(getColor);
 
-export default rootEpic
+export default rootEpic;

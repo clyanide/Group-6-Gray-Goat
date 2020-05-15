@@ -10,7 +10,7 @@ const Color = (props) => {
         </Container>)
     }
 
-    return null;
-}
+  return null;
+};
 
 export default Color

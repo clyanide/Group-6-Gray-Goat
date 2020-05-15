@@ -6,7 +6,7 @@ import LoginPage from "./components/LoginPage";
 
 const BangerShareApp = () => (
   <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-    <LoginPage />
+    <HomeScreen />
   </Container>
 );
 

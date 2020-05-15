@@ -9,19 +9,19 @@ import {
   Body,
 } from "native-base";
 
-export default class StaySignedInToggle extends Component {
-  render() {
-    return (
-      <Container>
-        <Content>
-          <ListItem>
-            <CheckBox checked={false} />
-            <Body>
-              <Text>Stay logged in</Text>
-            </Body>
-          </ListItem>
-        </Content>
-      </Container>
-    );
-  }
+const StaySignedInToggle = () => {
+  return (
+    <Container>
+      <Content>
+        <ListItem>
+          <CheckBox checked={false} />
+          <Body>
+            <Text>Stay logged in</Text>
+          </Body>
+        </ListItem>
+      </Content>
+    </Container>
+  );
 }
+
+export default StaySignedInToggle;

@@ -1,8 +1,9 @@
 import { combineReducers } from "redux";
 import ColorReducer from "./Color";
+import UserReducer from "./User"
 
 const appReducer = combineReducers({
-  ColorReducer,
+  ColorReducer, UserReducer
 });
 
 const rootReducer = (state, action) => {

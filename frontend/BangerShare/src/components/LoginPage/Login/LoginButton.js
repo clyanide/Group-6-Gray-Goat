@@ -5,13 +5,11 @@ import { Text, View } from "react-native";
 import { Button } from "native-base";
 
 const LoginButton = (props) => {
-  const { loginInfo } = props;
-
-  const onLoginPress = () => { console.log(loginInfo) }
+  const { loginInfo, onLoginPress } = props;
 
   return (
     <View style={styles.loginScreenContainer}>
-      <Button style={styles.loginButton} onPress={() => onLoginPress()}>
+      <Button style={styles.loginButton} onPress={() => onLoginPress(loginInfo)}>
         <Text style={styles.loginButtonText}>Login</Text>
       </Button>
     </View>

@@ -1,14 +1,18 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
+import LoginPage from "./components/LoginPage"
+import RequireLogin from './containers/LoginPage/RequireLogin';
 
 
-const BangerShareApp = (props) => {
-    const { accessToken } = props;
-
+const BangerShareApp = () => {
     return (
         <div>
             <Router>
-                <p>HELLO</p>
+                <RequireLogin />
+                <Switch>
+                    <Route path="/login" component={LoginPage} />
+                    <Route path="/hello" component={() => <p>Hello</p>} />
+                </Switch>
             </Router>
         </div>
     );

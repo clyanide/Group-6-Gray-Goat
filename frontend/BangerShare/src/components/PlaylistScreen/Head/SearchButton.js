@@ -5,7 +5,6 @@ import { Button, Container } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 const SearchButton = () => {
-
   return (
     <Container>
       <Grid>

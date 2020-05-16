@@ -4,15 +4,12 @@ import { Button, Container } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
 const ShuffleButton = () => {
-
   return (
     <Container>
       <Grid>
         <Col>
           <Button>
-            <Text>
-              images
-            </Text>
+            <Text>images</Text>
           </Button>
         </Col>
       </Grid>

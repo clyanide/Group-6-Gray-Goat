@@ -3,7 +3,7 @@ import { Container, Text } from "native-base";
 import { SearchBar, Icon } from "react-native-elements";
 import { Col, Row, Grid } from "react-native-easy-grid";
 
-const FriendsHeader = () => (
+const FriendsHeader = ({ currentView, toggleView }) => (
   <Container>
     <Grid>
       <Col>
@@ -37,7 +37,7 @@ const FriendsHeader = () => (
               reverse
               name="group"
               color="#517fa4"
-              onPress={() => console.log("hello")}
+              onPress={() => toggleView()}
             />
             <Icon reverse name="add" onPress={() => console.log("hello")} />
           </Container>

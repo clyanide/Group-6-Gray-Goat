@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
+import { Button, Form } from 'semantic-ui-react'
 
-const LoginPage = () => {
+const LoginPage = (props) => {
+    const { handleSignup, handleLogin } = props;
     const [isSignUp, setSignUp] = useState(false);
     const [userInfo, setUserInfo] = useState({
         username: "",
@@ -8,36 +10,83 @@ const LoginPage = () => {
         email: "",
     });
 
-    const setUsename = (e) => {
+    const setUsername = (e) => {
         setUserInfo({
             ...userInfo,
-            username: e.nativeEvent.text,
+            username: e.target.value,
         });
     };
 
     const setPassword = (e) => {
         setUserInfo({
             ...userInfo,
-            password: e.nativeEvent.text,
+            password: e.target.value,
         });
     };
 
     const setEmail = (e) => {
         setUserInfo({
             ...userInfo,
-            email: e.nativeEvent.text,
+            email: e.target.value,
         });
     };
-    const toggleSignup = () => {
+
+    const handleToggle = (boolean) => {
         setUserInfo({
             username: "",
             password: "",
             email: "",
         });
-        setSignUp(!isSignUp);
+        setSignUp(boolean);
     };
+
+    const handleSubmit = () => {
+        if (isSignUp) {
+            handleSignup(userInfo);
+        } else {
+            handleLogin(userInfo)
+        }
+    }
+
     return (
-        <p>LOGIN</p>
+        <>
+            <Button.Group>
+                <Button onClick={() => handleToggle(false)} disabled={!isSignUp} >Login</Button>
+                <Button onClick={() => handleToggle(true)} disabled={isSignUp}>Signup</Button>
+            </Button.Group>
+            <Form onSubmit={() => handleSubmit()}>
+                {isSignUp ?
+                    <Form.Field>
+                        <label>Email</label>
+                        <Form.Input
+                            placeholder="eg. xyz@email.com"
+                            type="email"
+                            value={userInfo.email}
+                            onChange={(e) => setEmail(e)}
+                        />
+                    </Form.Field>
+                    :
+                    null}
+                <Form.Field>
+                    <label>Username</label>
+                    <Form.Input
+                        placeholder="Username"
+                        value={userInfo.username}
+                        onChange={(e) => setUsername(e)}
+                    />
+                </Form.Field>
+                <Form.Field>
+                    <label>Password</label>
+                    <Form.Input
+                        type="password"
+                        placeholder="Password"
+                        value={userInfo.password}
+                        onChange={(e) => setPassword(e)}
+                    />
+                </Form.Field>
+                <Form.Field control={Button}>Sign Up</Form.Field>
+            </Form>
+        </>
     );
 }
 

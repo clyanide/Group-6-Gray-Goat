@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom"
 import LoginPage from "./components/LoginPage"
 import RequireLogin from './containers/LoginPage/RequireLogin';
-
+import 'semantic-ui-css/semantic.min.css'
 
 const BangerShareApp = () => {
     return (

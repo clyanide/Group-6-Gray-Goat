@@ -8,8 +8,38 @@ import Signup from "./SignUp";
 
 const LoginPage = () => {
   const [isSignUp, setSignUp] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    password: "",
+    email: "",
+  });
 
+  const setUsename = (e) => {
+    setUserInfo({
+      ...userInfo,
+      username: e.nativeEvent.text,
+    });
+  };
+
+  const setPassword = (e) => {
+    setUserInfo({
+      ...userInfo,
+      password: e.nativeEvent.text,
+    });
+  };
+
+  const setEmail = (e) => {
+    setUserInfo({
+      ...userInfo,
+      email: e.nativeEvent.text,
+    });
+  };
   const toggleSignup = () => {
+    setUserInfo({
+      username: "",
+      password: "",
+      email: "",
+    });
     setSignUp(!isSignUp);
   };
 
@@ -20,8 +50,21 @@ const LoginPage = () => {
           <Header handleSignupClick={toggleSignup} />
         </Row>
         <Row size={3}>
-          {isSignUp && <Signup />}
-          {!isSignUp && <Login />}
+          {isSignUp && (
+            <Signup
+              userInfo={userInfo}
+              setPassword={setPassword}
+              setUsename={setUsename}
+              setEmail={setEmail}
+            />
+          )}
+          {!isSignUp && (
+            <Login
+              userInfo={userInfo}
+              setPassword={setPassword}
+              setUsename={setUsename}
+            />
+          )}
         </Row>
       </Grid>
     </Container>

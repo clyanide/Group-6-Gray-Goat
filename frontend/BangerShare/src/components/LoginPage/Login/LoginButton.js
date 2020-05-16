@@ -4,16 +4,16 @@ import styles from "../style";
 import { Text, View } from "react-native";
 import { Button } from "native-base";
 
-export default class LoginButton extends Component {
-  render() {
-    return (
-      <View style={styles.loginScreenContainer}>
-        <Button style={styles.loginButton} onPress={() => this.onLoginPress()}>
-          <Text style={styles.loginButtonText}>Login</Text>
-        </Button>
-      </View>
-    );
-  }
+const LoginButton = (props) => {
+  const { userInfo, onLoginPress } = props;
 
-  onLoginPress() {}
-}
+  return (
+    <View style={styles.loginScreenContainer}>
+      <Button style={styles.loginButton} onPress={() => onLoginPress(userInfo)}>
+        <Text style={styles.loginButtonText}>Login</Text>
+      </Button>
+    </View>
+  );
+};
+
+export default LoginButton;

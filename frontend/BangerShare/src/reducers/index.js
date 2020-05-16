@@ -1,9 +1,11 @@
 import { combineReducers } from "redux";
 import ColorReducer from "./Color";
+import UserReducer from "./User";
 import friendsView from "./friendsView";
 
 const appReducer = combineReducers({
   ColorReducer,
+  UserReducer,
   friendsView,
 });
 

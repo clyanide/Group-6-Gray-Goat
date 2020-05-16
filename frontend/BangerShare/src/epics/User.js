@@ -13,9 +13,7 @@ const getAccessToken = async (userInfo) => {
             password: userInfo.password
         })
         .then((res) => {
-            console.log("LOGIN RESPONSE")
-            console.log(res._response)
-            return res._response.accessToken
+            return res.data.accessToken
         }).catch(error => {
             throw new Error(error)
         })
@@ -34,13 +32,12 @@ export const registerUser = (action$, store) =>
                 })
                 .then(async (res) => {
                     if (res.status === 200) {
-                        console.log(res)
                         return await getAccessToken(userInfo);
                     }
                 }).catch(error => {
                     throw new Error(error)
                 })
-            return { type: actionType.REGISTER_USER_SUCCESS, username: userInfo.username, accessToken: response.data.accessToken }
+            return { type: actionType.REGISTER_USER_SUCCESS, username: userInfo.username, accessToken: response }
         }),
         catchError((error) => Promise.resolve({
             type: actionType.REGISTER_USER_FAIL,
@@ -52,7 +49,7 @@ export const loginUser = (action$, store) =>
     action$.pipe(
         filter((action) => action.type === actionType.LOGIN_USER),
         mergeMap(async (action) => {
-            const userInfo = state.UserReducer.userInfo;
+            const userInfo = store.value.UserReducer.userInfo;
             const accessToken = await getAccessToken(userInfo)
             return { type: actionType.LOGIN_USER_SUCCESS, username: userInfo.username, accessToken }
         }),

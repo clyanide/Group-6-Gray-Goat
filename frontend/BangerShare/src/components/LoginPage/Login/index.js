@@ -6,14 +6,17 @@ import StaySignedInToggle from "./StaySignedInToggle";
 import LoginButton from "../../../containers/LoginButton";
 
 const Login = (props) => {
-
   const { userInfo, setPassword, setUsename } = props;
 
   return (
     <Container>
       <Grid>
         <Row size={2}>
-          <InputField handlePasswordChange={setPassword} handleUsernameChange={setUsename} userInfo={userInfo} />
+          <InputField
+            handlePasswordChange={setPassword}
+            handleUsernameChange={setUsename}
+            userInfo={userInfo}
+          />
         </Row>
         <Row size={2}>
           <StaySignedInToggle />
@@ -23,7 +26,7 @@ const Login = (props) => {
         </Row>
       </Grid>
     </Container>
-  )
+  );
 };
 
 export default Login;

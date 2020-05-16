@@ -8,7 +8,7 @@ const LogoDisplay = () => {
       <Text style={styles.logoText}> BangerShare</Text>
     </Container>
   );
-}
+};
 
 export default LogoDisplay;
 /**

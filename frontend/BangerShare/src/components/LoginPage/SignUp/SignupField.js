@@ -4,7 +4,12 @@ import styles from "../style";
 import { View, TextInput } from "react-native";
 
 const SignupField = (props) => {
-  const { handlePasswordChange, handleUsernameChange, handleEmailChange, userInfo } = props;
+  const {
+    handlePasswordChange,
+    handleUsernameChange,
+    handleEmailChange,
+    userInfo,
+  } = props;
 
   return (
     <View style={styles.loginScreenContainer}>
@@ -38,6 +43,6 @@ const SignupField = (props) => {
       />
     </View>
   );
-}
+};
 
 export default SignupField;

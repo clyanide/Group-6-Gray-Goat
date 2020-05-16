@@ -11,14 +11,19 @@ const Signup = (props) => {
     <Container>
       <Grid>
         <Row size={1}>
-          <SignupField handlePasswordChange={setPassword} handleUsernameChange={setUsename} handleEmailChange={setEmail} userInfo={userInfo} />
+          <SignupField
+            handlePasswordChange={setPassword}
+            handleUsernameChange={setUsename}
+            handleEmailChange={setEmail}
+            userInfo={userInfo}
+          />
         </Row>
         <Row size={2}>
           <SignupButton userInfo={userInfo} />
         </Row>
       </Grid>
     </Container>
-  )
+  );
 };
 
 export default Signup;

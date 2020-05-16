@@ -22,6 +22,6 @@ const StaySignedInToggle = () => {
       </Content>
     </Container>
   );
-}
+};
 
 export default StaySignedInToggle;

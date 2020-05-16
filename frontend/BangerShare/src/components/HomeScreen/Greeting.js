@@ -8,7 +8,7 @@ const Greeting = (props) => {
     <Container>
       <Text>Hello {currentUser}</Text>
     </Container>
-  )
-}
+  );
+};
 
 export default Greeting;

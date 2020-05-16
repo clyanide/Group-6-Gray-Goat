@@ -17,4 +17,4 @@ const loginUser = (userInfo) => ({
     userInfo
 })
 
-export { registerUser }
+export { registerUser, loginUser }

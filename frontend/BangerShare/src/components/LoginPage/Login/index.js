@@ -3,7 +3,7 @@ import { Container } from "native-base";
 import { Col, Row, Grid } from "react-native-easy-grid";
 import InputField from "./InputField";
 import StaySignedInToggle from "./StaySignedInToggle";
-import LoginButton from "./LoginButton";
+import LoginButton from "../../../containers/LoginButton";
 
 const Login = (props) => {
 

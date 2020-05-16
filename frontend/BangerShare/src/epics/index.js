@@ -1,7 +1,7 @@
 import { combineEpics } from "redux-observable";
 import { getColor } from "./Color";
-import { registerUser } from "./User"
+import { registerUser, loginUser } from "./User"
 
-const rootEpic = combineEpics(getColor, registerUser);
+const rootEpic = combineEpics(getColor, registerUser, loginUser);
 
 export default rootEpic;

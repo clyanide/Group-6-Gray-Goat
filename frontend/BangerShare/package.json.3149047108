@@ -8,8 +8,7 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "expo": "^36.0.2",
-    "expo-cli": "^3.17.24",
+    "expo": "~36.0.0",
     "expo-constants": "^9.0.0",
     "expo-font": "~8.0.0",
     "native-base": "^2.13.8",
@@ -24,10 +23,7 @@
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
-    "redux-observable": "^1.2.0",
-    "redux-persist": "^6.0.0",
-    "rjs": "^4.0.2",
-    "rxjs": "^6.5.5"
+    "redux-persist": "^6.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.0.0",

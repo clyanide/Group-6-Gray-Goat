@@ -7,8 +7,6 @@ import LoginPage from "./components/LoginPage";
 const BangerShareApp = (props) => {
   const { accessToken } = props;
 
-  console.log(accessToken);
-
   return (
     <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
       {accessToken === "" ?

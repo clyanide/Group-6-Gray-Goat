@@ -24,7 +24,7 @@ export const registerUser = (action$, store) =>
     action$.pipe(
         filter((action) => action.type === actionType.REGISTER_USER),
         mergeMap(async (action) => {
-            const userInfo = store.value.UserReducer.userInfo;
+            const userInfo = store.value.userReducer.userInfo;
             const response = await rpc
                 .post("/register", {
                     email: userInfo.email,
@@ -57,7 +57,7 @@ export const loginUser = (action$, store) =>
     action$.pipe(
         filter((action) => action.type === actionType.LOGIN_USER),
         mergeMap(async (action) => {
-            const userInfo = store.value.UserReducer.userInfo;
+            const userInfo = store.value.userReducer.userInfo;
             const accessToken = await getAccessToken(userInfo);
             return {
                 type: actionType.LOGIN_USER_SUCCESS,

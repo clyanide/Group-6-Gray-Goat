@@ -14,8 +14,6 @@ const LoginButton = (props) => {
       </Button>
     </View>
   );
-}
+};
 
 export default LoginButton;
-
-

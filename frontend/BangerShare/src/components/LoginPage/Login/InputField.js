@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import PropTypes from 'prop-types';
+import PropTypes from "prop-types";
 import styles from "../style";
 import { View, TextInput } from "react-native";
 
@@ -25,6 +25,6 @@ const InputField = (props) => {
       />
     </View>
   );
-}
+};
 
 export default InputField;

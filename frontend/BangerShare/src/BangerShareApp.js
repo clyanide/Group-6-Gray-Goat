@@ -11,13 +11,9 @@ const BangerShareApp = (props) => {
 
   return (
     <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-      {accessToken === "" ?
-        <LoginPage />
-        :
-        <HomeScreen />
-      }
+      {accessToken === "" ? <LoginPage /> : <HomeScreen />}
     </Container>
   );
-}
+};
 
 export default BangerShareApp;

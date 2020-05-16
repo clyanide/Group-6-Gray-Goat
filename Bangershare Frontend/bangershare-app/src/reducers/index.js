@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
-import userReducer from "./User"
-import bangerShareReducer from "./BangerShare"
+import userReducer from "./User";
+import bangerShareReducer from "./BangerShare";
 
 const appReducer = combineReducers({ userReducer, bangerShareReducer });
 

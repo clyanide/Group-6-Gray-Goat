@@ -1,15 +1,18 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import FriendsPage from "./components/FriendsPage";
+import LoginPage from "./containers/LoginPage";
+import RequireLogin from "./containers/LoginPage/RequireLogin";
 import "semantic-ui-css/semantic.min.css";
 
-const BangerShareApp = (props) => {
-  const { accessToken } = props;
-
+const BangerShareApp = () => {
   return (
     <div>
       <Router>
-        <FriendsPage />
+        <RequireLogin />
+        <Switch>
+          <Route path="/login" component={LoginPage} />
+          <Route path="/hello" component={() => <p>Hello</p>} />
+        </Switch>
       </Router>
     </div>
   );

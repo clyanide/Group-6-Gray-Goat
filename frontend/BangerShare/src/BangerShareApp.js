@@ -3,12 +3,16 @@ import { Container, Text } from "native-base";
 import Constants from "expo-constants";
 import HomeScreen from "./components/HomeScreen";
 import LoginPage from "./components/LoginPage";
-import PlaylistScreen from "./components/PlaylistScreen";
+import FriendsScreen from "./containers/FriendsScreen";
 
-const BangerShareApp = () => (
-  <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
-    <PlaylistScreen />
-  </Container>
-);
+const BangerShareApp = (props) => {
+  const { accessToken } = props;
+
+  return (
+    <Container style={{ flex: 1, marginTop: Constants.statusBarHeight }}>
+      {accessToken === "" ? <LoginPage /> : <HomeScreen />}
+    </Container>
+  );
+};
 
 export default BangerShareApp;

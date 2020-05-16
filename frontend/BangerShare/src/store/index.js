@@ -1,16 +1,14 @@
 import { applyMiddleware, createStore } from "redux";
 import rootReducer from "../reducers";
-import { persistStore, persistReducer } from "redux-persist";
-import { AsyncStorage } from "react-native";
+import rootEpic from "../epics";
+import { createEpicMiddleware } from "redux-observable";
 import logger from "redux-logger";
 
-// Configures AsyncStorage which allows state to be saved locally on the device
-const persistConfig = {
-  key: "root",
-  storage: AsyncStorage,
-};
+const epicMiddleware = createEpicMiddleware();
 
-const persistedReducer = persistReducer(persistConfig, rootReducer);
+export const store = createStore(
+  rootReducer,
+  applyMiddleware(logger, epicMiddleware)
+);
 
-export const store = createStore(persistedReducer, applyMiddleware(logger));
-export const persistor = persistStore(store);
+epicMiddleware.run(rootEpic);

@@ -4,10 +4,6 @@ import { List, Button } from "semantic-ui-react";
 const FriendRequests = (props) => {
   const { pendingFriends } = props;
 
-  pendingFriends.map(friend => {
-    console.log(friend.username)
-  })
-
   return (
     <List link>
       {pendingFriends && pendingFriends.length > 0 ?

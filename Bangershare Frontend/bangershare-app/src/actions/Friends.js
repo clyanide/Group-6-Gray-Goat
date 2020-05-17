@@ -17,7 +17,6 @@ const getFriends = () => {
             })
             .catch(err => {
                 if (err.response.status === 401) {
-                    console.log(err.response.status)
                 }
             })
     }

@@ -10,16 +10,14 @@ import { ConnectedRouter } from 'connected-react-router'
 
 const BangerShareApp = (props) => {
   return (
-    <div>
-      <ConnectedRouter history={history}>
-        <Route path="/" component={RequireLogin} />
-        <Switch>
-          <Route path="/login" component={LoginPage} />
-          <Route path="/home" component={HomePage} />
-          <Route path="/friends" component={FriendsPage} />
-        </Switch>
-      </ConnectedRouter>
-    </div>
+    <ConnectedRouter history={history}>
+      <Route path="/" component={RequireLogin} />
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/home" component={HomePage} />
+        <Route path="/friends" component={FriendsPage} />
+      </Switch>
+    </ConnectedRouter>
   );
 };
 

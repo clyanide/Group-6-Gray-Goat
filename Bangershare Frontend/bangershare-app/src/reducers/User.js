@@ -1,55 +1,31 @@
-import { actionType } from "../actions/User";
+import { userActionType } from "../actions/User";
 
 const initialState = {
-  currentUser: "",
-  error: "",
-  accessToken: "",
-  userInfo: {
-    username: "",
-    password: "",
-    email: "",
+  currentUser: {
+    name: "",
+    accessToken: "",
+    refreshToken: "",
   },
 };
+
 const setUserDetail = (state, action) => {
   return {
     ...state,
-    currentUser: action.username,
-    accessToken: action.accessToken,
-  };
-};
-
-const setError = (state, action) => {
-  return {
-    ...state,
-    error: action.error,
+    currentUser: {
+      name: action.username,
+      accessToken: action.accessToken,
+      refreshToken: action.refreshToken,
+    },
   };
 };
 
 const userReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.REGISTER_USER: {
-      return {
-        ...state,
-        userInfo: action.userInfo,
-      };
-    }
-    case actionType.REGISTER_USER_SUCCESS: {
+    case userActionType.REGISTER_USER_SUCCESS: {
       return setUserDetail(state, action);
     }
-    case actionType.REGISTER_USER_FAIL: {
-      return setError(state, action);
-    }
-    case actionType.LOGIN_USER: {
-      return {
-        ...state,
-        userInfo: action.userInfo,
-      };
-    }
-    case actionType.LOGIN_USER_SUCCESS: {
+    case userActionType.LOGIN_USER_SUCCESS: {
       return setUserDetail(state, action);
-    }
-    case actionType.LOGIN_USER_FAIL: {
-      return setError(state, action);
     }
     default:
       return { ...state };

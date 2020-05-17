@@ -1,38 +1,44 @@
-import { actionType } from "../actions/User";
+import { friendActionType } from "./../actions/Friends";
+import { userActionType } from "./../actions/User";
 
 const initialState = {
-  isLoading: false,
-};
-const setIsLoading = (boolean, state) => {
-  console.log(boolean);
-  return { isLoading: boolean, ...state };
+  fetching: false,
+  error: "",
 };
 
+const setLoading = (state, boolean) => {
+  return { ...state, fetching: boolean };
+};
+
+const setError = (state, action) => {
+  return {
+    ...state,
+    fetching: true,
+    error: action.error,
+  };
+};
 const bangerShareReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionType.LOGIN_USER: {
-      return setIsLoading(true, state);
-    }
-    case actionType.LOGIN_USER_SUCCESS: {
-      return setIsLoading(false, state);
-    }
-    case actionType.LOGIN_USER_FAIL: {
-      return setIsLoading(false, state);
-    }
-    case actionType.REGISTER_USER: {
-      return setIsLoading(true, state);
-    }
-    case actionType.REGISTER_USER_SUCCESS: {
-      return setIsLoading(false, state);
-    }
-    case actionType.REGISTER_USER_FAIL: {
-      return setIsLoading(false, state);
-    }
-    default: {
-      return {
-        ...state,
-      };
-    }
+    case friendActionType.GET_FRIENDS:
+      return setLoading(state, true);
+    case friendActionType.GET_FRIENDS_SUCCESS:
+      return setLoading(state, false);
+    case friendActionType.GET_FRIENDS_FAIL:
+      return setError(state, action);
+    case userActionType.REGISTER_USER:
+      return setLoading(state, true);
+    case userActionType.REGISTER_USER_SUCCESS:
+      return setLoading(state, false);
+    case userActionType.REGISTER_USER_FAIL:
+      return setError(state, action);
+    case userActionType.LOGIN_USER:
+      return setLoading(state, true);
+    case userActionType.LOGIN_USER_SUCCESS:
+      return setLoading(state, false);
+    case userActionType.LOGIN_USER_FAIL:
+      return setLoading(state, false);
+    default:
+      return { ...state };
   }
 };
 

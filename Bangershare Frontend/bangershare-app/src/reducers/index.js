@@ -1,18 +1,17 @@
 import { combineReducers } from "redux";
 import userReducer from "./User";
+import friendsReducer from "./Friends";
 import bangerShareReducer from "./BangerShare";
 import spotifyTokenReducer from "./SpotifyToken";
+import { connectRouter } from "connected-react-router";
 
-const appReducer = combineReducers({
-  userReducer,
-  bangerShareReducer,
-  spotifyTokenReducer,
-});
+const createRootReducer = (history) =>
+  combineReducers({
+    router: connectRouter(history),
+    userReducer,
+    friendsReducer,
+    bangerShareReducer,
+    spotifyTokenReducer,
+  });
 
-const rootReducer = (state, action) => {
-  let stateCopy = { ...state };
-
-  return appReducer(stateCopy, action);
-};
-
-export default rootReducer;
+export default createRootReducer;

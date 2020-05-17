@@ -1,7 +1,7 @@
 import React from 'react';
 import Songs from "./Songs"
 import PendingSongs from "./PendingSongs"
-import { List, Button, Icon } from 'semantic-ui-react'
+import { List, Button, Icon, Label } from 'semantic-ui-react'
 
 const SongList = (props) => {
     const { songs, isOwner } = props;
@@ -36,6 +36,9 @@ export const createSongList = (songs) => (
 
                                         :
                                         <List.Item>
+                                            <Label circular>
+                                                {song.hearts}
+                                            </Label>
                                             <Button size="mini">Hearts</Button>
                                             <Button circular size="mini">Setting</Button>
                                         </List.Item>

@@ -35,6 +35,16 @@ export const getUserPlaylists = (accessToken) => {
     });
 }
 
+export const postPlaylist = (accessToken, name) => {
+    return axios.post(baseURL + "Playlist", {
+        headers: {
+            Authorization: "Bearer " + accessToken,
+        },
+        id: 0,
+        name
+    })
+}
+
 export const refreshAccessToken = (user, callingFunction, failingFunction) => {
     return (dispatch) => {
         return axios

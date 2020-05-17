@@ -15,7 +15,6 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
-      nowPlaying: { name: "Not Checked", albumArt: "" },
     };
   }
   getHashParams() {
@@ -31,24 +30,10 @@ class App extends Component {
     return hashParams;
   }
 
-  getNowPlaying() {
-    spotifyApi.getMyCurrentPlaybackState().then((response) => {
-      this.setState({
-        nowPlaying: {
-          name: response.item.name,
-          albumArt: response.item.album.images[0].url,
-        },
-      });
-    });
-  }
   render() {
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
-        <div>Now Playing: {this.state.nowPlaying.name}</div>
-        <div>
-          <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
-        </div>
         {this.state.loggedIn && <Redirect to="/spotify" />}
       </div>
     );

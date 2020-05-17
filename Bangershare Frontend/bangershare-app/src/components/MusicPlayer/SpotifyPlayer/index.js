@@ -5,7 +5,7 @@ class MusicPlayer extends Component {
     this.state = {
       token: this.props.spotifyToken,
       deviceId: "",
-      loggedIn: false,
+      loggedIn: true,
       error: "",
       trackName: "Track Name",
       artistName: "Artist Name",
@@ -16,11 +16,8 @@ class MusicPlayer extends Component {
     };
 
     this.playerCheckInterval = null;
-  }
 
-  handleLogin() {
     if (this.state.token !== "") {
-      this.setState({ loggedIn: true });
       this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
     }
   }
@@ -31,7 +28,7 @@ class MusicPlayer extends Component {
     if (window.Spotify !== null) {
       clearInterval(this.playerCheckInterval);
       this.player = new window.Spotify.Player({
-        name: "Matt's Spotify Player",
+        name: "BangerShare",
         getOAuthToken: (cb) => {
           cb(token);
         },
@@ -155,52 +152,26 @@ class MusicPlayer extends Component {
     } = this.state;
 
     const currentPlayer = this.player;
-
     const uri = "spotify:track:3FjYSZhuMB4Ujv04AmHi5e";
-
     const uriArgs = { playerInstance: currentPlayer, spotify_uri: uri };
 
     return (
       <div className="App">
         {error && <p>Error: {error}</p>}
 
-        {loggedIn ? (
-          <div>
-            <p>Artist: {artistName}</p>
-            <p>Track: {trackName}</p>
-            <p>Album: {albumName}</p>
-            <p>
-              <button onClick={() => this.onPrevClick()}>Previous</button>
-              <button onClick={() => this.onPlayClick()}>
-                {playing ? "Pause" : "Play"}
-              </button>
-              <button onClick={() => this.onNextClick()}>Next</button>
-              <button onClick={() => this.playUri(uriArgs)}>
-                Play from URI
-              </button>
-            </p>
-          </div>
-        ) : (
-          <div>
-            <p className="App-intro">
-              Enter your Spotify access token. Get it from{" "}
-              <a href="https://beta.developer.spotify.com/documentation/web-playback-sdk/quick-start/#authenticating-with-spotify">
-                here
-              </a>
-              .
-            </p>
-            <p>
-              <input
-                type="text"
-                value={token}
-                onChange={(e) => this.setState({ token: e.target.value })}
-              />
-            </p>
-            <p>
-              <button onClick={() => this.handleLogin()}>Go</button>
-            </p>
-          </div>
-        )}
+        <div>
+          <p>Artist: {artistName}</p>
+          <p>Track: {trackName}</p>
+          <p>Album: {albumName}</p>
+          <p>
+            <button onClick={() => this.onPrevClick()}>Previous</button>
+            <button onClick={() => this.onPlayClick()}>
+              {playing ? "Pause" : "Play"}
+            </button>
+            <button onClick={() => this.onNextClick()}>Next</button>
+            <button onClick={() => this.playUri(uriArgs)}>Play from URI</button>
+          </p>
+        </div>
       </div>
     );
   }

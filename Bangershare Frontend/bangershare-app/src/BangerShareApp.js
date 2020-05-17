@@ -1,6 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
-import HomePage from "./components/HomePage";
+import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";
 import RequireLogin from "./containers/LoginPage/RequireLogin";
@@ -10,7 +10,7 @@ import { ConnectedRouter } from "connected-react-router";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
 import SpotifyPlayer from "./containers/SpotifyPlayer";
 
-const BangerShareApp = (props) => {
+const BangerShareApp = () => {
   return (
     <ConnectedRouter history={history}>
       <Route path="/" component={SpotifyLoginPage} />

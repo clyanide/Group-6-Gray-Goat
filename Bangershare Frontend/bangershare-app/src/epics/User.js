@@ -1,6 +1,7 @@
 import { actionType } from "../actions/User";
 import { filter, mergeMap, catchError } from "rxjs/operators";
 import axios from "axios";
+import { push } from "connected-react-router"
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/User";
 const rpc = axios.create({ baseURL: baseURL, proxy: false });
@@ -39,6 +40,7 @@ export const registerUser = (action$, store) =>
         .catch((error) => {
           throw new Error(error);
         });
+      push("/home");
       return {
         type: actionType.REGISTER_USER_SUCCESS,
         username: userInfo.username,
@@ -59,6 +61,7 @@ export const loginUser = (action$, store) =>
     mergeMap(async (action) => {
       const userInfo = store.value.userReducer.userInfo;
       const accessToken = await getAccessToken(userInfo);
+      push("/home")
       return {
         type: actionType.LOGIN_USER_SUCCESS,
         username: userInfo.username,

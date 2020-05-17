@@ -12,9 +12,11 @@ const registerUser = (userInfo) => ({
   userInfo,
 });
 
-const loginUser = (userInfo) => ({
-  type: actionType.LOGIN_USER,
-  userInfo,
-});
+const loginUser = (userInfo) => {
+  return {
+    type: actionType.LOGIN_USER,
+    userInfo,
+  }
+};
 
 export { registerUser, loginUser };

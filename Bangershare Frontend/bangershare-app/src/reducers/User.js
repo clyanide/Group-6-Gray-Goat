@@ -4,6 +4,7 @@ const initialState = {
   currentUser: "",
   error: "",
   accessToken: "",
+  fetching: false,
   userInfo: {
     username: "",
     password: "",
@@ -15,6 +16,7 @@ const setUserDetail = (state, action) => {
     ...state,
     currentUser: action.username,
     accessToken: action.accessToken,
+    fetching: false
   };
 };
 
@@ -22,6 +24,7 @@ const setError = (state, action) => {
   return {
     ...state,
     error: action.error,
+    fetching: false
   };
 };
 
@@ -30,6 +33,7 @@ const userReducer = (state = initialState, action) => {
     case actionType.REGISTER_USER: {
       return {
         ...state,
+        fetching: true,
         userInfo: action.userInfo,
       };
     }
@@ -42,6 +46,7 @@ const userReducer = (state = initialState, action) => {
     case actionType.LOGIN_USER: {
       return {
         ...state,
+        fetching: true,
         userInfo: action.userInfo,
       };
     }

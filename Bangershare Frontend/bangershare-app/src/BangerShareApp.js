@@ -1,19 +1,21 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import LoginPage from "./containers/LoginPage";
 import RequireLogin from "./containers/LoginPage/RequireLogin";
 import "semantic-ui-css/semantic.min.css";
+import { history } from "./store"
+import { ConnectedRouter } from 'connected-react-router'
 
 const BangerShareApp = () => {
   return (
     <div>
-      <Router>
+      <ConnectedRouter history={history}>
         <RequireLogin />
         <Switch>
           <Route path="/login" component={LoginPage} />
-          <Route path="/hello" component={() => <p>Hello</p>} />
+          <Route path="/home" component={() => <p>Hello</p>} />
         </Switch>
-      </Router>
+      </ConnectedRouter>
     </div>
   );
 };

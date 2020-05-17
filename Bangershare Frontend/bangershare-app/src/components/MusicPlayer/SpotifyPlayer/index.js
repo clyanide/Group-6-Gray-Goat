@@ -3,7 +3,7 @@ class MusicPlayer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      token: "",
+      token: this.props.spotifyToken,
       deviceId: "",
       loggedIn: false,
       error: "",

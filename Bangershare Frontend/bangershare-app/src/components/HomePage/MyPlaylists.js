@@ -1,37 +1,8 @@
 import React from "react";
 import createPlaylist from "./Playlist"
 
-const playlists = [
-  {
-    name: "test"
-  },
-  {
-    name: "hi"
-  },
-  {
-    name: "lol"
-  },
-  {
-    name: "test"
-  },
-  {
-    name: "hi"
-  },
-  {
-    name: "lol"
-  },
-  {
-    name: "test"
-  },
-  {
-    name: "hi"
-  },
-  {
-    name: "lol"
-  },
-]
-
-const MyPlaylists = () => {
+const MyPlaylists = (props) => {
+  const { playlists } = props;
   return (
     <div>
       <div>

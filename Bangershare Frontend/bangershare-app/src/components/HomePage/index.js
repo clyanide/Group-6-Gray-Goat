@@ -6,7 +6,7 @@ import RecentPlaylists from "./RecentPlaylists";
 import { Button } from "semantic-ui-react";
 
 const HomeScreen = (props) => {
-  const { getUserPlaylists, isFetching } = props;
+  const { getUserPlaylists, isFetching, userPlaylist } = props;
 
   useEffect(() => {
     getUserPlaylists();
@@ -15,10 +15,10 @@ const HomeScreen = (props) => {
   return (
     <div>
       <Greeting />
-      {isFetching ?
+      {!isFetching ?
         <>
-          <RecentPlaylists />
-          <MyPlaylists />
+          <RecentPlaylists playlists={userPlaylist} />
+          <MyPlaylists playlists={userPlaylist} />
           <Explore />
         </>
         :

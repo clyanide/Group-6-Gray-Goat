@@ -17,7 +17,7 @@ const playlistReducer = (state = initialState, action) => {
         case playlistActionType.GET_PLAYLIST_SUCCESS:
             return {
                 ...state,
-                userPlaylist: action.playlist
+                userPlaylist: action.userPlaylist
             }
         default:
             return { ...state }

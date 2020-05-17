@@ -3,7 +3,8 @@ import HomePage from "../../components/HomePage"
 import { getPlaylist } from "../../actions/Playlists"
 
 const mapStateToProps = (state) => ({
-    fetching: state.bangerShareReducer,
+    isFetching: state.bangerShareReducer.fetching,
+    userPlaylist: state.playlistReducer.userPlaylist
 })
 
 const mapDispatchToProps = (dispatch) => ({

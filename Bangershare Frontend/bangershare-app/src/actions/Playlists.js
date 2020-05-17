@@ -8,13 +8,13 @@ export const playlistActionType = {
 
 const getPlaylist = () => {
     return (dispatch, getState) => {
-        dispatch(getPlaylistStart);
+        dispatch(getPlaylistStart());
         const store = getState();
         const user = store.userReducer.currentUser
         getUserPlaylists(user.accessToken)
             .then((res) => {
                 console.log(res)
-                dispatch(getPlaylistSuccess())
+                dispatch(getPlaylistSuccess(res))
             }).catch((err) => {
                 if (err.response.status === 401) {
                     refreshAccessToken(user, getPlaylist, getPlaylistFail)
@@ -31,6 +31,7 @@ const getPlaylistStart = () => ({
 const getPlaylistSuccess = (payload) => ({
     type: playlistActionType.GET_PLAYLIST_SUCCESS,
     fetching: false,
+    userPlaylist: payload.data,
 })
 
 const getPlaylistFail = (error) => ({

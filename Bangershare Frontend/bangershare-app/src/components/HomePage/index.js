@@ -13,31 +13,37 @@ const HomeScreen = (props) => {
     userPlaylist,
     loadFriends,
     friendPlaylist,
+    setCurrentPlaylist,
   } = props;
 
   const [modalOpen, setModal] = useState(false);
-
-  const handleModal = (bool) => {
-    setModal(bool);
-  };
 
   useEffect(() => {
     getUserPlaylists();
     loadFriends();
   }, [getUserPlaylists, loadFriends]);
 
+  const handleModal = (bool) => {
+    setModal(bool);
+  };
+
+  const handleOnPlaylistClick = (playlist) => {
+    setCurrentPlaylist(playlist);
+    props.history.push("/playlist")
+  }
+
   return (
     <div>
       <Greeting />
       {!isFetching ? (
         <>
-          <RecentPlaylists playlists={userPlaylist} />
-          <MyPlaylists playlists={userPlaylist} />
-          <Explore playlists={friendPlaylist} />
+          <RecentPlaylists playlists={userPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
+          <MyPlaylists playlists={userPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
+          <Explore playlists={friendPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
         </>
       ) : (
-        <p>Loading</p>
-      )}
+          <p>Loading</p>
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Button onClick={() => handleModal(true)}>Create Playlist</Button>
       <Button onClick={() => props.history.push("/friends")} />

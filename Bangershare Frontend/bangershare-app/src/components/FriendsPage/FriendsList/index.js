@@ -1,13 +1,20 @@
 import React from "react";
 import { List } from "semantic-ui-react";
 
-const FriendsList = () => {
+const FriendsList = (props) => {
+  const { friends } = props;
   return (
     <List link>
-      <List.Item as="a">Clayton Lan</List.Item>
-      <List.Item as="a">Bryan Ang</List.Item>
-      <List.Item as="a">Thomas Zhu</List.Item>
-    </List>
+      {friends && friends.length > 0 ?
+        <>
+          {
+            friends.map(friend => (
+              <List.Item key={friend.username}> {friend.username} </List.Item>
+            ))}
+        </>
+        :
+        <List.Item>No pending friends</List.Item>}
+    </List >
   );
 };
 

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Explore from "./Explore";
 import Greeting from "../../containers/HomePage/Greeting";
 import MyPlaylists from "./MyPlaylists";
@@ -6,12 +6,24 @@ import RecentPlaylists from "./RecentPlaylists";
 import { Button } from "semantic-ui-react";
 
 const HomeScreen = (props) => {
+  const { getUserPlaylists, isFetching } = props;
+
+  useEffect(() => {
+    getUserPlaylists();
+  }, [getUserPlaylists]);
+
   return (
     <div>
       <Greeting />
-      <RecentPlaylists />
-      <MyPlaylists />
-      <Explore />
+      {isFetching ?
+        <>
+          <RecentPlaylists />
+          <MyPlaylists />
+          <Explore />
+        </>
+        :
+        <p>Loading</p>
+      }
       <Button onClick={() => props.history.push("/friends")} />
     </div>
   );

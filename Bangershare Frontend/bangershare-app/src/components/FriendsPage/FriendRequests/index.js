@@ -1,18 +1,28 @@
 import React from "react";
 import { List, Button } from "semantic-ui-react";
 
-const FriendRequests = () => {
+const FriendRequests = (props) => {
+  const { pendingFriends } = props;
+
   return (
     <List link>
-      <List.Item as="a">Clayton Lan</List.Item>
-      <Button>Accept</Button>
-      <Button>Decline</Button>
-      <List.Item as="a">Bryan Ang</List.Item>
-      <Button>Accept</Button>
-      <Button>Decline</Button>
-      <List.Item as="a">Thomas Zhu</List.Item>
-      <Button>Accept</Button>
-      <Button>Decline</Button>
+      {pendingFriends && pendingFriends.length > 0 ? (
+        <>
+          {pendingFriends.map((friend) => (
+            <>
+              <List.Item key={friend.receiverUsername}>
+                {friend.receiverUsername}
+              </List.Item>
+              <Button.Group>
+                <Button>Accept</Button>
+                <Button>Decline</Button>
+              </Button.Group>
+            </>
+          ))}
+        </>
+      ) : (
+        <List.Item>No pending friends</List.Item>
+      )}
     </List>
   );
 };

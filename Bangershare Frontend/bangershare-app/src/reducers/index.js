@@ -1,13 +1,15 @@
 import { combineReducers } from "redux";
 import userReducer from "./User";
+import friendsReducer from "./Friends";
 import bangerShareReducer from "./BangerShare";
+import { connectRouter } from "connected-react-router";
 
-const appReducer = combineReducers({ userReducer, bangerShareReducer });
+const createRootReducer = (history) =>
+  combineReducers({
+    router: connectRouter(history),
+    userReducer,
+    friendsReducer,
+    bangerShareReducer,
+  });
 
-const rootReducer = (state, action) => {
-  let stateCopy = { ...state };
-
-  return appReducer(stateCopy, action);
-};
-
-export default rootReducer;
+export default createRootReducer;

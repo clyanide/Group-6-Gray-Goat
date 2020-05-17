@@ -5,9 +5,7 @@ const RecentPlaylists = (props) => {
   const { playlists } = props;
   return (
     <div>
-      <div>
-        <p>Recent Playlists</p>
-      </div>
+      <p>Recent Playlists</p>
       {createPlaylist(playlists)}
     </div>
   );

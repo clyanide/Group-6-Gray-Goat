@@ -1,12 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Explore from "./Explore";
 import Greeting from "../../containers/HomePage/Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
+import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal"
 import { Button } from "semantic-ui-react";
 
 const HomeScreen = (props) => {
   const { getUserPlaylists, isFetching, userPlaylist } = props;
+
+  const [modalOpen, setModal] = useState(false);
+
+  const handleModal = (bool) => {
+    setModal(bool);
+  }
 
   useEffect(() => {
     getUserPlaylists();
@@ -24,6 +31,8 @@ const HomeScreen = (props) => {
         :
         <p>Loading</p>
       }
+      <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
+      <Button onClick={() => handleModal(true)}>Create Playlist</Button>
       <Button onClick={() => props.history.push("/friends")} />
     </div>
   );

@@ -16,9 +16,7 @@ const playlists = [
 const Explore = () => {
   return (
     <div>
-      <div>
-        <p>Explore</p>
-      </div>
+      <p>Explore</p>
       {createPlaylist(playlists)}
     </div>
   );

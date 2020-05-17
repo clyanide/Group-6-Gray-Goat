@@ -32,8 +32,7 @@ const createPlaylist = (name) => {
         const user = state.userReducer.currentUser;
         postPlaylist(user.accessToken, name)
             .then((res) => {
-                console.log(res)
-                dispatch(createPlaylistSuccess())
+                dispatch(createPlaylistSuccess(res.data, user.name))
             }).catch((err) => {
                 refreshAccessToken(user, createPlaylist, createPlaylistFail)
             })
@@ -61,10 +60,11 @@ const createPlaylistStart = () => ({
     fetching: true
 })
 
-const createPlaylistSuccess = (payload) => ({
+const createPlaylistSuccess = (payload, name) => ({
     type: playlistActionType.CREATE_PLAYLIST_SUCCESS,
     fetching: false,
-
+    userPlaylist: payload,
+    name
 })
 
 const createPlaylistFail = (error) => ({

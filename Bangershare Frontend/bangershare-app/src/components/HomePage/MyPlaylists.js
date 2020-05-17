@@ -5,9 +5,7 @@ const MyPlaylists = (props) => {
   const { playlists } = props;
   return (
     <div>
-      <div>
-        <p>My Playlists</p>
-      </div>
+      <p>My Playlists</p>
       {createPlaylist(playlists)}
     </div>
   );

@@ -20,9 +20,16 @@ const playlistReducer = (state = initialState, action) => {
                 userPlaylist: action.userPlaylist
             }
         case playlistActionType.CREATE_PLAYLIST_SUCCESS: {
+            const playlist = {
+                id: action.userPlaylist.id,
+                name: action.userPlaylist.name,
+                isOwner: true,
+                creator: action.name,
+                songs: []
+            }
             return {
                 ...state,
-                userPlaylist: [...state.userPlaylist, action.createdPlaylist]
+                userPlaylist: [...state.userPlaylist, playlist]
             }
         }
         default:

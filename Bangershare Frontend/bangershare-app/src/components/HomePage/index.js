@@ -7,7 +7,7 @@ import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal"
 import { Button } from "semantic-ui-react";
 
 const HomeScreen = (props) => {
-  const { getUserPlaylists, isFetching, userPlaylist } = props;
+  const { getUserPlaylists, isFetching, userPlaylist, loadFriends, friendPlaylist } = props;
 
   const [modalOpen, setModal] = useState(false);
 
@@ -17,7 +17,8 @@ const HomeScreen = (props) => {
 
   useEffect(() => {
     getUserPlaylists();
-  }, [getUserPlaylists]);
+    loadFriends();
+  }, [getUserPlaylists, loadFriends]);
 
   return (
     <div>
@@ -26,7 +27,7 @@ const HomeScreen = (props) => {
         <>
           <RecentPlaylists playlists={userPlaylist} />
           <MyPlaylists playlists={userPlaylist} />
-          <Explore />
+          <Explore playlists={friendPlaylist} />
         </>
         :
         <p>Loading</p>

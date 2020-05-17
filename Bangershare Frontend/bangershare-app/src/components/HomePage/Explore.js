@@ -1,23 +1,13 @@
 import React from "react";
-import createPlaylist from "./Playlist";
+import { createFriendPlaylist } from "./Playlist";
 
-const playlists = [
-  {
-    name: "dad"
-  },
-  {
-    name: "ffff"
-  },
-  {
-    name: "ffsafasfa"
-  },
-]
+const Explore = (props) => {
+  const { playlists } = props;
 
-const Explore = () => {
   return (
     <div>
       <p>Explore</p>
-      {createPlaylist(playlists)}
+      {createFriendPlaylist(playlists)}
     </div>
   );
 };

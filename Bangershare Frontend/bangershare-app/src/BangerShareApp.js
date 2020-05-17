@@ -9,11 +9,12 @@ import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
 import SpotifyPlayer from "./containers/SpotifyPlayer";
+import YoutubePlayer from "./components/MusicPlayer/YoutubePlayer";
 
 const BangerShareApp = () => {
   return (
     <ConnectedRouter history={history}>
-      <Route path="/" component={SpotifyLoginPage} />
+      <Route path="/" component={YoutubePlayer} />
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/home" component={HomePage} />

@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Redirect } from "react-router-dom";
 
 import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
@@ -48,11 +49,7 @@ class App extends Component {
         <div>
           <img src={this.state.nowPlaying.albumArt} style={{ height: 150 }} />
         </div>
-        {this.state.loggedIn && (
-          <button onClick={() => this.getNowPlaying()}>
-            Check Now Playing
-          </button>
-        )}
+        {this.state.loggedIn && <Redirect to="/spotify" />}
       </div>
     );
   }

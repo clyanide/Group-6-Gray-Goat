@@ -7,15 +7,19 @@ import RequireLogin from "./containers/LoginPage/RequireLogin";
 import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
+import SpotifyLoginPage from "./containers/SpotifyLoginPage";
+import SpotifyPlayer from "./containers/SpotifyPlayer";
 
 const BangerShareApp = (props) => {
   return (
     <ConnectedRouter history={history}>
-      <Route path="/" component={RequireLogin} />
+      <Route path="/" component={SpotifyLoginPage} />
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/home" component={HomePage} />
         <Route path="/friends" component={FriendsPage} />
+        <Route path="/spotify" component={SpotifyPlayer} />
+        <Route path="/spotifyauth" component={SpotifyLoginPage} />
       </Switch>
     </ConnectedRouter>
   );

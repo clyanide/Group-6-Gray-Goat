@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Card } from "semantic-ui-react"
+import { Card, Button, Icon } from "semantic-ui-react"
 
 const responsive = {
     desktop: {
@@ -35,9 +35,13 @@ const createPlaylist = (playlists) => (
         itemClass="carousel-item-padding-40-px"
     >
         {playlists.map(playlist => (
-            <Card color="blue" raised={true}>
-                <Card.Header>{playlist.name}</Card.Header>
-                <Card.Meta>Created by {playlist.creator}</Card.Meta>
+            <Card raised={true}>
+                <Card.Content>
+                    <Card.Header>
+                        {playlist.name}
+                    </Card.Header>
+                    <Card.Description>Created by {playlist.creator}</Card.Description>
+                </Card.Content>
             </Card>
         ))}
     </Carousel>

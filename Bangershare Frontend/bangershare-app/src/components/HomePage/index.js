@@ -13,7 +13,7 @@ const HomeScreen = (props) => {
       <MyPlaylists />
       <Explore />
       <Button onClick={() => props.history.push("/friends")} />
-    </div >
+    </div>
   );
 };
 

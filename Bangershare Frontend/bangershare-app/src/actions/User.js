@@ -1,5 +1,5 @@
-import { push } from 'connected-react-router'
-import { login, register } from "../utility/API"
+import { push } from "connected-react-router";
+import { login, register } from "../utility/API";
 
 export const userActionType = {
   REGISTER_USER: "REGISTER_USER",
@@ -11,35 +11,34 @@ export const userActionType = {
 };
 
 const registerUser = ({ username, email, password }) => {
-  return dispatch => {
+  return (dispatch) => {
     dispatch(registerUserStart());
     register(email, username, password)
       .then(() => {
-        login(username, password).then(res => {
-          dispatch(registerUserSuccess(res, username))
+        login(username, password).then((res) => {
+          dispatch(registerUserSuccess(res, username));
           dispatch(push("/home"));
-        })
+        });
       })
-      .catch(err => {
+      .catch((err) => {
         dispatch(registerUserFail(err.message));
       });
   };
 };
 
 const loginUser = ({ username, password }) => {
-  return dispatch => {
-    dispatch(loginUserStart())
+  return (dispatch) => {
+    dispatch(loginUserStart());
     login(username, password)
-      .then(res => {
-        dispatch(loginUserSuccess(res, username))
+      .then((res) => {
+        dispatch(loginUserSuccess(res, username));
         dispatch(push("/home"));
       })
-      .catch(err => {
-        dispatch(loginUserFail(err.message))
-      })
-  }
-}
-
+      .catch((err) => {
+        dispatch(loginUserFail(err.message));
+      });
+  };
+};
 
 const registerUserStart = () => ({
   type: userActionType.REGISTER_USER,
@@ -49,12 +48,12 @@ const registerUserSuccess = (payload, username) => ({
   type: userActionType.REGISTER_USER_SUCCESS,
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
-  username
+  username,
 });
 
 const registerUserFail = (error) => ({
   type: userActionType.REGISTER_USER_FAIL,
-  error
+  error,
 });
 
 const loginUserStart = () => ({
@@ -65,12 +64,12 @@ const loginUserSuccess = (payload, username) => ({
   type: userActionType.LOGIN_USER_SUCCESS,
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
-  username
+  username,
 });
 
 const loginUserFail = (error) => ({
   type: userActionType.LOGIN_USER_FAIL,
-  error
+  error,
 });
 
 export { registerUser, loginUser };

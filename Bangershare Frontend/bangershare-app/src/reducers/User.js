@@ -4,7 +4,7 @@ const initialState = {
   currentUser: {
     name: "",
     accessToken: "",
-    refreshToken: ""
+    refreshToken: "",
   },
 };
 
@@ -14,7 +14,7 @@ const setUserDetail = (state, action) => {
     currentUser: {
       name: action.username,
       accessToken: action.accessToken,
-      refreshToken: action.refreshToken
+      refreshToken: action.refreshToken,
     },
   };
 };

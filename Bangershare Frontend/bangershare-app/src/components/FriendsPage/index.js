@@ -12,7 +12,7 @@ const FriendsPage = (props) => {
 
   return (
     <div>
-      < div >
+      <div>
         <div>
           <p>My Friends</p>
         </div>
@@ -22,10 +22,8 @@ const FriendsPage = (props) => {
         </Button>
         <Button>Add Friend</Button>
       </div>
-      <>
-        {visibleList ? <FriendsList /> : <FriendRequests />}
-      </>
-    </div >
+      <>{visibleList ? <FriendsList /> : <FriendRequests />}</>
+    </div>
   );
 };
 

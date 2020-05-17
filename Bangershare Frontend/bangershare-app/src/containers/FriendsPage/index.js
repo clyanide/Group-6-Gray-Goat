@@ -3,11 +3,13 @@ import FriendsPage from "../../components/FriendsPage";
 import { getFriends } from "../../actions/Friends";
 
 const mapStateToProps = (state) => ({
-    isFetching: state.bangerShareReducer.fetching
-})
+  isFetching: state.bangerShareReducer.fetching,
+});
 
 const mapDispatchToProps = (dispatch) => ({
-    loadFriends: () => { dispatch(getFriends()) }
-})
+  loadFriends: () => {
+    dispatch(getFriends());
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsPage);

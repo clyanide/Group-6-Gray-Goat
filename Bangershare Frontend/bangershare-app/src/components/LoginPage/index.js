@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Button } from "semantic-ui-react";
-import LoginForm from "../../containers/LoginPage/LoginForm"
+import LoginForm from "../../containers/LoginPage/LoginForm";
 
 const LoginPage = () => {
   const [isSignUp, setSignUp] = useState(false);

@@ -28,3 +28,19 @@ export const getUserFriends = (accessToken) => {
             }
         })
 }
+
+export const refreshAccessToken = (user, callingFunction, failingFunction) => {
+    return (dispatch) => {
+        return axios
+            .post(baseURL + "/User/refresh", {
+                username: user.name,
+                accessToken: user.accessToken
+            })(user)
+            .then(() => {
+                dispatch(callingFunction())
+            })
+            .catch(err => {
+                dispatch(failingFunction(err))
+            })
+    }
+}

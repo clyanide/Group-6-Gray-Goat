@@ -1,7 +1,7 @@
 import { push } from 'connected-react-router'
 import { login, register } from "../utility/API"
 
-export const actionType = {
+export const userActionType = {
   REGISTER_USER: "REGISTER_USER",
   REGISTER_USER_SUCCESS: "REGISTER_USER_SUCCESS",
   REGISTER_USER_FAIL: "REGISTER_USER_FAIL",
@@ -42,34 +42,34 @@ const loginUser = ({ username, password }) => {
 
 
 const registerUserStart = () => ({
-  type: actionType.REGISTER_USER,
+  type: userActionType.REGISTER_USER,
 });
 
 const registerUserSuccess = (payload, username) => ({
-  type: actionType.REGISTER_USER_SUCCESS,
+  type: userActionType.REGISTER_USER_SUCCESS,
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username
 });
 
 const registerUserFail = (error) => ({
-  type: actionType.REGISTER_USER_FAIL,
+  type: userActionType.REGISTER_USER_FAIL,
   error
 });
 
 const loginUserStart = () => ({
-  type: actionType.LOGIN_USER,
+  type: userActionType.LOGIN_USER,
 });
 
 const loginUserSuccess = (payload, username) => ({
-  type: actionType.LOGIN_USER_SUCCESS,
+  type: userActionType.LOGIN_USER_SUCCESS,
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username
 });
 
 const loginUserFail = (error) => ({
-  type: actionType.LOGIN_USER_FAIL,
+  type: userActionType.LOGIN_USER_FAIL,
   error
 });
 

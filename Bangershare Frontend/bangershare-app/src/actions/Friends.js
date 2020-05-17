@@ -1,6 +1,6 @@
-import { getUserFriends } from "../utility/API";
+import { getUserFriends, refreshAccessToken } from "../utility/API";
 
-export const actionType = {
+export const friendActionType = {
     GET_FRIENDS: "GET_FRIENDS",
     GET_FRIENDS_SUCCESS: "GET_FRIENDS_SUCCESS",
     GET_FRIENDS_FAIL: "GET_FRIENDS_FAIL"
@@ -17,19 +17,25 @@ const getFriends = () => {
             })
             .catch(err => {
                 if (err.response.status === 401) {
+                    dispatch(refreshAccessToken(user, getFriends, getFriendsFail))
                 }
             })
     }
 }
 
 const getFriendsStarted = () => ({
-    type: actionType.GET_FRIENDS
+    type: friendActionType.GET_FRIENDS
 })
 
 const getFriendsSuccess = (payload) => ({
-    type: actionType.GET_FRIENDS_SUCCESS,
+    type: friendActionType.GET_FRIENDS_SUCCESS,
     friends: payload.data.friendSongs,
     pendingFriends: payload.data.pendingFriends
+})
+
+const getFriendsFail = (err) => ({
+    type: friendActionType.GET_FRIENDS_FAIL,
+    err
 })
 
 export { getFriends }

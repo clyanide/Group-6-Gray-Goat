@@ -35,7 +35,7 @@ const loginUser = ({ username, password }) => {
         dispatch(push("/home"));
       })
       .catch(err => {
-        dispatch(loginUserFail(err))
+        dispatch(loginUserFail(err.message))
       })
   }
 }

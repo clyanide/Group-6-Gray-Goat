@@ -40,7 +40,7 @@ export const refreshAccessToken = (user, callingFunction, failingFunction) => {
                 dispatch(callingFunction())
             })
             .catch(err => {
-                dispatch(failingFunction(err))
+                dispatch(failingFunction(err.message))
             })
     }
 }

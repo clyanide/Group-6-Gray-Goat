@@ -14,7 +14,7 @@ const setError = (state, action) => {
     return {
         ...state,
         fetching: true,
-        error: action.err
+        error: action.error
     }
 }
 const bangerShareReducer = (state = initialState, action) => {

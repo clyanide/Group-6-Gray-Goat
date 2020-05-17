@@ -33,9 +33,9 @@ const getFriendsSuccess = (payload) => ({
     pendingFriends: payload.data.pendingFriends
 })
 
-const getFriendsFail = (err) => ({
+const getFriendsFail = (error) => ({
     type: friendActionType.GET_FRIENDS_FAIL,
-    err
+    error
 })
 
 export { getFriends }

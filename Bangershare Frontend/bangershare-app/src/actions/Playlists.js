@@ -1,3 +1,5 @@
+import { getUserPlaylists, refreshAccessToken } from "../utility/API"
+
 export const playlistActionType = {
     GET_PLAYLIST: "GET_PLAYLIST",
     GET_PLAYLIST_SUCCESS: "GET_PLAYLIST_SUCCESS",
@@ -8,7 +10,16 @@ const getPlaylist = () => {
     return (dispatch, getState) => {
         dispatch(getPlaylistStart);
         const store = getState();
-        console.log(store)
+        const user = store.userReducer.currentUser
+        getUserPlaylists(user.accessToken)
+            .then((res) => {
+                console.log(res)
+                dispatch(getPlaylistSuccess())
+            }).catch((err) => {
+                if (err.response.status === 401) {
+                    refreshAccessToken(user, getPlaylist, getPlaylistFail)
+                }
+            })
     }
 }
 

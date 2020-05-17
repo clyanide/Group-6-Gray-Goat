@@ -14,11 +14,12 @@ const getPlaylist = () => {
 
 const getPlaylistStart = () => ({
     type: playlistActionType.GET_PLAYLIST,
+    fetching: true,
 })
 
 const getPlaylistSuccess = (payload) => ({
     type: playlistActionType.GET_PLAYLIST_SUCCESS,
-
+    fetching: false,
 })
 
 const getPlaylistFail = (error) => ({

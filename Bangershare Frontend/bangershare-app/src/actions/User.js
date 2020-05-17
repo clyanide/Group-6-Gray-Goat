@@ -42,6 +42,7 @@ const loginUser = ({ username, password }) => {
 
 const registerUserStart = () => ({
   type: userActionType.REGISTER_USER,
+  fetching: true,
 });
 
 const registerUserSuccess = (payload, username) => ({
@@ -49,6 +50,7 @@ const registerUserSuccess = (payload, username) => ({
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username,
+  fetching: false,
 });
 
 const registerUserFail = (error) => ({
@@ -58,6 +60,7 @@ const registerUserFail = (error) => ({
 
 const loginUserStart = () => ({
   type: userActionType.LOGIN_USER,
+  fetching: true,
 });
 
 const loginUserSuccess = (payload, username) => ({
@@ -65,6 +68,7 @@ const loginUserSuccess = (payload, username) => ({
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username,
+  fetching: false,
 });
 
 const loginUserFail = (error) => ({

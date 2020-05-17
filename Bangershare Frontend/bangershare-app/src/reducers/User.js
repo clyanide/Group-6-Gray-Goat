@@ -30,8 +30,8 @@ const userReducer = (state = initialState, action) => {
     case userActionType.SET_ACCESS_TOKEN: {
       return {
         ...state,
-        accessToken: action.accessToken
-      }
+        accessToken: action.accessToken,
+      };
     }
     default:
       return { ...state };

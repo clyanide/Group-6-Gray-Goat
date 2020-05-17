@@ -1,5 +1,5 @@
 import React from "react";
-import createPlaylist from "./Playlist"
+import createPlaylist from "./Playlist";
 
 const RecentPlaylists = (props) => {
   const { playlists } = props;

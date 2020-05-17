@@ -1,13 +1,17 @@
 import React from 'react';
+import SongList from "./SongsList"
 
 const PlaylistPage = (props) => {
     const { currentPlaylist } = props;
-    console.log(currentPlaylist)
+
     return (
         <>
-            {currentPlaylist && currentPlaylist.id > 0 ?
-                <div>whta</div>
-                : <div> lol </div>
+            {currentPlaylist && currentPlaylist.songs.length > 0 ?
+                <SongList isOwner={currentPlaylist.isOwner} songs={currentPlaylist.songs} />
+                :
+                <div>
+                    You have no songs.
+                </div>
             }
         </>
     );

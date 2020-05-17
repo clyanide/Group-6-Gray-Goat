@@ -1,4 +1,5 @@
 import axios from "axios";
+import { setAccessToken } from "../actions/User"
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
@@ -39,9 +40,10 @@ export const refreshAccessToken = (user, callingFunction, failingFunction) => {
         return axios
             .post(baseURL + "/User/refresh", {
                 username: user.name,
-                accessToken: user.accessToken,
-            })(user)
-            .then(() => {
+                refreshToken: user.refreshToken,
+            })
+            .then((res) => {
+                dispatch(setAccessToken(res))
                 dispatch(callingFunction());
             })
             .catch((err) => {
@@ -49,3 +51,4 @@ export const refreshAccessToken = (user, callingFunction, failingFunction) => {
             });
     };
 };
+

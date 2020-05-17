@@ -27,6 +27,12 @@ const userReducer = (state = initialState, action) => {
     case userActionType.LOGIN_USER_SUCCESS: {
       return setUserDetail(state, action);
     }
+    case userActionType.SET_ACCESS_TOKEN: {
+      return {
+        ...state,
+        accessToken: action.accessToken,
+      };
+    }
     default:
       return { ...state };
   }

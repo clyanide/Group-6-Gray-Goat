@@ -25,12 +25,14 @@ const getFriends = () => {
 
 const getFriendsStarted = () => ({
   type: friendActionType.GET_FRIENDS,
+  fetching: true,
 });
 
 const getFriendsSuccess = (payload) => ({
   type: friendActionType.GET_FRIENDS_SUCCESS,
   friends: payload.data.friendSongs,
   pendingFriends: payload.data.pendingFriends,
+  fetching: false,
 });
 
 const getFriendsFail = (error) => ({

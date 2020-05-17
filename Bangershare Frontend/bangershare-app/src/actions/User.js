@@ -8,6 +8,7 @@ export const userActionType = {
   LOGIN_USER: "LOGIN_USER",
   LOGIN_USER_SUCCESS: "LOGIN_USER_SUCCESS",
   LOGIN_USER_FAIL: "LOGIN_USER_FAIL",
+  SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -42,6 +43,7 @@ const loginUser = ({ username, password }) => {
 
 const registerUserStart = () => ({
   type: userActionType.REGISTER_USER,
+  fetching: true,
 });
 
 const registerUserSuccess = (payload, username) => ({
@@ -49,6 +51,7 @@ const registerUserSuccess = (payload, username) => ({
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username,
+  fetching: false,
 });
 
 const registerUserFail = (error) => ({
@@ -58,6 +61,7 @@ const registerUserFail = (error) => ({
 
 const loginUserStart = () => ({
   type: userActionType.LOGIN_USER,
+  fetching: true,
 });
 
 const loginUserSuccess = (payload, username) => ({
@@ -65,6 +69,7 @@ const loginUserSuccess = (payload, username) => ({
   accessToken: payload.data.accessToken,
   refreshToken: payload.data.refreshToken,
   username,
+  fetching: false,
 });
 
 const loginUserFail = (error) => ({
@@ -72,4 +77,9 @@ const loginUserFail = (error) => ({
   error,
 });
 
-export { registerUser, loginUser };
+const setAccessToken = (payload) => ({
+  type: userActionType.SET_ACCESS_TOKEN,
+  accessToken: payload.data.accessToken,
+});
+
+export { registerUser, loginUser, setAccessToken };

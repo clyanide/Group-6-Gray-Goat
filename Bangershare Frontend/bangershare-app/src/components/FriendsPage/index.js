@@ -1,14 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import FriendsList from "../../containers/FriendsPage/FriendsList";
 import FriendRequests from "../../containers/FriendsPage/FriendRequests";
 import { Search, Button } from "semantic-ui-react";
 
 const FriendsPage = (props) => {
   const [visibleList, setVisible] = useState(true);
-  const { isFetching, loadFriends } = props;
-  useEffect(() => {
-    loadFriends();
-  }, [loadFriends]);
+  const { isFetching } = props;
 
   return (
     <div>

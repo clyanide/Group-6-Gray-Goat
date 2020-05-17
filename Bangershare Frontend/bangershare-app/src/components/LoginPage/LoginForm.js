@@ -40,12 +40,6 @@ const LoginForm = (props) => {
         }
     };
 
-    const changePath = () => {
-        if (!isFetching) {
-
-        }
-    }
-
     return (
         <Form loading={isFetching} onSubmit={() => handleSubmit()}>
             {isSignUp ? (

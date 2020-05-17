@@ -1,21 +1,21 @@
 import { actionType } from "../actions/User";
 
 const initialState = {
-  currentUser: "",
-  error: "",
-  accessToken: "",
-  fetching: false,
-  userInfo: {
-    username: "",
-    password: "",
-    email: "",
+  currentUser: {
+    name: "",
+    accessToken: "",
   },
+  error: "",
+  fetching: false,
 };
+
 const setUserDetail = (state, action) => {
   return {
     ...state,
-    currentUser: action.username,
-    accessToken: action.accessToken,
+    currentUser: {
+      name: action.username,
+      accessToken: action.accessToken,
+    },
     fetching: false
   };
 };
@@ -34,7 +34,6 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: true,
-        userInfo: action.userInfo,
       };
     }
     case actionType.REGISTER_USER_SUCCESS: {
@@ -47,7 +46,6 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         fetching: true,
-        userInfo: action.userInfo,
       };
     }
     case actionType.LOGIN_USER_SUCCESS: {

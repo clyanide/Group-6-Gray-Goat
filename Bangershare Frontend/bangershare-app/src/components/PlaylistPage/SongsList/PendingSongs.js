@@ -9,10 +9,11 @@ const PendingSongs = (props) => {
             ...song,
             [key]: value
         }
-        // updateSong(updatedSong);
+        updateSong(updatedSong);
     }
 
     const handleDeleteSong = (song) => {
+        console.log(song)
         // deleteSong(song)
     }
 

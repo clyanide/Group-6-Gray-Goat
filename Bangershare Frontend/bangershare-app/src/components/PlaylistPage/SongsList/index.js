@@ -1,6 +1,6 @@
 import React from 'react';
 import Songs from "./Songs"
-import PendingSongs from "./PendingSongs"
+import PendingSongs from "../../../containers/PlaylistPage/SongsList/PendingSongs"
 
 const SongList = (props) => {
     const { songs, isOwner } = props;

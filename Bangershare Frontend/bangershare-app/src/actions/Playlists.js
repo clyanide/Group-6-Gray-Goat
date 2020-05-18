@@ -18,6 +18,9 @@ export const playlistActionType = {
     ADD_SONG_TO_PLAYLIST: "ADD_SONG_TO_PLAYLIST",
     ADD_SONG_TO_PLAYLIST_SUCCESS: "ADD_SONG_TO_PLAYLIST_SUCCESS",
     ADD_SONG_TO_PLAYLIST_FAIL: "ADD_SONG_TO_PLAYLIST_FAIL",
+    UPDATE_PENDING_SONG: "UPDATE_PENDING_SONG",
+    UPDATE_PENDING_SONG_SUCCESS: "UPDATE_PENDING_SONG_SUCCESS",
+    UPDATE_PENDING_SONG_FAIL: "UPDATE_PENDING_SONG_FAIL"
 };
 
 const getPlaylist = () => {
@@ -99,7 +102,6 @@ const addSongToPlaylist = (song) => {
         const playlistId = state.playlistReducer.currentPlaylist.id
         postSongToPlaylist(user.accessToken, song, playlistId)
             .then((res) => {
-                console.log(res)
                 dispatch(addSongToPlaylistSuccess(res.data))
             })
             .catch((err) => {
@@ -130,11 +132,38 @@ const addSongToPlaylistFail = (error) => ({
 
 const updatePendingSong = (song) => {
     return (dispatch, getState) => {
+        dispatch(updatePendingSongStart())
         const state = getState();
         const user = state.userReducer.currentUser;
-        const playlistId = state.playlistReducer.currentPlaylist.id
+        updateSong(user.accessToken, song)
+            .then((res) => {
+                dispatch(updatePendingSongSuccess(res.data))
+            })
+            .catch((err) => {
+                if (err.response.status === 401) {
+                    refreshAccessToken(user, updatePendingSong, updatePendingSongFail)
+                } else {
+                    dispatch(updatePendingSongFail(err))
+                }
+            })
     }
 }
+
+const updatePendingSongStart = () => ({
+    type: playlistActionType.UPDATE_PENDING_SONG,
+    fetching: true
+})
+
+const updatePendingSongSuccess = (payload) => ({
+    type: playlistActionType.UPDATE_PENDING_SONG_SUCCESS,
+    fetching: false,
+    song: payload
+})
+
+const updatePendingSongFail = (error) => ({
+    type: playlistActionType.UPDATE_PENDING_SONG_FAIL,
+    error
+})
 const setCurrentPlaylist = (playlist) => ({
     type: playlistActionType.SET_CURRENT_PLAYLIST,
     playlist,

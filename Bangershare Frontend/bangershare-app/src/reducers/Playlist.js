@@ -40,6 +40,19 @@ const playlistReducer = (state = initialState, action) => {
                 }
             }
         }
+        case playlistActionType.UPDATE_PENDING_SONG_SUCCESS: {
+            const updatedSong = Object.assign({}, action.song)
+            const newSongs = state.currentPlaylist.songs.filter(song => {
+                return song.id !== updatedSong.id
+            })
+            return {
+                ...state,
+                currentPlaylist: {
+                    ...state.currentPlaylist,
+                    songs: [...newSongs, updatedSong]
+                }
+            }
+        }
         default:
             return { ...state };
     }

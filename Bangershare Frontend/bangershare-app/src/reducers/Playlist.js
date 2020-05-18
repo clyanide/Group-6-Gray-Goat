@@ -53,6 +53,18 @@ const playlistReducer = (state = initialState, action) => {
                 }
             }
         }
+        case playlistActionType.DELETE_SONG_SUCCESS: {
+            const newSongs = state.currentPlaylist.songs.filter(song => {
+                return song.id !== action.song.id
+            })
+            return {
+                ...state,
+                currentPlaylist: {
+                    ...state.currentPlaylist,
+                    songs: [...newSongs]
+                }
+            }
+        }
         default:
             return { ...state };
     }

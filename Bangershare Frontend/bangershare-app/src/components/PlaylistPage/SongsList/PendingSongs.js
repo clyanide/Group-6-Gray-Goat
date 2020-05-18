@@ -13,14 +13,11 @@ const PendingSongs = (props) => {
     }
 
     const handleDeleteSong = (song) => {
-        console.log(song)
-        // deleteSong(song)
+        deleteSong(song)
     }
 
     return (
-        <>
-            <CreateSongList songs={songs} onUpdateSong={handleUpdateSong} onDeleteSong={handleDeleteSong} />
-        </>
+        <CreateSongList songs={songs} onUpdateSong={handleUpdateSong} onDeleteSong={handleDeleteSong} />
     )
 
 }

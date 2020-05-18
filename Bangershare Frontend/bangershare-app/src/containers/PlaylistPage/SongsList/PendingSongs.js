@@ -1,11 +1,10 @@
 import { connect } from "react-redux";
-import { updatePendingSong } from "../../../actions/Playlists"
-import { deleteSong } from "../../../utility/API";
+import { updatePendingSong, deleteSongFromPlaylist } from "../../../actions/Playlists"
 import PendingSongs from "../../../components/PlaylistPage/SongsList/PendingSongs"
 
 const mapDispatchToProps = (dispatch) => ({
     updateSong: (song) => { dispatch(updatePendingSong(song)) },
-    deleteSong: (song) => { dispatch() }
+    deleteSong: (song) => { dispatch(deleteSongFromPlaylist(song)) }
 })
 
 export default connect(null, mapDispatchToProps)(PendingSongs);

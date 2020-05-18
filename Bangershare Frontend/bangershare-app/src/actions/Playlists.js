@@ -20,7 +20,10 @@ export const playlistActionType = {
     ADD_SONG_TO_PLAYLIST_FAIL: "ADD_SONG_TO_PLAYLIST_FAIL",
     UPDATE_PENDING_SONG: "UPDATE_PENDING_SONG",
     UPDATE_PENDING_SONG_SUCCESS: "UPDATE_PENDING_SONG_SUCCESS",
-    UPDATE_PENDING_SONG_FAIL: "UPDATE_PENDING_SONG_FAIL"
+    UPDATE_PENDING_SONG_FAIL: "UPDATE_PENDING_SONG_FAIL",
+    DELETE_SONG: "DELETE_SONG",
+    DELETE_SONG_SUCCESS: "DELETE_SONG_SUCCESS",
+    DELETE_SONG_FAIL: "DELETE_SONG_FAIL"
 };
 
 const getPlaylist = () => {
@@ -164,9 +167,47 @@ const updatePendingSongFail = (error) => ({
     type: playlistActionType.UPDATE_PENDING_SONG_FAIL,
     error
 })
+
+const deleteSongFromPlaylist = (song) => {
+    return (dispatch, getState) => {
+        dispatch(deleteSongFromPlaylistStart());
+        const state = getState();
+        const user = state.userReducer.currentUser;
+        const playlistId = state.playlistReducer.currentPlaylist.id
+        deleteSong(user.accessToken, song, playlistId)
+            .then((res) => {
+                console.log(res)
+                dispatch(deleteSongFromPlaylistSuccess(res.data))
+            })
+            .catch((err) => {
+                if (err.response.status === 401) {
+                    refreshAccessToken(user, deleteSongFromPlaylist, deleteSongFromPlaylistFail)
+                } else {
+                    dispatch(deleteSongFromPlaylistFail(err))
+                }
+            })
+    }
+}
+
+const deleteSongFromPlaylistStart = () => ({
+    type: playlistActionType.DELETE_SONG,
+    fetching: true
+})
+
+const deleteSongFromPlaylistSuccess = (payload) => ({
+    type: playlistActionType.DELETE_SONG_SUCCESS,
+    fetching: false,
+    song: payload
+})
+
+const deleteSongFromPlaylistFail = (error) => ({
+    type: playlistActionType.DELETE_SONG_FAIL,
+    error
+})
+
 const setCurrentPlaylist = (playlist) => ({
     type: playlistActionType.SET_CURRENT_PLAYLIST,
     playlist,
 })
 
-export { getPlaylist, createPlaylist, setCurrentPlaylist, addSongToPlaylist, updatePendingSong };
+export { getPlaylist, createPlaylist, setCurrentPlaylist, addSongToPlaylist, updatePendingSong, deleteSongFromPlaylist };

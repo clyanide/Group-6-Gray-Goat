@@ -4,9 +4,7 @@ import CreateSongList from "./CreateSongList"
 const Songs = (props) => {
     const { songs } = props;
     return (
-        <>
-            <CreateSongList songs={songs} />
-        </>
+        <CreateSongList songs={songs} />
     );
 }
 

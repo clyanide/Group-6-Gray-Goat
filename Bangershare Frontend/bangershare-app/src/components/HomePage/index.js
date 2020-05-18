@@ -29,21 +29,30 @@ const HomeScreen = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.history.push("/playlist")
-  }
+    props.history.push("/playlist");
+  };
 
   return (
     <div>
       <Greeting />
       {!isFetching ? (
         <>
-          <RecentPlaylists playlists={userPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
-          <MyPlaylists playlists={userPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
-          <Explore playlists={friendPlaylist} handleOnPlaylistClick={handleOnPlaylistClick} />
+          <RecentPlaylists
+            playlists={userPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
+          <MyPlaylists
+            playlists={userPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
+          <Explore
+            playlists={friendPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Button onClick={() => handleModal(true)}>Create Playlist</Button>
       <Button onClick={() => props.history.push("/friends")} />

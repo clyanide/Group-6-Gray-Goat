@@ -7,22 +7,20 @@ const FriendRequests = (props) => {
   return (
     <List link>
       {pendingFriends && pendingFriends.length > 0 ? (
-        <>
-          {pendingFriends.map((friend) => (
-            <>
-              <List.Item key={friend.receiverUsername}>
-                {friend.receiverUsername}
-              </List.Item>
-              <Button.Group>
-                <Button>Accept</Button>
-                <Button>Decline</Button>
-              </Button.Group>
-            </>
-          ))}
-        </>
+        pendingFriends.map((friend) => (
+          <>
+            <List.Item key={friend.receiverUsername}>
+              {friend.receiverUsername}
+            </List.Item>
+            <Button.Group>
+              <Button>Accept</Button>
+              <Button>Decline</Button>
+            </Button.Group>
+          </>
+        ))
       ) : (
-        <List.Item>No pending friends</List.Item>
-      )}
+          <List.Item>No pending friends</List.Item>
+        )}
     </List>
   );
 };

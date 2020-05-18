@@ -20,7 +20,9 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentPlaylist: (playlist) => {
     dispatch(setCurrentPlaylist(playlist));
   },
-  push: (url) => { dispatch(push(url)) }
+  push: (url) => {
+    dispatch(push(url));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

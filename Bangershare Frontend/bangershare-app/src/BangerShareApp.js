@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
-import AppHeader from "./containers/Header"
-import AppSideBar from "./containers/SideBar"
+import AppHeader from "./containers/Header";
+import AppSideBar from "./containers/SideBar";
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";
@@ -16,8 +16,8 @@ const BangerShareApp = () => {
   const [open, setOpen] = useState(false);
 
   const handleSetOpen = (bool) => {
-    setOpen(bool)
-  }
+    setOpen(bool);
+  };
 
   return (
     <ConnectedRouter history={history}>

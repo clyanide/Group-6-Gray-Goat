@@ -19,8 +19,8 @@ const FriendRequests = (props) => {
           </>
         ))
       ) : (
-          <List.Item>No pending friends</List.Item>
-        )}
+        <List.Item>No pending friends</List.Item>
+      )}
     </List>
   );
 };

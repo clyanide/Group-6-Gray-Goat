@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import HomePage from "../../components/HomePage";
-import { getPlaylist } from "../../actions/Playlists";
+import { getPlaylist, setCurrentPlaylist } from "../../actions/Playlists";
 import { getFriends } from "../../actions/Friends";
 
 const mapStateToProps = (state) => ({
@@ -15,6 +15,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   loadFriends: () => {
     dispatch(getFriends());
+  },
+  setCurrentPlaylist: (playlist) => {
+    dispatch(setCurrentPlaylist(playlist));
   },
 });
 

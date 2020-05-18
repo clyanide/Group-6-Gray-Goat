@@ -21,7 +21,7 @@ const responsive = {
   },
 };
 
-const createPlaylist = (playlists) => (
+const createPlaylist = (playlists, handleOnPlaylistClick) => (
   <>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -37,7 +37,7 @@ const createPlaylist = (playlists) => (
         itemClass="carousel-item-padding-40-px"
       >
         {playlists.map((playlist) => (
-          <Card raised={true}>
+          <Card raised={true} onClick={() => handleOnPlaylistClick(playlist)}>
             <Card.Content>
               <Card.Header>{playlist.name}</Card.Header>
               <Card.Description>Created by {playlist.creator}</Card.Description>
@@ -51,7 +51,7 @@ const createPlaylist = (playlists) => (
   </>
 );
 
-export const createFriendPlaylist = (playlists) => (
+export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
   <>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -69,7 +69,7 @@ export const createFriendPlaylist = (playlists) => (
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
             return playlist.playlistSongs.map((p) => (
-              <Card raised={true}>
+              <Card raised={true} onClick={() => handleOnPlaylistClick(p)}>
                 <Card.Content>
                   <Card.Header>{p.name}</Card.Header>
                   <Card.Description>Created by {p.creator}</Card.Description>
@@ -77,6 +77,7 @@ export const createFriendPlaylist = (playlists) => (
               </Card>
             ));
           }
+          return null;
         })}
       </Carousel>
     ) : (

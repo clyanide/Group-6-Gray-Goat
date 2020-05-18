@@ -18,6 +18,8 @@ const getFriends = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           dispatch(refreshAccessToken(user, getFriends, getFriendsFail));
+        } else {
+          dispatch(getFriendsFail(err));
         }
       });
   };

@@ -2,11 +2,11 @@ import React from "react";
 import createPlaylist from "./Playlist";
 
 const RecentPlaylists = (props) => {
-  const { playlists } = props;
+  const { playlists, handleOnPlaylistClick } = props;
   return (
     <div>
       <p>Recent Playlists</p>
-      {createPlaylist(playlists)}
+      {createPlaylist(playlists, handleOnPlaylistClick)}
     </div>
   );
 };

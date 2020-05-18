@@ -1,11 +1,12 @@
 import React from 'react';
-import { List, Button } from 'semantic-ui-react'
+import { List, Button, Popup } from 'semantic-ui-react'
 
 export const CreateSongList = (props) => {
-    const { songs, onUpdateSong, onDeleteSong } = props;
+    const { songs, onUpdateSong, onDeleteSong, isOwner } = props;
+
     return (
         <>
-            <List divided verticalAlign="middle">
+            <List divided verticalAlign="middle" link>
                 {songs.map(song => (
                     <List.Item>
                         <List.Content verticalAlign="middle">
@@ -21,7 +22,14 @@ export const CreateSongList = (props) => {
                                         <List.Item>
                                             {song.hearts}
                                             <Button circular size="mini" icon="heart" />
-                                            <Button circular size="mini" icon="ellipsis vertical" />
+                                            {isOwner ?
+                                                <Popup position="bottom right" on="click" trigger={<Button circular size="mini" icon="ellipsis vertical" />}>
+                                                    <Button.Group vertical>
+                                                        <Button negative onClick={() => onDeleteSong(song)}>Delete</Button>
+                                                        <Button>Edit</Button>
+                                                    </Button.Group>
+                                                </Popup>
+                                                : null}
                                         </List.Item>
                                     }
                                 </List>

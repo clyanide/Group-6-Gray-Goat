@@ -29,7 +29,7 @@ const HomeScreen = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.history.push("/playlist");
+    props.push("/playlist");
   };
 
   return (
@@ -55,7 +55,6 @@ const HomeScreen = (props) => {
       )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Button onClick={() => handleModal(true)}>Create Playlist</Button>
-      <Button onClick={() => props.history.push("/friends")} />
     </div>
   );
 };

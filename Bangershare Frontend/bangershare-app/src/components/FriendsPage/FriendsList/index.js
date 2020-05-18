@@ -6,11 +6,9 @@ const FriendsList = (props) => {
   return (
     <List link>
       {friends && friends.length > 0 ? (
-        <>
-          {friends.map((friend) => (
-            <List.Item key={friend.username}> {friend.username} </List.Item>
-          ))}
-        </>
+        friends.map((friend) => (
+          <List.Item key={friend.username}> {friend.username} </List.Item>
+        ))
       ) : (
         <List.Item>No pending friends</List.Item>
       )}

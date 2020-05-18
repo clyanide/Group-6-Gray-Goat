@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import SeekBar from "./SeekBar";
+
 class MusicPlayer extends Component {
   constructor(props) {
     super(props);
@@ -7,12 +9,13 @@ class MusicPlayer extends Component {
       deviceId: "",
       loggedIn: true,
       error: "",
-      trackName: "Track Name",
-      artistName: "Artist Name",
-      albumName: "Album Name",
+      trackName: "",
+      artistName: "",
+      albumName: "",
       playing: false,
       position: 0,
       duration: 0,
+      time: 0,
     };
 
     this.playerCheckInterval = null;
@@ -131,12 +134,18 @@ class MusicPlayer extends Component {
   }
 
   onPlayClick() {
+    console.log(this.state.duration);
     this.player.togglePlay();
   }
 
   onNextClick() {
     this.player.nextTrack();
   }
+
+  callbackFunction = (childData) => {
+    console.log(childData);
+    this.player.seek(childData * 1000);
+  };
 
   render() {
     const {
@@ -170,6 +179,13 @@ class MusicPlayer extends Component {
             </button>
             <button onClick={() => this.onNextClick()}>Next</button>
             <button onClick={() => this.playUri(uriArgs)}>Play from URI</button>
+            {this.state.trackName != "" ? (
+              <SeekBar
+                duration={60}
+                parentCallback={this.callbackFunction}
+                paused={!this.state.playing}
+              />
+            ) : null}
           </p>
         </div>
       </div>

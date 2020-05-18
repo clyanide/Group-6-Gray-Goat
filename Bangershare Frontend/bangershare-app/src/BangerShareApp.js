@@ -14,7 +14,7 @@ import YoutubePlayer from "./components/MusicPlayer/YoutubePlayer";
 const BangerShareApp = () => {
   return (
     <ConnectedRouter history={history}>
-      <Route path="/" component={YoutubePlayer} />
+      <Route path="/" component={SpotifyLoginPage} />
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/home" component={HomePage} />

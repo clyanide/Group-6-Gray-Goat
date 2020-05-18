@@ -67,7 +67,7 @@ class MusicPlayer extends Component {
       let { device_id } = data;
       console.log("Let the music play on!");
       await this.setState({ deviceId: device_id });
-      this.transferPlaybackHere();
+      // this.transferPlaybackHere();
     });
   }
 
@@ -96,20 +96,20 @@ class MusicPlayer extends Component {
     }
   }
 
-  transferPlaybackHere() {
-    const { deviceId, token } = this.state;
-    fetch("https://api.spotify.com/v1/me/player", {
-      method: "PUT",
-      headers: {
-        authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        device_ids: [deviceId],
-        play: true,
-      }),
-    });
-  }
+  // transferPlaybackHere() {
+  //   const { deviceId, token } = this.state;
+  //   fetch("https://api.spotify.com/v1/me/player", {
+  //     method: "PUT",
+  //     headers: {
+  //       authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify({
+  //       device_ids: [deviceId],
+  //       play: true,
+  //     }),
+  //   });
+  // }
 
   playUri = ({
     spotify_uri,

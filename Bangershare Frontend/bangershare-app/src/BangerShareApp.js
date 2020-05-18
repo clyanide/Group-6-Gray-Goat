@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import AppHeader from "./containers/Header"
-import AppSideBar from "./components/SideBar"
+import AppSideBar from "./containers/SideBar"
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";

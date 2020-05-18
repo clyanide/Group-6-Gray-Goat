@@ -5,22 +5,22 @@ import {
     Sidebar,
     List
 } from 'semantic-ui-react'
+import QueueMusicIcon from "@material-ui/icons/QueueMusic"
 import { Typography } from '@material-ui/core';
 
-const mockData = [
-    {
-        name: "test"
-    },
-    {
-        name: "hello"
-    },
-    {
-        name: "Yes"
-    }
-]
-
 const AppSideBar = (props) => {
-    const { open, onClose } = props;
+    const { open, onClose, userPlaylists, setCurrentPlaylist } = props;
+
+    const goTo = (link) => {
+        props.push(link)
+        onClose(false)
+    }
+
+    const handlePlaylistClick = (playlist) => {
+        setCurrentPlaylist(playlist)
+        goTo("/playlist")
+    }
+
     return (
         <Sidebar
             as={Menu}
@@ -31,26 +31,31 @@ const AppSideBar = (props) => {
             width="thin"
             vertical
             onHide={() => onClose(false)}>
-            <Menu.Item as="a">
+            <Menu.Item as="a" onClick={() => goTo("/home")}>
                 <Icon name='home' />
-                    Home
-                </Menu.Item>
+                Home
+            </Menu.Item>
             <Menu.Item as="a">
                 <Icon name='user' />
-                    Friends
-                </Menu.Item>
+                Profile
+            </Menu.Item>
+            <Menu.Item as="a" onClick={() => goTo("/friends")}>
+                <Icon name='group' />
+                Friends
+            </Menu.Item>
             <Menu.Item >
+                <QueueMusicIcon />
                 <Menu.Header>
                     Your Playlists
                 </Menu.Header>
                 <List>
-                    {mockData.map(data => (
-                        <List.Item as="a" onClick={() => console.log(data)}>
+                    {(userPlaylists && userPlaylists.length > 0) ? userPlaylists.map(playlist => (
+                        <List.Item as="a" onClick={() => handlePlaylistClick(playlist)}>
                             <Typography as="a">
-                                {data.name}
+                                {playlist.name}
                             </Typography>
                         </List.Item>
-                    ))}
+                    )) : <p>You have no playlist</p>}
                 </List>
             </Menu.Item>
         </Sidebar>

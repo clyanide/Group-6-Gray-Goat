@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 import HomePage from "../../components/HomePage";
 import { getPlaylist, setCurrentPlaylist } from "../../actions/Playlists";
 import { getFriends } from "../../actions/Friends";
+import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
   isFetching: state.bangerShareReducer.fetching,
@@ -19,6 +20,7 @@ const mapDispatchToProps = (dispatch) => ({
   setCurrentPlaylist: (playlist) => {
     dispatch(setCurrentPlaylist(playlist));
   },
+  push: (url) => { dispatch(push(url)) }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

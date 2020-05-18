@@ -8,7 +8,7 @@ import { Typography, IconButton } from '@material-ui/core';
 import MenuIcon from '@material-ui/icons/Menu';
 
 const AppHeader = (props) => {
-    const { onMenuClick, currentUser, currentPath } = props;
+    const { onMenuClick, currentUser, currentPath, isFetching } = props;
 
     return (
         <AppBar position="static" color="black">
@@ -19,7 +19,7 @@ const AppHeader = (props) => {
                     </Typography>
                     :
                     <>
-                        <IconButton onClick={() => onMenuClick(true)} edge="start" style={{ marginRight: "1%" }}><MenuIcon /></IconButton>
+                        <IconButton disabled={isFetching} onClick={() => onMenuClick(true)} edge="start" style={{ marginRight: "1%" }}><MenuIcon /></IconButton>
                         <Typography variant="h4" style={{ flexGrow: 1 }}>
                             <Link to="/home" style={{ color: "black" }}>
                                 BangerShare

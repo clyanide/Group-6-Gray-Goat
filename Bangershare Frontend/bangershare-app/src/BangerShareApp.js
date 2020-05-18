@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
+import AppHeader from "./containers/Header"
 import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";
@@ -12,6 +13,7 @@ import { ConnectedRouter } from "connected-react-router";
 const BangerShareApp = () => {
   return (
     <ConnectedRouter history={history}>
+      <AppHeader />
       <Route path="/" component={RequireLogin} />
       <Switch>
         <Route path="/login" component={LoginPage} />

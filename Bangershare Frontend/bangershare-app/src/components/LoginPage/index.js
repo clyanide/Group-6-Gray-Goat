@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button } from "semantic-ui-react";
+import { Button, } from "semantic-ui-react";
 import LoginForm from "../../containers/LoginPage/LoginForm";
 
 const LoginPage = () => {

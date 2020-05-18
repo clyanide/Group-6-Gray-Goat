@@ -1,13 +1,12 @@
 import React from 'react';
-import { createSongList } from "./"
+import CreateSongList from "./CreateSongList"
 
 const Songs = (props) => {
     const { songs } = props;
+    console.warn(songs)
     return (
         <>
-            {
-                createSongList(songs)
-            }
+            <CreateSongList songs={songs} />
         </>
     );
 }

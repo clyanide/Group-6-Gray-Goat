@@ -1,13 +1,24 @@
 import React from 'react';
-import { createSongList } from "./"
+import CreateSongList from "./CreateSongList"
 
 const PendingSongs = (props) => {
-    const { songs } = props
+    const { songs, deleteSong, updateSong } = props
+
+    const handleUpdateSong = (song, key, value) => {
+        const updatedSong = {
+            ...song,
+            [key]: value
+        }
+        // updateSong(updatedSong);
+    }
+
+    const handleDeleteSong = (song) => {
+        // deleteSong(song)
+    }
+
     return (
         <>
-            {
-                createSongList(songs)
-            }
+            <CreateSongList songs={songs} onUpdateSong={handleUpdateSong} onDeleteSong={handleDeleteSong} />
         </>
     )
 

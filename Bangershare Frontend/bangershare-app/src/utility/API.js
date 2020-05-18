@@ -36,8 +36,7 @@ export const getUserPlaylists = (accessToken) => {
 };
 
 export const postPlaylist = (accessToken, name) => {
-  return axios.post(
-    baseURL + "Playlist",
+  return axios.post(baseURL + "Playlist",
     {
       id: 0,
       name,
@@ -49,6 +48,50 @@ export const postPlaylist = (accessToken, name) => {
     }
   );
 };
+
+export const postSongToPlaylist = (accessToken, song, playlistId) => {
+  return axios.post(baseURL + "Song/?playlistId=" + playlistId,
+    {
+      id: 0,
+      isPending: true,
+      hearts: 0,
+      name: song.name,
+      artist: song.artist,
+      link: song.link,
+      songType: song.songType
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+}
+
+export const updateSong = (accessToken, song) => {
+  return axios.put(baseURL + "Song/" + song.id,
+    {
+      id: song.id,
+      isPending: song.isPending,
+      hearts: song.hearts,
+      name: song.name,
+      artist: song.artist,
+      link: song.link,
+      songType: song.songType
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    })
+}
+
+export const deleteSong = (accessToken, song, playlistId) => {
+  return axios.delete(baseURL + "Song/" + song.id + "?playlistId=" + playlistId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+}
 
 export const refreshAccessToken = (user, callingFunction, failingFunction) => {
   return (dispatch) => {

@@ -19,13 +19,9 @@ const HomeScreen = (props) => {
   const [modalOpen, setModal] = useState(false);
 
   useEffect(() => {
-    if (userPlaylist === undefined || (userPlaylist && userPlaylist.length === 0)) {
-      getUserPlaylists();
-    }
-    if (friendPlaylist === undefined || (friendPlaylist && friendPlaylist.length === 0)) {
-      loadFriends();
-    }
-  }, [getUserPlaylists, loadFriends, userPlaylist, friendPlaylist]);
+    getUserPlaylists();
+    loadFriends();
+  }, [getUserPlaylists, loadFriends]);
 
   const handleModal = (bool) => {
     setModal(bool);

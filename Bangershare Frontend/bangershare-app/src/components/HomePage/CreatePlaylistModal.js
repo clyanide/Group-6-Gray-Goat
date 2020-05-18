@@ -16,7 +16,7 @@ const CreatePlaylistModal = (props) => {
   };
 
   return (
-    <Modal open={open}>
+    <Modal open={open} onClose={() => handleModal(false)}>
       <Modal.Header>Give your playlist a name.</Modal.Header>
       <Modal.Content>
         <Input

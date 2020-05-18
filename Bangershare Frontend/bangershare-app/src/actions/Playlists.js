@@ -2,6 +2,9 @@ import {
     postPlaylist,
     getUserPlaylists,
     refreshAccessToken,
+    postSongToPlaylist,
+    updateSong,
+    deleteSong,
 } from "../utility/API";
 
 export const playlistActionType = {
@@ -12,6 +15,9 @@ export const playlistActionType = {
     CREATE_PLAYLIST_SUCCESS: "CREATE_PLAYLIST_SUCCESS",
     CREATE_PLAYLIST_FAIL: "CREATE_PLAYLIST_FAIL",
     SET_CURRENT_PLAYLIST: "SET_CURRENT_PLAYLIST",
+    ADD_SONG_TO_PLAYLIST: "ADD_SONG_TO_PLAYLIST",
+    ADD_SONG_TO_PLAYLIST_SUCCESS: "ADD_SONG_TO_PLAYLIST_SUCCESS",
+    ADD_SONG_TO_PLAYLIST_FAIL: "ADD_SONG_TO_PLAYLIST_FAIL",
 };
 
 const getPlaylist = () => {
@@ -26,30 +32,12 @@ const getPlaylist = () => {
             .catch((err) => {
                 if (err.response.status === 401) {
                     refreshAccessToken(user, getPlaylist, getPlaylistFail);
+                } else {
+                    dispatch(getPlaylistFail(err))
                 }
             });
     };
 };
-
-const createPlaylist = (name) => {
-    return (dispatch, getState) => {
-        dispatch(createPlaylistStart());
-        const state = getState();
-        const user = state.userReducer.currentUser;
-        postPlaylist(user.accessToken, name)
-            .then((res) => {
-                dispatch(createPlaylistSuccess(res.data, user.name));
-            })
-            .catch((err) => {
-                refreshAccessToken(user, createPlaylist, createPlaylistFail);
-            });
-    };
-};
-
-const setCurrentPlaylist = (playlist) => ({
-    type: playlistActionType.SET_CURRENT_PLAYLIST,
-    playlist,
-})
 
 const getPlaylistStart = () => ({
     type: playlistActionType.GET_PLAYLIST,
@@ -66,6 +54,25 @@ const getPlaylistFail = (error) => ({
     type: playlistActionType.GET_PLAYLIST_FAIL,
     error,
 });
+
+const createPlaylist = (name) => {
+    return (dispatch, getState) => {
+        dispatch(createPlaylistStart());
+        const state = getState();
+        const user = state.userReducer.currentUser;
+        postPlaylist(user.accessToken, name)
+            .then((res) => {
+                dispatch(createPlaylistSuccess(res.data, user.name));
+            })
+            .catch((err) => {
+                if (err.response.status === 401) {
+                    refreshAccessToken(user, createPlaylist, createPlaylistFail);
+                } else {
+                    dispatch(createPlaylistFail(err))
+                }
+            });
+    };
+};
 
 const createPlaylistStart = () => ({
     type: playlistActionType.CREATE_PLAYLIST,
@@ -84,4 +91,53 @@ const createPlaylistFail = (error) => ({
     error,
 });
 
-export { getPlaylist, createPlaylist, setCurrentPlaylist };
+const addSongToPlaylist = (song) => {
+    return (dispatch, getState) => {
+        dispatch(addSongToPlaylistStart())
+        const state = getState();
+        const user = state.userReducer.currentUser;
+        const playlistId = state.playlistReducer.currentPlaylist.id
+        postSongToPlaylist(user.accessToken, song, playlistId)
+            .then((res) => {
+                console.log(res)
+                dispatch(addSongToPlaylistSuccess(res.data))
+            })
+            .catch((err) => {
+                if (err.response.status === 401) {
+                    refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail)
+                } else {
+                    dispatch(addSongToPlaylistFail(err))
+                }
+            })
+    }
+}
+
+const addSongToPlaylistStart = () => ({
+    type: playlistActionType.ADD_SONG_TO_PLAYLIST,
+    fetching: true
+})
+
+const addSongToPlaylistSuccess = (payload) => ({
+    type: playlistActionType.ADD_SONG_TO_PLAYLIST_SUCCESS,
+    fetching: false,
+    song: payload
+})
+
+const addSongToPlaylistFail = (error) => ({
+    type: playlistActionType.ADD_SONG_TO_PLAYLIST_FAIL,
+    error,
+})
+
+const updatePendingSong = (song) => {
+    return (dispatch, getState) => {
+        const state = getState();
+        const user = state.userReducer.currentUser;
+        const playlistId = state.playlistReducer.currentPlaylist.id
+    }
+}
+const setCurrentPlaylist = (playlist) => ({
+    type: playlistActionType.SET_CURRENT_PLAYLIST,
+    playlist,
+})
+
+export { getPlaylist, createPlaylist, setCurrentPlaylist, addSongToPlaylist, updatePendingSong };

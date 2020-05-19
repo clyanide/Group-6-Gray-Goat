@@ -66,6 +66,7 @@ namespace Bangershare_Backend
             services.AddScoped<SongService>();
             services.AddScoped<FriendService>();
             services.AddScoped<SpotifyAPIService>();
+            services.AddScoped<YoutubeAPIService>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<UserPlaylist>, UserPlaylistRepository>();
@@ -82,6 +83,11 @@ namespace Bangershare_Backend
             var spoitfyConfig = new SpotifyConfig();
             Configuration.Bind("Spotify", spoitfyConfig);
             services.AddSingleton(spoitfyConfig);
+
+            var youtubeConfig = new YoutubeConfig();
+            Configuration.Bind("Youtube", youtubeConfig);
+            services.AddSingleton(youtubeConfig);
+
             services.Configure<TokenOptions>(Configuration.GetSection("TokenOptions"));
             var tokenOptions = Configuration.GetSection("TokenOptions").Get<TokenOptions>();
 

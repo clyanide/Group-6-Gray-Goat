@@ -33,12 +33,12 @@ namespace Bangershare_Backend.Models
 
                 entity.HasOne(e => e.Sender)
                     .WithMany(e => e.Receieved)
-                    .HasForeignKey(e => e.SenderId)
+                    .HasForeignKey(e => e.ReceiverId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.HasOne(e => e.Receiver)
                     .WithMany(e => e.Sent)
-                    .HasForeignKey(e => e.ReceiverId)
+                    .HasForeignKey(e => e.SenderId)
                     .OnDelete(DeleteBehavior.ClientSetNull);
 
                 entity.Property(e => e.FriendType)

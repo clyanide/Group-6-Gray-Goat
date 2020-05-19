@@ -14,18 +14,21 @@ namespace Bangershare_Backend.Services
         private readonly SongRepository _songRepository;
         private readonly PlaylistService _playlistService;
         private readonly SpotifyAPIService _spotifyAPIService;
+        private readonly YoutubeAPIService _youtubeAPIService;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
         private readonly IUnitOfWork _unitOfWork;
         
         public SongService(SongRepository songRepository,
                            PlaylistService playlistService,
                            SpotifyAPIService spotifyAPIService,
+                           YoutubeAPIService youtubeAPIService,
                            IRepository<UserPlaylist> userPlaylistRepository,
                            IUnitOfWork unitOfWork) : base(songRepository, unitOfWork)
         {
             _songRepository = songRepository;
             _playlistService = playlistService;
             _spotifyAPIService = spotifyAPIService;
+            _youtubeAPIService = youtubeAPIService;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
         }
@@ -42,6 +45,17 @@ namespace Bangershare_Backend.Services
             return await AddSongToPlaylist(userId, playlistId, result.Resource);
         }
 
+        public async Task<BaseResponse<Song>> AddYoutubeVideoToPlaylist(int userId, int playlistId, string youtubeId, Song song)
+        {
+            var result = await _youtubeAPIService.getYoutubeVideoInfo(youtubeId, song);
+
+            if (!result.Success)
+            {
+                return result;
+            }
+
+            return await AddSongToPlaylist(userId, playlistId, result.Resource);
+        }
         public async Task<BaseResponse<Song>> AddSongToPlaylist(int userId, int playlistId, Song song)
         {
             var playlist = await _playlistService.GetByKeys(playlistId);

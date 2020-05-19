@@ -14,7 +14,6 @@ class SeekBar extends Component {
     return { m: minutes, s: seconds };
   };
   render() {
-    const { className, style, media } = this.props;
     return (
       <div>
         <Slider

@@ -5,7 +5,6 @@ class SpotifyPlayer extends Component {
   constructor(props) {
     super(props);
 
-    const { spotifyToken } = this.props;
     this.state = {
       token: this.props.spotifyToken,
       deviceId: "",
@@ -25,8 +24,6 @@ class SpotifyPlayer extends Component {
     if (this.state.token !== "") {
       this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
     }
-
-    console.log(this.props.spotifyToken);
   }
 
   checkForPlayer() {
@@ -142,8 +139,6 @@ class SpotifyPlayer extends Component {
   }
 
   onPlayClick() {
-    const playing = this.state.playing;
-    this.props.callbackFromParent(playing);
     this.player.togglePlay();
   }
 
@@ -152,23 +147,13 @@ class SpotifyPlayer extends Component {
   }
 
   seekbarCallback = (childData) => {
-    if (this.state.trackName != "") {
+    if (this.state.trackName !== "") {
       this.player.seek(childData * 1000);
     }
   };
 
   render() {
-    const {
-      token,
-      loggedIn,
-      artistName,
-      trackName,
-      albumName,
-      error,
-      position,
-      duration,
-      playing,
-    } = this.state;
+    const { artistName, trackName, albumName, error, playing } = this.state;
 
     return (
       <div className="App">
@@ -184,7 +169,7 @@ class SpotifyPlayer extends Component {
               {playing ? "Pause" : "Play"}
             </button>
             <button>Next</button>
-            {this.state.trackName != "" ? (
+            {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}
                 parentCallback={this.seekbarCallback}

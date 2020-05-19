@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import Slider from "@material-ui/core/Slider";
 
 const convertToTimestamp = (time) => {
@@ -26,7 +26,7 @@ const SeekBar = (props) => {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [props.paused, counter]);
+  }, [props.paused, counter, props.duration]);
 
   return (
     <div>

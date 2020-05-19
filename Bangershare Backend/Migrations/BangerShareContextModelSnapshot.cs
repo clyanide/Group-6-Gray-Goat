@@ -61,6 +61,9 @@ namespace Bangershare_Backend.Migrations
                         .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
                         .HasMaxLength(150);
 
+                    b.Property<int>("Duration")
+                        .HasColumnType("int");
+
                     b.Property<int>("Hearts")
                         .HasColumnType("int");
 

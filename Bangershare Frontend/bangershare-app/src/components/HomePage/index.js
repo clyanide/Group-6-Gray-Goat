@@ -4,7 +4,8 @@ import Greeting from "../../containers/HomePage/Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
-import { Button } from "semantic-ui-react";
+import { Fab } from "@material-ui/core";
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 const HomeScreen = (props) => {
   const {
@@ -13,34 +14,50 @@ const HomeScreen = (props) => {
     userPlaylist,
     loadFriends,
     friendPlaylist,
+    setCurrentPlaylist,
   } = props;
 
   const [modalOpen, setModal] = useState(false);
-
-  const handleModal = (bool) => {
-    setModal(bool);
-  };
 
   useEffect(() => {
     getUserPlaylists();
     loadFriends();
   }, [getUserPlaylists, loadFriends]);
 
+  const handleModal = (bool) => {
+    setModal(bool);
+  };
+
+  const handleOnPlaylistClick = (playlist) => {
+    setCurrentPlaylist(playlist);
+    props.push("/playlist");
+  };
+
   return (
     <div>
       <Greeting />
       {!isFetching ? (
         <>
-          <RecentPlaylists playlists={userPlaylist} />
-          <MyPlaylists playlists={userPlaylist} />
-          <Explore playlists={friendPlaylist} />
+          <RecentPlaylists
+            playlists={userPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
+          <MyPlaylists
+            playlists={userPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
+          <Explore
+            playlists={friendPlaylist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+          />
         </>
       ) : (
         <p>Loading</p>
       )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Button onClick={() => handleModal(true)}>Create Playlist</Button>
-      <Button onClick={() => props.history.push("/friends")} />
+      <Fab onClick={() => handleModal(true)}>
+        <PlaylistAddIcon />
+      </Fab>
     </div>
   );
 };

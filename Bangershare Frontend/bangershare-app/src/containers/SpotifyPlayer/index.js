@@ -2,7 +2,6 @@ import { connect } from "react-redux";
 import SpotifyPlayer from "../../components/MusicPlayer/SpotifyPlayer";
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     spotifyToken: state.spotifyTokenReducer.token,
   };

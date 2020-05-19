@@ -26,6 +26,7 @@ namespace Bangershare_Backend.Models
         public string Artist { get; set; }
         [MaxLength(300)]
         public string Link { get; set; }
+        public int Duration { get; set; }
         public SongType SongType { get; set; }
         public virtual Playlist Playlist { get; set; }
         public int PlaylistId { get; set; }

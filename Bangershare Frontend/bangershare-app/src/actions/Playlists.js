@@ -2,6 +2,10 @@ import {
   postPlaylist,
   getUserPlaylists,
   refreshAccessToken,
+  postSongToPlaylist,
+  updateSong,
+  deleteSong,
+  getPlaylistForUsername,
 } from "../utility/API";
 
 export const playlistActionType = {
@@ -11,6 +15,19 @@ export const playlistActionType = {
   CREATE_PLAYLIST: "CREATE_PLAYLIST",
   CREATE_PLAYLIST_SUCCESS: "CREATE_PLAYLIST_SUCCESS",
   CREATE_PLAYLIST_FAIL: "CREATE_PLAYLIST_FAIL",
+  SET_CURRENT_PLAYLIST: "SET_CURRENT_PLAYLIST",
+  ADD_SONG_TO_PLAYLIST: "ADD_SONG_TO_PLAYLIST",
+  ADD_SONG_TO_PLAYLIST_SUCCESS: "ADD_SONG_TO_PLAYLIST_SUCCESS",
+  ADD_SONG_TO_PLAYLIST_FAIL: "ADD_SONG_TO_PLAYLIST_FAIL",
+  UPDATE_PENDING_SONG: "UPDATE_PENDING_SONG",
+  UPDATE_PENDING_SONG_SUCCESS: "UPDATE_PENDING_SONG_SUCCESS",
+  UPDATE_PENDING_SONG_FAIL: "UPDATE_PENDING_SONG_FAIL",
+  DELETE_SONG: "DELETE_SONG",
+  DELETE_SONG_SUCCESS: "DELETE_SONG_SUCCESS",
+  DELETE_SONG_FAIL: "DELETE_SONG_FAIL",
+  GET_PROFILE_PLAYLIST: "GET_PLAYLIST",
+  GET_PROFILE_PLAYLIST_SUCCESS: "GET_PROFILE_PLAYLIST_SUCCESS",
+  GET_PROFILE_PLAYLIST_FAIL: "GET_PROFILE_PLAYLIST_FAIL",
 };
 
 const getPlaylist = () => {
@@ -25,22 +42,9 @@ const getPlaylist = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           refreshAccessToken(user, getPlaylist, getPlaylistFail);
+        } else {
+          dispatch(getPlaylistFail(err.message));
         }
-      });
-  };
-};
-
-const createPlaylist = (name) => {
-  return (dispatch, getState) => {
-    dispatch(createPlaylistStart());
-    const state = getState();
-    const user = state.userReducer.currentUser;
-    postPlaylist(user.accessToken, name)
-      .then((res) => {
-        dispatch(createPlaylistSuccess(res.data, user.name));
-      })
-      .catch((err) => {
-        refreshAccessToken(user, createPlaylist, createPlaylistFail);
       });
   };
 };
@@ -61,6 +65,25 @@ const getPlaylistFail = (error) => ({
   error,
 });
 
+const createPlaylist = (name) => {
+  return (dispatch, getState) => {
+    dispatch(createPlaylistStart());
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    postPlaylist(user.accessToken, name)
+      .then((res) => {
+        dispatch(createPlaylistSuccess(res.data, user.name));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(user, createPlaylist, createPlaylistFail);
+        } else {
+          dispatch(createPlaylistFail(err.message));
+        }
+      });
+  };
+};
+
 const createPlaylistStart = () => ({
   type: playlistActionType.CREATE_PLAYLIST,
   fetching: true,
@@ -78,4 +101,163 @@ const createPlaylistFail = (error) => ({
   error,
 });
 
-export { getPlaylist, createPlaylist };
+const addSongToPlaylist = (song) => {
+  return (dispatch, getState) => {
+    dispatch(addSongToPlaylistStart());
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    const playlistId = state.playlistReducer.currentPlaylist.id;
+    postSongToPlaylist(user.accessToken, song, playlistId)
+      .then((res) => {
+        dispatch(addSongToPlaylistSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail);
+        } else {
+          dispatch(addSongToPlaylistFail(err.message));
+        }
+      });
+  };
+};
+
+const addSongToPlaylistStart = () => ({
+  type: playlistActionType.ADD_SONG_TO_PLAYLIST,
+  fetching: true,
+});
+
+const addSongToPlaylistSuccess = (payload) => ({
+  type: playlistActionType.ADD_SONG_TO_PLAYLIST_SUCCESS,
+  fetching: false,
+  song: payload,
+});
+
+const addSongToPlaylistFail = (error) => ({
+  type: playlistActionType.ADD_SONG_TO_PLAYLIST_FAIL,
+  error,
+});
+
+const updatePendingSong = (song) => {
+  return (dispatch, getState) => {
+    dispatch(updatePendingSongStart());
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    updateSong(user.accessToken, song)
+      .then((res) => {
+        dispatch(updatePendingSongSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(user, updatePendingSong, updatePendingSongFail);
+        } else {
+          dispatch(updatePendingSongFail(err.message));
+        }
+      });
+  };
+};
+
+const updatePendingSongStart = () => ({
+  type: playlistActionType.UPDATE_PENDING_SONG,
+  fetching: true,
+});
+
+const updatePendingSongSuccess = (payload) => ({
+  type: playlistActionType.UPDATE_PENDING_SONG_SUCCESS,
+  fetching: false,
+  song: payload,
+});
+
+const updatePendingSongFail = (error) => ({
+  type: playlistActionType.UPDATE_PENDING_SONG_FAIL,
+  error,
+});
+
+const deleteSongFromPlaylist = (song) => {
+  return (dispatch, getState) => {
+    dispatch(deleteSongFromPlaylistStart());
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    const playlistId = state.playlistReducer.currentPlaylist.id;
+    deleteSong(user.accessToken, song, playlistId)
+      .then((res) => {
+        dispatch(deleteSongFromPlaylistSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(
+            user,
+            deleteSongFromPlaylist,
+            deleteSongFromPlaylistFail
+          );
+        } else {
+          dispatch(deleteSongFromPlaylistFail(err.message));
+        }
+      });
+  };
+};
+
+const deleteSongFromPlaylistStart = () => ({
+  type: playlistActionType.DELETE_SONG,
+  fetching: true,
+});
+
+const deleteSongFromPlaylistSuccess = (payload) => ({
+  type: playlistActionType.DELETE_SONG_SUCCESS,
+  fetching: false,
+  song: payload,
+});
+
+const deleteSongFromPlaylistFail = (error) => ({
+  type: playlistActionType.DELETE_SONG_FAIL,
+  error,
+});
+
+const setCurrentPlaylist = (playlist) => ({
+  type: playlistActionType.SET_CURRENT_PLAYLIST,
+  playlist,
+});
+
+const getPlaylistForProfile = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    const profileUser = state.userReducer.userProfile;
+    getPlaylistForUsername(user.accessToken, profileUser)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getPlaylistForProfileSucces(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(
+            user,
+            getPlaylistForProfile,
+            getPlaylistForProfileFail
+          );
+        } else {
+          dispatch(getPlaylistForProfileFail(err.message));
+        }
+      });
+  };
+};
+
+const getPlaylistForProfileSucces = (payload) => ({
+  type: playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS,
+  fetching: false,
+  profilePlaylist: payload,
+});
+
+const getPlaylistForProfileFail = (error) => ({
+  type: playlistActionType.GET_PROFILE_PLAYLIST_FAIL,
+  error,
+});
+
+export {
+  getPlaylist,
+  createPlaylist,
+  setCurrentPlaylist,
+  addSongToPlaylist,
+  updatePendingSong,
+  deleteSongFromPlaylist,
+  getPlaylistForProfile,
+};

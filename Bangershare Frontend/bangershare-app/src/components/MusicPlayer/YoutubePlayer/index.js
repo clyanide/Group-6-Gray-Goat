@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import { Media, Player, controls, withMediaProps } from "react-media-player";
+import { Media, Player, controls } from "react-media-player";
 import SeekBar from "./SeekBar";
 
-const { PlayPause, MuteUnmute } = controls;
+const { PlayPause } = controls;
 
 class YoutubePlayer extends Component {
   render() {
@@ -12,7 +12,6 @@ class YoutubePlayer extends Component {
           <div>
             <Player
               style={{ width: 0, height: 0 }}
-              ref={this.ref}
               src="https://www.youtube.com/watch?v=nPcDlQaYoDw"
               autoPlay={true}
             />

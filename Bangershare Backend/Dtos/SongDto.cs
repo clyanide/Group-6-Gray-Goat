@@ -14,6 +14,7 @@ namespace Bangershare_Backend.Dtos
         public string Name { get; set; }
         public string Artist { get; set; }
         public string Link { get; set; }
+        public int Duration { get; set; }
         public SongType SongType { get; set; }
     }
 }

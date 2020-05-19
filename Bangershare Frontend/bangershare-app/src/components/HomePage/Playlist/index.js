@@ -38,14 +38,15 @@ const createPlaylist = (playlists, handleOnPlaylistClick) => (
         infinite={true}
         keyBoardControl={true}
         containerClass="carousel-container"
+        itemClass="carousel-item-padding-40-px"
       >
         {playlists.map((playlist) =>
           playlistCard(playlist, handleOnPlaylistClick)
         )}
       </Carousel>
     ) : (
-      <div>There seems to be no playlists</div>
-    )}
+        <div>There seems to be no playlists</div>
+      )}
   </Grid>
 );
 
@@ -71,8 +72,8 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
         })}
       </Carousel>
     ) : (
-      <div>You have no friends</div>
-    )}
+        <div>You have no friends</div>
+      )}
   </Grid>
 );
 

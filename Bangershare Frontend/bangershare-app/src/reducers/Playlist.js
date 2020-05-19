@@ -1,4 +1,5 @@
 import { playlistActionType } from "./../actions/Playlists";
+import { songActionType } from "./../actions/Song";
 
 const initialState = {
   userPlaylist: [],
@@ -31,7 +32,7 @@ const playlistReducer = (state = initialState, action) => {
         ...state,
         currentPlaylist: action.playlist,
       };
-    case playlistActionType.ADD_SONG_TO_PLAYLIST_SUCCESS: {
+    case songActionType.ADD_SONG_TO_PLAYLIST_SUCCESS: {
       const song = Object.assign({}, action.song);
       return {
         ...state,
@@ -41,7 +42,7 @@ const playlistReducer = (state = initialState, action) => {
         },
       };
     }
-    case playlistActionType.UPDATE_PENDING_SONG_SUCCESS: {
+    case songActionType.UPDATE_PENDING_SONG_SUCCESS: {
       const updatedSong = Object.assign({}, action.song);
       const newSongs = state.currentPlaylist.songs.filter((song) => {
         return song.id !== updatedSong.id;
@@ -54,7 +55,7 @@ const playlistReducer = (state = initialState, action) => {
         },
       };
     }
-    case playlistActionType.DELETE_SONG_SUCCESS: {
+    case songActionType.DELETE_SONG_SUCCESS: {
       const newSongs = state.currentPlaylist.songs.filter((song) => {
         return song.id !== action.song.id;
       });

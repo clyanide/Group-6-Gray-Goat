@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { deleteSongFromPlaylist } from "../../../actions/Playlists";
+import { deleteSongFromPlaylist } from "../../../actions/Song";
 import Songs from "../../../components/PlaylistPage/SongsList/Songs";
 
 const mapDispatchToProps = (dispatch) => ({

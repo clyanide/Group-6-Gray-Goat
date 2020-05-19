@@ -2,6 +2,7 @@ import { playlistActionType } from "./../actions/Playlists";
 
 const initialState = {
   userPlaylist: [],
+  profilePlaylist: [],
   currentPlaylist: {
     id: 0,
     name: "",

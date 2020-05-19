@@ -5,6 +5,7 @@ import {
   postSongToPlaylist,
   updateSong,
   deleteSong,
+  getPlaylistForUsername
 } from "../utility/API";
 
 export const playlistActionType = {
@@ -24,6 +25,9 @@ export const playlistActionType = {
   DELETE_SONG: "DELETE_SONG",
   DELETE_SONG_SUCCESS: "DELETE_SONG_SUCCESS",
   DELETE_SONG_FAIL: "DELETE_SONG_FAIL",
+  GET_PROFILE_PLAYLIST: "GET_PLAYLIST",
+  GET_PROFILE_PLAYLIST_SUCCESS: "GET_PROFILE_PLAYLIST_SUCCESS",
+  GET_PROFILE_PLAYLIST_FAIL: "GET_PROFILE_PLAYLIST_FAIL",
 };
 
 const getPlaylist = () => {
@@ -39,7 +43,7 @@ const getPlaylist = () => {
         if (err.response.status === 401) {
           refreshAccessToken(user, getPlaylist, getPlaylistFail);
         } else {
-          dispatch(getPlaylistFail(err));
+          dispatch(getPlaylistFail(err.message));
         }
       });
   };
@@ -74,7 +78,7 @@ const createPlaylist = (name) => {
         if (err.response.status === 401) {
           refreshAccessToken(user, createPlaylist, createPlaylistFail);
         } else {
-          dispatch(createPlaylistFail(err));
+          dispatch(createPlaylistFail(err.message));
         }
       });
   };
@@ -111,7 +115,7 @@ const addSongToPlaylist = (song) => {
         if (err.response.status === 401) {
           refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail);
         } else {
-          dispatch(addSongToPlaylistFail(err));
+          dispatch(addSongToPlaylistFail(err.message));
         }
       });
   };
@@ -146,7 +150,7 @@ const updatePendingSong = (song) => {
         if (err.response.status === 401) {
           refreshAccessToken(user, updatePendingSong, updatePendingSongFail);
         } else {
-          dispatch(updatePendingSongFail(err));
+          dispatch(updatePendingSongFail(err.message));
         }
       });
   };
@@ -176,7 +180,6 @@ const deleteSongFromPlaylist = (song) => {
     const playlistId = state.playlistReducer.currentPlaylist.id;
     deleteSong(user.accessToken, song, playlistId)
       .then((res) => {
-        console.log(res);
         dispatch(deleteSongFromPlaylistSuccess(res.data));
       })
       .catch((err) => {
@@ -187,7 +190,7 @@ const deleteSongFromPlaylist = (song) => {
             deleteSongFromPlaylistFail
           );
         } else {
-          dispatch(deleteSongFromPlaylistFail(err));
+          dispatch(deleteSongFromPlaylistFail(err.message));
         }
       });
   };
@@ -214,6 +217,37 @@ const setCurrentPlaylist = (playlist) => ({
   playlist,
 });
 
+const getPlaylistForProfile = () => {
+  return (dispatch, getState) => {
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    const profileUser = state.userReducer.userProfile;
+    getPlaylistForUsername(user.accessToken, profileUser)
+      .then((res) => {
+        console.log(res.data);
+        dispatch(getPlaylistForProfileSucces(res.data))
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(user, getPlaylistForProfile, getPlaylistForProfileFail)
+        } else {
+          dispatch(getPlaylistForProfileFail(err.message))
+        }
+      })
+  }
+}
+
+const getPlaylistForProfileSucces = (payload) => ({
+  type: playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS,
+  fetching: false,
+  profilePlaylist: payload
+})
+
+const getPlaylistForProfileFail = (error) => ({
+  type: playlistActionType.GET_PROFILE_PLAYLIST_FAIL,
+  error
+})
+
 export {
   getPlaylist,
   createPlaylist,
@@ -221,4 +255,5 @@ export {
   addSongToPlaylist,
   updatePendingSong,
   deleteSongFromPlaylist,
+  getPlaylistForProfile
 };

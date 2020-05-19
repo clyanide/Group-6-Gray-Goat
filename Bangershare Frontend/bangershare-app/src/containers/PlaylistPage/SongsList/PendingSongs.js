@@ -2,7 +2,7 @@ import { connect } from "react-redux";
 import {
   updatePendingSong,
   deleteSongFromPlaylist,
-} from "../../../actions/Playlists";
+} from "../../../actions/Song";
 import PendingSongs from "../../../components/PlaylistPage/SongsList/PendingSongs";
 
 const mapDispatchToProps = (dispatch) => ({

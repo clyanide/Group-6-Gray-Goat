@@ -38,6 +38,7 @@ const createPlaylist = (playlists, handleOnPlaylistClick) => (
         infinite={true}
         keyBoardControl={true}
         containerClass="carousel-container"
+        itemClass="carousel-item-padding-40-px"
       >
         {playlists.map((playlist) =>
           playlistCard(playlist, handleOnPlaylistClick)

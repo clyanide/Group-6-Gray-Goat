@@ -4,7 +4,8 @@ import Greeting from "../../containers/HomePage/Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
-import { Button } from "semantic-ui-react";
+import { Fab } from "@material-ui/core";
+import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
 
 const HomeScreen = (props) => {
   const {
@@ -51,10 +52,13 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-        <p>Loading</p>
-      )}
+          <p>Loading</p>
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Button onClick={() => handleModal(true)}>Create Playlist</Button>
+      <Fab onClick={() => handleModal(true)}>
+        <PlaylistAddIcon />
+      </Fab>
+      {/* <Button onClick={() => handleModal(true)}>Create Playlist</Button> */}
     </div>
   );
 };

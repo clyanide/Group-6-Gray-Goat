@@ -5,7 +5,7 @@ import {
   postSongToPlaylist,
   updateSong,
   deleteSong,
-  getPlaylistForUsername
+  getPlaylistForUsername,
 } from "../utility/API";
 
 export const playlistActionType = {
@@ -225,28 +225,32 @@ const getPlaylistForProfile = () => {
     getPlaylistForUsername(user.accessToken, profileUser)
       .then((res) => {
         console.log(res.data);
-        dispatch(getPlaylistForProfileSucces(res.data))
+        dispatch(getPlaylistForProfileSucces(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          refreshAccessToken(user, getPlaylistForProfile, getPlaylistForProfileFail)
+          refreshAccessToken(
+            user,
+            getPlaylistForProfile,
+            getPlaylistForProfileFail
+          );
         } else {
-          dispatch(getPlaylistForProfileFail(err.message))
+          dispatch(getPlaylistForProfileFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const getPlaylistForProfileSucces = (payload) => ({
   type: playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS,
   fetching: false,
-  profilePlaylist: payload
-})
+  profilePlaylist: payload,
+});
 
 const getPlaylistForProfileFail = (error) => ({
   type: playlistActionType.GET_PROFILE_PLAYLIST_FAIL,
-  error
-})
+  error,
+});
 
 export {
   getPlaylist,

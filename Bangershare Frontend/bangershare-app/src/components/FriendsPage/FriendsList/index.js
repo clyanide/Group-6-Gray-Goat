@@ -7,13 +7,16 @@ const FriendsList = (props) => {
     <List link>
       {friends && friends.length > 0 ? (
         friends.map((friend) => (
-          <List.Item key={friend.username} onClick={() => onFriendClick(friend.username)}>
+          <List.Item
+            key={friend.username}
+            onClick={() => onFriendClick(friend.username)}
+          >
             {friend.username}
           </List.Item>
         ))
       ) : (
-          <List.Item>No friends</List.Item>
-        )}
+        <List.Item>No friends</List.Item>
+      )}
     </List>
   );
 };

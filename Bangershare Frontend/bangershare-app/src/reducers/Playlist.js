@@ -69,8 +69,8 @@ const playlistReducer = (state = initialState, action) => {
     case playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS: {
       return {
         ...state,
-        profilePlaylist: action.profilePlaylist
-      }
+        profilePlaylist: action.profilePlaylist,
+      };
     }
     default:
       return { ...state };

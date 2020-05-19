@@ -1,9 +1,17 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Card, CardActionArea, CardContent, Typography, CardActions, IconButton, Grid } from "@material-ui/core";
-import FavoriteBorderIcon from '@material-ui/icons/FavoriteBorder';
-import PlayCircleOutlineIcon from '@material-ui/icons/PlayCircleOutline';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Typography,
+  CardActions,
+  IconButton,
+  Grid,
+} from "@material-ui/core";
+import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
+import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 
 const responsive = {
   desktop: {
@@ -31,13 +39,13 @@ const createPlaylist = (playlists, handleOnPlaylistClick) => (
         keyBoardControl={true}
         containerClass="carousel-container"
       >
-        {playlists.map((playlist) => (
+        {playlists.map((playlist) =>
           playlistCard(playlist, handleOnPlaylistClick)
-        ))}
+        )}
       </Carousel>
     ) : (
-        <div>There seems to be no playlists</div>
-      )}
+      <div>There seems to be no playlists</div>
+    )}
   </Grid>
 );
 
@@ -55,16 +63,16 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
       >
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
-            return playlist.playlistSongs.map((p) => (
+            return playlist.playlistSongs.map((p) =>
               playlistCard(p, handleOnPlaylistClick)
-            ));
+            );
           }
           return null;
         })}
       </Carousel>
     ) : (
-        <div>You have no friends</div>
-      )}
+      <div>You have no friends</div>
+    )}
   </Grid>
 );
 
@@ -72,9 +80,7 @@ const playlistCard = (playlist, handleOnPlaylistClick) => (
   <Card>
     <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
       <CardContent>
-        <Typography variant="h5">
-          {playlist.name}
-        </Typography>
+        <Typography variant="h5">{playlist.name}</Typography>
         <Typography variant="subtitle1">
           Created by {playlist.creator}
         </Typography>
@@ -89,5 +95,5 @@ const playlistCard = (playlist, handleOnPlaylistClick) => (
       </IconButton>
     </CardActions>
   </Card>
-)
+);
 export default createPlaylist;

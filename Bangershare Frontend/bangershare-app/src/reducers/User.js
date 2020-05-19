@@ -6,7 +6,7 @@ const initialState = {
     accessToken: "",
     refreshToken: "",
   },
-  userProfile: ""
+  userProfile: "",
 };
 
 const setUserDetail = (state, action) => {
@@ -37,8 +37,8 @@ const userReducer = (state = initialState, action) => {
     case userActionType.SET_USER_PROFILE:
       return {
         ...state,
-        userProfile: action.username
-      }
+        userProfile: action.username,
+      };
     default:
       return { ...state };
   }

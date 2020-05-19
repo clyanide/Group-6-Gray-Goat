@@ -5,7 +5,7 @@ import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
 import { Fab } from "@material-ui/core";
-import PlaylistAddIcon from '@material-ui/icons/PlaylistAdd';
+import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 const HomeScreen = (props) => {
   const {
@@ -52,8 +52,8 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Fab onClick={() => handleModal(true)}>
         <PlaylistAddIcon />

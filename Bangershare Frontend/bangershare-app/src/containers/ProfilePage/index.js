@@ -1,14 +1,14 @@
 import ProfilePage from "../../components/ProfilePage"
 import { connect } from "react-redux"
-import { getProfilePlaylist } from "../../actions/Playlists";
+import { getPlaylistForProfile } from "../../actions/Playlists";
 import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
-    profilePlaylist: state.playlistRecucer.profilePlaylist
+    profilePlaylist: state.playlistReducer.profilePlaylist
 })
 
 const mapDispatchToProps = (dispatch) => ({
-    getProfilePlaylist: () => { dispatch(getProfilePlaylist()) },
+    getProfilePlaylist: () => { dispatch(getPlaylistForProfile()) },
     push: (url) => { dispatch(push(url)) }
 })
 

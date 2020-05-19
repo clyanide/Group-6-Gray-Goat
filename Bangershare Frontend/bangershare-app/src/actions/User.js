@@ -90,4 +90,4 @@ const setUserProfile = (username) => ({
 })
 
 
-export { registerUser, loginUser, setAccessToken };
+export { registerUser, loginUser, setAccessToken, setUserProfile };

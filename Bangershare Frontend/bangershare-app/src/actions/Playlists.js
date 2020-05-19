@@ -255,5 +255,5 @@ export {
   addSongToPlaylist,
   updatePendingSong,
   deleteSongFromPlaylist,
-  getPlaylistForProfile
+  getPlaylistForProfile,
 };

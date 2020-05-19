@@ -58,19 +58,38 @@ export const postPlaylist = (accessToken, name) => {
   );
 };
 
-export const postSpotifySongToPlaylist = (accessToken, spotifySongId, playlistId) => {
+export const postSpotifySongToPlaylist = (
+  accessToken,
+  spotifySongId,
+  playlistId
+) => {
   return axios.post(
-    baseURL + "Song/spotify?playlistId=" + playlistId + "&spotifySongId=" + spotifySongId, {},
+    baseURL +
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
+    {},
     {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
-    });
+    }
+  );
 };
 
-export const postYoutubeSongToPlaylist = (accessToken, song, playlistId, youtubeId) => {
+export const postYoutubeSongToPlaylist = (
+  accessToken,
+  song,
+  playlistId,
+  youtubeId
+) => {
   return axios.post(
-    baseURL + "Song/youtube?playlistId=" + playlistId + "&youtubeId=" + youtubeId,
+    baseURL +
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,

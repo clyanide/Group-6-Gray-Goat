@@ -8,7 +8,12 @@ import { Typography, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 const AppHeader = (props) => {
-  const { onMenuClick, currentUser, currentPath, isFetching } = props;
+  const { onMenuClick, currentUser, currentPath, isFetching, setProfileUser } = props;
+
+  const onProfileClick = () => {
+    setProfileUser(currentUser.name)
+    props.push("/profile")
+  }
 
   return (
     <AppBar position="static" color="black">
@@ -18,50 +23,50 @@ const AppHeader = (props) => {
             BangerShare
           </Typography>
         ) : (
-          <>
-            <IconButton
-              disabled={isFetching}
-              onClick={() => onMenuClick(true)}
-              edge="start"
-              style={{ marginRight: "1%" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h4" style={{ flexGrow: 1 }}>
-              <Link to="/home" style={{ color: "black" }}>
-                BangerShare
-              </Link>
-            </Typography>
-            <Grid container spacing={3} direction="row">
-              <Grid item xs={8} />
-              <Grid
-                direction="row"
-                xs={4}
-                container
-                alignItems="flex-start"
-                justify="flex-end"
+            <>
+              <IconButton
+                disabled={isFetching}
+                onClick={() => onMenuClick(true)}
+                edge="start"
+                style={{ marginRight: "1%" }}
               >
-                <Dropdown
-                  pointing="top left"
-                  icon={false}
-                  floated
-                  trigger={
-                    <Button icon labelPosition="left">
-                      <Icon name="user circle" />
-                      {currentUser.name}
-                    </Button>
-                  }
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h4" style={{ flexGrow: 1 }}>
+                <Link to="/home" style={{ color: "black" }}>
+                  BangerShare
+              </Link>
+              </Typography>
+              <Grid container spacing={3} direction="row">
+                <Grid item xs={8} />
+                <Grid
+                  direction="row"
+                  xs={4}
+                  container
+                  alignItems="flex-start"
+                  justify="flex-end"
                 >
-                  <Dropdown.Menu>
-                    <Dropdown.Item icon="user" text={"Profile"} />
-                    <Dropdown.Item icon="settings" text={"Settings"} />
-                    <Dropdown.Item icon="sign out" text={"Sign out"} />
-                  </Dropdown.Menu>
-                </Dropdown>
+                  <Dropdown
+                    pointing="top left"
+                    icon={false}
+                    floated
+                    trigger={
+                      <Button icon labelPosition="left">
+                        <Icon name="user circle" />
+                        {currentUser.name}
+                      </Button>
+                    }
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item icon="user" text={"Profile"} onClick={() => onProfileClick()} />
+                      <Dropdown.Item icon="settings" text={"Settings"} />
+                      <Dropdown.Item icon="sign out" text={"Sign out"} />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        )}
+            </>
+          )}
       </Toolbar>
     </AppBar>
   );

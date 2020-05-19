@@ -1,5 +1,7 @@
 import { connect } from "react-redux";
 import AppHeader from "../../components/Header";
+import { setUserProfile } from "../../actions/User"
+import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
   currentUser: state.userReducer.currentUser,
@@ -7,4 +9,9 @@ const mapStateToProps = (state) => ({
   isFetching: state.bangerShareReducer.fetching,
 });
 
-export default connect(mapStateToProps)(AppHeader);
+const mapDispatchToProps = (dispatch) => ({
+  setProfileUser: (username) => { dispatch(setUserProfile(username)) },
+  push: (url) => { dispatch(push(url)) }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

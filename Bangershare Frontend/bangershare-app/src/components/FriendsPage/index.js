@@ -5,8 +5,12 @@ import { Search, Button } from "semantic-ui-react";
 
 const FriendsPage = (props) => {
   const [visibleList, setVisible] = useState(true);
-  const { isFetching } = props;
+  const { isFetching, setProfileUser } = props;
 
+  const handleProfileClick = (username) => {
+    setProfileUser(username);
+    props.push("/profile")
+  }
   return (
     <div>
       <div>
@@ -19,7 +23,13 @@ const FriendsPage = (props) => {
         </Button>
         <Button>Add Friend</Button>
       </div>
-      <>{visibleList ? <FriendsList /> : <FriendRequests />}</>
+      <>
+        {visibleList ?
+          <FriendsList onFriendClick={handleProfileClick} />
+          :
+          <FriendRequests onFriendClick={handleProfileClick} />
+        }
+      </>
     </div>
   );
 };

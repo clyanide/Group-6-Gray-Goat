@@ -12,6 +12,7 @@ class App extends Component {
     if (token) {
       spotifyApi.setAccessToken(token);
       this.props.setSpotifyToken(token);
+      this.props.push("/player");
     }
     this.state = {
       loggedIn: token ? true : false,
@@ -34,7 +35,6 @@ class App extends Component {
     return (
       <div className="App">
         <a href="http://localhost:8888"> Login to Spotify </a>
-        {this.state.loggedIn && <Redirect to="/spotify" />}
       </div>
     );
   }

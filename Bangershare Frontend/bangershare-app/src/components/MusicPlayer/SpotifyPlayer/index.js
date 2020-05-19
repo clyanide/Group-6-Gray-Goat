@@ -1,9 +1,11 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
 
-class MusicPlayer extends Component {
+class SpotifyPlayer extends Component {
   constructor(props) {
     super(props);
+
+    const { spotifyToken } = this.props;
     this.state = {
       token: this.props.spotifyToken,
       deviceId: "",
@@ -23,6 +25,8 @@ class MusicPlayer extends Component {
     if (this.state.token !== "") {
       this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
     }
+
+    console.log(this.props.spotifyToken);
   }
 
   checkForPlayer() {
@@ -134,7 +138,6 @@ class MusicPlayer extends Component {
   }
 
   onPlayClick() {
-    console.log(this.state.duration);
     this.player.togglePlay();
   }
 
@@ -193,4 +196,4 @@ class MusicPlayer extends Component {
   }
 }
 
-export default MusicPlayer;
+export default SpotifyPlayer;

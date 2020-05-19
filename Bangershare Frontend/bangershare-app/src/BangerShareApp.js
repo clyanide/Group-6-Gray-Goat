@@ -10,6 +10,7 @@ import { ConnectedRouter } from "connected-react-router";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
 import SpotifyPlayer from "./containers/SpotifyPlayer";
 import YoutubePlayer from "./components/MusicPlayer/YoutubePlayer";
+import MusicPlayer from "./components/MusicPlayer";
 
 const BangerShareApp = () => {
   return (
@@ -21,6 +22,7 @@ const BangerShareApp = () => {
         <Route path="/friends" component={FriendsPage} />
         <Route path="/spotify" component={SpotifyPlayer} />
         <Route path="/spotifyauth" component={SpotifyLoginPage} />
+        <Route path="/player" component={MusicPlayer} />
       </Switch>
     </ConnectedRouter>
   );

@@ -56,6 +56,20 @@ namespace Bangershare_Backend.Services
             }
         }
 
+        public async Task<BaseResponse<ICollection<PlaylistSong>>> GetPlaylistForUsername(string username)
+        {
+            var user = await _userService.FindFirstOrDefault(u => u.Username.Equals(username));
+
+            if(user == null)
+            {
+                return new BaseResponse<ICollection<PlaylistSong>>("User does not exist");
+            }
+
+            var playlistSongs = await GetPlaylistsForUser(user.Id);
+
+            return new BaseResponse<ICollection<PlaylistSong>>(playlistSongs);
+        }
+
         public async Task<ICollection<PlaylistSong>> GetPlaylistsForUser(int userId)
         {
             var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId));

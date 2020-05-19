@@ -46,6 +46,27 @@ namespace Bangershare_Backend.Controllers
             return Ok(playlistDto);
         }
 
+        [HttpGet("{username}")]
+        public async Task<IActionResult> GetPlaylistForUsername(string username)
+        {
+            var respone = await _playlistService.GetPlaylistForUsername(username); 
+
+            if(!respone.Success)
+            {
+                return BadRequest(respone.Message);
+            }
+
+            if(respone.Resource.Count == 0)
+            {
+                return NotFound("No playlist for user");
+            }
+
+            var playlistsDto = _mapper.Map<ICollection<PlaylistSong>, ICollection<PlaylistSongDto>>(respone.Resource);
+
+            return Ok(playlistsDto);
+        }
+
+
         [HttpGet]
         public async Task<IActionResult> GetPlaylistForUser()
         {

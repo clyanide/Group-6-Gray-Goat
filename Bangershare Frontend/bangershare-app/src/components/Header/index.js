@@ -8,7 +8,18 @@ import { Typography, IconButton } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
 
 const AppHeader = (props) => {
-  const { onMenuClick, currentUser, currentPath, isFetching } = props;
+  const {
+    onMenuClick,
+    currentUser,
+    currentPath,
+    isFetching,
+    setProfileUser,
+  } = props;
+
+  const onProfileClick = () => {
+    setProfileUser(currentUser.name);
+    props.push("/profile");
+  };
 
   return (
     <AppBar position="static" color="black">
@@ -53,7 +64,11 @@ const AppHeader = (props) => {
                   }
                 >
                   <Dropdown.Menu>
-                    <Dropdown.Item icon="user" text={"Profile"} />
+                    <Dropdown.Item
+                      icon="user"
+                      text={"Profile"}
+                      onClick={() => onProfileClick()}
+                    />
                     <Dropdown.Item icon="settings" text={"Settings"} />
                     <Dropdown.Item icon="sign out" text={"Sign out"} />
                   </Dropdown.Menu>

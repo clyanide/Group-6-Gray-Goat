@@ -4,7 +4,14 @@ import QueueMusicIcon from "@material-ui/icons/QueueMusic";
 import { Typography } from "@material-ui/core";
 
 const AppSideBar = (props) => {
-  const { open, onClose, userPlaylists, setCurrentPlaylist } = props;
+  const {
+    open,
+    onClose,
+    userPlaylists,
+    setCurrentPlaylist,
+    user,
+    setProfileUser,
+  } = props;
 
   const goTo = (link) => {
     props.push(link);
@@ -14,6 +21,11 @@ const AppSideBar = (props) => {
   const handlePlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
     goTo("/playlist");
+  };
+
+  const handleProfileClick = () => {
+    setProfileUser(user.name);
+    goTo("/profile");
   };
 
   return (
@@ -31,7 +43,7 @@ const AppSideBar = (props) => {
         <Icon name="home" />
         Home
       </Menu.Item>
-      <Menu.Item as="a">
+      <Menu.Item as="a" onClick={() => handleProfileClick()}>
         <Icon name="user" />
         Profile
       </Menu.Item>

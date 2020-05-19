@@ -2,6 +2,7 @@ import { playlistActionType } from "./../actions/Playlists";
 
 const initialState = {
   userPlaylist: [],
+  profilePlaylist: [],
   currentPlaylist: {
     id: 0,
     name: "",
@@ -63,6 +64,12 @@ const playlistReducer = (state = initialState, action) => {
           ...state.currentPlaylist,
           songs: [...newSongs],
         },
+      };
+    }
+    case playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS: {
+      return {
+        ...state,
+        profilePlaylist: action.profilePlaylist,
       };
     }
     default:

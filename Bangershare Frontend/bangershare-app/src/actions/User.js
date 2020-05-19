@@ -9,6 +9,7 @@ export const userActionType = {
   LOGIN_USER_SUCCESS: "LOGIN_USER_SUCCESS",
   LOGIN_USER_FAIL: "LOGIN_USER_FAIL",
   SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
+  SET_USER_PROFILE: "SET_USER_PROFILE",
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -82,4 +83,10 @@ const setAccessToken = (payload) => ({
   accessToken: payload.data.accessToken,
 });
 
-export { registerUser, loginUser, setAccessToken };
+const setUserProfile = (username) => ({
+  type: userActionType.SET_USER_PROFILE,
+  fetching: true,
+  username,
+});
+
+export { registerUser, loginUser, setAccessToken, setUserProfile };

@@ -7,6 +7,7 @@ import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";
 import PlaylistPage from "./containers/PlaylistPage";
 import RequireLogin from "./containers/LoginPage/RequireLogin";
+import ProfilePage from "./containers/ProfilePage";
 import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
@@ -31,6 +32,7 @@ const BangerShareApp = () => {
             <Route path="/home" component={HomePage} />
             <Route path="/friends" component={FriendsPage} />
             <Route path="/playlist" component={PlaylistPage} />
+            <Route path="/profile" component={ProfilePage} />
           </Switch>
         </Sidebar.Pusher>
       </Sidebar.Pushable>

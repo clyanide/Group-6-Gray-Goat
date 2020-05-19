@@ -70,8 +70,12 @@ class SpotifyPlayer extends Component {
     this.player.on("ready", async (data) => {
       let { device_id } = data;
       console.log("Let the music play on!");
+
       await this.setState({ deviceId: device_id });
-      // this.transferPlaybackHere();
+      this.playUri({
+        playerInstance: this.player,
+        spotify_uri: this.props.uri,
+      });
     });
   }
 
@@ -138,6 +142,8 @@ class SpotifyPlayer extends Component {
   }
 
   onPlayClick() {
+    const playing = this.state.playing;
+    this.props.callbackFromParent(playing);
     this.player.togglePlay();
   }
 
@@ -145,9 +151,10 @@ class SpotifyPlayer extends Component {
     this.player.nextTrack();
   }
 
-  callbackFunction = (childData) => {
-    console.log(childData);
-    this.player.seek(childData * 1000);
+  seekbarCallback = (childData) => {
+    if (this.state.trackName != "") {
+      this.player.seek(childData * 1000);
+    }
   };
 
   render() {
@@ -163,10 +170,6 @@ class SpotifyPlayer extends Component {
       playing,
     } = this.state;
 
-    const currentPlayer = this.player;
-    const uri = "spotify:track:3FjYSZhuMB4Ujv04AmHi5e";
-    const uriArgs = { playerInstance: currentPlayer, spotify_uri: uri };
-
     return (
       <div className="App">
         {error && <p>Error: {error}</p>}
@@ -181,11 +184,10 @@ class SpotifyPlayer extends Component {
               {playing ? "Pause" : "Play"}
             </button>
             <button onClick={() => this.onNextClick()}>Next</button>
-            <button onClick={() => this.playUri(uriArgs)}>Play from URI</button>
             {this.state.trackName != "" ? (
               <SeekBar
-                duration={60}
-                parentCallback={this.callbackFunction}
+                duration={this.props.duration / 1000}
+                parentCallback={this.seekbarCallback}
                 paused={!this.state.playing}
               />
             ) : null}

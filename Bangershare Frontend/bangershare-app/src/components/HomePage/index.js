@@ -58,7 +58,6 @@ const HomeScreen = (props) => {
       <Fab onClick={() => handleModal(true)}>
         <PlaylistAddIcon />
       </Fab>
-      {/* <Button onClick={() => handleModal(true)}>Create Playlist</Button> */}
     </div>
   );
 };

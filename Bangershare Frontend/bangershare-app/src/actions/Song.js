@@ -1,9 +1,12 @@
 import {
-    postSongToPlaylist,
+    postSpotifySongToPlaylist,
+    postYoutubeSongToPlaylist,
     updateSong,
     deleteSong,
     refreshAccessToken
 } from "../utility/API"
+
+import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
 
 export const songActionType = {
     ADD_SONG_TO_PLAYLIST: "ADD_SONG_TO_PLAYLIST",
@@ -24,17 +27,33 @@ const addSongToPlaylist = (song) => {
         const state = getState();
         const user = state.userReducer.currentUser;
         const playlistId = state.playlistReducer.currentPlaylist.id;
-        postSongToPlaylist(user.accessToken, song, playlistId)
-            .then((res) => {
-                dispatch(addSongToPlaylistSuccess(res.data));
-            })
-            .catch((err) => {
-                if (err.response.status === 401) {
-                    refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail);
-                } else {
-                    dispatch(addSongToPlaylistFail(err.message));
-                }
-            });
+        if (song.songType === 0) {
+            var spotifyId = getSpotifyTrackId(song.link);
+            postSpotifySongToPlaylist(user.accessToken, spotifyId, playlistId)
+                .then((res) => {
+                    dispatch(addSongToPlaylistSuccess(res.data));
+                })
+                .catch((err) => {
+                    if (err.response.status === 401) {
+                        refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail);
+                    } else {
+                        dispatch(addSongToPlaylistFail(err.message));
+                    }
+                });
+        } else {
+            const youtubeId = getYoutubeVideoID(song.link)
+            postYoutubeSongToPlaylist(user.accessToken, song, playlistId, youtubeId)
+                .then((res) => {
+                    dispatch(addSongToPlaylistSuccess(res.data));
+                })
+                .catch((err) => {
+                    if (err.response.status === 401) {
+                        refreshAccessToken(user, addSongToPlaylist, addSongToPlaylistFail);
+                    } else {
+                        dispatch(addSongToPlaylistFail(err.message));
+                    }
+                });
+        }
     };
 };
 

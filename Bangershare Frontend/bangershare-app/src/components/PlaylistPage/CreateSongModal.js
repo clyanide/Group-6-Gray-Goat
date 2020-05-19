@@ -80,7 +80,7 @@ const CreateSongModal = (props) => {
               <Form.Field>
                 <label>{"URL of Youtube Song"}</label>
                 <input
-                  placeholder={"eg."}
+                  placeholder={"e.g. \"https://www.youtube.com/watch?v=S0twBO8l3pI\""}
                   onChange={(e) => setSongDetail("link", e.target.value)}
                 />
               </Form.Field>
@@ -88,7 +88,7 @@ const CreateSongModal = (props) => {
             <Form.Field>
               <label>{"Spotify Song ID"}</label>
               <input
-                placeholder={"eg. "}
+                placeholder={"e.g. \"https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw\""}
                 onChange={(e) => setSongDetail("link", e.target.value)}
               />
             </Form.Field>

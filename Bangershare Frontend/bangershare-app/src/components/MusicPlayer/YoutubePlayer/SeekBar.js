@@ -5,13 +5,11 @@ import { withMediaProps } from "react-media-player";
 class SeekBar extends Component {
   _handlePlayPause = () => {
     this.props.media.playPause();
-    console.log(this.props.media.duration);
-    console.log(this.props.media.progress);
   };
 
   convertToTimestamp = (time) => {
     const minutes = Math.floor(time / 60);
-    const seconds = time - minutes * 60;
+    const seconds = Math.trunc(time - minutes * 60);
 
     return { m: minutes, s: seconds };
   };

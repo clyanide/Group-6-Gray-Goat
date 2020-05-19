@@ -11,6 +11,7 @@ class YoutubePlayer extends Component {
         <div>
           <div>
             <Player
+              style={{ width: 0, height: 0 }}
               ref={this.ref}
               src="https://www.youtube.com/watch?v=nPcDlQaYoDw"
               autoPlay={true}

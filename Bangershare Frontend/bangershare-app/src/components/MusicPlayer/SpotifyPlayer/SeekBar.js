@@ -3,7 +3,7 @@ import Slider from "@material-ui/core/Slider";
 
 const convertToTimestamp = (time) => {
   const minutes = Math.floor(time / 60);
-  const seconds = time - minutes * 60;
+  const seconds = Math.trunc(time - minutes * 60);
 
   return { m: minutes, s: seconds };
 };

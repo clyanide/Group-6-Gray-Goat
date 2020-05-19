@@ -54,7 +54,8 @@ namespace Bangershare_Backend.Services
                 { 
                     Artist = spotifySong.artists[0].name, 
                     Link = spotifySong.uri, 
-                    Name = spotifySong.name 
+                    Name = spotifySong.name,
+                    Duration = spotifySong.duration_ms
                 };
 
                 return new BaseResponse<Song>(song);
@@ -108,5 +109,6 @@ namespace Bangershare_Backend.Services
         public SpotifyArtist[] artists { get; set; }
         public string name { get; set; }
         public string uri { get; set; }
+        public int duration_ms { get; set; }
     }
 }

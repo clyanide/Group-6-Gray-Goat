@@ -63,6 +63,25 @@ namespace Bangershare_Backend.Controllers
             return Ok(songDto);
         }
 
+        [HttpPost("youtube")]
+        public async Task<IActionResult> AddYoutuubeVideoToPlaylist([FromQuery] int playlistId, [FromQuery] string youtubeId, [FromBody] SongDto songDto)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            Song song = _mapper.Map<SongDto, Song>(songDto);
+
+            var response = await _songService.AddYoutubeVideoToPlaylist(userId, playlistId, youtubeId, song);
+
+            if (!response.Success)
+            {
+                return BadRequest(response.Message);
+            }
+
+            songDto = _mapper.Map<Song, SongDto>(response.Resource);
+
+            return Ok(songDto);
+        }
+
         [HttpDelete("{songId}")]
         public async Task<IActionResult> DeleteSongFromPlaylist([FromRoute] int songId, [FromQuery] int playlistId)
         {

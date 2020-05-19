@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Slider from "@material-ui/core/Slider";
 
+const convertToTimestamp = (time) => {
+  const minutes = Math.floor(time / 60);
+  const seconds = time - minutes * 60;
+
+  return { m: minutes, s: seconds };
+};
+
 const SeekBar = (props) => {
   const set = (value) => {
     setCounter(value);
@@ -22,11 +29,23 @@ const SeekBar = (props) => {
   }, [props.paused, counter]);
 
   return (
-    <Slider
-      value={counter}
-      onChange={(event, value) => set(value)}
-      max={props.duration}
-    />
+    <div>
+      <Slider
+        value={counter}
+        onChange={(event, value) => set(value)}
+        max={props.duration}
+      />
+      <p>
+        {convertToTimestamp(counter).m} :{" "}
+        {convertToTimestamp(counter).s < 10 ? "0" : null}
+        {convertToTimestamp(counter).s}
+      </p>
+      <p>
+        {convertToTimestamp(props.duration).m} :{" "}
+        {convertToTimestamp(props.duration).s < 10 ? "0" : null}
+        {convertToTimestamp(props.duration).s}
+      </p>
+    </div>
   );
 };
 

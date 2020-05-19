@@ -1,11 +1,11 @@
-import React, { useState, useRef } from "react";
+import React, { useState, Component } from "react";
 import SpotifyPlayer from "../../containers/SpotifyPlayer";
 import YoutubePlayer from "./YoutubePlayer";
 
 const mockSongObject = {
   type: "spotify",
   uri: "spotify:track:7BsKwPYQu8PQIEy3CCfPVJ",
-  link: "",
+  link: "https://www.youtube.com/watch?v=iPlfQ8yWIeA",
   duration: 266000,
 };
 
@@ -15,12 +15,6 @@ const MusicPlayer = () => {
   const updatePlaying = (playing) => {
     setPlaying(!playing);
   };
-
-  const handlePlay = () => {};
-
-  const handleNext = () => {};
-
-  const handlePrev = () => {};
 
   return (
     <div>
@@ -33,9 +27,6 @@ const MusicPlayer = () => {
       ) : (
         <YoutubePlayer link={mockSongObject.link} />
       )}
-      <button onClick={() => handlePrev()}>Prev</button>
-      <button onClick={() => handlePlay()}>{playing ? "Pause" : "Play"}</button>
-      <button onClick={() => handleNext()}>Next</button>
     </div>
   );
 };

@@ -1,4 +1,9 @@
-import { getUserFriends, updateFriendRequest, deleteUserFriendRequest, refreshAccessToken } from "../utility/API";
+import {
+  getUserFriends,
+  updateFriendRequest,
+  deleteUserFriendRequest,
+  refreshAccessToken,
+} from "../utility/API";
 
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
@@ -7,7 +12,7 @@ export const friendActionType = {
   ACCEPT_PENDING_REQUEST: "ACCEPT_PENDING_REQUEST",
   ACCEPT_PENDING_REQUEST_FAIL: "ACCEPT_PENDING_REQUEST_FAIL",
   DELETE_FRIEND_REQUEST: "DELETE_FRIEND_REQUEST",
-  DELETE_FRIEND_REQUEST_FAIL: "DELETE_FRIEND_REQUEST_FAIL"
+  DELETE_FRIEND_REQUEST_FAIL: "DELETE_FRIEND_REQUEST_FAIL",
 };
 
 const getFriends = () => {
@@ -53,55 +58,67 @@ const acceptPendingRequest = (otherUsername) => {
     const user = state.userReducer.currentUser;
     updateFriendRequest(user.accessToken, user.name, otherUsername)
       .then(() => {
-        dispatch(getFriends())
+        dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(user, acceptPendingRequest, acceptPendingRequestFail));
+          dispatch(
+            refreshAccessToken(
+              user,
+              acceptPendingRequest,
+              acceptPendingRequestFail
+            )
+          );
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const acceptPendingRequestStart = () => ({
   type: friendActionType.ACCEPT_PENDING_REQUEST,
   fetching: true,
-})
+});
 
 const acceptPendingRequestFail = (error) => ({
   type: friendActionType.ACCEPT_PENDING_REQUEST_FAIL,
-  error
-})
+  error,
+});
 
 const deleteFriendRequest = (username) => {
   return (dispatch, getState) => {
-    dispatch(deleteFriendRequestStart())
+    dispatch(deleteFriendRequestStart());
     const state = getState();
     const user = state.userReducer.currentUser;
     deleteUserFriendRequest(user.accessToken, username)
       .then((res) => {
-        dispatch(getFriends())
+        dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(user, deleteFriendRequest, deleteFriendRequestFail));
+          dispatch(
+            refreshAccessToken(
+              user,
+              deleteFriendRequest,
+              deleteFriendRequestFail
+            )
+          );
         } else {
           dispatch(deleteFriendRequestFail(err));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const deleteFriendRequestStart = () => ({
   type: friendActionType.DELETE_FRIEND_REQUEST,
-  fetching: true
-})
+  fetching: true,
+});
 
 const deleteFriendRequestFail = (error) => ({
   type: friendActionType.DELETE_FRIEND_REQUEST_FAIL,
-  error
-})
+  error,
+});
 
 export { getFriends, acceptPendingRequest, deleteFriendRequest };

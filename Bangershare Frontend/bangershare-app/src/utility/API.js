@@ -65,10 +65,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/spotify?playlistId=" +
-    playlistId +
-    "&spotifySongId=" +
-    spotifySongId,
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
     {},
     {
       headers: {
@@ -86,10 +86,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/youtube?playlistId=" +
-    playlistId +
-    "&youtubeId=" +
-    youtubeId,
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,
@@ -144,26 +144,23 @@ export const updateFriendRequest = (accessToken, username, senderName) => {
     {
       senderUsername: senderName,
       receiverUsername: username,
-      friendType: 0
+      friendType: 0,
     },
     {
       headers: {
         Authorization: "Bearer " + accessToken,
       },
     }
-  )
-}
+  );
+};
 
 export const deleteUserFriendRequest = (accessToken, username) => {
-  return axios.delete(
-    baseURL + "Friend?username=" + username,
-    {
-      headers: {
-        Authorization: "Bearer " + accessToken,
-      },
-    }
-  )
-}
+  return axios.delete(baseURL + "Friend?username=" + username, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
 
 export const refreshAccessToken = (user, callingFunction, failingFunction) => {
   return (dispatch) => {

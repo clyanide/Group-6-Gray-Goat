@@ -1,8 +1,15 @@
 import React from "react";
-import { List, Typography, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from "@material-ui/core";
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
-
+import {
+  List,
+  Typography,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  ListItemSecondaryAction,
+  IconButton,
+} from "@material-ui/core";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 
 const FriendsList = (props) => {
   const { friends, onFriendClick, deleteFriend } = props;
@@ -10,7 +17,11 @@ const FriendsList = (props) => {
     <List>
       {friends && friends.length > 0 ? (
         friends.map((friend) => (
-          <ListItem button divider onClick={() => onFriendClick(friend.username)}>
+          <ListItem
+            button
+            divider
+            onClick={() => onFriendClick(friend.username)}
+          >
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>
@@ -23,13 +34,11 @@ const FriendsList = (props) => {
               </ListItemIcon>
             </ListItemSecondaryAction>
           </ListItem>
-        ))) :
-        <Typography>
-          You have no friends
-        </Typography>
-      }
+        ))
+      ) : (
+        <Typography>You have no friends</Typography>
+      )}
     </List>
-
   );
 };
 

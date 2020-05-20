@@ -45,8 +45,8 @@ const createPlaylist = (playlists, handleOnPlaylistClick) => (
         )}
       </Carousel>
     ) : (
-        <div>There seems to be no playlists</div>
-      )}
+      <div>There seems to be no playlists</div>
+    )}
   </Grid>
 );
 
@@ -72,8 +72,8 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
         })}
       </Carousel>
     ) : (
-        <div>You have no friends</div>
-      )}
+      <div>You have no friends</div>
+    )}
   </Grid>
 );
 

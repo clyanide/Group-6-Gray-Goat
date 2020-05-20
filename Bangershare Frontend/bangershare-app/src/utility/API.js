@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setAccessToken, logoutUser } from "../actions/User";
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
@@ -184,33 +183,12 @@ export const revokeToken = (accessToken) => {
   });
 };
 
-export const refreshAccessToken = (username, callingFunction) => {
+export const refreshAccessToken = (username) => {
   console.log(username)
-  console.log(localStorage.getItem("refreshToken"))
-  console.log(callingFunction)
-  return (dispatch) => {
-    return axios
-      .post(baseURL + "/User/token/refresh",
-        {
-          token: localStorage.getItem("refreshToken"),
-          username: username,
-        })
-      .then((res) => {
-        console.log(res);
-        dispatch(setAccessToken(res));
-      }).then(() => {
-        console.log("YELLO")
-        dispatch(callingFunction())
+  return axios
+    .post(baseURL + "/User/token/refresh",
+      {
+        token: localStorage.getItem("refreshToken"),
+        username: username,
       })
-      .catch((err) => {
-        console.log(err)
-        dispatch(refreshFail(err));
-        dispatch(logoutUser());
-      })
-  };
-};
-
-const refreshFail = (error) => ({
-  type: "FAILED_REFRESH",
-  error
-})
+}

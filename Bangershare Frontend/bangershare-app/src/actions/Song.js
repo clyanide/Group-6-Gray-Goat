@@ -5,7 +5,7 @@ import {
   deleteSong,
   refreshAccessToken,
 } from "../utility/API";
-
+import { setAccessToken, logoutUser } from "./User"
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
 
 export const songActionType = {
@@ -38,7 +38,14 @@ const addSongToPlaylist = (song) => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            dispatch(refreshAccessToken(localStorage.getItem("username"), addSongToPlaylist));
+            refreshAccessToken(localStorage.getItem("username"))
+              .then((res) => {
+                dispatch(setAccessToken(res))
+                dispatch(addSongToPlaylist(song))
+              })
+              .catch(() => {
+                dispatch(logoutUser());
+              })
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -56,13 +63,14 @@ const addSongToPlaylist = (song) => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            dispatch(
-              refreshAccessToken(
-                localStorage.getItem("username"),
-                addSongToPlaylist,
-                addSongToPlaylistFail
-              )
-            );
+            refreshAccessToken(localStorage.getItem("username"))
+              .then((res) => {
+                dispatch(setAccessToken(res))
+                dispatch(addSongToPlaylist(song))
+              })
+              .catch(() => {
+                dispatch(logoutUser());
+              })
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -96,7 +104,14 @@ const updatePendingSong = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), updatePendingSong));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(updatePendingSong(song))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(updatePendingSongFail(err.message));
         }
@@ -131,7 +146,14 @@ const deleteSongFromPlaylist = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), deleteSongFromPlaylist));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(deleteSongFromPlaylist(song))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(deleteSongFromPlaylistFail(err.message));
         }

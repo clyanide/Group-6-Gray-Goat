@@ -5,6 +5,8 @@ import {
   refreshAccessToken,
 } from "../utility/API";
 
+import { setAccessToken, logoutUser } from "./User"
+
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
   GET_FRIENDS_SUCCESS: "GET_FRIENDS_SUCCESS",
@@ -24,7 +26,14 @@ const getFriends = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), getFriends));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(getFriends())
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(getFriendsFail(err));
         }
@@ -58,7 +67,14 @@ const acceptPendingRequest = (otherUsername) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), acceptPendingRequest));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(acceptPendingRequest(otherUsername))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
@@ -85,13 +101,14 @@ const deleteFriendRequest = (username) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(
-            refreshAccessToken(
-              localStorage.getItem("username"),
-              deleteFriendRequest,
-              deleteFriendRequestFail
-            )
-          );
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(deleteFriendRequest(username))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(deleteFriendRequestFail(err));
         }

@@ -61,9 +61,14 @@ const getUserInfo = () => {
           dispatch(getUserInfoSuccess(res.data));
         })
         .catch(() => {
-          dispatch(
-            refreshAccessToken(localStorage.getItem("username"), getUserInfo)
-          );
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(getUserInfo())
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         });
     }
   };

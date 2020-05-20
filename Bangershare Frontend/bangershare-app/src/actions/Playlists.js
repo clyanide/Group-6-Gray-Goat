@@ -6,6 +6,8 @@ import {
   getPlaylistFromId
 } from "../utility/API";
 import { push } from "connected-react-router";
+import { setAccessToken, logoutUser } from "./User"
+
 
 export const playlistActionType = {
   GET_PLAYLIST: "GET_PLAYLIST",
@@ -32,7 +34,14 @@ const getPlaylist = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), getPlaylist));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(getPlaylist())
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(getPlaylistFail(err.message));
         }
@@ -65,7 +74,14 @@ const createPlaylist = (name) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), createPlaylist));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(createPlaylist(name))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(createPlaylistFail(err.message));
         }
@@ -112,7 +128,14 @@ const getPlaylistForProfile = (username) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), getPlaylistForProfile));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(getPlaylistForProfile(username))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(getPlaylistForProfileFail(err.message));
         }
@@ -145,7 +168,14 @@ const getSinglePlaylist = (playlistId) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(localStorage.getItem("username"), getSinglePlaylist));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res))
+              dispatch(getSinglePlaylist(playlistId))
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            })
         } else {
           dispatch(getSinglePlaylistFail(err.message));
         }

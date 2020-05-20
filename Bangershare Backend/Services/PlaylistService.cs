@@ -57,7 +57,7 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<BaseResponse<ICollection<PlaylistSong>>> GetPlaylistForUsername(string username)
+        public async Task<BaseResponse<ICollection<PlaylistSong>>> GetPlaylistForUsername(string username, int currentUserId)
         {
             var user = await _userService.FindFirstOrDefault(u => u.Username.Equals(username));
 
@@ -66,7 +66,23 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<ICollection<PlaylistSong>>("User does not exist");
             }
 
-            var playlistSongs = await GetPlaylistsForUser(user.Id);
+            var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(user.Id));
+
+            ICollection<PlaylistSong> playlistSongs = new List<PlaylistSong>();
+
+            foreach (UserPlaylist userPlaylist in userPlaylists)
+            {
+                var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
+                                                        include: source => source.Include(p => p.Songs));
+
+                var owner = await _userPlaylistRepository.FindFirstOrDefault(filter: u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId),
+                                                                             include: source => source.Include(u => u.User));
+
+                var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.UserId.Equals(currentUserId) && u.PlaylistId.Equals(userPlaylist.PlaylistId));
+
+                playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner, follows == null ? false : true));
+            }
+
 
             return new BaseResponse<ICollection<PlaylistSong>>(playlistSongs);
         }
@@ -76,7 +92,8 @@ namespace Bangershare_Backend.Services
         {
             var playlist = await _playlistRepository.FindFirstOrDefault(p => p.Id.Equals(playlistId), include: source => source.Include(p => p.Songs));
             var owner = await _userPlaylistRepository.FindFirstOrDefault(u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(playlistId), include: source => source.Include(u => u.User));
-            var playlistSong = new PlaylistSong(owner.User.Username, playlist, owner.UserId.Equals(userId) ? true : false);
+            var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.UserId.Equals(userId) && u.PlaylistId.Equals(playlistId));
+            var playlistSong = new PlaylistSong(owner.User.Username, playlist, owner.UserId.Equals(userId) ? true : false, follows == null ? false : true);
 
             return playlistSong;
         }
@@ -95,13 +112,13 @@ namespace Bangershare_Backend.Services
                 var owner = await _userPlaylistRepository.FindFirstOrDefault(filter: u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(userPlaylist.PlaylistId),
                                                                              include: source => source.Include(u => u.User));
 
-                playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner));
+                playlistSongs.Add(new PlaylistSong(owner.User.Username, playlist, userPlaylist.IsOwner, true));
             }
 
             return playlistSongs;
         }
 
-        public async Task<ICollection<PlaylistSong>> GetPlaylistUserOwns(int userId)
+        public async Task<ICollection<PlaylistSong>> GetPlaylistUserOwns(int userId, int currentUserId)
         {
             var userPlaylists = await _userPlaylistRepository.Get(u => u.UserId.Equals(userId) && u.IsOwner.Equals(true));
 
@@ -112,7 +129,9 @@ namespace Bangershare_Backend.Services
                 var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
                                         include: source => source.Include(p => p.Songs));
 
-                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, true));
+                var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.PlaylistId.Equals(userPlaylist.PlaylistId) && u.UserId.Equals(currentUserId));
+
+                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, true, follows == null ? false : true));
             }
 
             return playlistSongs;

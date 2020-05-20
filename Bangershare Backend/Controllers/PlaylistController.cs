@@ -66,7 +66,9 @@ namespace Bangershare_Backend.Controllers
         [HttpGet("{username}")]
         public async Task<IActionResult> GetPlaylistForUsername(string username)
         {
-            var respone = await _playlistService.GetPlaylistForUsername(username); 
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var respone = await _playlistService.GetPlaylistForUsername(username, userId); 
 
             if(!respone.Success)
             {

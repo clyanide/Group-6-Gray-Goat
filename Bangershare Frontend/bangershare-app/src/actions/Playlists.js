@@ -28,7 +28,7 @@ const getPlaylist = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           const store = getState();
-          const user = store.userReducer.currentUser
+          const user = store.userReducer.currentUser;
           dispatch(refreshAccessToken(user.name, getPlaylist));
         } else {
           dispatch(getPlaylistFail(err.message));
@@ -105,10 +105,7 @@ const getPlaylistForProfile = () => {
       .catch((err) => {
         if (err.response.status === 401) {
           const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(
-            user.name,
-            getPlaylistForProfile,
-          ));
+          dispatch(refreshAccessToken(user.name, getPlaylistForProfile));
         } else {
           dispatch(getPlaylistForProfileFail(err.message));
         }

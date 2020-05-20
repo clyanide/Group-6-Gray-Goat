@@ -28,7 +28,11 @@ const addSongToPlaylist = (song) => {
     const playlistId = state.playlistReducer.currentPlaylist.id;
     if (song.songType === 0) {
       var spotifyId = getSpotifyTrackId(song.link);
-      postSpotifySongToPlaylist(localStorage.getItem("token"), spotifyId, playlistId)
+      postSpotifySongToPlaylist(
+        localStorage.getItem("token"),
+        spotifyId,
+        playlistId
+      )
         .then((res) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
@@ -42,14 +46,25 @@ const addSongToPlaylist = (song) => {
         });
     } else {
       const youtubeId = getYoutubeVideoID(song.link);
-      postYoutubeSongToPlaylist(localStorage.getItem("token"), song, playlistId, youtubeId)
+      postYoutubeSongToPlaylist(
+        localStorage.getItem("token"),
+        song,
+        playlistId,
+        youtubeId
+      )
         .then((res) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
           if (err.response.status === 401) {
             const user = state.userReducer.currentUser;
-            dispatch(refreshAccessToken(user.name, addSongToPlaylist, addSongToPlaylistFail));
+            dispatch(
+              refreshAccessToken(
+                user.name,
+                addSongToPlaylist,
+                addSongToPlaylistFail
+              )
+            );
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -121,10 +136,7 @@ const deleteSongFromPlaylist = (song) => {
       .catch((err) => {
         if (err.response.status === 401) {
           const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(
-            user.name,
-            deleteSongFromPlaylist,
-          ));
+          dispatch(refreshAccessToken(user.name, deleteSongFromPlaylist));
         } else {
           dispatch(deleteSongFromPlaylistFail(err.message));
         }

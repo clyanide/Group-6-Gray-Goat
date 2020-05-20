@@ -2,7 +2,6 @@ import { playlistActionType } from "./../actions/Playlists";
 import { songActionType } from "./../actions/Song";
 import { userActionType } from "../actions/User";
 
-
 const initialState = {
   userPlaylist: [],
   profilePlaylist: [],
@@ -77,8 +76,8 @@ const playlistReducer = (state = initialState, action) => {
     }
     case userActionType.LOGOUT_USER: {
       return {
-        initialState
-      }
+        initialState,
+      };
     }
     default:
       return { ...state };

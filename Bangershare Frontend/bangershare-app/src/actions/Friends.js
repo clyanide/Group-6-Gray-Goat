@@ -62,11 +62,7 @@ const acceptPendingRequest = (otherUsername) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(
-            refreshAccessToken(
-              user.name,
-              acceptPendingRequest,
-            ))
+          dispatch(refreshAccessToken(user.name, acceptPendingRequest));
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
@@ -95,11 +91,13 @@ const deleteFriendRequest = (username) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(
-            user.name,
-            deleteFriendRequest,
-            deleteFriendRequestFail
-          ));
+          dispatch(
+            refreshAccessToken(
+              user.name,
+              deleteFriendRequest,
+              deleteFriendRequestFail
+            )
+          );
         } else {
           dispatch(deleteFriendRequestFail(err));
         }

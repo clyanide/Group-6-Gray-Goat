@@ -17,8 +17,8 @@ const friendsReducer = (state = initialState, action) => {
     }
     case userActionType.LOGOUT_USER: {
       return {
-        initialState
-      }
+        initialState,
+      };
     }
     default:
       return { ...state };

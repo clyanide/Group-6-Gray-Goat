@@ -13,8 +13,8 @@ const FriendsPage = (props) => {
   };
 
   useEffect(() => {
-    getFriends()
-  }, [getFriends])
+    getFriends();
+  }, [getFriends]);
 
   return (
     <div>
@@ -32,8 +32,8 @@ const FriendsPage = (props) => {
         {visibleList ? (
           <FriendsList onFriendClick={handleProfileClick} />
         ) : (
-            <FriendRequests onFriendClick={handleProfileClick} />
-          )}
+          <FriendRequests onFriendClick={handleProfileClick} />
+        )}
       </>
     </div>
   );

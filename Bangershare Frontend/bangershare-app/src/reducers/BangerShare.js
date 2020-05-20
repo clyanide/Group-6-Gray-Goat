@@ -26,8 +26,8 @@ const bangerShareReducer = (state = initialState, action) => {
     return setLoading(state, false);
   } else if (action.type === userActionType.LOGOUT_USER) {
     return {
-      initialState
-    }
+      initialState,
+    };
   }
 
   return { ...state };

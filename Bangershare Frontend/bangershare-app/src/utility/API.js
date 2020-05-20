@@ -24,8 +24,8 @@ export const getUser = (accessToken) => {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
-  })
-}
+  });
+};
 
 export const getUserFriends = (accessToken) => {
   return axios.get(baseURL + "Friend", {
@@ -73,10 +73,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/spotify?playlistId=" +
-    playlistId +
-    "&spotifySongId=" +
-    spotifySongId,
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
     {},
     {
       headers: {
@@ -94,10 +94,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/youtube?playlistId=" +
-    playlistId +
-    "&youtubeId=" +
-    youtubeId,
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,
@@ -172,9 +172,9 @@ export const deleteUserFriendRequest = (accessToken, username) => {
 
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {
-    token: accessToken
-  })
-}
+    token: accessToken,
+  });
+};
 
 export const refreshAccessToken = (username, callingFunction) => {
   return (dispatch) => {
@@ -184,15 +184,15 @@ export const refreshAccessToken = (username, callingFunction) => {
         refreshToken: localStorage.getItem("refreshToken"),
       })
       .then((res) => {
-        console.log(res)
+        console.log(res);
         dispatch(setAccessToken(res));
         dispatch(callingFunction());
       })
       .catch((err) => {
-        dispatch(() => ({ error: err }))
-      }).then(() => {
-        dispatch(logoutUser())
+        dispatch(() => ({ error: err }));
       })
+      .then(() => {
+        dispatch(logoutUser());
+      });
   };
 };
-

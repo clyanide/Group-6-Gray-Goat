@@ -17,11 +17,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(push(url));
   },
   signOut: () => {
-    dispatch(logoutUser())
+    dispatch(logoutUser());
   },
   setCurrentUser: (username) => {
-    dispatch(setCurrentUser(username))
-  }
+    dispatch(setCurrentUser(username));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

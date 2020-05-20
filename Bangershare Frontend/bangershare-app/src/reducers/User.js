@@ -9,7 +9,7 @@ const initialState = {
 
 const setUserDetail = (state, action) => {
   localStorage.setItem("token", action.accessToken);
-  localStorage.setItem("refreshToken", action.accessToken)
+  localStorage.setItem("refreshToken", action.accessToken);
   localStorage.setItem("username", action.username);
 
   return {
@@ -43,22 +43,22 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         currentUser: {
-          name: action.username
-        }
-      }
+          name: action.username,
+        },
+      };
     }
     case userActionType.LOGOUT_USER: {
       return {
-        initialState
-      }
+        initialState,
+      };
     }
     case userActionType.SET_CURRENT_USER: {
       return {
         ...state,
         currentUser: {
-          name: action.username
-        }
-      }
+          name: action.username,
+        },
+      };
     }
     default:
       return { ...state };

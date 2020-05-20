@@ -9,7 +9,7 @@ const initialState = {
 
 const setUserDetail = (state, action) => {
   localStorage.setItem("token", action.accessToken);
-  localStorage.setItem("refreshToken", action.accessToken);
+  localStorage.setItem("refreshToken", action.refreshToken);
   localStorage.setItem("username", action.username);
 
   return {

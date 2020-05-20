@@ -73,10 +73,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-      "Song/spotify?playlistId=" +
-      playlistId +
-      "&spotifySongId=" +
-      spotifySongId,
+    "Song/spotify?playlistId=" +
+    playlistId +
+    "&spotifySongId=" +
+    spotifySongId,
     {},
     {
       headers: {
@@ -94,10 +94,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-      "Song/youtube?playlistId=" +
-      playlistId +
-      "&youtubeId=" +
-      youtubeId,
+    "Song/youtube?playlistId=" +
+    playlistId +
+    "&youtubeId=" +
+    youtubeId,
     {
       id: 0,
       isPending: true,
@@ -170,6 +170,14 @@ export const deleteUserFriendRequest = (accessToken, username) => {
   });
 };
 
+export const getPlaylistFromId = (accessToken, playlistId) => {
+  return axios.get(baseURL + "Playlist/single?playlistId=" + playlistId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+}
+
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {
     token: accessToken,
@@ -177,11 +185,13 @@ export const revokeToken = (accessToken) => {
 };
 
 export const refreshAccessToken = (username, callingFunction) => {
+  console.log(username)
+  console.log(localStorage.getItem("refreshToken"))
   return (dispatch) => {
     return axios
       .post(baseURL + "/User/refresh", {
         username: username,
-        refreshToken: localStorage.getItem("refreshToken"),
+        token: localStorage.getItem("refreshToken"),
       })
       .then((res) => {
         console.log(res);
@@ -189,10 +199,14 @@ export const refreshAccessToken = (username, callingFunction) => {
         dispatch(callingFunction());
       })
       .catch((err) => {
-        dispatch(() => ({ error: err }));
-      })
-      .then(() => {
+        console.log(err)
+        dispatch(refreshFail(err));
         dispatch(logoutUser());
-      });
+      })
   };
 };
+
+const refreshFail = (error) => ({
+  type: "FAILED_REFRESH",
+  error
+})

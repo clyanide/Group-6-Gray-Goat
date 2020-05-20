@@ -4,6 +4,9 @@ export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
   GET_FRIENDS_SUCCESS: "GET_FRIENDS_SUCCESS",
   GET_FRIENDS_FAIL: "GET_FRIENDS_FAIL",
+  ACCEPT_PENDING_REQUEST: "ACCEPT_PENDING_REQUEST",
+  ACCEPT_PENDING_REQUEST_SUCCESS: "ACCEPT_PENDING_REQUEST_SUCCESS",
+  ACCEPT_PENDING_REQUEST_FAIL: "ACCEPT_PENDING_REQUEST_FAIL"
 };
 
 const getFriends = () => {
@@ -42,4 +45,25 @@ const getFriendsFail = (error) => ({
   error,
 });
 
+const acceptPendingRequest = (senderName) => {
+  return (dispatch, getState) => {
+    dispatch(acceptPendingRequestStart);
+  }
+}
+
+const acceptPendingRequestStart = () => ({
+  type: friendActionType.ACCEPT_PENDING_REQUEST,
+  fetching: true,
+})
+
+const acceptPendingRequestSuccess = (payload) => ({
+  type: friendActionType.ACCEPT_PENDING_REQUEST_SUCCESS,
+  fetching: false,
+
+})
+
+const acceptPendingRequestFail = (error) => ({
+  type: friendActionType.ACCEPT_PENDING_REQUEST_FAIL,
+  error
+})
 export { getFriends };

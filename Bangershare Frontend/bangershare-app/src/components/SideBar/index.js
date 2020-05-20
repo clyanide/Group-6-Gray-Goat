@@ -61,8 +61,8 @@ const AppSideBar = (props) => {
               </List.Item>
             ))
           ) : (
-              <p>You have no playlist</p>
-            )}
+            <p>You have no playlist</p>
+          )}
         </List>
       </Menu.Item>
     </Sidebar>

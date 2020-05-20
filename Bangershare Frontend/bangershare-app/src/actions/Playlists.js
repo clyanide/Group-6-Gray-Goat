@@ -3,11 +3,10 @@ import {
   getUserPlaylists,
   refreshAccessToken,
   getPlaylistForUsername,
-  getPlaylistFromId
+  getPlaylistFromId,
 } from "../utility/API";
 import { push } from "connected-react-router";
-import { setAccessToken, logoutUser } from "./User"
-
+import { setAccessToken, logoutUser } from "./User";
 
 export const playlistActionType = {
   GET_PLAYLIST: "GET_PLAYLIST",
@@ -22,7 +21,7 @@ export const playlistActionType = {
   GET_PROFILE_PLAYLIST_FAIL: "GET_PROFILE_PLAYLIST_FAIL",
   GET_SINGLE_PLAYLIST: "GET_SINGLE_PLAYLIST",
   GET_SINGLE_PLAYLIST_SUCCESS: "GET_SINGLE_PLAYLIST_SUCCESS",
-  GET_SINGLE_PLAYLIST_FAIL: "GET_SINGLE_PLAYLIST_FAIL"
+  GET_SINGLE_PLAYLIST_FAIL: "GET_SINGLE_PLAYLIST_FAIL",
 };
 
 const getPlaylist = () => {
@@ -36,12 +35,12 @@ const getPlaylist = () => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(getPlaylist())
+              dispatch(setAccessToken(res));
+              dispatch(getPlaylist());
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(getPlaylistFail(err.message));
         }
@@ -70,18 +69,20 @@ const createPlaylist = (name) => {
     dispatch(createPlaylistStart());
     postPlaylist(localStorage.getItem("token"), name)
       .then((res) => {
-        dispatch(createPlaylistSuccess(res.data, localStorage.getItem("username")));
+        dispatch(
+          createPlaylistSuccess(res.data, localStorage.getItem("username"))
+        );
       })
       .catch((err) => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(createPlaylist(name))
+              dispatch(setAccessToken(res));
+              dispatch(createPlaylist(name));
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(createPlaylistFail(err.message));
         }
@@ -111,17 +112,19 @@ const setCurrentPlaylist = (playlist) => {
     dispatch({
       type: playlistActionType.SET_CURRENT_PLAYLIST,
       playlist,
-    })
-    dispatch(push({
-      pathname: "/playlist",
-      search: "?id=" + playlist.id
-    }))
-  }
+    });
+    dispatch(
+      push({
+        pathname: "/playlist",
+        search: "?id=" + playlist.id,
+      })
+    );
+  };
 };
 
 const getPlaylistForProfile = (username) => {
   return (dispatch) => {
-    dispatch(getPlaylistForProfileStart())
+    dispatch(getPlaylistForProfileStart());
     getPlaylistForUsername(localStorage.getItem("token"), username)
       .then((res) => {
         dispatch(getPlaylistForProfileSucces(res.data));
@@ -130,12 +133,12 @@ const getPlaylistForProfile = (username) => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(getPlaylistForProfile(username))
+              dispatch(setAccessToken(res));
+              dispatch(getPlaylistForProfile(username));
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(getPlaylistForProfileFail(err.message));
         }
@@ -145,8 +148,8 @@ const getPlaylistForProfile = (username) => {
 
 const getPlaylistForProfileStart = () => ({
   type: playlistActionType.GET_PROFILE_PLAYLIST,
-  fetching: true
-})
+  fetching: true,
+});
 
 const getPlaylistForProfileSucces = (payload) => ({
   type: playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS,
@@ -161,48 +164,48 @@ const getPlaylistForProfileFail = (error) => ({
 
 const getSinglePlaylist = (playlistId) => {
   return (dispatch) => {
-    dispatch(getSinglePlaylistStart())
+    dispatch(getSinglePlaylistStart());
     getPlaylistFromId(localStorage.getItem("token"), playlistId)
       .then((res) => {
-        dispatch(getSinglePlaylistSuccess(res.data))
+        dispatch(getSinglePlaylistSuccess(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(getSinglePlaylist(playlistId))
+              dispatch(setAccessToken(res));
+              dispatch(getSinglePlaylist(playlistId));
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(getSinglePlaylistFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const getSinglePlaylistStart = () => ({
   type: playlistActionType.GET_SINGLE_PLAYLIST,
-  fetching: true
-})
+  fetching: true,
+});
 
 const getSinglePlaylistSuccess = (payload) => ({
   type: playlistActionType.GET_SINGLE_PLAYLIST_SUCCESS,
   fetching: false,
-  playlist: payload
-})
+  playlist: payload,
+});
 
 const getSinglePlaylistFail = (error) => ({
   type: playlistActionType.GET_SINGLE_PLAYLIST_FAIL,
-  error
-})
+  error,
+});
 
 export {
   getPlaylist,
   createPlaylist,
   setCurrentPlaylist,
   getPlaylistForProfile,
-  getSinglePlaylist
+  getSinglePlaylist,
 };

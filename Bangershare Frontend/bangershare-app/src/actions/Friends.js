@@ -5,7 +5,7 @@ import {
   refreshAccessToken,
 } from "../utility/API";
 
-import { setAccessToken, logoutUser } from "./User"
+import { setAccessToken, logoutUser } from "./User";
 
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
@@ -28,12 +28,12 @@ const getFriends = () => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(getFriends())
+              dispatch(setAccessToken(res));
+              dispatch(getFriends());
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(getFriendsFail(err));
         }
@@ -61,7 +61,11 @@ const getFriendsFail = (error) => ({
 const acceptPendingRequest = (otherUsername) => {
   return (dispatch) => {
     dispatch(acceptPendingRequestStart);
-    updateFriendRequest(localStorage.getItem("token"), localStorage.getItem("username"), otherUsername)
+    updateFriendRequest(
+      localStorage.getItem("token"),
+      localStorage.getItem("username"),
+      otherUsername
+    )
       .then(() => {
         dispatch(getFriends());
       })
@@ -69,12 +73,12 @@ const acceptPendingRequest = (otherUsername) => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(acceptPendingRequest(otherUsername))
+              dispatch(setAccessToken(res));
+              dispatch(acceptPendingRequest(otherUsername));
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
@@ -103,12 +107,12 @@ const deleteFriendRequest = (username) => {
         if (err.response.status === 401) {
           refreshAccessToken(localStorage.getItem("username"))
             .then((res) => {
-              dispatch(setAccessToken(res))
-              dispatch(deleteFriendRequest(username))
+              dispatch(setAccessToken(res));
+              dispatch(deleteFriendRequest(username));
             })
             .catch(() => {
               dispatch(logoutUser());
-            })
+            });
         } else {
           dispatch(deleteFriendRequestFail(err));
         }

@@ -31,8 +31,8 @@ const FriendsPage = (props) => {
         {visibleList ? (
           <FriendsList onFriendClick={handleProfileClick} />
         ) : (
-            <FriendRequests onFriendClick={handleProfileClick} />
-          )}
+          <FriendRequests onFriendClick={handleProfileClick} />
+        )}
       </>
     </div>
   );

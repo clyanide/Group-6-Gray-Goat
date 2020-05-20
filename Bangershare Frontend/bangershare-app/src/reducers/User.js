@@ -29,7 +29,7 @@ const userReducer = (state = initialState, action) => {
       return setUserDetail(state, action);
     }
     case userActionType.SET_ACCESS_TOKEN: {
-      console.log(action.accessToken)
+      console.log(action.accessToken);
       localStorage.removeItem("token");
       localStorage.setItem("token", action.accessToken);
       return {

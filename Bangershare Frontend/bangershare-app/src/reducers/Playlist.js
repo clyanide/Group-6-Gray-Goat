@@ -71,8 +71,8 @@ const playlistReducer = (state = initialState, action) => {
     case playlistActionType.GET_PROFILE_PLAYLIST: {
       return {
         ...state,
-        profilePlaylist: initialState.profilePlaylist
-      }
+        profilePlaylist: initialState.profilePlaylist,
+      };
     }
     case playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS: {
       return {
@@ -83,8 +83,8 @@ const playlistReducer = (state = initialState, action) => {
     case playlistActionType.GET_SINGLE_PLAYLIST_SUCCESS: {
       return {
         ...state,
-        currentPlaylist: action.playlist
-      }
+        currentPlaylist: action.playlist,
+      };
     }
     case userActionType.LOGOUT_USER: {
       return {

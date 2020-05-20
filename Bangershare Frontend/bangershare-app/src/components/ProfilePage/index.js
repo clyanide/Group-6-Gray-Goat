@@ -8,18 +8,18 @@ const ProfilePage = (props) => {
     getProfilePlaylist,
     user,
     setCurrentPlaylist,
-    search, isFetching
+    search,
+    isFetching,
   } = props;
 
-  const queryString = require('query-string');
-  const username = queryString.parse(search).username
-
+  const queryString = require("query-string");
+  const username = queryString.parse(search).username;
 
   useEffect(() => {
     if (user === "") {
       getProfilePlaylist(username);
     } else {
-      getProfilePlaylist(user)
+      getProfilePlaylist(user);
     }
   }, [getProfilePlaylist, queryString, search, user, username]);
 
@@ -28,7 +28,7 @@ const ProfilePage = (props) => {
   };
   return (
     <>
-      {!isFetching ?
+      {!isFetching ? (
         <Grid direction="column" container spacing={5}>
           <Grid item xs={12} spacing={3}>
             <Typography variant="h5">
@@ -40,23 +40,29 @@ const ProfilePage = (props) => {
               <Grid item xs={12}>
                 <Typography variant="h6">Playlists</Typography>
                 {createPlaylist(
-                  profilePlaylist.filter((playlist) => playlist.isOwner === true),
+                  profilePlaylist.filter(
+                    (playlist) => playlist.isOwner === true
+                  ),
                   handleOnPlaylistClick
                 )}
               </Grid>
               <Grid item xs={12}>
                 <Typography variant="h6">Playlists they follow</Typography>
                 {createPlaylist(
-                  profilePlaylist.filter((playlist) => playlist.isOwner === false),
+                  profilePlaylist.filter(
+                    (playlist) => playlist.isOwner === false
+                  ),
                   handleOnPlaylistClick
                 )}
               </Grid>
             </>
           ) : (
-              <div>Sorry there seems to be no playlist</div>
-            )}
-        </Grid> : <div>LOADING</div>
-      }
+            <div>Sorry there seems to be no playlist</div>
+          )}
+        </Grid>
+      ) : (
+        <div>LOADING</div>
+      )}
     </>
   );
 };

@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
   profilePlaylist: state.playlistReducer.profilePlaylist,
   user: state.userReducer.userProfile,
   search: state.router.location.search,
-  isFetching: state.bangerShareReducer.fetching
+  isFetching: state.bangerShareReducer.fetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({

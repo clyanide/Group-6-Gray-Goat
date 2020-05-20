@@ -20,7 +20,7 @@ namespace Bangershare_Backend.Controllers
     {
         private readonly FriendService _friendService;
         private readonly IMapper _mapper;
-        
+
         public FriendController(FriendService friendService, IMapper mapper)
         {
             _friendService = friendService;
@@ -65,18 +65,18 @@ namespace Bangershare_Backend.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteFriendRequest([FromBody] FriendDto friendDto)
+        public async Task<IActionResult> DeleteFriendRequest([FromQuery] string username)
         {
             int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
 
-            var response = await _friendService.DeleteFriendRequest(friendDto.SenderUsername, friendDto.ReceiverUsername, userId);
+            var response = await _friendService.DeleteFriendRequest(userId, username);
 
             if (!response.Success)
             {
                 return BadRequest(response.Message);
             }
 
-            friendDto = _mapper.Map<Friend, FriendDto>(response.Resource);
+            FriendDto friendDto = _mapper.Map<Friend, FriendDto>(response.Resource);
 
             return Ok(friendDto);
         }

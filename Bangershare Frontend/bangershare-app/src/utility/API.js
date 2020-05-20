@@ -138,6 +138,30 @@ export const deleteSong = (accessToken, song, playlistId) => {
   );
 };
 
+export const updateFriendRequest = (accessToken, username, senderName) => {
+  return axios.put(
+    baseURL + "Friend",
+    {
+      senderUsername: senderName,
+      receiverUsername: username,
+      friendType: 0,
+    },
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
+
+export const deleteUserFriendRequest = (accessToken, username) => {
+  return axios.delete(baseURL + "Friend?username=" + username, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
+
 export const refreshAccessToken = (user, callingFunction, failingFunction) => {
   return (dispatch) => {
     return axios

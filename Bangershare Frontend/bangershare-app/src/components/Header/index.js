@@ -10,7 +10,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 const AppHeader = (props) => {
   const {
     onMenuClick,
-    currentUser,
     currentPath,
     isFetching,
     setProfileUser,

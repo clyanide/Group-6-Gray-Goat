@@ -103,11 +103,10 @@ const setCurrentPlaylist = (playlist) => {
   }
 };
 
-const getPlaylistForProfile = () => {
-  return (dispatch, getState) => {
-    const state = getState();
-    const profileUser = state.userReducer.userProfile;
-    getPlaylistForUsername(localStorage.getItem("token"), profileUser)
+const getPlaylistForProfile = (username) => {
+  return (dispatch) => {
+    dispatch(getPlaylistForProfileStart())
+    getPlaylistForUsername(localStorage.getItem("token"), username)
       .then((res) => {
         dispatch(getPlaylistForProfileSucces(res.data));
       })
@@ -120,6 +119,11 @@ const getPlaylistForProfile = () => {
       });
   };
 };
+
+const getPlaylistForProfileStart = () => ({
+  type: playlistActionType.GET_PROFILE_PLAYLIST,
+  fetching: true
+})
 
 const getPlaylistForProfileSucces = (payload) => ({
   type: playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS,

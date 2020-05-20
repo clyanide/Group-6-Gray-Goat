@@ -21,15 +21,15 @@ export const playlistActionType = {
 const getPlaylist = () => {
   return (dispatch, getState) => {
     dispatch(getPlaylistStart());
-    const store = getState();
-    const user = store.userReducer.currentUser;
-    getUserPlaylists(user.accessToken)
+    getUserPlaylists(localStorage.getItem("token"))
       .then((res) => {
         dispatch(getPlaylistSuccess(res));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          refreshAccessToken(user, getPlaylist, getPlaylistFail);
+          const store = getState();
+          const user = store.userReducer.currentUser;
+          dispatch(refreshAccessToken(user.name, getPlaylist));
         } else {
           dispatch(getPlaylistFail(err.message));
         }
@@ -58,13 +58,13 @@ const createPlaylist = (name) => {
     dispatch(createPlaylistStart());
     const state = getState();
     const user = state.userReducer.currentUser;
-    postPlaylist(user.accessToken, name)
+    postPlaylist(localStorage.getItem("token"), name)
       .then((res) => {
         dispatch(createPlaylistSuccess(res.data, user.name));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          refreshAccessToken(user, createPlaylist, createPlaylistFail);
+          dispatch(refreshAccessToken(user.name, createPlaylist));
         } else {
           dispatch(createPlaylistFail(err.message));
         }
@@ -97,19 +97,15 @@ const setCurrentPlaylist = (playlist) => ({
 const getPlaylistForProfile = () => {
   return (dispatch, getState) => {
     const state = getState();
-    const user = state.userReducer.currentUser;
     const profileUser = state.userReducer.userProfile;
-    getPlaylistForUsername(user.accessToken, profileUser)
+    getPlaylistForUsername(localStorage.getItem("token"), profileUser)
       .then((res) => {
         dispatch(getPlaylistForProfileSucces(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          refreshAccessToken(
-            user,
-            getPlaylistForProfile,
-            getPlaylistForProfileFail
-          );
+          const user = state.userReducer.currentUser;
+          dispatch(refreshAccessToken(user.name, getPlaylistForProfile));
         } else {
           dispatch(getPlaylistForProfileFail(err.message));
         }

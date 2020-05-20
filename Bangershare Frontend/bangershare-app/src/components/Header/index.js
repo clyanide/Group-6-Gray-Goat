@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Icon, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -14,12 +14,20 @@ const AppHeader = (props) => {
     currentPath,
     isFetching,
     setProfileUser,
+    signOut,
+    setCurrentUser,
   } = props;
 
   const onProfileClick = () => {
     setProfileUser(currentUser.name);
     props.push("/profile");
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("username" !== null)) {
+      setCurrentUser(localStorage.getItem("username"));
+    }
+  }, [setCurrentUser]);
 
   return (
     <AppBar position="static" color="black">
@@ -59,7 +67,7 @@ const AppHeader = (props) => {
                   trigger={
                     <Button icon labelPosition="left">
                       <Icon name="user circle" />
-                      {currentUser.name}
+                      {localStorage.getItem("username")}
                     </Button>
                   }
                 >
@@ -70,7 +78,11 @@ const AppHeader = (props) => {
                       onClick={() => onProfileClick()}
                     />
                     <Dropdown.Item icon="settings" text={"Settings"} />
-                    <Dropdown.Item icon="sign out" text={"Sign out"} />
+                    <Dropdown.Item
+                      icon="sign out"
+                      text={"Sign out"}
+                      onClick={() => signOut()}
+                    />
                   </Dropdown.Menu>
                 </Dropdown>
               </Grid>

@@ -10,10 +10,10 @@ const FriendRequests = (props) => {
         pendingFriends.map((friend) => (
           <>
             <List.Item
-              key={friend.receiverUsername}
-              onClick={() => onFriendClick(friend.receiverUsername)}
+              key={friend.senderUsername}
+              onClick={() => onFriendClick(friend.senderUsername)}
             >
-              {friend.receiverUsername}
+              {friend.senderUsername}
             </List.Item>
             <Button.Group>
               <Button>Accept</Button>
@@ -22,8 +22,8 @@ const FriendRequests = (props) => {
           </>
         ))
       ) : (
-        <List.Item>No pending friends</List.Item>
-      )}
+          <List.Item>No pending friends</List.Item>
+        )}
     </List>
   );
 };

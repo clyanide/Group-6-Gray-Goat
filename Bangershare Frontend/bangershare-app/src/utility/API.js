@@ -154,6 +154,17 @@ export const updateFriendRequest = (accessToken, username, senderName) => {
   )
 }
 
+export const deleteUserFriendRequest = (accessToken, username) => {
+  return axios.delete(
+    baseURL + "Friend?username=" + username,
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  )
+}
+
 export const refreshAccessToken = (user, callingFunction, failingFunction) => {
   return (dispatch) => {
     return axios

@@ -6,7 +6,7 @@ import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
 
 
 const FriendRequests = (props) => {
-  const { pendingFriends, onFriendClick, acceptRequest } = props;
+  const { pendingFriends, onFriendClick, acceptRequest, deleteRequest } = props;
 
   return (
     <List>
@@ -23,7 +23,7 @@ const FriendRequests = (props) => {
                   <PersonAddIcon />
                 </IconButton>
               </ListItemIcon>
-              <ListItemIcon>
+              <ListItemIcon onClick={() => deleteRequest(friend.senderUsername)}>
                 <IconButton>
                   <PersonAddDisabledIcon />
                 </IconButton>

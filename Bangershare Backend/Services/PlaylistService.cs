@@ -23,6 +23,7 @@ namespace Bangershare_Backend.Services
             _unitOfWork = unitOfWork;
         }
 
+
         public async Task<BaseResponse<Playlist>> CreatePlaylist(int userId, Playlist playlist)
         {
             var response = await Add(playlist);
@@ -68,6 +69,16 @@ namespace Bangershare_Backend.Services
             var playlistSongs = await GetPlaylistsForUser(user.Id);
 
             return new BaseResponse<ICollection<PlaylistSong>>(playlistSongs);
+        }
+
+
+        public async Task<PlaylistSong> GetPlaylist(int playlistId, int userId)
+        {
+            var playlist = await _playlistRepository.FindFirstOrDefault(p => p.Id.Equals(playlistId), include: source => source.Include(p => p.Songs));
+            var owner = await _userPlaylistRepository.FindFirstOrDefault(u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(playlistId), include: source => source.Include(u => u.User));
+            var playlistSong = new PlaylistSong(owner.User.Username, playlist, owner.UserId.Equals(userId) ? true : false);
+
+            return playlistSong;
         }
 
         public async Task<ICollection<PlaylistSong>> GetPlaylistsForUser(int userId)

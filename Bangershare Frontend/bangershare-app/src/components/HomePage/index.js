@@ -30,7 +30,6 @@ const HomeScreen = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.push("/playlist");
   };
 
   return (

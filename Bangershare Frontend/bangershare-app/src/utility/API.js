@@ -1,5 +1,4 @@
 import axios from "axios";
-import { setAccessToken, logoutUser } from "../actions/User";
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
@@ -170,29 +169,24 @@ export const deleteUserFriendRequest = (accessToken, username) => {
   });
 };
 
+export const getPlaylistFromId = (accessToken, playlistId) => {
+  return axios.get(baseURL + "Playlist/single?playlistId=" + playlistId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
+
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {
     token: accessToken,
   });
 };
 
-export const refreshAccessToken = (username, callingFunction) => {
-  return (dispatch) => {
-    return axios
-      .post(baseURL + "/User/refresh", {
-        username: username,
-        refreshToken: localStorage.getItem("refreshToken"),
-      })
-      .then((res) => {
-        console.log(res);
-        dispatch(setAccessToken(res));
-        dispatch(callingFunction());
-      })
-      .catch((err) => {
-        dispatch(() => ({ error: err }));
-      })
-      .then(() => {
-        dispatch(logoutUser());
-      });
-  };
+export const refreshAccessToken = (username) => {
+  console.log(username);
+  return axios.post(baseURL + "/User/token/refresh", {
+    token: localStorage.getItem("refreshToken"),
+    username: username,
+  });
 };

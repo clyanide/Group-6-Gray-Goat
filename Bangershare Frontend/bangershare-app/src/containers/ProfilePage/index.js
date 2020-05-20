@@ -9,11 +9,13 @@ import { push } from "connected-react-router";
 const mapStateToProps = (state) => ({
   profilePlaylist: state.playlistReducer.profilePlaylist,
   user: state.userReducer.userProfile,
+  search: state.router.location.search,
+  isFetching: state.bangerShareReducer.fetching,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getProfilePlaylist: () => {
-    dispatch(getPlaylistForProfile());
+  getProfilePlaylist: (username) => {
+    dispatch(getPlaylistForProfile(username));
   },
   setCurrentPlaylist: (playlist) => {
     dispatch(setCurrentPlaylist(playlist));

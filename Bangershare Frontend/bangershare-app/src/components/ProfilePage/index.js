@@ -8,44 +8,62 @@ const ProfilePage = (props) => {
     getProfilePlaylist,
     user,
     setCurrentPlaylist,
+    search,
+    isFetching,
   } = props;
 
+  const queryString = require("query-string");
+  const username = queryString.parse(search).username;
+
   useEffect(() => {
-    getProfilePlaylist();
-  }, [getProfilePlaylist]);
+    if (user === "") {
+      getProfilePlaylist(username);
+    } else {
+      getProfilePlaylist(user);
+    }
+  }, [getProfilePlaylist, queryString, search, user, username]);
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.push("/playlist");
   };
   return (
-    <Grid direction="column" container spacing={5}>
-      <Grid item xs={12} spacing={3}>
-        <Typography variant="h5">
-          <strong>{user}</strong>
-        </Typography>
-      </Grid>
-      {profilePlaylist && profilePlaylist.length > 0 ? (
-        <>
-          <Grid item xs={12}>
-            <Typography variant="h6">Playlists</Typography>
-            {createPlaylist(
-              profilePlaylist.filter((playlist) => playlist.isOwner === true),
-              handleOnPlaylistClick
-            )}
+    <>
+      {!isFetching ? (
+        <Grid direction="column" container spacing={5}>
+          <Grid item xs={12} spacing={3}>
+            <Typography variant="h5">
+              <strong>{username}</strong>
+            </Typography>
           </Grid>
-          <Grid item xs={12}>
-            <Typography variant="h6">Playlists they follow</Typography>
-            {createPlaylist(
-              profilePlaylist.filter((playlist) => playlist.isOwner === false),
-              handleOnPlaylistClick
-            )}
-          </Grid>
-        </>
+          {profilePlaylist && profilePlaylist.length > 0 ? (
+            <>
+              <Grid item xs={12}>
+                <Typography variant="h6">Playlists</Typography>
+                {createPlaylist(
+                  profilePlaylist.filter(
+                    (playlist) => playlist.isOwner === true
+                  ),
+                  handleOnPlaylistClick
+                )}
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant="h6">Playlists they follow</Typography>
+                {createPlaylist(
+                  profilePlaylist.filter(
+                    (playlist) => playlist.isOwner === false
+                  ),
+                  handleOnPlaylistClick
+                )}
+              </Grid>
+            </>
+          ) : (
+            <div>Sorry there seems to be no playlist</div>
+          )}
+        </Grid>
       ) : (
-        <div>Sorry there seems to be no playlist</div>
+        <div>LOADING</div>
       )}
-    </Grid>
+    </>
   );
 };
 

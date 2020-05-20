@@ -9,7 +9,7 @@ const initialState = {
 
 const setUserDetail = (state, action) => {
   localStorage.setItem("token", action.accessToken);
-  localStorage.setItem("refreshToken", action.accessToken);
+  localStorage.setItem("refreshToken", action.refreshToken);
   localStorage.setItem("username", action.username);
 
   return {
@@ -29,6 +29,8 @@ const userReducer = (state = initialState, action) => {
       return setUserDetail(state, action);
     }
     case userActionType.SET_ACCESS_TOKEN: {
+      console.log(action.accessToken);
+      localStorage.removeItem("token");
       localStorage.setItem("token", action.accessToken);
       return {
         ...state,

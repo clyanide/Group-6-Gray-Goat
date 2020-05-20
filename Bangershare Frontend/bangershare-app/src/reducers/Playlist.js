@@ -74,6 +74,12 @@ const playlistReducer = (state = initialState, action) => {
         profilePlaylist: action.profilePlaylist,
       };
     }
+    case playlistActionType.GET_SINGLE_PLAYLIST_SUCCESS: {
+      return {
+        ...state,
+        currentPlaylist: action.playlist
+      }
+    }
     case userActionType.LOGOUT_USER: {
       return {
         initialState,

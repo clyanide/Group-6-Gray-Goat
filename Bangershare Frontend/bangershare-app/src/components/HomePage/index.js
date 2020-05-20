@@ -30,7 +30,6 @@ const HomeScreen = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.push("/playlist");
   };
 
   return (
@@ -52,8 +51,8 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-        <p>Loading</p>
-      )}
+          <p>Loading</p>
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Fab onClick={() => handleModal(true)}>
         <PlaylistAddIcon />

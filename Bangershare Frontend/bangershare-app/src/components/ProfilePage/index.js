@@ -16,7 +16,6 @@ const ProfilePage = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.push("/playlist");
   };
   return (
     <Grid direction="column" container spacing={5}>
@@ -43,8 +42,8 @@ const ProfilePage = (props) => {
           </Grid>
         </>
       ) : (
-        <div>Sorry there seems to be no playlist</div>
-      )}
+          <div>Sorry there seems to be no playlist</div>
+        )}
     </Grid>
   );
 };

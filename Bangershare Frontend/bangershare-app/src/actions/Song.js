@@ -38,8 +38,7 @@ const addSongToPlaylist = (song) => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            const user = state.userReducer.currentUser;
-            dispatch(refreshAccessToken(user.name, addSongToPlaylist));
+            dispatch(refreshAccessToken(localStorage.getItem("username"), addSongToPlaylist));
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -57,10 +56,9 @@ const addSongToPlaylist = (song) => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            const user = state.userReducer.currentUser;
             dispatch(
               refreshAccessToken(
-                user.name,
+                localStorage.getItem("username"),
                 addSongToPlaylist,
                 addSongToPlaylistFail
               )
@@ -90,7 +88,7 @@ const addSongToPlaylistFail = (error) => ({
 });
 
 const updatePendingSong = (song) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(updatePendingSongStart());
     updateSong(localStorage.getItem("token"), song)
       .then((res) => {
@@ -98,9 +96,7 @@ const updatePendingSong = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          const state = getState();
-          const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(user.name, updatePendingSong));
+          dispatch(refreshAccessToken(localStorage.getItem("username"), updatePendingSong));
         } else {
           dispatch(updatePendingSongFail(err.message));
         }
@@ -135,8 +131,7 @@ const deleteSongFromPlaylist = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(user.name, deleteSongFromPlaylist));
+          dispatch(refreshAccessToken(localStorage.getItem("username"), deleteSongFromPlaylist));
         } else {
           dispatch(deleteSongFromPlaylistFail(err.message));
         }

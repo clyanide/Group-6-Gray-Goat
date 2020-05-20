@@ -32,7 +32,7 @@ const BangerShareApp = () => {
             <Route path="/home" component={HomePage} />
             <Route path="/friends" component={FriendsPage} />
             <Route path="/playlist" component={PlaylistPage} />
-            <Route path="/profile" component={ProfilePage} />
+            <Route path="/profile:username" component={ProfilePage} />
           </Switch>
         </Sidebar.Pusher>
       </Sidebar.Pushable>

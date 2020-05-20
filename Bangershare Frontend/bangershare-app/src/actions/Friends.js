@@ -16,7 +16,7 @@ export const friendActionType = {
 };
 
 const getFriends = () => {
-  return (dispatch, useState) => {
+  return (dispatch) => {
     dispatch(getFriendsStarted());
     getUserFriends(localStorage.getItem("token"))
       .then((res) => {
@@ -24,9 +24,7 @@ const getFriends = () => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          const state = useState();
-          const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(user.name, getFriends));
+          dispatch(refreshAccessToken(localStorage.getItem("username"), getFriends));
         } else {
           dispatch(getFriendsFail(err));
         }
@@ -52,17 +50,15 @@ const getFriendsFail = (error) => ({
 });
 
 const acceptPendingRequest = (otherUsername) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(acceptPendingRequestStart);
-    const state = getState();
-    const user = state.userReducer.currentUser;
-    updateFriendRequest(localStorage.getItem("token"), user.name, otherUsername)
+    updateFriendRequest(localStorage.getItem("token"), localStorage.getItem("username"), otherUsername)
       .then(() => {
         dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(user.name, acceptPendingRequest));
+          dispatch(refreshAccessToken(localStorage.getItem("username"), acceptPendingRequest));
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
@@ -81,10 +77,8 @@ const acceptPendingRequestFail = (error) => ({
 });
 
 const deleteFriendRequest = (username) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(deleteFriendRequestStart());
-    const state = getState();
-    const user = state.userReducer.currentUser;
     deleteUserFriendRequest(localStorage.getItem("token"), username)
       .then(() => {
         dispatch(getFriends());
@@ -93,7 +87,7 @@ const deleteFriendRequest = (username) => {
         if (err.response.status === 401) {
           dispatch(
             refreshAccessToken(
-              user.name,
+              localStorage.getItem("username"),
               deleteFriendRequest,
               deleteFriendRequestFail
             )

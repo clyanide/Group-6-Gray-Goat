@@ -135,11 +135,19 @@ const setAccessToken = (payload) => ({
   accessToken: payload.data.accessToken,
 });
 
-const setUserProfile = (username) => ({
-  type: userActionType.SET_USER_PROFILE,
-  fetching: true,
-  username,
-});
+const setUserProfile = (username) => {
+  return (dispatch) => {
+    dispatch({
+      type: userActionType.SET_USER_PROFILE,
+      fetching: true,
+      username,
+    })
+    dispatch(push({
+      pathname: "/profile",
+      search: "?username=" + username
+    }))
+  }
+};
 
 const setCurrentUser = (username) => ({
   type: userActionType.SET_CURRENT_USER,

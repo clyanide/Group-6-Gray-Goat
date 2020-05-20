@@ -9,6 +9,7 @@ import { push } from "connected-react-router";
 const mapStateToProps = (state) => ({
   profilePlaylist: state.playlistReducer.profilePlaylist,
   user: state.userReducer.userProfile,
+  search: state.router.location.search
 });
 
 const mapDispatchToProps = (dispatch) => ({

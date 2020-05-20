@@ -8,9 +8,14 @@ const ProfilePage = (props) => {
     getProfilePlaylist,
     user,
     setCurrentPlaylist,
+    search
   } = props;
 
+  const queryString = require('query-string');
+
   useEffect(() => {
+    const username = queryString.parse(search).username
+    console.log(username)
     getProfilePlaylist();
   }, [getProfilePlaylist]);
 

@@ -9,7 +9,6 @@ const FriendsPage = (props) => {
 
   const handleProfileClick = (username) => {
     setProfileUser(username);
-    props.push("/profile");
   };
 
   useEffect(() => {
@@ -32,8 +31,8 @@ const FriendsPage = (props) => {
         {visibleList ? (
           <FriendsList onFriendClick={handleProfileClick} />
         ) : (
-          <FriendRequests onFriendClick={handleProfileClick} />
-        )}
+            <FriendRequests onFriendClick={handleProfileClick} />
+          )}
       </>
     </div>
   );

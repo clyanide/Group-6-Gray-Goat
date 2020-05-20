@@ -9,7 +9,6 @@ const AppSideBar = (props) => {
     onClose,
     userPlaylists,
     setCurrentPlaylist,
-    user,
     setProfileUser,
   } = props;
 
@@ -24,8 +23,8 @@ const AppSideBar = (props) => {
   };
 
   const handleProfileClick = () => {
-    setProfileUser(user.name);
-    goTo("/profile");
+    setProfileUser(localStorage.getItem("username"));
+    onClose(false);
   };
 
   return (
@@ -62,8 +61,8 @@ const AppSideBar = (props) => {
               </List.Item>
             ))
           ) : (
-            <p>You have no playlist</p>
-          )}
+              <p>You have no playlist</p>
+            )}
         </List>
       </Menu.Item>
     </Sidebar>

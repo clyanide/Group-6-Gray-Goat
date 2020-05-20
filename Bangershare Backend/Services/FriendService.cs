@@ -117,18 +117,16 @@ namespace Bangershare_Backend.Services
             User user = await _userService.FindFirstOrDefault(filter: u => u.Id.Equals(userId),
                                                               include: source => source
                                                                 .Include(u => u.Sent)
-                                                                .ThenInclude(s => s.Sender)
+                                                                .ThenInclude(s => s.Receiver)
                                                                 .Include(u => u.Receieved)
-                                                                .ThenInclude(r => r.Receiver));
+                                                                .ThenInclude(r => r.Sender));
 
             List<Friend> friends = user.Sent.Where(s => s.FriendType.Equals(FriendType.Friend))
                                             .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Friend)))
                                             .ToList();
 
-            List<Friend> pendingFriends = user.Sent.Where(s => s.FriendType.Equals(FriendType.Pending))
-                                            .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Pending)))
-                                            .ToList();
-
+            List<Friend> pendingFriends = user.Receieved.Where(r => r.FriendType.Equals(FriendType.Pending)).ToList();
+          
             List<FriendSong> friendSongs = new List<FriendSong>();
 
 

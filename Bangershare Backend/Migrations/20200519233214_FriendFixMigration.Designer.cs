@@ -2,13 +2,16 @@
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bangershare_Backend.Migrations
 {
     [DbContext(typeof(BangerShareContext))]
-    partial class BangerShareContextModelSnapshot : ModelSnapshot
+    [Migration("20200519233214_FriendFixMigration")]
+    partial class FriendFixMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,13 +145,13 @@ namespace Bangershare_Backend.Migrations
             modelBuilder.Entity("Bangershare_Backend.Models.Friend", b =>
                 {
                     b.HasOne("Bangershare_Backend.Models.User", "Sender")
-                        .WithMany("Receiver")
-                        .HasForeignKey("SenderId")
+                        .WithMany("Receieved")
+                        .HasForeignKey("ReceiverId")
                         .IsRequired();
 
                     b.HasOne("Bangershare_Backend.Models.User", "Receiver")
-                        .WithMany("Sender")
-                        .HasForeignKey("ReceiverId")
+                        .WithMany("Sent")
+                        .HasForeignKey("SenderId")
                         .IsRequired();
                 });
 

@@ -12,7 +12,8 @@ export const userActionType = {
   SET_USER_PROFILE: "SET_USER_PROFILE",
   LOGOUT_USER: "LOGUT_USER",
   GET_USER: "GET_USER",
-  GET_USER_SUCCESS: "GET_USER_SUCCESS"
+  GET_USER_SUCCESS: "GET_USER_SUCCESS",
+  SET_CURRENT_USER: "SET_CURRENT_USER"
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -131,4 +132,9 @@ const setUserProfile = (username) => ({
   username,
 });
 
-export { registerUser, loginUser, setAccessToken, setUserProfile, logoutUser, getUserInfo };
+const setCurrentUser = (username) => ({
+  type: userActionType.SET_CURRENT_USER,
+  username
+})
+
+export { registerUser, loginUser, setAccessToken, setUserProfile, logoutUser, getUserInfo, setCurrentUser };

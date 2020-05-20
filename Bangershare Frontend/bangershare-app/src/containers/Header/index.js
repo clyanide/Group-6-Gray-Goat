@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import AppHeader from "../../components/Header";
-import { setUserProfile, logoutUser } from "../../actions/User";
+import { setUserProfile, logoutUser, setCurrentUser } from "../../actions/User";
 import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
@@ -19,6 +19,9 @@ const mapDispatchToProps = (dispatch) => ({
   signOut: () => {
     dispatch(logoutUser())
   },
+  setCurrentUser: (username) => {
+    dispatch(setCurrentUser(username))
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

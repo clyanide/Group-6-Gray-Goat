@@ -52,6 +52,14 @@ const userReducer = (state = initialState, action) => {
         initialState
       }
     }
+    case userActionType.SET_CURRENT_USER: {
+      return {
+        ...state,
+        currentUser: {
+          name: action.username
+        }
+      }
+    }
     default:
       return { ...state };
   }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Button, Icon, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
@@ -15,6 +15,7 @@ const AppHeader = (props) => {
     isFetching,
     setProfileUser,
     signOut,
+    setCurrentUser
   } = props;
 
   const onProfileClick = () => {
@@ -22,6 +23,11 @@ const AppHeader = (props) => {
     props.push("/profile");
   };
 
+  useEffect(() => {
+    if (localStorage.getItem("username" !== null)) {
+      setCurrentUser(localStorage.getItem("username"))
+    }
+  }, [setCurrentUser])
 
   return (
     <AppBar position="static" color="black">

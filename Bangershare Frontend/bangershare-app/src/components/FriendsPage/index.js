@@ -15,6 +15,7 @@ const FriendsPage = (props) => {
   useEffect(() => {
     getFriends()
   }, [getFriends])
+
   return (
     <div>
       <div>

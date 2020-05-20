@@ -32,10 +32,12 @@ export const CreateSongList = (props) => {
 
   const open = Boolean(anchorEl);
 
+  const handleSongClick = (song) => {};
+
   return (
     <List>
       {songs.map((song) => (
-        <ListItem button divider>
+        <ListItem button divider onClick={() => handleSongClick(song)}>
           <ListItemAvatar>
             <Avatar>
               <MusicNoteIcon />

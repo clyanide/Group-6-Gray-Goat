@@ -2,23 +2,16 @@ import React from "react";
 import SpotifyPlayer from "../../containers/SpotifyPlayer";
 import YoutubePlayer from "./YoutubePlayer";
 
-const mockSongObject = {
-  type: "spotify",
-  uri: "spotify:track:7BsKwPYQu8PQIEy3CCfPVJ",
-  link: "https://www.youtube.com/watch?v=iPlfQ8yWIeA",
-  duration: 266000,
-};
-
-const MusicPlayer = () => {
+const MusicPlayer = ({ songType, songUri, songLink, songDuration }) => {
   return (
     <div>
-      {mockSongObject.type === "spotify" ? (
-        <SpotifyPlayer
-          uri={mockSongObject.uri}
-          duration={mockSongObject.duration}
-        />
+      {console.log(
+        songLink + "-----------------------------------------------------"
+      )}
+      {songType === "spotify" ? (
+        <SpotifyPlayer uri={songUri} duration={songDuration} />
       ) : (
-        <YoutubePlayer link={mockSongObject.link} />
+        <YoutubePlayer link={songLink} />
       )}
     </div>
   );

@@ -1,4 +1,5 @@
 import { friendActionType } from "../actions/Friends";
+import { userActionType } from "../actions/User";
 
 const initialState = {
   friends: [],
@@ -13,6 +14,11 @@ const friendsReducer = (state = initialState, action) => {
         friends: action.friends,
         pendingFriends: action.pendingFriends,
       };
+    }
+    case userActionType.LOGOUT_USER: {
+      return {
+        initialState
+      }
     }
     default:
       return { ...state };

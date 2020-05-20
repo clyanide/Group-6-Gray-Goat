@@ -1,3 +1,5 @@
+import { userActionType } from "../actions/User";
+
 const initialState = {
   fetching: false,
   error: "",
@@ -22,6 +24,10 @@ const bangerShareReducer = (state = initialState, action) => {
     return setError(state, action);
   } else if (action.fetching === false) {
     return setLoading(state, false);
+  } else if (action.type === userActionType.LOGOUT_USER) {
+    return {
+      initialState
+    }
   }
 
   return { ...state };

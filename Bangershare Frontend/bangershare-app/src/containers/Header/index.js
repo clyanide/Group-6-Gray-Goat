@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import AppHeader from "../../components/Header";
-import { setUserProfile } from "../../actions/User";
+import { setUserProfile, logoutUser } from "../../actions/User";
 import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => ({
   push: (url) => {
     dispatch(push(url));
   },
+  signOut: () => {
+    dispatch(logoutUser())
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppHeader);

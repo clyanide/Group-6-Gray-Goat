@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { login, register } from "../utility/API";
+import { login, register, revokeToken } from "../utility/API";
 
 export const userActionType = {
   REGISTER_USER: "REGISTER_USER",
@@ -10,6 +10,7 @@ export const userActionType = {
   LOGIN_USER_FAIL: "LOGIN_USER_FAIL",
   SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
   SET_USER_PROFILE: "SET_USER_PROFILE",
+  LOGOUT_USER: "LOGUT_USER"
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -41,6 +42,17 @@ const loginUser = ({ username, password }) => {
       });
   };
 };
+
+const logoutUser = () => {
+  return (dispatch) => {
+    revokeToken(localStorage.getItem("token"))
+    dispatch(push("/login"));
+
+    return {
+      type: userActionType.LOGOUT_USER
+    }
+  }
+}
 
 const registerUserStart = () => ({
   type: userActionType.REGISTER_USER,
@@ -89,4 +101,4 @@ const setUserProfile = (username) => ({
   username,
 });
 
-export { registerUser, loginUser, setAccessToken, setUserProfile };
+export { registerUser, loginUser, setAccessToken, setUserProfile, logoutUser };

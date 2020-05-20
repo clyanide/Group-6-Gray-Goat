@@ -181,7 +181,7 @@ export const refreshAccessToken = (username, callingFunction) => {
     return axios
       .post(baseURL + "/User/refresh", {
         username: username,
-        refreshToken: localStorage.getItem("refreshToken"),
+        token: localStorage.getItem("refreshToken"),
       })
       .then((res) => {
         console.log(res);
@@ -189,6 +189,7 @@ export const refreshAccessToken = (username, callingFunction) => {
         dispatch(callingFunction());
       })
       .catch((err) => {
+        console.log(err);
         dispatch(() => ({ error: err }));
       })
       .then(() => {

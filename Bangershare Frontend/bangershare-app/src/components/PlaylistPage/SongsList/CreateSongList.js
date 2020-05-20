@@ -22,7 +22,7 @@ import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { green } from "@material-ui/core/colors";
 
 export const CreateSongList = (props) => {
-  const { songs, onUpdateSong, onDeleteSong, isOwner } = props;
+  const { songs, onUpdateSong, onDeleteSong, isOwner, handleSongClick } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -31,8 +31,6 @@ export const CreateSongList = (props) => {
   };
 
   const open = Boolean(anchorEl);
-
-  const handleSongClick = (song) => {};
 
   return (
     <List>

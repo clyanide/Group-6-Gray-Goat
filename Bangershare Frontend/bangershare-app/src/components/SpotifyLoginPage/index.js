@@ -8,10 +8,12 @@ class App extends Component {
     super(props);
     const params = this.getHashParams();
     const token = params.access_token;
+    console.log("not pushed");
     if (token) {
       spotifyApi.setAccessToken(token);
       this.props.setSpotifyToken(token);
       this.props.push("/home");
+      console.log("pushed");
     }
     this.state = {
       loggedIn: token ? true : false,

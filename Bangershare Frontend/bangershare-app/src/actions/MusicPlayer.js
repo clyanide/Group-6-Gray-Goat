@@ -1,26 +1,8 @@
 export const actionTypes = {
-  SET_TYPE: "SET_TYPE",
-  SET_URI: "SET_URI",
-  SET_LINK: "SET_LINK",
-  SET_DURATION: "SET_DURATION",
+  SET_CURRENT_SONG: "SET_CURRENT_SONG",
 };
 
-export const setType = (type) => ({
-  type: actionTypes.SET_TYPE,
-  songType: type,
-});
-
-export const setUri = (uri) => ({
-  type: actionTypes.SET_URI,
-  songUri: uri,
-});
-
-export const setLink = (link) => ({
-  type: actionTypes.SET_LINK,
-  songLink: link,
-});
-
-export const setDuration = (duration) => ({
-  type: actionTypes.SET_DURATION,
-  songDuration: duration,
+export const setCurrentSong = (song) => ({
+  type: actionTypes.SET_CURRENT_SONG,
+  song,
 });

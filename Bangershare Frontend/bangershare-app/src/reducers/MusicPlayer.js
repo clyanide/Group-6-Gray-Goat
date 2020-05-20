@@ -1,34 +1,25 @@
 import { actionTypes } from "../actions/MusicPlayer";
 
 const initialState = {
-  songType: "youtube",
-  songUri: "spotify:track:7BsKwPYQu8PQIEy3CCfPVJ",
-  songLink: "https://www.youtube.com/watch?v=MfiuQupcQxU",
-  songDuration: "266000",
+  currentSong: {
+    id: 0,
+    isPending: false,
+    hearts: 0,
+    name: "",
+    artist: "",
+    link: "",
+    duration: 0,
+    songType: 2, //0 is spotify, 2 is youtube
+  },
 };
 
 const musicPlayerReducer = (state = initialState, action) => {
   switch (action.type) {
-    case actionTypes.SET_TYPE:
+    case actionTypes.SET_CURRENT_SONG:
       return {
         ...state,
-        songType: action.songType,
+        currentSong: action.song,
       };
-
-    case actionTypes.SET_URI:
-      return {
-        ...state,
-        songUri: action.songUri,
-      };
-
-    case actionTypes.SET_LINK:
-      return {
-        ...state,
-        songLink: action.songLink,
-      };
-
-    case actionTypes.SET_DURATION:
-      return { ...state, songDuration: action.songDuration };
 
     default:
       return state;

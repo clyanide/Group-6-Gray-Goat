@@ -3,6 +3,7 @@ import SpotifyPlayer from "../../containers/SpotifyPlayer";
 import YoutubePlayer from "./YoutubePlayer";
 
 const MusicPlayer = ({ currentSong }) => {
+  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
   return (
     <div>
       {currentSong.songType === 0 ? (

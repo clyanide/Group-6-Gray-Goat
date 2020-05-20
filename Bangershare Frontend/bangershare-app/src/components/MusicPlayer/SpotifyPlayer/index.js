@@ -5,6 +5,8 @@ class SpotifyPlayer extends Component {
   constructor(props) {
     super(props);
 
+    console.log(this);
+
     this.state = {
       token: this.props.spotifyToken,
       deviceId: "",
@@ -19,18 +21,13 @@ class SpotifyPlayer extends Component {
       time: 0,
     };
 
-    this.playerCheckInterval = null;
-
-    if (this.state.token !== "") {
-      this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
-    }
+    this.checkForPlayer();
   }
 
   checkForPlayer() {
     const { token } = this.state;
 
     if (window.Spotify !== null) {
-      clearInterval(this.playerCheckInterval);
       this.player = new window.Spotify.Player({
         name: "BangerShare",
         getOAuthToken: (cb) => {

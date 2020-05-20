@@ -5,6 +5,10 @@ import SeekBar from "./SeekBar";
 const { PlayPause } = controls;
 
 class YoutubePlayer extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   render() {
     return (
       <Media>
@@ -12,7 +16,7 @@ class YoutubePlayer extends Component {
           <div>
             <Player
               style={{ width: 0, height: 0 }}
-              src="https://www.youtube.com/watch?v=nPcDlQaYoDw"
+              src={this.props.link}
               autoPlay={true}
             />
           </div>

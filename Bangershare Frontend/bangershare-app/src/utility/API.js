@@ -187,16 +187,20 @@ export const revokeToken = (accessToken) => {
 export const refreshAccessToken = (username, callingFunction) => {
   console.log(username)
   console.log(localStorage.getItem("refreshToken"))
+  console.log(callingFunction)
   return (dispatch) => {
     return axios
-      .post(baseURL + "/User/refresh", {
-        username: username,
-        token: localStorage.getItem("refreshToken"),
-      })
+      .post(baseURL + "/User/token/refresh",
+        {
+          token: localStorage.getItem("refreshToken"),
+          username: username,
+        })
       .then((res) => {
         console.log(res);
         dispatch(setAccessToken(res));
-        dispatch(callingFunction());
+      }).then(() => {
+        console.log("YELLO")
+        dispatch(callingFunction())
       })
       .catch((err) => {
         console.log(err)

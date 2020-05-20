@@ -1,5 +1,11 @@
 import { push } from "connected-react-router";
-import { login, register } from "../utility/API";
+import {
+  login,
+  register,
+  revokeToken,
+  getUser,
+  refreshAccessToken,
+} from "../utility/API";
 
 export const userActionType = {
   REGISTER_USER: "REGISTER_USER",
@@ -10,6 +16,10 @@ export const userActionType = {
   LOGIN_USER_FAIL: "LOGIN_USER_FAIL",
   SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
   SET_USER_PROFILE: "SET_USER_PROFILE",
+  LOGOUT_USER: "LOGUT_USER",
+  GET_USER: "GET_USER",
+  GET_USER_SUCCESS: "GET_USER_SUCCESS",
+  SET_CURRENT_USER: "SET_CURRENT_USER",
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -38,6 +48,48 @@ const loginUser = ({ username, password }) => {
       })
       .catch((err) => {
         dispatch(loginUserFail(err.message));
+      });
+  };
+};
+
+const getUserInfo = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("token")) {
+      dispatch(getUserInfoStart());
+      getUser(localStorage.getItem("token"))
+        .then((res) => {
+          dispatch(getUserInfoSuccess(res.data));
+        })
+        .catch(() => {
+          dispatch(
+            refreshAccessToken(localStorage.getItem("username"), getUserInfo)
+          );
+        });
+    }
+  };
+};
+
+const getUserInfoStart = () => ({
+  type: userActionType.GET_USER,
+  fetching: true,
+});
+
+const getUserInfoSuccess = (payload) => ({
+  type: userActionType.GET_USER_SUCCESS,
+  username: payload.username,
+  fetching: false,
+});
+
+const logoutUser = () => {
+  return (dispatch) => {
+    revokeToken(localStorage.getItem("token"))
+      .then(() => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("username");
+      })
+      .then(() => {
+        dispatch(push("/login"));
       });
   };
 };
@@ -89,4 +141,17 @@ const setUserProfile = (username) => ({
   username,
 });
 
-export { registerUser, loginUser, setAccessToken, setUserProfile };
+const setCurrentUser = (username) => ({
+  type: userActionType.SET_CURRENT_USER,
+  username,
+});
+
+export {
+  registerUser,
+  loginUser,
+  setAccessToken,
+  setUserProfile,
+  logoutUser,
+  getUserInfo,
+  setCurrentUser,
+};

@@ -3,19 +3,19 @@ import { userActionType } from "../actions/User";
 const initialState = {
   currentUser: {
     name: "",
-    accessToken: "",
-    refreshToken: "",
   },
   userProfile: "",
 };
 
 const setUserDetail = (state, action) => {
+  localStorage.setItem("token", action.accessToken);
+  localStorage.setItem("refreshToken", action.accessToken);
+  localStorage.setItem("username", action.username);
+
   return {
     ...state,
     currentUser: {
       name: action.username,
-      accessToken: action.accessToken,
-      refreshToken: action.refreshToken,
     },
   };
 };
@@ -29,9 +29,9 @@ const userReducer = (state = initialState, action) => {
       return setUserDetail(state, action);
     }
     case userActionType.SET_ACCESS_TOKEN: {
+      localStorage.setItem("token", action.accessToken);
       return {
         ...state,
-        accessToken: action.accessToken,
       };
     }
     case userActionType.SET_USER_PROFILE:
@@ -39,6 +39,27 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userProfile: action.username,
       };
+    case userActionType.GET_USER_SUCCESS: {
+      return {
+        ...state,
+        currentUser: {
+          name: action.username,
+        },
+      };
+    }
+    case userActionType.LOGOUT_USER: {
+      return {
+        initialState,
+      };
+    }
+    case userActionType.SET_CURRENT_USER: {
+      return {
+        ...state,
+        currentUser: {
+          name: action.username,
+        },
+      };
+    }
     default:
       return { ...state };
   }

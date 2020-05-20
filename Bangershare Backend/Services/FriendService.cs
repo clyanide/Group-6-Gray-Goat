@@ -30,7 +30,7 @@ namespace Bangershare_Backend.Services
 
         public async Task<BaseResponse<Friend>> AddFriendRequest(int senderId, string receiverUsername)
         {
-            Friend friendRequest = await FindFirstOrDefault(f => f.SenderId.Equals(senderId) && f.Receiver.Username.Equals(receiverUsername));
+            Friend friendRequest = await CheckRequestExists(senderId, receiverUsername);
 
             if(friendRequest != null)
             {
@@ -88,28 +88,16 @@ namespace Bangershare_Backend.Services
             }
         }
 
-        public async Task<BaseResponse<Friend>> DeleteFriendRequest(string senderUsername, string receiverUsername, int userId)
+        public async Task<BaseResponse<Friend>> DeleteFriendRequest(int userId, string friendUsername)
         {
-            User sender = await _userService.FindFirstOrDefault(u => u.Username.Equals(senderUsername));
-            
-            if (sender == null)
+            Friend friend = await CheckRequestExists(userId, friendUsername);
+
+            if(friend == null)
             {
-                return new BaseResponse<Friend>("Sender not found");
+                return new BaseResponse<Friend>("Two users have no relations");
             }
 
-            User receiver = await _userService.FindFirstOrDefault(u => u.Username.Equals(receiverUsername));
-
-            if (receiver == null)
-            {
-                return new BaseResponse<Friend>("Receiver does not exist");
-            }
-
-            if (sender.Id != userId || receiver.Id != userId)
-            {
-                return new BaseResponse<Friend>("User does not have permission to delete friend request");
-            }
-
-            return await Delete(sender.Id, receiver.Id);
+            return await Delete(friend.SenderId, friend.ReceiverId);
         }
 
         public async Task<BaseResponse<UserFriends>> GetFriends(int userId)
@@ -148,6 +136,13 @@ namespace Bangershare_Backend.Services
             };
 
             return new BaseResponse<UserFriends>(userFriends);
+        }
+
+        private async Task<Friend> CheckRequestExists(int id, string username)
+        {
+            return await FindFirstOrDefault(
+                f => (f.SenderId.Equals(id) && f.Receiver.Username.Equals(username)) || f.Sender.Username.Equals(username) && f.Receiver.Id.Equals(id),
+                include: source => source.Include(s => s.Receiver).Include(s => s.Sender));
         }
     }
 }

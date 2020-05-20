@@ -27,6 +27,23 @@ namespace Bangershare_Backend.Controllers
             _playlistService = playlistService;
         }
 
+        [HttpGet("single")]
+        public async Task<IActionResult> GetPlaylist([FromQuery] int playlistId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var result = await _playlistService.GetPlaylist(playlistId, userId);
+
+            if(result == null)
+            {
+                return NotFound("Playlist does not exist");
+            }
+
+            var playlistDto = _mapper.Map<PlaylistSong, PlaylistSongDto>(result);
+
+            return Ok(playlistDto);
+        }
+
         [HttpPost]
         public async Task<IActionResult> CreatePlaylist([FromBody] PlaylistDto playlistDto)
         {

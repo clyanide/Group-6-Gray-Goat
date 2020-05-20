@@ -16,17 +16,17 @@ export const friendActionType = {
 };
 
 const getFriends = () => {
-  return (dispatch, getState) => {
+  return (dispatch, useState) => {
     dispatch(getFriendsStarted());
-    const state = getState();
-    const user = state.userReducer.currentUser;
-    getUserFriends(user.accessToken)
+    getUserFriends(localStorage.getItem("token"))
       .then((res) => {
         dispatch(getFriendsSuccess(res));
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(refreshAccessToken(user, getFriends, getFriendsFail));
+          const state = useState();
+          const user = state.userReducer.currentUser;
+          dispatch(refreshAccessToken(user.name, getFriends));
         } else {
           dispatch(getFriendsFail(err));
         }
@@ -56,7 +56,7 @@ const acceptPendingRequest = (otherUsername) => {
     dispatch(acceptPendingRequestStart);
     const state = getState();
     const user = state.userReducer.currentUser;
-    updateFriendRequest(user.accessToken, user.name, otherUsername)
+    updateFriendRequest(localStorage.getItem("token"), user.name, otherUsername)
       .then(() => {
         dispatch(getFriends());
       })
@@ -64,11 +64,9 @@ const acceptPendingRequest = (otherUsername) => {
         if (err.response.status === 401) {
           dispatch(
             refreshAccessToken(
-              user,
+              user.name,
               acceptPendingRequest,
-              acceptPendingRequestFail
-            )
-          );
+            ))
         } else {
           dispatch(acceptPendingRequestFail(err));
         }
@@ -91,19 +89,17 @@ const deleteFriendRequest = (username) => {
     dispatch(deleteFriendRequestStart());
     const state = getState();
     const user = state.userReducer.currentUser;
-    deleteUserFriendRequest(user.accessToken, username)
-      .then((res) => {
+    deleteUserFriendRequest(localStorage.getItem("token"), username)
+      .then(() => {
         dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          dispatch(
-            refreshAccessToken(
-              user,
-              deleteFriendRequest,
-              deleteFriendRequestFail
-            )
-          );
+          dispatch(refreshAccessToken(
+            user.name,
+            deleteFriendRequest,
+            deleteFriendRequestFail
+          ));
         } else {
           dispatch(deleteFriendRequestFail(err));
         }

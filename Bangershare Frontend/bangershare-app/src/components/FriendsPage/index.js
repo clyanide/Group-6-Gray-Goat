@@ -1,16 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import FriendsList from "../../containers/FriendsPage/FriendsList";
 import FriendRequests from "../../containers/FriendsPage/FriendRequests";
 import { Search, Button } from "semantic-ui-react";
 
 const FriendsPage = (props) => {
   const [visibleList, setVisible] = useState(true);
-  const { isFetching, setProfileUser } = props;
+  const { isFetching, setProfileUser, getFriends } = props;
 
   const handleProfileClick = (username) => {
     setProfileUser(username);
     props.push("/profile");
   };
+
+  useEffect(() => {
+    getFriends()
+  }, [getFriends])
   return (
     <div>
       <div>
@@ -27,8 +31,8 @@ const FriendsPage = (props) => {
         {visibleList ? (
           <FriendsList onFriendClick={handleProfileClick} />
         ) : (
-          <FriendRequests onFriendClick={handleProfileClick} />
-        )}
+            <FriendRequests onFriendClick={handleProfileClick} />
+          )}
       </>
     </div>
   );

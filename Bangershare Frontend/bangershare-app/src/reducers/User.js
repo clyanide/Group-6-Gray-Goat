@@ -10,6 +10,8 @@ const initialState = {
 const setUserDetail = (state, action) => {
   localStorage.setItem("token", action.accessToken);
   localStorage.setItem("refreshToken", action.accessToken)
+  localStorage.setItem("username", action.username);
+
   return {
     ...state,
     currentUser: {
@@ -37,9 +39,15 @@ const userReducer = (state = initialState, action) => {
         ...state,
         userProfile: action.username,
       };
+    case userActionType.GET_USER_SUCCESS: {
+      return {
+        ...state,
+        currentUser: {
+          name: action.username
+        }
+      }
+    }
     case userActionType.LOGOUT_USER: {
-      localStorage.removeItem("token")
-      localStorage.removeItem("refreshToken")
       return {
         initialState
       }

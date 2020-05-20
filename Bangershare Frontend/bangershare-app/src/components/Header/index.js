@@ -14,13 +14,14 @@ const AppHeader = (props) => {
     currentPath,
     isFetching,
     setProfileUser,
-    signOut
+    signOut,
   } = props;
 
   const onProfileClick = () => {
     setProfileUser(currentUser.name);
     props.push("/profile");
   };
+
 
   return (
     <AppBar position="static" color="black">
@@ -60,7 +61,7 @@ const AppHeader = (props) => {
                     trigger={
                       <Button icon labelPosition="left">
                         <Icon name="user circle" />
-                        {currentUser.name}
+                        {localStorage.getItem("username")}
                       </Button>
                     }
                   >

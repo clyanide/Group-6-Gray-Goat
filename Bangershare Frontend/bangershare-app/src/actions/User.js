@@ -1,5 +1,5 @@
 import { push } from "connected-react-router";
-import { login, register, revokeToken } from "../utility/API";
+import { login, register, revokeToken, getUser, refreshAccessToken } from "../utility/API";
 
 export const userActionType = {
   REGISTER_USER: "REGISTER_USER",
@@ -10,7 +10,9 @@ export const userActionType = {
   LOGIN_USER_FAIL: "LOGIN_USER_FAIL",
   SET_ACCESS_TOKEN: "SET_ACCESS_TOKEN",
   SET_USER_PROFILE: "SET_USER_PROFILE",
-  LOGOUT_USER: "LOGUT_USER"
+  LOGOUT_USER: "LOGUT_USER",
+  GET_USER: "GET_USER",
+  GET_USER_SUCCESS: "GET_USER_SUCCESS"
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -43,14 +45,42 @@ const loginUser = ({ username, password }) => {
   };
 };
 
+const getUserInfo = () => {
+  return (dispatch) => {
+    if (localStorage.getItem("token")) {
+      dispatch(getUserInfoStart())
+      getUser(localStorage.getItem("token"))
+        .then((res) => {
+          dispatch(getUserInfoSuccess(res.data))
+        })
+        .catch(() => {
+          dispatch(refreshAccessToken(localStorage.getItem("username"), getUserInfo)
+          )
+        })
+    }
+  }
+}
+
+const getUserInfoStart = () => ({
+  type: userActionType.GET_USER,
+  fetching: true
+})
+
+const getUserInfoSuccess = (payload) => ({
+  type: userActionType.GET_USER_SUCCESS,
+  username: payload.username,
+  fetching: false
+})
+
 const logoutUser = () => {
   return (dispatch) => {
-    revokeToken(localStorage.getItem("token"))
-    dispatch(push("/login"));
-
-    return {
-      type: userActionType.LOGOUT_USER
-    }
+    revokeToken(localStorage.getItem("token")).then(() => {
+      localStorage.removeItem("token")
+      localStorage.removeItem("refreshToken")
+      localStorage.removeItem("username")
+    }).then(() => {
+      dispatch(push("/login"))
+    })
   }
 }
 
@@ -101,4 +131,4 @@ const setUserProfile = (username) => ({
   username,
 });
 
-export { registerUser, loginUser, setAccessToken, setUserProfile, logoutUser };
+export { registerUser, loginUser, setAccessToken, setUserProfile, logoutUser, getUserInfo };

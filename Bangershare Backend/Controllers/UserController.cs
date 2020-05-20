@@ -10,6 +10,8 @@ using AutoMapper;
 using Bangershare_Backend.Services;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Models.Security;
+using Microsoft.AspNetCore.Authorization;
+using Bangershare_Backend.Helpers;
 
 namespace Bangershare_Backend.Controllers
 {
@@ -26,6 +28,25 @@ namespace Bangershare_Backend.Controllers
             _mapper = mapper;
             _userService = userService;
             _authenticationService = authenticationService;
+        }
+
+
+        [HttpGet]
+        [Authorize]
+        public async Task<IActionResult> GetUserInfo()
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var result =await _userService.GetByKeys(userId);
+
+            if(result == null)
+            {
+                return NotFound("User not found");
+            }
+
+            UserDto userDto = _mapper.Map<User, UserDto>(result);
+
+            return Ok(userDto);
         }
 
         [HttpPost("register")]

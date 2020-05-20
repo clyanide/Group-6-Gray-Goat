@@ -1,5 +1,5 @@
 import axios from "axios";
-import { setAccessToken } from "../actions/User";
+import { setAccessToken, logoutUser } from "../actions/User";
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
@@ -18,6 +18,14 @@ export const register = (email, username, password) => {
     password,
   });
 };
+
+export const getUser = (accessToken) => {
+  return axios.get(baseURL + "/User", {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+}
 
 export const getUserFriends = (accessToken) => {
   return axios.get(baseURL + "Friend", {
@@ -168,19 +176,23 @@ export const revokeToken = (accessToken) => {
   })
 }
 
-export const refreshAccessToken = (user, callingFunction, failingFunction) => {
+export const refreshAccessToken = (username, callingFunction) => {
   return (dispatch) => {
     return axios
       .post(baseURL + "/User/refresh", {
-        username: user.name,
-        refreshToken: user.refreshToken,
+        username: username,
+        refreshToken: localStorage.getItem("refreshToken"),
       })
       .then((res) => {
+        console.log(res)
         dispatch(setAccessToken(res));
         dispatch(callingFunction());
       })
       .catch((err) => {
-        dispatch(failingFunction(err.message));
-      });
+        dispatch(() => ({ error: err }))
+      }).then(() => {
+        dispatch(logoutUser())
+      })
   };
 };
+

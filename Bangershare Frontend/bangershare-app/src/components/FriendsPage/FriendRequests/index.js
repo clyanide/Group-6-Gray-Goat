@@ -1,29 +1,41 @@
 import React from "react";
-import { List, Button } from "semantic-ui-react";
+import { List, Typography, ListItem, ListItemIcon, ListItemText, ListItemSecondaryAction, IconButton } from "@material-ui/core";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PersonAddIcon from '@material-ui/icons/PersonAdd';
+import PersonAddDisabledIcon from '@material-ui/icons/PersonAddDisabled';
+
 
 const FriendRequests = (props) => {
-  const { pendingFriends, onFriendClick } = props;
+  const { pendingFriends, onFriendClick, acceptRequest } = props;
 
   return (
-    <List link>
+    <List>
       {pendingFriends && pendingFriends.length > 0 ? (
         pendingFriends.map((friend) => (
-          <>
-            <List.Item
-              key={friend.senderUsername}
-              onClick={() => onFriendClick(friend.senderUsername)}
-            >
-              {friend.senderUsername}
-            </List.Item>
-            <Button.Group>
-              <Button>Accept</Button>
-              <Button>Decline</Button>
-            </Button.Group>
-          </>
-        ))
-      ) : (
-          <List.Item>No pending friends</List.Item>
-        )}
+          <ListItem button onClick={() => onFriendClick(friend.senderUsername)} divider>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary={friend.senderUsername} />
+            <ListItemSecondaryAction>
+              <ListItemIcon onClick={() => acceptRequest(friend.senderUsername)}>
+                <IconButton>
+                  <PersonAddIcon />
+                </IconButton>
+              </ListItemIcon>
+              <ListItemIcon>
+                <IconButton>
+                  <PersonAddDisabledIcon />
+                </IconButton>
+              </ListItemIcon>
+            </ListItemSecondaryAction>
+          </ListItem>
+        )))
+        :
+        <Typography>
+          No Friend Requests
+        </Typography>
+      }
     </List>
   );
 };

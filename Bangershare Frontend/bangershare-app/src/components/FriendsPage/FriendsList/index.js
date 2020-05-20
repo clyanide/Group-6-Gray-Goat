@@ -1,23 +1,27 @@
 import React from "react";
-import { List } from "semantic-ui-react";
+import { List, Typography, ListItem, ListItemIcon, ListItemText } from "@material-ui/core";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+
 
 const FriendsList = (props) => {
   const { friends, onFriendClick } = props;
   return (
-    <List link>
+    <List>
       {friends && friends.length > 0 ? (
         friends.map((friend) => (
-          <List.Item Button
-            key={friend.username}
-            onClick={() => onFriendClick(friend.username)}
-          >
-            {friend.username}
-          </List.Item>
-        ))
-      ) : (
-          <List.Item>No friends</List.Item>
-        )}
+          <ListItem button divider onClick={() => onFriendClick(friend.username)}>
+            <ListItemIcon>
+              <AccountCircleIcon />
+            </ListItemIcon>
+            <ListItemText primary={friend.username} />
+          </ListItem>
+        ))) :
+        <Typography>
+          You have no friends
+        </Typography>
+      }
     </List>
+
   );
 };
 

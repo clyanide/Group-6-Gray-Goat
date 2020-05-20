@@ -55,56 +55,56 @@ export const CreateSongList = (props) => {
                 </IconButton>
               </>
             ) : (
-              <>
-                {song.hearts}
-                <IconButton>
-                  <FavoriteBorderOutlinedIcon color="secondary" />
-                </IconButton>
-                {isOwner ? (
-                  <>
-                    <IconButton onClick={handleClick}>
-                      <MoreVertOutlinedIcon />
-                    </IconButton>
-                    <Popper
-                      open={open}
-                      anchorEl={anchorEl}
-                      placement="bottom-end"
-                      transition
-                    >
-                      {({ TransitionProps }) => (
-                        <Fade {...TransitionProps} timeout={350}>
-                          <Paper>
-                            <List>
-                              <ListItem button>
-                                <ListItemIcon>
-                                  <EditOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                  style={{ textAlign: "right" }}
-                                  primary="Edit"
-                                />
-                              </ListItem>
-                              <ListItem
-                                button
-                                onClick={() => onDeleteSong(song)}
-                              >
-                                <ListItemIcon>
-                                  <DeleteOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                  style={{ textAlign: "right" }}
-                                  primary="Delete"
-                                />
-                              </ListItem>
-                            </List>
-                          </Paper>
-                        </Fade>
-                      )}
-                    </Popper>
-                  </>
-                ) : null}
-              </>
-            )}
+                <>
+                  {song.hearts}
+                  <IconButton>
+                    <FavoriteBorderOutlinedIcon color="secondary" />
+                  </IconButton>
+                  {isOwner ? (
+                    <>
+                      <IconButton onClick={handleClick}>
+                        <MoreVertOutlinedIcon />
+                      </IconButton>
+                      <Popper
+                        open={open}
+                        anchorEl={anchorEl}
+                        placement="bottom-end"
+                        transition
+                      >
+                        {({ TransitionProps }) => (
+                          <Fade {...TransitionProps} timeout={350}>
+                            <Paper>
+                              <List>
+                                <ListItem button>
+                                  <ListItemIcon>
+                                    <EditOutlinedIcon />
+                                  </ListItemIcon>
+                                  <ListItemText
+                                    style={{ textAlign: "right" }}
+                                    primary="Edit"
+                                  />
+                                </ListItem>
+                                <ListItem
+                                  button
+                                  onClick={() => onDeleteSong(song)}
+                                >
+                                  <ListItemIcon>
+                                    <DeleteOutlinedIcon />
+                                  </ListItemIcon>
+                                  <ListItemText
+                                    style={{ textAlign: "right" }}
+                                    primary="Delete"
+                                  />
+                                </ListItem>
+                              </List>
+                            </Paper>
+                          </Fade>
+                        )}
+                      </Popper>
+                    </>
+                  ) : null}
+                </>
+              )}
           </ListItemSecondaryAction>
         </ListItem>
       ))}

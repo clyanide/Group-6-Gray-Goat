@@ -1,4 +1,4 @@
-import { getUserFriends, refreshAccessToken } from "../utility/API";
+import { getUserFriends, updateFriendRequest, refreshAccessToken } from "../utility/API";
 
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
@@ -48,6 +48,19 @@ const getFriendsFail = (error) => ({
 const acceptPendingRequest = (senderName) => {
   return (dispatch, getState) => {
     dispatch(acceptPendingRequestStart);
+    const state = getState();
+    const user = state.userReducer.currentUser;
+    updateFriendRequest(user.accessToken, user.name, senderName)
+      .then((res) => {
+        dispatch(getFriends())
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          dispatch(refreshAccessToken(user, acceptPendingRequest, acceptPendingRequestFail));
+        } else {
+          dispatch(getFriendsFail(err));
+        }
+      })
   }
 }
 
@@ -56,14 +69,8 @@ const acceptPendingRequestStart = () => ({
   fetching: true,
 })
 
-const acceptPendingRequestSuccess = (payload) => ({
-  type: friendActionType.ACCEPT_PENDING_REQUEST_SUCCESS,
-  fetching: false,
-
-})
-
 const acceptPendingRequestFail = (error) => ({
   type: friendActionType.ACCEPT_PENDING_REQUEST_FAIL,
   error
 })
-export { getFriends };
+export { getFriends, acceptPendingRequest };

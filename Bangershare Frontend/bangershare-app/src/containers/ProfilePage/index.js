@@ -3,6 +3,8 @@ import { connect } from "react-redux";
 import {
   getPlaylistForProfile,
   setCurrentPlaylist,
+  followPlaylistProfilePage,
+  unfollowPlaylistProfilePage,
 } from "../../actions/Playlists";
 import { push } from "connected-react-router";
 
@@ -22,6 +24,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   push: (url) => {
     dispatch(push(url));
+  },
+  followPlaylist: (playlistId, username) => {
+    dispatch(followPlaylistProfilePage(playlistId, username));
+  },
+  unfollowPlaylist: (playlistId, username) => {
+    dispatch(unfollowPlaylistProfilePage(playlistId, username));
   },
 });
 

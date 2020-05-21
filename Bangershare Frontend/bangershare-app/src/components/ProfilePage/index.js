@@ -10,6 +10,8 @@ const ProfilePage = (props) => {
     setCurrentPlaylist,
     search,
     isFetching,
+    followPlaylist,
+    unfollowPlaylist,
   } = props;
 
   const queryString = require("query-string");
@@ -26,6 +28,15 @@ const ProfilePage = (props) => {
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
   };
+
+  const handleOnFollowClick = (playlistId) => {
+    followPlaylist(playlistId, username);
+  };
+
+  const handleOnUnfollowClick = (playlistId) => {
+    unfollowPlaylist(playlistId, username);
+  };
+
   return (
     <>
       {!isFetching ? (
@@ -43,7 +54,9 @@ const ProfilePage = (props) => {
                   profilePlaylist.filter(
                     (playlist) => playlist.isOwner === true
                   ),
-                  handleOnPlaylistClick
+                  handleOnPlaylistClick,
+                  handleOnFollowClick,
+                  handleOnUnfollowClick
                 )}
               </Grid>
               <Grid item xs={12}>
@@ -52,7 +65,9 @@ const ProfilePage = (props) => {
                   profilePlaylist.filter(
                     (playlist) => playlist.isOwner === false
                   ),
-                  handleOnPlaylistClick
+                  handleOnPlaylistClick,
+                  handleOnFollowClick,
+                  handleOnUnfollowClick
                 )}
               </Grid>
             </>

@@ -177,15 +177,35 @@ export const getPlaylistFromId = (accessToken, playlistId) => {
   });
 };
 
+export const followUserPlaylist = async (accessToken, playlistId) => {
+  return await axios.post(
+    baseURL + "Playlist/follow/" + playlistId,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
+
+export const unfollowUserPlaylist = (accessToken, playlistId) => {
+  return axios.delete(baseURL + "Playlist/unfollow/" + playlistId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
+
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {
     token: accessToken,
   });
 };
 
-export const refreshAccessToken = (username) => {
+export const refreshAccessToken = async (username) => {
   console.log(username);
-  return axios.post(baseURL + "/User/token/refresh", {
+  return await axios.post(baseURL + "/User/token/refresh", {
     token: localStorage.getItem("refreshToken"),
     username: username,
   });

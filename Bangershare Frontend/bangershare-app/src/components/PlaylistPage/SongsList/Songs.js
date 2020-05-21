@@ -1,5 +1,5 @@
 import React from "react";
-import CreateSongList from "./CreateSongList";
+import CreateSongList from "../../../containers/PlaylistPage/SongsList/CreateSongList";
 
 const Songs = (props) => {
   const { songs, isOwner, deleteSong } = props;

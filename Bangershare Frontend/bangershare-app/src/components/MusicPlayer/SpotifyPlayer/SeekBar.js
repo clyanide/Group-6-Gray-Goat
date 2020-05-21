@@ -22,6 +22,8 @@ const SeekBar = (props) => {
       interval = setInterval(() => {
         setCounter((counter) => counter + 1);
       }, 1000);
+
+      props.endOfSongCallback(counter);
     } else if (props.paused && counter !== 0) {
       clearInterval(interval);
     }

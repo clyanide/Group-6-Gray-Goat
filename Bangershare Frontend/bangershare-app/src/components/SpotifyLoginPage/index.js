@@ -11,7 +11,7 @@ class App extends Component {
     if (token) {
       spotifyApi.setAccessToken(token);
       this.props.setSpotifyToken(token);
-      this.props.push("/player");
+      this.props.push("/home");
     }
     this.state = {
       loggedIn: token ? true : false,

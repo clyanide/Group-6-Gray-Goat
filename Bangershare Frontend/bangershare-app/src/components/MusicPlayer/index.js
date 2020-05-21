@@ -6,13 +6,13 @@ const MusicPlayer = ({ currentSong }) => {
   const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
 
   useEffect(() => {
-    if (currentSong.songType == 0) {
+    if (currentSong.songType === 0) {
       setspotifyFirstLoad(true);
     }
   }, [setspotifyFirstLoad, currentSong.songType]);
 
-  const nmsl = currentSong.songType == 0 ? "0" : "105vw";
-  const cnm = currentSong.songType == 2 ? "0" : "105vw";
+  const nmsl = currentSong.songType === 0 ? "0" : "105vw";
+  const cnm = currentSong.songType === 2 ? "0" : "105vw";
 
   return (
     <div>

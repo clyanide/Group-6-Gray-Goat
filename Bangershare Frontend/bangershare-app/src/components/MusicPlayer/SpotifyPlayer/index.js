@@ -26,7 +26,7 @@ class SpotifyPlayer extends Component {
   componentDidUpdate(prevProps) {
     if (!equal(this.props.uri, prevProps.uri)) {
       // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-      if (this.props.type == 0) {
+      if (this.props.type === 0) {
         this.setState({ trackName: "" });
         this.playUri({
           playerInstance: this.player,
@@ -41,7 +41,7 @@ class SpotifyPlayer extends Component {
   }
 
   checkSongChanged() {
-    if (this.props.currentSong.songType != 0) {
+    if (this.props.currentSong.songType !== 0) {
       this.setState({ trackName: "" });
       this.player.pause();
     }
@@ -190,8 +190,8 @@ class SpotifyPlayer extends Component {
   // When spotify song finishes
   endOfSongCallback = (position) => {
     if (
-      Math.trunc(this.props.duration) != 0 &&
-      position == Math.trunc(this.props.duration / 1000) - 1
+      Math.trunc(this.props.duration) !== 0 &&
+      position === Math.trunc(this.props.duration / 1000) - 1
     ) {
       this.onNextClick();
     }
@@ -202,7 +202,7 @@ class SpotifyPlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
+      if (currentSong.id === songList[i].id) {
         if (i < songList.length - 1) {
           return songList[i + 1];
         } else return songList[0];
@@ -215,7 +215,7 @@ class SpotifyPlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
+      if (currentSong.id === songList[i].id) {
         if (i > 0) {
           return songList[i - 1];
         } else return songList[songList.length - 1];

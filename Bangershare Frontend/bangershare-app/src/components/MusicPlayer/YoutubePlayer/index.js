@@ -5,10 +5,6 @@ import SeekBar from "./SeekBar";
 const { PlayPause } = controls;
 
 class YoutubePlayer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleNextClick = () => {
     this.props.setSong(
       this.getNextSong(
@@ -32,7 +28,7 @@ class YoutubePlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
+      if (currentSong.id === songList[i].id) {
         if (i < songList.length - 1) {
           return songList[i + 1];
         } else return songList[0];
@@ -45,7 +41,7 @@ class YoutubePlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
+      if (currentSong.id === songList[i].id) {
         if (i > 0) {
           return songList[i - 1];
         } else return songList[songList.length - 1];

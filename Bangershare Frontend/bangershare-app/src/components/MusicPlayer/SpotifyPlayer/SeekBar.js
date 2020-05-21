@@ -9,33 +9,35 @@ const convertToTimestamp = (time) => {
 };
 
 const SeekBar = (props) => {
+  const { parentCallback, paused, duration, endOfSongCallback } = props;
+
   const set = (value) => {
     setCounter(value);
-    props.parentCallback(value);
+    parentCallback(value);
   };
 
   const [counter, setCounter] = React.useState(0);
 
   React.useEffect(() => {
     let interval = null;
-    if (!props.paused && counter < props.duration) {
+    if (!paused && counter < duration) {
       interval = setInterval(() => {
         setCounter((counter) => counter + 1);
       }, 1000);
 
-      props.endOfSongCallback(counter);
-    } else if (props.paused && counter !== 0) {
+      endOfSongCallback(counter);
+    } else if (paused && counter !== 0) {
       clearInterval(interval);
     }
     return () => clearInterval(interval);
-  }, [props.paused, counter, props.duration]);
+  }, [paused, counter, duration, endOfSongCallback]);
 
   return (
     <div>
       <Slider
         value={counter}
         onChange={(event, value) => set(value)}
-        max={props.duration}
+        max={duration}
       />
       <p>
         {convertToTimestamp(counter).m} :{" "}
@@ -43,9 +45,9 @@ const SeekBar = (props) => {
         {convertToTimestamp(counter).s}
       </p>
       <p>
-        {convertToTimestamp(props.duration).m} :{" "}
-        {convertToTimestamp(props.duration).s < 10 ? "0" : null}
-        {convertToTimestamp(props.duration).s}
+        {convertToTimestamp(duration).m} :{" "}
+        {convertToTimestamp(duration).s < 10 ? "0" : null}
+        {convertToTimestamp(duration).s}
       </p>
     </div>
   );

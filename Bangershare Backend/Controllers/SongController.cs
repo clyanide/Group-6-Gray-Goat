@@ -26,7 +26,7 @@ namespace Bangershare_Backend.Controllers
             _mapper = mapper;
             _songService = songService;
         }
-        
+
         [HttpPost]
         public async Task<IActionResult> AddSongToPlaylist([FromQuery] int playlistId, [FromBody] SongDto songDto)
         {
@@ -102,7 +102,7 @@ namespace Bangershare_Backend.Controllers
         [HttpPut("{songId}")]
         public async Task<IActionResult> UpdateSong([FromRoute] int songId, [FromBody] SongDto songDto)
         {
-            if(songDto.Id != songId)
+            if (songDto.Id != songId)
             {
                 return BadRequest("ID of songs, don't match");
             }
@@ -115,6 +115,40 @@ namespace Bangershare_Backend.Controllers
             {
                 return BadRequest(response.Message);
             }
+
+            return Ok(songDto);
+        }
+
+        [HttpPost("like")]
+        public async Task<IActionResult> LikeSong([FromQuery] int songId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var result = await _songService.LikeSong(userId, songId);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var songDto = _mapper.Map<Song, SongDto>(result.Resource);
+
+            return Ok(songDto);
+        }
+
+        [HttpDelete("dislike")]
+        public async Task<IActionResult> DislikeSong([FromQuery] int songId)
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var result = await _songService.DislikeSong(userId, songId);
+
+            if (!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var songDto = _mapper.Map<Song, SongDto>(result.Resource);
 
             return Ok(songDto);
         }

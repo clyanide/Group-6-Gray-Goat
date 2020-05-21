@@ -20,7 +20,7 @@ import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { green } from "@material-ui/core/colors";
-import FavoriteIcon from '@material-ui/icons/Favorite';
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const CreateSongList = (props) => {
   const {
@@ -33,7 +33,7 @@ export const CreateSongList = (props) => {
     currentPlaylist,
     likeSong,
     unlikeSong,
-    likedSongs
+    likedSongs,
   } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -74,60 +74,64 @@ export const CreateSongList = (props) => {
                 </IconButton>
               </>
             ) : (
-                <>
-                  {song.hearts}
-                  {likedSongs && likedSongs.length > 0 && likedSongs.find(x => x.id === song.id) !== undefined ?
-                    <IconButton onClick={() => unlikeSong(song.id)}>
-                      <FavoriteIcon color="secondary" />
+              <>
+                {song.hearts}
+                {likedSongs &&
+                likedSongs.length > 0 &&
+                likedSongs.find((x) => x.id === song.id) !== undefined ? (
+                  <IconButton onClick={() => unlikeSong(song.id)}>
+                    <FavoriteIcon color="secondary" />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={() => likeSong(song.id)}>
+                    <FavoriteBorderOutlinedIcon color="secondary" />
+                  </IconButton>
+                )}
+                {isOwner ? (
+                  <>
+                    <IconButton onClick={handleClick}>
+                      <MoreVertOutlinedIcon />
                     </IconButton>
-                    : <IconButton onClick={() => likeSong(song.id)}>
-                      <FavoriteBorderOutlinedIcon color="secondary" />
-                    </IconButton>}
-                  {isOwner ? (
-                    <>
-                      <IconButton onClick={handleClick}>
-                        <MoreVertOutlinedIcon />
-                      </IconButton>
-                      <Popper
-                        open={open}
-                        anchorEl={anchorEl}
-                        placement="bottom-end"
-                        transition
-                      >
-                        {({ TransitionProps }) => (
-                          <Fade {...TransitionProps} timeout={350}>
-                            <Paper>
-                              <List>
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <EditOutlinedIcon />
-                                  </ListItemIcon>
-                                  <ListItemText
-                                    style={{ textAlign: "center" }}
-                                    primary="Edit"
-                                  />
-                                </ListItem>
-                                <ListItem
-                                  button
-                                  onClick={() => onDeleteSong(song)}
-                                >
-                                  <ListItemIcon>
-                                    <DeleteOutlinedIcon />
-                                  </ListItemIcon>
-                                  <ListItemText
-                                    style={{ textAlign: "center" }}
-                                    primary="Delete"
-                                  />
-                                </ListItem>
-                              </List>
-                            </Paper>
-                          </Fade>
-                        )}
-                      </Popper>
-                    </>
-                  ) : null}
-                </>
-              )}
+                    <Popper
+                      open={open}
+                      anchorEl={anchorEl}
+                      placement="bottom-end"
+                      transition
+                    >
+                      {({ TransitionProps }) => (
+                        <Fade {...TransitionProps} timeout={350}>
+                          <Paper>
+                            <List>
+                              <ListItem button>
+                                <ListItemIcon>
+                                  <EditOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                  style={{ textAlign: "center" }}
+                                  primary="Edit"
+                                />
+                              </ListItem>
+                              <ListItem
+                                button
+                                onClick={() => onDeleteSong(song)}
+                              >
+                                <ListItemIcon>
+                                  <DeleteOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText
+                                  style={{ textAlign: "center" }}
+                                  primary="Delete"
+                                />
+                              </ListItem>
+                            </List>
+                          </Paper>
+                        </Fade>
+                      )}
+                    </Popper>
+                  </>
+                ) : null}
+              </>
+            )}
           </ListItemSecondaryAction>
         </ListItem>
       ))}

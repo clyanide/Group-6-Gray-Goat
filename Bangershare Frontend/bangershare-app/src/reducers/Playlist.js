@@ -15,12 +15,11 @@ const initialState = {
   },
 };
 
-
 const replaceSong = (song, songList) => {
-  const songIndex = songList.findIndex(s => s.id === song.id);
+  const songIndex = songList.findIndex((s) => s.id === song.id);
   songList[songIndex] = song;
-  return songList
-}
+  return songList;
+};
 
 const playlistReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -72,7 +71,9 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case songActionType.DELETE_SONG_SUCCESS: {
-      const newSongs = state.currentPlaylist.songs.filter((song) => song.id !== action.song.id)
+      const newSongs = state.currentPlaylist.songs.filter(
+        (song) => song.id !== action.song.id
+      );
       return {
         ...state,
         currentPlaylist: {
@@ -100,24 +101,24 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case songActionType.LIKE_SONG_SUCCESS: {
-      const songList = replaceSong(action.song, state.currentPlaylist.songs)
+      const songList = replaceSong(action.song, state.currentPlaylist.songs);
       return {
         ...state,
         currentPlaylist: {
           ...state.currentPlaylist,
-          songs: songList
-        }
-      }
+          songs: songList,
+        },
+      };
     }
     case songActionType.DELETE_LIKE_SONG_SUCCESS: {
-      const songList = replaceSong(action.song, state.currentPlaylist.songs)
+      const songList = replaceSong(action.song, state.currentPlaylist.songs);
       return {
         ...state,
         currentPlaylist: {
           ...state.currentPlaylist,
-          songs: songList
-        }
-      }
+          songs: songList,
+        },
+      };
     }
     case userActionType.LOGOUT_USER: {
       return {

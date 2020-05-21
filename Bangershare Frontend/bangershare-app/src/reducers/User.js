@@ -6,7 +6,7 @@ const initialState = {
     name: "",
   },
   userProfile: "",
-  likedSongs: []
+  likedSongs: [],
 };
 
 const setUserDetail = (state, action) => {
@@ -65,21 +65,23 @@ const userReducer = (state = initialState, action) => {
     case songActionType.LIKE_SONG_SUCCESS: {
       return {
         ...state,
-        likedSongs: [...state.likedSongs, action.song]
-      }
+        likedSongs: [...state.likedSongs, action.song],
+      };
     }
     case songActionType.GET_LIKE_SONG_SUCCESS: {
       return {
         ...state,
-        likedSongs: action.likedSongs
-      }
+        likedSongs: action.likedSongs,
+      };
     }
     case songActionType.DELETE_LIKE_SONG_SUCCESS: {
-      const songList = state.likedSongs.filter(song => song.id !== action.song.id)
+      const songList = state.likedSongs.filter(
+        (song) => song.id !== action.song.id
+      );
       return {
         ...state,
-        likedSongs: songList
-      }
+        likedSongs: songList,
+      };
     }
     default:
       return { ...state };

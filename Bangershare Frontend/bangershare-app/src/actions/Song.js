@@ -6,7 +6,7 @@ import {
   refreshAccessToken,
   postLikeSong,
   getUserLikeSong,
-  deleteLikeSong
+  deleteLikeSong,
 } from "../utility/API";
 import { setAccessToken, logoutUser } from "./User";
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
@@ -30,7 +30,7 @@ export const songActionType = {
   GET_LIKE_SONG_FAIL: "GET_LIKE_SONG_FAIL",
   DELETE_LIKE_SONG: "DELETE_LIKE_SONG",
   DELETE_LIKE_SONG_SUCCESS: "DELETE_LIKE_SONG_SUCCESS",
-  DELETE_LIKE_SONG_FAIL: "DELETE_LIKE_SONG_FAIL"
+  DELETE_LIKE_SONG_FAIL: "DELETE_LIKE_SONG_FAIL",
 };
 
 const addSongToPlaylist = (song) => {
@@ -191,10 +191,10 @@ const deleteSongFromPlaylistFail = (error) => ({
 
 const likeSong = (songId) => {
   return (dispatch) => {
-    dispatch(likeSongStart())
+    dispatch(likeSongStart());
     postLikeSong(localStorage.getItem("token"), songId)
       .then((res) => {
-        dispatch(likeSongSuccess(res.data))
+        dispatch(likeSongSuccess(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -209,32 +209,32 @@ const likeSong = (songId) => {
         } else {
           dispatch(likeSongFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const likeSongStart = () => ({
   type: songActionType.LIKE_SONG,
-  fetching: true
-})
+  fetching: true,
+});
 
 const likeSongSuccess = (payload) => ({
   type: songActionType.LIKE_SONG_SUCCESS,
   fetching: false,
-  song: payload
-})
+  song: payload,
+});
 
 const likeSongFail = (error) => ({
   type: songActionType.LIKE_SONG_FAIL,
-  error
-})
+  error,
+});
 
 const getLikeSong = () => {
   return (dispatch) => {
-    dispatch(getLikeSongStart())
+    dispatch(getLikeSongStart());
     getUserLikeSong(localStorage.getItem("token"))
       .then((res) => {
-        dispatch(getLikeSongSuccess(res.data))
+        dispatch(getLikeSongSuccess(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -249,32 +249,32 @@ const getLikeSong = () => {
         } else {
           dispatch(getLikeSongFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const getLikeSongStart = () => ({
   type: songActionType.GET_LIKE_SONG,
-  fetching: true
-})
+  fetching: true,
+});
 
 const getLikeSongSuccess = (payload) => ({
   type: songActionType.GET_LIKE_SONG_SUCCESS,
   fetching: false,
-  likedSongs: payload
-})
+  likedSongs: payload,
+});
 
 const getLikeSongFail = (error) => ({
   type: songActionType.GET_LIKE_SONG_FAIL,
-  error
-})
+  error,
+});
 
 const removeLikeFromSong = (songId) => {
   return (dispatch) => {
-    dispatch(removeLikeFromSongStart())
+    dispatch(removeLikeFromSongStart());
     deleteLikeSong(localStorage.getItem("token"), songId)
       .then((res) => {
-        dispatch(removeLikeFromSongSuccess(res.data))
+        dispatch(removeLikeFromSongSuccess(res.data));
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -289,24 +289,31 @@ const removeLikeFromSong = (songId) => {
         } else {
           dispatch(removeLikeFromSongFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const removeLikeFromSongStart = () => ({
   type: songActionType.DELETE_LIKE_SONG,
-  fetching: true
-})
+  fetching: true,
+});
 
 const removeLikeFromSongSuccess = (payload) => ({
   type: songActionType.DELETE_LIKE_SONG_SUCCESS,
   fetching: false,
-  song: payload
-})
+  song: payload,
+});
 
 const removeLikeFromSongFail = (error) => ({
   type: songActionType.DELETE_LIKE_SONG_FAIL,
-  error
-})
+  error,
+});
 
-export { addSongToPlaylist, updatePendingSong, deleteSongFromPlaylist, likeSong, getLikeSong, removeLikeFromSong };
+export {
+  addSongToPlaylist,
+  updatePendingSong,
+  deleteSongFromPlaylist,
+  likeSong,
+  getLikeSong,
+  removeLikeFromSong,
+};

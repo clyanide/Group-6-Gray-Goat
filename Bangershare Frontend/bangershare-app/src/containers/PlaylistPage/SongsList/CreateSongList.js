@@ -4,12 +4,12 @@ import {
   setCurrentSong,
   setCurrentPlayingPlaylist,
 } from "../../../actions/MusicPlayer";
-import { likeSong, removeLikeFromSong } from "../../../actions/Song"
+import { likeSong, removeLikeFromSong } from "../../../actions/Song";
 
 const mapStateToProps = (state) => {
   return {
     currentPlaylist: state.playlistReducer.currentPlaylist,
-    likedSongs: state.userReducer.likedSongs
+    likedSongs: state.userReducer.likedSongs,
   };
 };
 
@@ -21,11 +21,11 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setCurrentPlayingPlaylist(playlist));
   },
   likeSong: (songId) => {
-    dispatch(likeSong(songId))
+    dispatch(likeSong(songId));
   },
   unlikeSong: (songId) => {
-    dispatch(removeLikeFromSong(songId))
-  }
+    dispatch(removeLikeFromSong(songId));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateSongList);

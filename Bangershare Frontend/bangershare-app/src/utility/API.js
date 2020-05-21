@@ -72,10 +72,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/spotify?playlistId=" +
-    playlistId +
-    "&spotifySongId=" +
-    spotifySongId,
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
     {},
     {
       headers: {
@@ -93,10 +93,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/youtube?playlistId=" +
-    playlistId +
-    "&youtubeId=" +
-    youtubeId,
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,
@@ -198,28 +198,32 @@ export const unfollowUserPlaylist = (accessToken, playlistId) => {
 };
 
 export const postLikeSong = (accessToken, songId) => {
-  return axios.post(baseURL + "Song/like?songId=" + songId, {}, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-    },
-  })
-}
+  return axios.post(
+    baseURL + "Song/like?songId=" + songId,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
 
 export const deleteLikeSong = (accessToken, songId) => {
   return axios.delete(baseURL + "Song/dislike?songId=" + songId, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
-  })
-}
+  });
+};
 
 export const getUserLikeSong = (accessToken) => {
   return axios.get(baseURL + "Song/like", {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
-  })
-}
+  });
+};
 
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {

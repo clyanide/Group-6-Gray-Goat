@@ -72,9 +72,7 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case songActionType.DELETE_SONG_SUCCESS: {
-      const newSongs = state.currentPlaylist.songs.filter((song) => {
-        return song.id !== action.song.id;
-      });
+      const newSongs = state.currentPlaylist.songs.filter((song) => song.id !== action.song.id)
       return {
         ...state,
         currentPlaylist: {

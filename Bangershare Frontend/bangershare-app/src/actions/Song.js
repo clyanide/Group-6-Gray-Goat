@@ -56,6 +56,7 @@ const addSongToPlaylist = (song) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
+          console.log(err);
           if (err.response.status === 401) {
             const user = state.userReducer.currentUser;
             dispatch(

@@ -1,16 +1,26 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SpotifyPlayer from "../../containers/SpotifyPlayer";
 import YoutubePlayer from "./YoutubePlayer";
 
 const MusicPlayer = ({ currentSong }) => {
-  console.log("%%%%%%%%%%%%%%%%%%%%%%%%%");
+  const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
+
+  useEffect(() => {
+    if (currentSong.songType == 0) {
+      setspotifyFirstLoad(true);
+    }
+  }, [setspotifyFirstLoad, currentSong.songType]);
+
   return (
     <div>
-      {currentSong.songType === 0 ? (
-        <SpotifyPlayer uri={currentSong.link} duration={currentSong.duration} />
-      ) : (
-        <YoutubePlayer link={currentSong.link} />
-      )}
+      <YoutubePlayer link={currentSong.link} />
+      {spotifyFirstLoad ? (
+        <SpotifyPlayer
+          uri={currentSong.link}
+          duration={currentSong.duration}
+          type={currentSong.songType}
+        />
+      ) : null}
     </div>
   );
 };

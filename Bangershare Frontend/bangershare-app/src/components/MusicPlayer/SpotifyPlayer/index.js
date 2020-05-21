@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
+import equal from "fast-deep-equal";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -22,6 +23,34 @@ class SpotifyPlayer extends Component {
     };
 
     this.checkForPlayer();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props.uri, prevProps.uri)) {
+      // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+      if (this.props.type == 0) {
+        this.setState({ trackName: "" });
+        this.playUri({
+          playerInstance: this.player,
+          spotify_uri: this.props.uri,
+        });
+      }
+    }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.checkSongChanged(), 1000);
+  }
+
+  checkSongChanged() {
+    if (this.props.currentSong.songType != 0) {
+      this.setState({ trackName: "" });
+      this.player.pause();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   checkForPlayer() {

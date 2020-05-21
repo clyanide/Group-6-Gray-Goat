@@ -193,12 +193,7 @@ class SpotifyPlayer extends Component {
       Math.trunc(this.props.duration) != 0 &&
       position == Math.trunc(this.props.duration / 1000) - 1
     ) {
-      this.props.setSong(
-        this.getNextSong(
-          this.props.currentSong,
-          this.props.currentPlayingPlaylist
-        )
-      );
+      this.onNextClick();
     }
   };
 
@@ -208,7 +203,9 @@ class SpotifyPlayer extends Component {
     let i = 0;
     for (i = 0; i < songList.length; i++) {
       if (currentSong.id == songList[i].id) {
-        return songList[i + 1];
+        if (i < songList.length - 1) {
+          return songList[i + 1];
+        } else return songList[0];
       }
     }
   };
@@ -219,7 +216,9 @@ class SpotifyPlayer extends Component {
     let i = 0;
     for (i = 0; i < songList.length; i++) {
       if (currentSong.id == songList[i].id) {
-        return songList[i - 1];
+        if (i > 0) {
+          return songList[i - 1];
+        } else return songList[songList.length - 1];
       }
     }
   };

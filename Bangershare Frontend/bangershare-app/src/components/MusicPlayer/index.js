@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import SpotifyPlayer from "../../containers/SpotifyPlayer";
-import YoutubePlayer from "./YoutubePlayer";
+import YoutubePlayer from "../../containers/YoutubePlayer";
 
 const MusicPlayer = ({ currentSong }) => {
   const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
 
   useEffect(() => {
-    console.log(currentSong);
     if (currentSong.songType == 0) {
       setspotifyFirstLoad(true);
     }

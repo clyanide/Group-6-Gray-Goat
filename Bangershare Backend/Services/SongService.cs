@@ -214,5 +214,24 @@ namespace Bangershare_Backend.Services
                 return new BaseResponse<Song>($"An error occurred when disliking the song: {e.Message}");
             }
         }
+
+        public async Task<BaseResponse<ICollection<Song>>> GetUserLikedSongs(int userId)
+        {
+            var userLikes = await _userLikeRepository.Get(u => u.UserId.Equals(userId), includeProperties: "Song");
+
+            if(userLikes == null)
+            {
+                return new BaseResponse<ICollection<Song>>("User has no liked songs");
+            }
+
+            var songList = new List<Song>();
+
+            foreach(UserLike userLike in userLikes)
+            {
+                songList.Add(userLike.Song);
+            }
+
+            return new BaseResponse<ICollection<Song>>(songList);
+        }
     }
 }

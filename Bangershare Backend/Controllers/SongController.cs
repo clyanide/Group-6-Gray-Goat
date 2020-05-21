@@ -152,5 +152,22 @@ namespace Bangershare_Backend.Controllers
 
             return Ok(songDto);
         }
+
+        [HttpGet("like")]
+        public async Task<IActionResult> GetUsersLikedSongs()
+        {
+            int userId = ClaimHelper.FindNameIdentifier(HttpContext.User.Claims);
+
+            var result = await _songService.GetUserLikedSongs(userId);
+
+            if(!result.Success)
+            {
+                return BadRequest(result.Message);
+            }
+
+            var songListDto = _mapper.Map<ICollection<Song>, ICollection<SongDto>>(result.Resource);
+
+            return Ok(songListDto);
+        }
     }
 }

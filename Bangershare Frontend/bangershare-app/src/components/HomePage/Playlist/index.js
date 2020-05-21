@@ -23,7 +23,7 @@ const responsive = {
   },
 };
 
-const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => (
+const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick, handleUnfollowClick) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -36,7 +36,7 @@ const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => 
         itemClass="carousel-item-padding-40-px"
       >
         {playlists.map((playlist) =>
-          <PlaylistCard playlist={playlist} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} />
+          <PlaylistCard playlist={playlist} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} unfollowPlaylist={handleUnfollowClick} />
         )}
       </Carousel>
     ) : (
@@ -45,7 +45,7 @@ const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => 
   </Grid>
 );
 
-export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => (
+export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick, handleUnfollowClick) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -60,7 +60,7 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFol
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
             return playlist.playlistSongs.map((p) =>
-              <PlaylistCard playlist={p} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} />
+              <PlaylistCard playlist={p} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} unfollowPlaylist={handleUnfollowClick} />
             );
           }
           return null;

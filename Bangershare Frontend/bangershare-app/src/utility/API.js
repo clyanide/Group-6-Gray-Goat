@@ -186,7 +186,7 @@ export const followUserPlaylist = async (accessToken, playlistId) => {
 }
 
 export const unfollowUserPlaylist = (accessToken, playlistId) => {
-  return axios.delete(baseURL + "Playlist/follow/" + playlistId, {}, {
+  return axios.delete(baseURL + "Playlist/unfollow/" + playlistId, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },

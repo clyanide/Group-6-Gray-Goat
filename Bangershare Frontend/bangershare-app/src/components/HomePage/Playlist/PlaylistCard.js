@@ -13,7 +13,7 @@ import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 const PlaylistCard = (props) => {
-    const { playlist, handleOnPlaylistClick, followPlaylist } = props;
+    const { playlist, handleOnPlaylistClick, followPlaylist, unfollowPlaylist } = props;
 
     return (
         < Card >
@@ -28,7 +28,7 @@ const PlaylistCard = (props) => {
             <Divider />
             <CardActions>
                 {playlist.following ?
-                    <IconButton >
+                    <IconButton onClick={() => unfollowPlaylist(playlist.id)}>
                         <FavoriteIcon fontSize="small" color="secondary" />
                     </IconButton>
                     :

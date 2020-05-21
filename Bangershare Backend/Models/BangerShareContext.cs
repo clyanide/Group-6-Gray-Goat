@@ -16,6 +16,7 @@ namespace Bangershare_Backend.Models
         public virtual DbSet<UserPlaylist> UserPlaylists { get; set; }
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<Song> Song { get; set; }
+        public virtual DbSet<UserLike> UserLike { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -74,6 +75,19 @@ namespace Bangershare_Backend.Models
                         e => e.ToString(),
                         e => (SongType)Enum.Parse(typeof(SongType), e))
                     .HasMaxLength(150);
+            });
+
+            modelBuilder.Entity<UserLike>(entity =>
+            {
+                entity.HasKey(e => new { e.UserId, e.SongId });
+
+                entity.HasOne(e => e.Song)
+                    .WithMany(e => e.UserLikes)
+                    .HasForeignKey(e => e.SongId);
+
+                entity.HasOne(e => e.User)
+                    .WithMany(e => e.UserLikes)
+                    .HasForeignKey(e => e.UserId);
             });
         }
     }

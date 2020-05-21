@@ -22,5 +22,7 @@ namespace Bangershare_Backend.Models
         public virtual ICollection<Friend> Sent { get; set; }
         public virtual ICollection<Friend> Receieved { get; set; }
         public virtual ICollection<UserPlaylist> UserPlaylists { get; set; }
+        public virtual ICollection<UserLike> UserLikes { get; set; }
+
     }
 }

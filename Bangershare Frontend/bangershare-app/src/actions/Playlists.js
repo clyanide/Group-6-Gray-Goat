@@ -4,9 +4,11 @@ import {
   refreshAccessToken,
   getPlaylistForUsername,
   getPlaylistFromId,
+  followUserPlaylist
 } from "../utility/API";
 import { push } from "connected-react-router";
 import { setAccessToken, logoutUser } from "./User";
+import { getFriends } from "./Friends"
 
 export const playlistActionType = {
   GET_PLAYLIST: "GET_PLAYLIST",
@@ -22,6 +24,9 @@ export const playlistActionType = {
   GET_SINGLE_PLAYLIST: "GET_SINGLE_PLAYLIST",
   GET_SINGLE_PLAYLIST_SUCCESS: "GET_SINGLE_PLAYLIST_SUCCESS",
   GET_SINGLE_PLAYLIST_FAIL: "GET_SINGLE_PLAYLIST_FAIL",
+  FOLLOW_PLAYLIST: "FOLLOW_PLAYLIST",
+  FOLLOW_PLAYLIST_SUCCESS: "FOLLOW_PLAYLIST_SUCCESS",
+  FOLLOW_PLAYLIST_FAIL: "FOLLOW_PLAYLIST_FAIL"
 };
 
 const getPlaylist = () => {
@@ -202,10 +207,72 @@ const getSinglePlaylistFail = (error) => ({
   error,
 });
 
+const followPlaylistHomePage = (playlistId) => {
+  return (dispatch) => {
+    dispatch(followUserPlaylistStart())
+    followUserPlaylist(localStorage.getItem("token"), playlistId)
+      .then(() => {
+        dispatch(getPlaylist())
+        dispatch(getFriends())
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(followPlaylistHomePage(playlistId));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(followUserPlaylistFail(err.message));
+        }
+      })
+  }
+}
+
+const followPlaylistProfilePage = (playlistId, username) => {
+  return (dispatch) => {
+    dispatch(followUserPlaylistStart())
+    followUserPlaylist(localStorage.getItem("token"), playlistId)
+      .then(() => {
+        dispatch(getPlaylistForProfile(username))
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(followPlaylistProfilePage(playlistId, username));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(followUserPlaylistFail(err.message));
+        }
+      })
+  }
+}
+
+const followUserPlaylistStart = () => ({
+  type: playlistActionType.FOLLOW_PLAYLIST,
+  fetching: true
+})
+
+
+const followUserPlaylistFail = (error) => ({
+  type: playlistActionType.FOLLOW_PLAYLIST_FAIL,
+  error
+})
+
 export {
   getPlaylist,
   createPlaylist,
   setCurrentPlaylist,
   getPlaylistForProfile,
   getSinglePlaylist,
+  followPlaylistHomePage,
+  followPlaylistProfilePage
 };

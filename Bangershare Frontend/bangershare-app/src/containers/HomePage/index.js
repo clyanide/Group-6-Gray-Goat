@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import HomePage from "../../components/HomePage";
-import { getPlaylist, setCurrentPlaylist } from "../../actions/Playlists";
+import { getPlaylist, setCurrentPlaylist, followPlaylistHomePage } from "../../actions/Playlists";
 import { getFriends } from "../../actions/Friends";
 import { push } from "connected-react-router";
 
@@ -23,6 +23,9 @@ const mapDispatchToProps = (dispatch) => ({
   push: (url) => {
     dispatch(push(url));
   },
+  followPlaylist: (playlistId) => {
+    dispatch(followPlaylistHomePage(playlistId))
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

@@ -2,12 +2,12 @@ import React from "react";
 import { createFriendPlaylist } from "./Playlist";
 
 const Explore = (props) => {
-  const { playlists, handleOnPlaylistClick } = props;
+  const { playlists, handleOnPlaylistClick, handleOnFollowClick } = props;
 
   return (
     <div>
       <p>Explore</p>
-      {createFriendPlaylist(playlists, handleOnPlaylistClick)}
+      {createFriendPlaylist(playlists, handleOnPlaylistClick, handleOnFollowClick)}
     </div>
   );
 };

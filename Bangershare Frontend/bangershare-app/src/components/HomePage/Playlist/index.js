@@ -2,16 +2,11 @@ import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-  CardActions,
-  IconButton,
   Grid,
+
 } from "@material-ui/core";
-import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
-import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
+
+import PlaylistCard from "./PlaylistCard"
 
 const responsive = {
   desktop: {
@@ -28,7 +23,7 @@ const responsive = {
   },
 };
 
-const createPlaylist = (playlists, handleOnPlaylistClick) => (
+const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -41,16 +36,16 @@ const createPlaylist = (playlists, handleOnPlaylistClick) => (
         itemClass="carousel-item-padding-40-px"
       >
         {playlists.map((playlist) =>
-          playlistCard(playlist, handleOnPlaylistClick)
+          <PlaylistCard playlist={playlist} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} />
         )}
       </Carousel>
     ) : (
-      <div>There seems to be no playlists</div>
-    )}
+        <div>There seems to be no playlists</div>
+      )}
   </Grid>
 );
 
-export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
+export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -65,36 +60,17 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick) => (
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
             return playlist.playlistSongs.map((p) =>
-              playlistCard(p, handleOnPlaylistClick)
+              <PlaylistCard playlist={p} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} />
             );
           }
           return null;
         })}
       </Carousel>
     ) : (
-      <div>You have no friends</div>
-    )}
+        <div>You have no friends</div>
+      )}
   </Grid>
 );
 
-const playlistCard = (playlist, handleOnPlaylistClick) => (
-  <Card>
-    <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
-      <CardContent>
-        <Typography variant="h5">{playlist.name}</Typography>
-        <Typography variant="subtitle1">
-          Created by {playlist.creator}
-        </Typography>
-      </CardContent>
-    </CardActionArea>
-    <CardActions>
-      <IconButton>
-        <FavoriteBorderIcon fontSize="small" />
-      </IconButton>
-      <IconButton>
-        <PlayCircleOutlineIcon fontSize="small" />
-      </IconButton>
-    </CardActions>
-  </Card>
-);
+
 export default createPlaylist;

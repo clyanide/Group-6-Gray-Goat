@@ -11,6 +11,7 @@ const initialState = {
     isOwner: false,
     creator: "",
     songs: [],
+    following: false
   },
 };
 
@@ -22,7 +23,14 @@ const playlistReducer = (state = initialState, action) => {
         userPlaylist: action.userPlaylist,
       };
     case playlistActionType.CREATE_PLAYLIST_SUCCESS: {
-      const playlist = Object.assign({}, action.userPlaylist);
+      let playlist = Object.assign({}, action.userPlaylist);
+      playlist = {
+        ...playlist,
+        creator: localStorage.getItem("username"),
+        isOwner: true,
+        songs: [],
+        following: true,
+      }
       return {
         ...state,
         userPlaylist: [...state.userPlaylist, playlist],

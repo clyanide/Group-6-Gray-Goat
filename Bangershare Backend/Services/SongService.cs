@@ -6,6 +6,7 @@ using Bangershare_Backend.Models;
 using Bangershare_Backend.Interfaces;
 using Bangershare_Backend.Repositories;
 using Bangershare_Backend.Services.Communications;
+using Microsoft.EntityFrameworkCore;
 
 namespace Bangershare_Backend.Services
 {
@@ -16,19 +17,22 @@ namespace Bangershare_Backend.Services
         private readonly SpotifyAPIService _spotifyAPIService;
         private readonly YoutubeAPIService _youtubeAPIService;
         private readonly IRepository<UserPlaylist> _userPlaylistRepository;
+        private readonly IRepository<UserLike> _userLikeRepository;
         private readonly IUnitOfWork _unitOfWork;
         
         public SongService(SongRepository songRepository,
                            PlaylistService playlistService,
                            SpotifyAPIService spotifyAPIService,
                            YoutubeAPIService youtubeAPIService,
-                           IRepository<UserPlaylist> userPlaylistRepository,
+                           IRepository<UserLike> userLikeRepository,
+                            IRepository<UserPlaylist> userPlaylistRepository,
                            IUnitOfWork unitOfWork) : base(songRepository, unitOfWork)
         {
             _songRepository = songRepository;
             _playlistService = playlistService;
             _spotifyAPIService = spotifyAPIService;
             _youtubeAPIService = youtubeAPIService;
+            _userLikeRepository = userLikeRepository;
             _userPlaylistRepository = userPlaylistRepository;
             _unitOfWork = unitOfWork;
         }
@@ -154,6 +158,80 @@ namespace Bangershare_Backend.Services
             {
                 return new BaseResponse<Song>($"An error occurred when updating the song: {e.Message}");
             }
+        }
+
+        public async Task<BaseResponse<Song>> LikeSong(int userId, int songId)
+        {
+            var song = await FindFirstOrDefault(s => s.Id.Equals(songId));
+            
+            song.Hearts += 1;
+
+            var userLike = new UserLike { Song = song, SongId = songId, UserId = userId };
+
+            try
+            {
+                await _userLikeRepository.Add(userLike);
+                var result = await UpdateSong(songId, song);
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+
+                return new BaseResponse<Song>(song);
+            }
+            catch(Exception e)
+            {
+                return new BaseResponse<Song>($"An error occurred when liking the song: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<Song>> DislikeSong(int userId, int songId)
+        {
+            var userLike = await _userLikeRepository.FindFirstOrDefault(u => u.UserId.Equals(userId) && u.SongId.Equals(songId), include: source => source.Include(s => s.Song));
+
+            if (userLike == null)
+            {
+                return new BaseResponse<Song>("User like not found");
+            }
+
+            userLike.Song.Hearts -= 1;
+
+            try
+            {
+                _userLikeRepository.Delete(userLike);
+                var result = await UpdateSong(songId, userLike.Song);
+
+                if (!result.Success)
+                {
+                    return result;
+                }
+
+                return new BaseResponse<Song>(userLike.Song);
+            }
+            catch(Exception e)
+            {
+                return new BaseResponse<Song>($"An error occurred when disliking the song: {e.Message}");
+            }
+        }
+
+        public async Task<BaseResponse<ICollection<Song>>> GetUserLikedSongs(int userId)
+        {
+            var userLikes = await _userLikeRepository.Get(u => u.UserId.Equals(userId), includeProperties: "Song");
+
+            if(userLikes == null)
+            {
+                return new BaseResponse<ICollection<Song>>("User has no liked songs");
+            }
+
+            var songList = new List<Song>();
+
+            foreach(UserLike userLike in userLikes)
+            {
+                songList.Add(userLike.Song);
+            }
+
+            return new BaseResponse<ICollection<Song>>(songList);
         }
     }
 }

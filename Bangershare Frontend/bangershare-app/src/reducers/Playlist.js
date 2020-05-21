@@ -15,6 +15,12 @@ const initialState = {
   },
 };
 
+const replaceSong = (song, songList) => {
+  const songIndex = songList.findIndex((s) => s.id === song.id);
+  songList[songIndex] = song;
+  return songList;
+};
+
 const playlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case playlistActionType.GET_PLAYLIST_SUCCESS:
@@ -65,9 +71,9 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case songActionType.DELETE_SONG_SUCCESS: {
-      const newSongs = state.currentPlaylist.songs.filter((song) => {
-        return song.id !== action.song.id;
-      });
+      const newSongs = state.currentPlaylist.songs.filter(
+        (song) => song.id !== action.song.id
+      );
       return {
         ...state,
         currentPlaylist: {
@@ -94,6 +100,26 @@ const playlistReducer = (state = initialState, action) => {
         currentPlaylist: action.playlist,
       };
     }
+    case songActionType.LIKE_SONG_SUCCESS: {
+      const songList = replaceSong(action.song, state.currentPlaylist.songs);
+      return {
+        ...state,
+        currentPlaylist: {
+          ...state.currentPlaylist,
+          songs: songList,
+        },
+      };
+    }
+    case songActionType.DELETE_LIKE_SONG_SUCCESS: {
+      const songList = replaceSong(action.song, state.currentPlaylist.songs);
+      return {
+        ...state,
+        currentPlaylist: {
+          ...state.currentPlaylist,
+          songs: songList,
+        },
+      };
+    }
     case userActionType.LOGOUT_USER: {
       return {
         initialState,
@@ -103,5 +129,4 @@ const playlistReducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-
 export default playlistReducer;

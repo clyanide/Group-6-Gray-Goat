@@ -39,7 +39,6 @@ const HomeScreen = (props) => {
   };
 
   const handleUnfollowClick = (playlistId) => {
-    console.log(playlistId);
     unfollowPlaylist(playlistId);
   };
 

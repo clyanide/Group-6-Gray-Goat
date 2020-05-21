@@ -30,5 +30,7 @@ namespace Bangershare_Backend.Models
         public SongType SongType { get; set; }
         public virtual Playlist Playlist { get; set; }
         public int PlaylistId { get; set; }
+
+        public virtual ICollection<UserLike> UserLikes { get; set; }
     }
 }

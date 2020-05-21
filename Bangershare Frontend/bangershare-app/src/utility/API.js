@@ -197,6 +197,34 @@ export const unfollowUserPlaylist = (accessToken, playlistId) => {
   });
 };
 
+export const postLikeSong = (accessToken, songId) => {
+  return axios.post(
+    baseURL + "Song/like?songId=" + songId,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
+
+export const deleteLikeSong = (accessToken, songId) => {
+  return axios.delete(baseURL + "Song/dislike?songId=" + songId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
+
+export const getUserLikeSong = (accessToken) => {
+  return axios.get(baseURL + "Song/like", {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  });
+};
+
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {
     token: accessToken,

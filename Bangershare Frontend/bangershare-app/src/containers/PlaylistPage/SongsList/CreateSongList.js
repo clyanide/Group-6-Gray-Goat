@@ -4,10 +4,12 @@ import {
   setCurrentSong,
   setCurrentPlayingPlaylist,
 } from "../../../actions/MusicPlayer";
+import { likeSong, removeLikeFromSong } from "../../../actions/Song";
 
 const mapStateToProps = (state) => {
   return {
     currentPlaylist: state.playlistReducer.currentPlaylist,
+    likedSongs: state.userReducer.likedSongs,
   };
 };
 
@@ -17,6 +19,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   handleCurrentPlayingPlaylist: (playlist) => {
     dispatch(setCurrentPlayingPlaylist(playlist));
+  },
+  likeSong: (songId) => {
+    dispatch(likeSong(songId));
+  },
+  unlikeSong: (songId) => {
+    dispatch(removeLikeFromSong(songId));
   },
 });
 

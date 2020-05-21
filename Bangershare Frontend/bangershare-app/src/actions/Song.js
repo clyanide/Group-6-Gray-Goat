@@ -4,6 +4,9 @@ import {
   updateSong,
   deleteSong,
   refreshAccessToken,
+  postLikeSong,
+  getUserLikeSong,
+  deleteLikeSong,
 } from "../utility/API";
 import { setAccessToken, logoutUser } from "./User";
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
@@ -19,6 +22,15 @@ export const songActionType = {
   DELETE_SONG_SUCCESS: "DELETE_SONG_SUCCESS",
   DELETE_SONG_FAIL: "DELETE_SONG_FAIL",
   GET_PROFILE_PLAYLIST: "GET_PLAYLIST",
+  LIKE_SONG: "LIKE_SONG",
+  LIKE_SONG_SUCCESS: "LIKE_SONG_SUCCESS",
+  LIKE_SONG_FAIL: "LIKE_SONG_FAIL",
+  GET_LIKE_SONG: "GET_LIKE_SONG",
+  GET_LIKE_SONG_SUCCESS: "GET_LIKE_SONG_SUCCESS",
+  GET_LIKE_SONG_FAIL: "GET_LIKE_SONG_FAIL",
+  DELETE_LIKE_SONG: "DELETE_LIKE_SONG",
+  DELETE_LIKE_SONG_SUCCESS: "DELETE_LIKE_SONG_SUCCESS",
+  DELETE_LIKE_SONG_FAIL: "DELETE_LIKE_SONG_FAIL",
 };
 
 const addSongToPlaylist = (song) => {
@@ -62,7 +74,6 @@ const addSongToPlaylist = (song) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
-          console.log(err);
           if (err.response.status === 401) {
             refreshAccessToken(localStorage.getItem("username"))
               .then((res) => {
@@ -178,4 +189,131 @@ const deleteSongFromPlaylistFail = (error) => ({
   error,
 });
 
-export { addSongToPlaylist, updatePendingSong, deleteSongFromPlaylist };
+const likeSong = (songId) => {
+  return (dispatch) => {
+    dispatch(likeSongStart());
+    postLikeSong(localStorage.getItem("token"), songId)
+      .then((res) => {
+        dispatch(likeSongSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(likeSong(songId));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(likeSongFail(err.message));
+        }
+      });
+  };
+};
+
+const likeSongStart = () => ({
+  type: songActionType.LIKE_SONG,
+  fetching: true,
+});
+
+const likeSongSuccess = (payload) => ({
+  type: songActionType.LIKE_SONG_SUCCESS,
+  fetching: false,
+  song: payload,
+});
+
+const likeSongFail = (error) => ({
+  type: songActionType.LIKE_SONG_FAIL,
+  error,
+});
+
+const getLikeSong = () => {
+  return (dispatch) => {
+    dispatch(getLikeSongStart());
+    getUserLikeSong(localStorage.getItem("token"))
+      .then((res) => {
+        dispatch(getLikeSongSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(getLikeSong());
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(getLikeSongFail(err.message));
+        }
+      });
+  };
+};
+
+const getLikeSongStart = () => ({
+  type: songActionType.GET_LIKE_SONG,
+  fetching: true,
+});
+
+const getLikeSongSuccess = (payload) => ({
+  type: songActionType.GET_LIKE_SONG_SUCCESS,
+  fetching: false,
+  likedSongs: payload,
+});
+
+const getLikeSongFail = (error) => ({
+  type: songActionType.GET_LIKE_SONG_FAIL,
+  error,
+});
+
+const removeLikeFromSong = (songId) => {
+  return (dispatch) => {
+    dispatch(removeLikeFromSongStart());
+    deleteLikeSong(localStorage.getItem("token"), songId)
+      .then((res) => {
+        dispatch(removeLikeFromSongSuccess(res.data));
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(removeLikeFromSong(songId));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(removeLikeFromSongFail(err.message));
+        }
+      });
+  };
+};
+
+const removeLikeFromSongStart = () => ({
+  type: songActionType.DELETE_LIKE_SONG,
+  fetching: true,
+});
+
+const removeLikeFromSongSuccess = (payload) => ({
+  type: songActionType.DELETE_LIKE_SONG_SUCCESS,
+  fetching: false,
+  song: payload,
+});
+
+const removeLikeFromSongFail = (error) => ({
+  type: songActionType.DELETE_LIKE_SONG_FAIL,
+  error,
+});
+
+export {
+  addSongToPlaylist,
+  updatePendingSong,
+  deleteSongFromPlaylist,
+  likeSong,
+  getLikeSong,
+  removeLikeFromSong,
+};

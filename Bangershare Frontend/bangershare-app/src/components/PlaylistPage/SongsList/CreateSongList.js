@@ -20,6 +20,7 @@ import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { green } from "@material-ui/core/colors";
+import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const CreateSongList = (props) => {
   const {
@@ -30,6 +31,9 @@ export const CreateSongList = (props) => {
     handleSongClick,
     handleCurrentPlayingPlaylist,
     currentPlaylist,
+    likeSong,
+    unlikeSong,
+    likedSongs,
   } = props;
 
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -72,9 +76,17 @@ export const CreateSongList = (props) => {
             ) : (
               <>
                 {song.hearts}
-                <IconButton>
-                  <FavoriteBorderOutlinedIcon color="secondary" />
-                </IconButton>
+                {likedSongs &&
+                likedSongs.length > 0 &&
+                likedSongs.find((x) => x.id === song.id) !== undefined ? (
+                  <IconButton onClick={() => unlikeSong(song.id)}>
+                    <FavoriteIcon color="secondary" />
+                  </IconButton>
+                ) : (
+                  <IconButton onClick={() => likeSong(song.id)}>
+                    <FavoriteBorderOutlinedIcon color="secondary" />
+                  </IconButton>
+                )}
                 {isOwner ? (
                   <>
                     <IconButton onClick={handleClick}>
@@ -95,7 +107,7 @@ export const CreateSongList = (props) => {
                                   <EditOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText
-                                  style={{ textAlign: "right" }}
+                                  style={{ textAlign: "center" }}
                                   primary="Edit"
                                 />
                               </ListItem>
@@ -107,7 +119,7 @@ export const CreateSongList = (props) => {
                                   <DeleteOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText
-                                  style={{ textAlign: "right" }}
+                                  style={{ textAlign: "center" }}
                                   primary="Delete"
                                 />
                               </ListItem>

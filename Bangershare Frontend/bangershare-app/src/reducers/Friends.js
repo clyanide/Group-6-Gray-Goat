@@ -20,6 +20,7 @@ const friendsReducer = (state = initialState, action) => {
         initialState,
       };
     }
+
     default:
       return { ...state };
   }

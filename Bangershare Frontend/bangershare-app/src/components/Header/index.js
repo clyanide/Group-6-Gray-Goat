@@ -10,7 +10,6 @@ import MenuIcon from "@material-ui/icons/Menu";
 const AppHeader = (props) => {
   const {
     onMenuClick,
-    currentUser,
     currentPath,
     isFetching,
     setProfileUser,
@@ -19,8 +18,7 @@ const AppHeader = (props) => {
   } = props;
 
   const onProfileClick = () => {
-    setProfileUser(currentUser.name);
-    props.push("/profile");
+    setProfileUser(localStorage.getItem("username"));
   };
 
   useEffect(() => {

@@ -72,10 +72,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/spotify?playlistId=" +
-    playlistId +
-    "&spotifySongId=" +
-    spotifySongId,
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
     {},
     {
       headers: {
@@ -93,10 +93,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return axios.post(
     baseURL +
-    "Song/youtube?playlistId=" +
-    playlistId +
-    "&youtubeId=" +
-    youtubeId,
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,
@@ -178,20 +178,24 @@ export const getPlaylistFromId = (accessToken, playlistId) => {
 };
 
 export const followUserPlaylist = async (accessToken, playlistId) => {
-  return await axios.post(baseURL + "Playlist/follow/" + playlistId, {}, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-    },
-  })
-}
+  return await axios.post(
+    baseURL + "Playlist/follow/" + playlistId,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
 
 export const unfollowUserPlaylist = (accessToken, playlistId) => {
   return axios.delete(baseURL + "Playlist/unfollow/" + playlistId, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
-  })
-}
+  });
+};
 
 export const revokeToken = (accessToken) => {
   return axios.post(baseURL + "User/token/revoke", {

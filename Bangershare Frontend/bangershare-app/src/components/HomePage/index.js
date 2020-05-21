@@ -16,7 +16,7 @@ const HomeScreen = (props) => {
     friendPlaylist,
     setCurrentPlaylist,
     followPlaylist,
-    unfollowPlaylist
+    unfollowPlaylist,
   } = props;
 
   const [modalOpen, setModal] = useState(false);
@@ -35,13 +35,13 @@ const HomeScreen = (props) => {
   };
 
   const handleOnFollowClick = (playlistId) => {
-    followPlaylist(playlistId)
-  }
+    followPlaylist(playlistId);
+  };
 
   const handleUnfollowClick = (playlistId) => {
-    console.log(playlistId)
+    console.log(playlistId);
     unfollowPlaylist(playlistId);
-  }
+  };
 
   return (
     <div>
@@ -68,8 +68,8 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Fab onClick={() => handleModal(true)}>
         <PlaylistAddIcon />

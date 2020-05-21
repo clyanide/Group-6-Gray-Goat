@@ -11,7 +11,7 @@ const ProfilePage = (props) => {
     search,
     isFetching,
     followPlaylist,
-    unfollowPlaylist
+    unfollowPlaylist,
   } = props;
 
   const queryString = require("query-string");
@@ -30,12 +30,12 @@ const ProfilePage = (props) => {
   };
 
   const handleOnFollowClick = (playlistId) => {
-    followPlaylist(playlistId, username)
-  }
+    followPlaylist(playlistId, username);
+  };
 
   const handleOnUnfollowClick = (playlistId) => {
-    unfollowPlaylist(playlistId, username)
-  }
+    unfollowPlaylist(playlistId, username);
+  };
 
   return (
     <>
@@ -72,12 +72,12 @@ const ProfilePage = (props) => {
               </Grid>
             </>
           ) : (
-              <div>Sorry there seems to be no playlist</div>
-            )}
+            <div>Sorry there seems to be no playlist</div>
+          )}
         </Grid>
       ) : (
-          <div>LOADING</div>
-        )}
+        <div>LOADING</div>
+      )}
     </>
   );
 };

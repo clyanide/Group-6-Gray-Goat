@@ -11,7 +11,7 @@ const initialState = {
     isOwner: false,
     creator: "",
     songs: [],
-    following: false
+    following: false,
   },
 };
 
@@ -30,7 +30,7 @@ const playlistReducer = (state = initialState, action) => {
         isOwner: true,
         songs: [],
         following: true,
-      }
+      };
       return {
         ...state,
         userPlaylist: [...state.userPlaylist, playlist],

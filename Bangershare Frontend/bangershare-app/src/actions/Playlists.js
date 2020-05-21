@@ -5,11 +5,11 @@ import {
   getPlaylistForUsername,
   getPlaylistFromId,
   followUserPlaylist,
-  unfollowUserPlaylist
+  unfollowUserPlaylist,
 } from "../utility/API";
 import { push } from "connected-react-router";
 import { setAccessToken, logoutUser } from "./User";
-import { getFriends } from "./Friends"
+import { getFriends } from "./Friends";
 
 export const playlistActionType = {
   GET_PLAYLIST: "GET_PLAYLIST",
@@ -211,11 +211,11 @@ const getSinglePlaylistFail = (error) => ({
 
 const followPlaylistHomePage = (playlistId) => {
   return (dispatch) => {
-    dispatch(followUserPlaylistStart())
+    dispatch(followUserPlaylistStart());
     followUserPlaylist(localStorage.getItem("token"), playlistId)
       .then(() => {
-        dispatch(getPlaylist())
-        dispatch(getFriends())
+        dispatch(getPlaylist());
+        dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -230,16 +230,16 @@ const followPlaylistHomePage = (playlistId) => {
         } else {
           dispatch(followUserPlaylistFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const followPlaylistProfilePage = (playlistId, username) => {
   return (dispatch) => {
-    dispatch(followUserPlaylistStart())
+    dispatch(followUserPlaylistStart());
     followUserPlaylist(localStorage.getItem("token"), playlistId)
       .then(() => {
-        dispatch(getPlaylistForProfile(username))
+        dispatch(getPlaylistForProfile(username));
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -254,28 +254,27 @@ const followPlaylistProfilePage = (playlistId, username) => {
         } else {
           dispatch(followUserPlaylistFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const followUserPlaylistStart = () => ({
   type: playlistActionType.FOLLOW_PLAYLIST,
-  fetching: true
-})
-
+  fetching: true,
+});
 
 const followUserPlaylistFail = (error) => ({
   type: playlistActionType.FOLLOW_PLAYLIST_FAIL,
-  error
-})
+  error,
+});
 
 const unfollowPlaylistHomePage = (playlistId) => {
   return (dispatch) => {
-    dispatch(unfollowUserPlaylistStart())
+    dispatch(unfollowUserPlaylistStart());
     unfollowUserPlaylist(localStorage.getItem("token"), playlistId)
       .then(() => {
-        dispatch(getPlaylist())
-        dispatch(getFriends())
+        dispatch(getPlaylist());
+        dispatch(getFriends());
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -290,16 +289,16 @@ const unfollowPlaylistHomePage = (playlistId) => {
         } else {
           dispatch(unfollowUserPlaylistFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const unfollowPlaylistProfilePage = (playlistId, username) => {
   return (dispatch) => {
-    dispatch(unfollowUserPlaylistStart())
+    dispatch(unfollowUserPlaylistStart());
     unfollowUserPlaylist(localStorage.getItem("token"), playlistId)
       .then(() => {
-        dispatch(getPlaylistForProfile(username))
+        dispatch(getPlaylistForProfile(username));
       })
       .catch((err) => {
         if (err.response.status === 401) {
@@ -314,20 +313,19 @@ const unfollowPlaylistProfilePage = (playlistId, username) => {
         } else {
           dispatch(unfollowUserPlaylistFail(err.message));
         }
-      })
-  }
-}
+      });
+  };
+};
 
 const unfollowUserPlaylistStart = () => ({
   type: playlistActionType.UNFOLLOW_PLAYLIST,
-  fetching: true
-})
-
+  fetching: true,
+});
 
 const unfollowUserPlaylistFail = (error) => ({
   type: playlistActionType.UNFOLLOW_PLAYLIST_FAIL,
-  error
-})
+  error,
+});
 
 export {
   getPlaylist,
@@ -338,5 +336,5 @@ export {
   followPlaylistHomePage,
   followPlaylistProfilePage,
   unfollowPlaylistHomePage,
-  unfollowPlaylistProfilePage
+  unfollowPlaylistProfilePage,
 };

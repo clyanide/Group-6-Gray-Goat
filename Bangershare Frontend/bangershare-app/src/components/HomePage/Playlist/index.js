@@ -1,12 +1,9 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import {
-  Grid,
+import { Grid } from "@material-ui/core";
 
-} from "@material-ui/core";
-
-import PlaylistCard from "./PlaylistCard"
+import PlaylistCard from "./PlaylistCard";
 
 const responsive = {
   desktop: {
@@ -23,7 +20,12 @@ const responsive = {
   },
 };
 
-const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick, handleUnfollowClick) => (
+const createPlaylist = (
+  playlists,
+  handleOnPlaylistClick,
+  handleFollowClick,
+  handleUnfollowClick
+) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -35,17 +37,27 @@ const createPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick, han
         containerClass="carousel-container"
         itemClass="carousel-item-padding-40-px"
       >
-        {playlists.map((playlist) =>
-          <PlaylistCard playlist={playlist} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} unfollowPlaylist={handleUnfollowClick} />
-        )}
+        {playlists.map((playlist) => (
+          <PlaylistCard
+            playlist={playlist}
+            handleOnPlaylistClick={handleOnPlaylistClick}
+            followPlaylist={handleFollowClick}
+            unfollowPlaylist={handleUnfollowClick}
+          />
+        ))}
       </Carousel>
     ) : (
-        <div>There seems to be no playlists</div>
-      )}
+      <div>There seems to be no playlists</div>
+    )}
   </Grid>
 );
 
-export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFollowClick, handleUnfollowClick) => (
+export const createFriendPlaylist = (
+  playlists,
+  handleOnPlaylistClick,
+  handleFollowClick,
+  handleUnfollowClick
+) => (
   <Grid item xs={12} spacing={5}>
     {playlists && playlists.length > 0 ? (
       <Carousel
@@ -59,18 +71,22 @@ export const createFriendPlaylist = (playlists, handleOnPlaylistClick, handleFol
       >
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
-            return playlist.playlistSongs.map((p) =>
-              <PlaylistCard playlist={p} handleOnPlaylistClick={handleOnPlaylistClick} followPlaylist={handleFollowClick} unfollowPlaylist={handleUnfollowClick} />
-            );
+            return playlist.playlistSongs.map((p) => (
+              <PlaylistCard
+                playlist={p}
+                handleOnPlaylistClick={handleOnPlaylistClick}
+                followPlaylist={handleFollowClick}
+                unfollowPlaylist={handleUnfollowClick}
+              />
+            ));
           }
           return null;
         })}
       </Carousel>
     ) : (
-        <div>You have no friends</div>
-      )}
+      <div>You have no friends</div>
+    )}
   </Grid>
 );
-
 
 export default createPlaylist;

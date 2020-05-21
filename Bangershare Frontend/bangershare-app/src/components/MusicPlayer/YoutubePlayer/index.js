@@ -67,6 +67,9 @@ class YoutubePlayer extends Component {
               src={this.props.link}
               autoPlay={true}
             />
+            <p>Artist: {this.props.currentSong.artist}</p>
+            <p>Track: {this.props.currentSong.artist}</p>
+            <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
           </div>
           <div>
             <SeekBar endOfSongCallback={this.endOfSongCallback} />

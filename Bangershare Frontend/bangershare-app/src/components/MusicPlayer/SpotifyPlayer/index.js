@@ -224,7 +224,7 @@ class SpotifyPlayer extends Component {
   };
 
   render() {
-    const { artistName, trackName, albumName, error, playing } = this.state;
+    const { artistName, trackName, error, playing } = this.state;
 
     return (
       <div className="App">
@@ -233,8 +233,8 @@ class SpotifyPlayer extends Component {
         <div>
           <p>Artist: {artistName}</p>
           <p>Track: {trackName}</p>
-          <p>Album: {albumName}</p>
-          <p>
+          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div>
             <button onClick={() => this.onPrevClick()}>Previous</button>
             <button onClick={() => this.onPlayClick()}>
               {playing ? "Pause" : "Play"}
@@ -248,7 +248,7 @@ class SpotifyPlayer extends Component {
                 endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
-          </p>
+          </div>
         </div>
       </div>
     );

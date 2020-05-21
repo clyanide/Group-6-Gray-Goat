@@ -90,7 +90,6 @@ class SpotifyPlayer extends Component {
 
     this.player.on("ready", async (data) => {
       let { device_id } = data;
-      console.log("Let the music play on!");
 
       await this.setState({ deviceId: device_id });
       this.playUri({

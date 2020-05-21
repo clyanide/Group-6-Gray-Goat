@@ -31,7 +31,7 @@ const BangerShareApp = () => {
         <Sidebar.Pusher dimmed={open}>
           <Switch>
             <Route path="/login" component={LoginPage} />
-            {/* <Route path="/spotifyauth" component={SpotifyLoginPage} /> */}
+            <Route path="/spotifyauth" component={SpotifyLoginPage} />
             <Route path="/home" component={HomePage} />
             <Route path="/friends" component={FriendsPage} />
             <Route path="/playlist" component={PlaylistPage} />
@@ -39,7 +39,7 @@ const BangerShareApp = () => {
           </Switch>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-      {/* {<MusicPlayer />} */}
+      {<MusicPlayer />}
     </ConnectedRouter>
   );
 };

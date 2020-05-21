@@ -6,6 +6,7 @@ const MusicPlayer = ({ currentSong }) => {
   const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
 
   useEffect(() => {
+    console.log(currentSong);
     if (currentSong.songType == 0) {
       setspotifyFirstLoad(true);
     }
@@ -19,6 +20,7 @@ const MusicPlayer = ({ currentSong }) => {
           uri={currentSong.link}
           duration={currentSong.duration}
           type={currentSong.songType}
+          currentSong={currentSong}
         />
       ) : null}
     </div>

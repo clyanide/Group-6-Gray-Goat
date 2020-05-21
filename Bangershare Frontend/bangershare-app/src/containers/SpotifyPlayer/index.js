@@ -1,11 +1,18 @@
 import { connect } from "react-redux";
 import SpotifyPlayer from "../../components/MusicPlayer/SpotifyPlayer";
+import { setCurrentSong } from "../../actions/MusicPlayer";
 
 const mapStateToProps = (state) => {
   return {
     spotifyToken: state.spotifyTokenReducer.token,
-    currentSong: state.musicPlayerReducer.currentSong,
+    currentPlayingPlaylist: state.musicPlayerReducer.currentPlayingPlaylist,
   };
 };
 
-export default connect(mapStateToProps)(SpotifyPlayer);
+const mapDispatchToProps = (dispatch) => ({
+  setSong: (song) => {
+    dispatch(setCurrentSong(song));
+  },
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(SpotifyPlayer);

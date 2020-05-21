@@ -16,7 +16,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setCurrentSong(song));
   },
   handleCurrentPlayingPlaylist: (playlist) => {
-    console.log(playlist);
     dispatch(setCurrentPlayingPlaylist(playlist));
   },
 });

@@ -158,17 +158,69 @@ class SpotifyPlayer extends Component {
     });
   };
 
-  onPrevClick() {}
+  onPrevClick() {
+    // this.props.setSong(
+    //   this.getPrevSong(
+    //     this.props.currentSong,
+    //     this.props.currentPlayingPlaylist
+    //   )
+    // );
+  }
 
   onPlayClick() {
     this.player.togglePlay();
   }
 
-  onNextClick() {}
+  onNextClick() {
+    // this.props.setSong(
+    //   this.getNextSong(
+    //     this.props.currentSong,
+    //     this.props.currentPlayingPlaylist
+    //   )
+    // );
+  }
 
   seekbarCallback = (childData) => {
     if (this.state.trackName !== "") {
       this.player.seek(childData * 1000);
+      this.player.resume();
+    }
+  };
+
+  // When spotify song finishes
+  endOfSongCallback = (position) => {
+    if (
+      Math.trunc(this.props.duration) != 0 &&
+      position == Math.trunc(this.props.duration / 1000) - 1
+    ) {
+      this.props.setSong(
+        this.getNextSong(
+          this.props.currentSong,
+          this.props.currentPlayingPlaylist
+        )
+      );
+    }
+  };
+
+  getNextSong = (currentSong, currentPlayingPlaylist) => {
+    const songList = currentPlayingPlaylist.songs;
+
+    let i = 0;
+    for (i = 0; i < songList.length; i++) {
+      if (currentSong.id == songList[i].id) {
+        return songList[i + 1];
+      }
+    }
+  };
+
+  getPrevSong = (currentSong, currentPlayingPlaylist) => {
+    const songList = currentPlayingPlaylist.songs;
+
+    let i = 0;
+    for (i = 0; i < songList.length; i++) {
+      if (currentSong.id == songList[i].id) {
+        return songList[i - 1];
+      }
     }
   };
 
@@ -194,6 +246,7 @@ class SpotifyPlayer extends Component {
                 duration={this.props.duration / 1000}
                 parentCallback={this.seekbarCallback}
                 paused={!this.state.playing}
+                endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
           </p>

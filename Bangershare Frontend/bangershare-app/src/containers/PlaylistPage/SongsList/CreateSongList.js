@@ -4,7 +4,7 @@ import {
   setCurrentSong,
   setCurrentPlayingPlaylist,
 } from "../../../actions/MusicPlayer";
-import { likeSong } from "../../../actions/Song"
+import { likeSong, removeLikeFromSong } from "../../../actions/Song"
 
 const mapStateToProps = (state) => {
   return {
@@ -23,6 +23,9 @@ const mapDispatchToProps = (dispatch) => ({
   likeSong: (songId) => {
     dispatch(likeSong(songId))
   },
+  unlikeSong: (songId) => {
+    dispatch(removeLikeFromSong(songId))
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CreateSongList);

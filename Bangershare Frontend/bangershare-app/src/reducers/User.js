@@ -74,6 +74,13 @@ const userReducer = (state = initialState, action) => {
         likedSongs: action.likedSongs
       }
     }
+    case songActionType.DELETE_LIKE_SONG_SUCCESS: {
+      const songList = state.likedSongs.filter(song => song.id !== action.song.id)
+      return {
+        ...state,
+        likedSongs: songList
+      }
+    }
     default:
       return { ...state };
   }

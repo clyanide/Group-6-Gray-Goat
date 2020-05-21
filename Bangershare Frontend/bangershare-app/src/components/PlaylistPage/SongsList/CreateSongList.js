@@ -20,7 +20,6 @@ import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
 import { green } from "@material-ui/core/colors";
-import $ from "jquery"
 import FavoriteIcon from '@material-ui/icons/Favorite';
 
 export const CreateSongList = (props) => {
@@ -33,6 +32,7 @@ export const CreateSongList = (props) => {
     handleCurrentPlayingPlaylist,
     currentPlaylist,
     likeSong,
+    unlikeSong,
     likedSongs
   } = props;
 
@@ -43,8 +43,6 @@ export const CreateSongList = (props) => {
   };
 
   const open = Boolean(anchorEl);
-
-  console.log(likedSongs)
 
   return (
     <List>
@@ -79,7 +77,7 @@ export const CreateSongList = (props) => {
                 <>
                   {song.hearts}
                   {likedSongs && likedSongs.length > 0 && likedSongs.find(x => x.id === song.id) !== undefined ?
-                    <IconButton onClick={() => { console.log($.inArray(song, likedSongs)); console.log(song) }}>
+                    <IconButton onClick={() => unlikeSong(song.id)}>
                       <FavoriteIcon color="secondary" />
                     </IconButton>
                     : <IconButton onClick={() => likeSong(song.id)}>

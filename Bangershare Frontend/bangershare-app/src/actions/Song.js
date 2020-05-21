@@ -5,7 +5,8 @@ import {
   deleteSong,
   refreshAccessToken,
   postLikeSong,
-  getUserLikeSong
+  getUserLikeSong,
+  deleteLikeSong
 } from "../utility/API";
 import { setAccessToken, logoutUser } from "./User";
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
@@ -26,7 +27,10 @@ export const songActionType = {
   LIKE_SONG_FAIL: "LIKE_SONG_FAIL",
   GET_LIKE_SONG: "GET_LIKE_SONG",
   GET_LIKE_SONG_SUCCESS: "GET_LIKE_SONG_SUCCESS",
-  GET_LIKE_SONG_FAIL: "GET_LIKE_SONG_FAIL"
+  GET_LIKE_SONG_FAIL: "GET_LIKE_SONG_FAIL",
+  DELETE_LIKE_SONG: "DELETE_LIKE_SONG",
+  DELETE_LIKE_SONG_SUCCESS: "DELETE_LIKE_SONG_SUCCESS",
+  DELETE_LIKE_SONG_FAIL: "DELETE_LIKE_SONG_FAIL"
 };
 
 const addSongToPlaylist = (song) => {
@@ -265,4 +269,44 @@ const getLikeSongFail = (error) => ({
   error
 })
 
-export { addSongToPlaylist, updatePendingSong, deleteSongFromPlaylist, likeSong, getLikeSong };
+const removeLikeFromSong = (songId) => {
+  return (dispatch) => {
+    dispatch(removeLikeFromSongStart())
+    deleteLikeSong(localStorage.getItem("token"), songId)
+      .then((res) => {
+        dispatch(removeLikeFromSongSuccess(res.data))
+      })
+      .catch((err) => {
+        if (err.response.status === 401) {
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(removeLikeFromSong(songId));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
+        } else {
+          dispatch(removeLikeFromSongFail(err.message));
+        }
+      })
+  }
+}
+
+const removeLikeFromSongStart = () => ({
+  type: songActionType.DELETE_LIKE_SONG,
+  fetching: true
+})
+
+const removeLikeFromSongSuccess = (payload) => ({
+  type: songActionType.DELETE_LIKE_SONG_SUCCESS,
+  fetching: false,
+  song: payload
+})
+
+const removeLikeFromSongFail = (error) => ({
+  type: songActionType.DELETE_LIKE_SONG_FAIL,
+  error
+})
+
+export { addSongToPlaylist, updatePendingSong, deleteSongFromPlaylist, likeSong, getLikeSong, removeLikeFromSong };

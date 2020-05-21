@@ -205,6 +205,14 @@ export const postLikeSong = (accessToken, songId) => {
   })
 }
 
+export const deleteLikeSong = (accessToken, songId) => {
+  return axios.delete(baseURL + "Song/dislike?songId=" + songId, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+}
+
 export const getUserLikeSong = (accessToken) => {
   return axios.get(baseURL + "Song/like", {
     headers: {

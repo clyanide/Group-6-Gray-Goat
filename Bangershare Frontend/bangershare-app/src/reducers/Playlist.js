@@ -15,6 +15,13 @@ const initialState = {
   },
 };
 
+
+const replaceSong = (song, songList) => {
+  const songIndex = songList.findIndex(s => s.id === song.id);
+  songList[songIndex] = song;
+  return songList
+}
+
 const playlistReducer = (state = initialState, action) => {
   switch (action.type) {
     case playlistActionType.GET_PLAYLIST_SUCCESS:
@@ -95,10 +102,17 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case songActionType.LIKE_SONG_SUCCESS: {
-      console.log(action)
-      var songIndex = state.currentPlaylist.songs.findIndex(s => s.id === action.song.id);
-      var songList = state.currentPlaylist.songs;
-      songList[songIndex] = action.song;
+      const songList = replaceSong(action.song, state.currentPlaylist.songs)
+      return {
+        ...state,
+        currentPlaylist: {
+          ...state.currentPlaylist,
+          songs: songList
+        }
+      }
+    }
+    case songActionType.DELETE_LIKE_SONG_SUCCESS: {
+      const songList = replaceSong(action.song, state.currentPlaylist.songs)
       return {
         ...state,
         currentPlaylist: {
@@ -116,5 +130,4 @@ const playlistReducer = (state = initialState, action) => {
       return { ...state };
   }
 };
-
 export default playlistReducer;

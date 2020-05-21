@@ -11,6 +11,13 @@ const initialState = {
     duration: 0,
     songType: 2, //0 is spotify, 2 is youtube
   },
+  currentPlayingPlaylist: {
+    id: 0,
+    name: "",
+    isOwner: false,
+    creator: "",
+    songs: [],
+  },
 };
 
 const musicPlayerReducer = (state = initialState, action) => {
@@ -19,6 +26,12 @@ const musicPlayerReducer = (state = initialState, action) => {
       return {
         ...state,
         currentSong: action.song,
+      };
+
+    case actionTypes.SET_CURRENT_PLAYING_PLAYLIST:
+      return {
+        ...state,
+        currentPlayingPlaylist: action.playlist,
       };
 
     default:

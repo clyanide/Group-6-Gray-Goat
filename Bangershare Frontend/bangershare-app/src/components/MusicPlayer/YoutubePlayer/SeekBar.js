@@ -3,6 +3,18 @@ import Slider from "@material-ui/core/Slider";
 import { withMediaProps } from "react-media-player";
 
 class SeekBar extends Component {
+  componentDidUpdate(prevProps) {
+    if (prevProps.media.currentTime !== this.props.media.currentTime) {
+      if (
+        Math.trunc(this.props.media.currentTime) ===
+          Math.trunc(this.props.media.duration) &&
+        Math.trunc(this.props.media.duration) !== 0
+      ) {
+        this.props.endOfSongCallback();
+      }
+    }
+  }
+
   _handlePlayPause = () => {
     this.props.media.playPause();
   };
@@ -13,6 +25,7 @@ class SeekBar extends Component {
 
     return { m: minutes, s: seconds };
   };
+
   render() {
     return (
       <div>

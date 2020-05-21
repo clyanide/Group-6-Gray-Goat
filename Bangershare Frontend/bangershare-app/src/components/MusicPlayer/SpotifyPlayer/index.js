@@ -26,7 +26,7 @@ class SpotifyPlayer extends Component {
   componentDidUpdate(prevProps) {
     if (!equal(this.props.uri, prevProps.uri)) {
       // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
-      if (this.props.type == 0) {
+      if (this.props.type === 0) {
         this.setState({ trackName: "" });
         this.playUri({
           playerInstance: this.player,
@@ -41,7 +41,7 @@ class SpotifyPlayer extends Component {
   }
 
   checkSongChanged() {
-    if (this.props.currentSong.songType != 0) {
+    if (this.props.currentSong.songType !== 0) {
       this.setState({ trackName: "" });
       this.player.pause();
     }
@@ -159,12 +159,12 @@ class SpotifyPlayer extends Component {
   };
 
   onPrevClick() {
-    // this.props.setSong(
-    //   this.getPrevSong(
-    //     this.props.currentSong,
-    //     this.props.currentPlayingPlaylist
-    //   )
-    // );
+    this.props.setSong(
+      this.getPrevSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   onPlayClick() {
@@ -172,12 +172,12 @@ class SpotifyPlayer extends Component {
   }
 
   onNextClick() {
-    // this.props.setSong(
-    //   this.getNextSong(
-    //     this.props.currentSong,
-    //     this.props.currentPlayingPlaylist
-    //   )
-    // );
+    this.props.setSong(
+      this.getNextSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   seekbarCallback = (childData) => {
@@ -190,15 +190,10 @@ class SpotifyPlayer extends Component {
   // When spotify song finishes
   endOfSongCallback = (position) => {
     if (
-      Math.trunc(this.props.duration) != 0 &&
-      position == Math.trunc(this.props.duration / 1000) - 1
+      Math.trunc(this.props.duration) !== 0 &&
+      position === Math.trunc(this.props.duration / 1000) - 1
     ) {
-      this.props.setSong(
-        this.getNextSong(
-          this.props.currentSong,
-          this.props.currentPlayingPlaylist
-        )
-      );
+      this.onNextClick();
     }
   };
 
@@ -207,8 +202,10 @@ class SpotifyPlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
-        return songList[i + 1];
+      if (currentSong.id === songList[i].id) {
+        if (i < songList.length - 1) {
+          return songList[i + 1];
+        } else return songList[0];
       }
     }
   };
@@ -218,14 +215,16 @@ class SpotifyPlayer extends Component {
 
     let i = 0;
     for (i = 0; i < songList.length; i++) {
-      if (currentSong.id == songList[i].id) {
-        return songList[i - 1];
+      if (currentSong.id === songList[i].id) {
+        if (i > 0) {
+          return songList[i - 1];
+        } else return songList[songList.length - 1];
       }
     }
   };
 
   render() {
-    const { artistName, trackName, albumName, error, playing } = this.state;
+    const { artistName, trackName, error, playing } = this.state;
 
     return (
       <div className="App">
@@ -234,13 +233,13 @@ class SpotifyPlayer extends Component {
         <div>
           <p>Artist: {artistName}</p>
           <p>Track: {trackName}</p>
-          <p>Album: {albumName}</p>
-          <p>
-            <button onClick={this.onPrevClick()}>Previous</button>
+          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div>
+            <button onClick={() => this.onPrevClick()}>Previous</button>
             <button onClick={() => this.onPlayClick()}>
               {playing ? "Pause" : "Play"}
             </button>
-            <button onClick={this.onNextClick()}>Next</button>
+            <button onClick={() => this.onNextClick()}>Next</button>
             {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}
@@ -249,7 +248,7 @@ class SpotifyPlayer extends Component {
                 endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
-          </p>
+          </div>
         </div>
       </div>
     );

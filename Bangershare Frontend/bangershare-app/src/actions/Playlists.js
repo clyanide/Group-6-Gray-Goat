@@ -10,6 +10,7 @@ import {
 import { push } from "connected-react-router";
 import { setAccessToken, logoutUser } from "./User";
 import { getFriends } from "./Friends";
+import { getLikeSong } from "./Song"
 
 export const playlistActionType = {
   GET_PLAYLIST: "GET_PLAYLIST",
@@ -120,6 +121,7 @@ const setCurrentPlaylist = (playlist) => {
       type: playlistActionType.SET_CURRENT_PLAYLIST,
       playlist,
     });
+    dispatch(getLikeSong())
     dispatch(
       push({
         pathname: "/playlist",
@@ -174,6 +176,7 @@ const getSinglePlaylist = (playlistId) => {
     dispatch(getSinglePlaylistStart());
     getPlaylistFromId(localStorage.getItem("token"), playlistId)
       .then((res) => {
+        dispatch(getLikeSong())
         dispatch(getSinglePlaylistSuccess(res.data));
       })
       .catch((err) => {

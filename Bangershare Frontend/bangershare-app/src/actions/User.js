@@ -44,7 +44,8 @@ const loginUser = ({ username, password }) => {
     login(username, password)
       .then((res) => {
         dispatch(loginUserSuccess(res, username));
-        dispatch(push("/spotifyauth"));
+        // dispatch(push("/spotifyauth"));
+        dispatch(push("/home"))
       })
       .catch((err) => {
         dispatch(loginUserFail(err.message));

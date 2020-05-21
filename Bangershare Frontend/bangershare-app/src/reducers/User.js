@@ -1,10 +1,12 @@
 import { userActionType } from "../actions/User";
+import { songActionType } from "../actions/Song";
 
 const initialState = {
   currentUser: {
     name: "",
   },
   userProfile: "",
+  likedSongs: []
 };
 
 const setUserDetail = (state, action) => {
@@ -30,7 +32,6 @@ const userReducer = (state = initialState, action) => {
     }
     case userActionType.SET_ACCESS_TOKEN: {
       localStorage.setItem("token", action.accessToken);
-      console.log(action);
       return {
         ...state,
       };
@@ -60,6 +61,18 @@ const userReducer = (state = initialState, action) => {
           name: action.username,
         },
       };
+    }
+    case songActionType.LIKE_SONG_SUCCESS: {
+      return {
+        ...state,
+        likedSongs: [...state.likedSongs, action.song]
+      }
+    }
+    case songActionType.GET_LIKE_SONG_SUCCESS: {
+      return {
+        ...state,
+        likedSongs: action.likedSongs
+      }
     }
     default:
       return { ...state };

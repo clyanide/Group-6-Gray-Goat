@@ -94,6 +94,19 @@ const playlistReducer = (state = initialState, action) => {
         currentPlaylist: action.playlist,
       };
     }
+    case songActionType.LIKE_SONG_SUCCESS: {
+      console.log(action)
+      var songIndex = state.currentPlaylist.songs.findIndex(s => s.id === action.song.id);
+      var songList = state.currentPlaylist.songs;
+      songList[songIndex] = action.song;
+      return {
+        ...state,
+        currentPlaylist: {
+          ...state.currentPlaylist,
+          songs: songList
+        }
+      }
+    }
     case userActionType.LOGOUT_USER: {
       return {
         initialState,

@@ -11,17 +11,24 @@ const MusicPlayer = ({ currentSong }) => {
     }
   }, [setspotifyFirstLoad, currentSong.songType]);
 
+  const nmsl = currentSong.songType == 0 ? "0" : "105vw";
+  const cnm = currentSong.songType == 2 ? "0" : "105vw";
+
   return (
     <div>
-      <YoutubePlayer link={currentSong.link} />
-      {spotifyFirstLoad ? (
-        <SpotifyPlayer
-          uri={currentSong.link}
-          duration={currentSong.duration}
-          type={currentSong.songType}
-          currentSong={currentSong}
-        />
-      ) : null}
+      <div style={{ paddingLeft: cnm }}>
+        <YoutubePlayer link={currentSong.link} />
+      </div>
+      <div style={{ paddingLeft: nmsl }}>
+        {spotifyFirstLoad ? (
+          <SpotifyPlayer
+            uri={currentSong.link}
+            duration={currentSong.duration}
+            type={currentSong.songType}
+            currentSong={currentSong}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };

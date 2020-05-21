@@ -1,25 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SpotifyPlayer from "../../containers/SpotifyPlayer";
-import YoutubePlayer from "./YoutubePlayer";
+import YoutubePlayer from "../../containers/YoutubePlayer";
 
-const mockSongObject = {
-  type: "spotify",
-  uri: "spotify:track:7BsKwPYQu8PQIEy3CCfPVJ",
-  link: "https://www.youtube.com/watch?v=iPlfQ8yWIeA",
-  duration: 266000,
-};
+const MusicPlayer = ({ currentSong }) => {
+  const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
 
-const MusicPlayer = () => {
+  useEffect(() => {
+    if (currentSong.songType === 0) {
+      setspotifyFirstLoad(true);
+    }
+  }, [setspotifyFirstLoad, currentSong.songType]);
+
+  const nmsl = currentSong.songType === 0 ? "0" : "105vw";
+  const cnm = currentSong.songType === 2 ? "0" : "105vw";
+
   return (
     <div>
-      {mockSongObject.type === "spotify" ? (
-        <SpotifyPlayer
-          uri={mockSongObject.uri}
-          duration={mockSongObject.duration}
-        />
-      ) : (
-        <YoutubePlayer link={mockSongObject.link} />
-      )}
+      <div style={{ paddingLeft: cnm }}>
+        <YoutubePlayer link={currentSong.link} />
+      </div>
+      <div style={{ paddingLeft: nmsl }}>
+        {spotifyFirstLoad ? (
+          <SpotifyPlayer
+            uri={currentSong.link}
+            duration={currentSong.duration}
+            type={currentSong.songType}
+            currentSong={currentSong}
+          />
+        ) : null}
+      </div>
     </div>
   );
 };

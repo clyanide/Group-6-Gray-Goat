@@ -62,6 +62,7 @@ const addSongToPlaylist = (song) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
+          console.log(err);
           if (err.response.status === 401) {
             refreshAccessToken(localStorage.getItem("username"))
               .then((res) => {

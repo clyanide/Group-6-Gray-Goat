@@ -5,6 +5,7 @@ import bangerShareReducer from "./BangerShare";
 import spotifyTokenReducer from "./SpotifyToken";
 import playlistReducer from "./Playlist";
 import { connectRouter } from "connected-react-router";
+import musicPlayerReducer from "./MusicPlayer";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -14,6 +15,7 @@ const createRootReducer = (history) =>
     bangerShareReducer,
     spotifyTokenReducer,
     playlistReducer,
+    musicPlayerReducer,
   });
 
 export default createRootReducer;

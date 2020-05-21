@@ -29,7 +29,7 @@ const registerUser = ({ username, email, password }) => {
       .then(() => {
         login(username, password).then((res) => {
           dispatch(registerUserSuccess(res, username));
-          dispatch(push("/home"));
+          dispatch(push("/spotifyauth"));
         });
       })
       .catch((err) => {
@@ -44,7 +44,7 @@ const loginUser = ({ username, password }) => {
     login(username, password)
       .then((res) => {
         dispatch(loginUserSuccess(res, username));
-        dispatch(push("/home"));
+        dispatch(push("/spotifyauth"));
       })
       .catch((err) => {
         dispatch(loginUserFail(err.message));

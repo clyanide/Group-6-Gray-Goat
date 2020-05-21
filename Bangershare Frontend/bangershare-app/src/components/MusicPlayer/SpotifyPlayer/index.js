@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
+import equal from "fast-deep-equal";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -19,18 +20,41 @@ class SpotifyPlayer extends Component {
       time: 0,
     };
 
-    this.playerCheckInterval = null;
+    this.checkForPlayer();
+  }
 
-    if (this.state.token !== "") {
-      this.playerCheckInterval = setInterval(() => this.checkForPlayer(), 1000);
+  componentDidUpdate(prevProps) {
+    if (!equal(this.props.uri, prevProps.uri)) {
+      // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
+      if (this.props.type === 0) {
+        this.setState({ trackName: "" });
+        this.playUri({
+          playerInstance: this.player,
+          spotify_uri: this.props.uri,
+        });
+      }
     }
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.checkSongChanged(), 1000);
+  }
+
+  checkSongChanged() {
+    if (this.props.currentSong.songType !== 0) {
+      this.setState({ trackName: "" });
+      this.player.pause();
+    }
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
   }
 
   checkForPlayer() {
     const { token } = this.state;
 
     if (window.Spotify !== null) {
-      clearInterval(this.playerCheckInterval);
       this.player = new window.Spotify.Player({
         name: "BangerShare",
         getOAuthToken: (cb) => {
@@ -135,7 +159,12 @@ class SpotifyPlayer extends Component {
   };
 
   onPrevClick() {
-    this.player.previousTrack();
+    this.props.setSong(
+      this.getPrevSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   onPlayClick() {
@@ -143,17 +172,59 @@ class SpotifyPlayer extends Component {
   }
 
   onNextClick() {
-    this.player.nextTrack();
+    this.props.setSong(
+      this.getNextSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   seekbarCallback = (childData) => {
     if (this.state.trackName !== "") {
       this.player.seek(childData * 1000);
+      this.player.resume();
+    }
+  };
+
+  // When spotify song finishes
+  endOfSongCallback = (position) => {
+    if (
+      Math.trunc(this.props.duration) !== 0 &&
+      position === Math.trunc(this.props.duration / 1000) - 1
+    ) {
+      this.onNextClick();
+    }
+  };
+
+  getNextSong = (currentSong, currentPlayingPlaylist) => {
+    const songList = currentPlayingPlaylist.songs;
+
+    let i = 0;
+    for (i = 0; i < songList.length; i++) {
+      if (currentSong.id === songList[i].id) {
+        if (i < songList.length - 1) {
+          return songList[i + 1];
+        } else return songList[0];
+      }
+    }
+  };
+
+  getPrevSong = (currentSong, currentPlayingPlaylist) => {
+    const songList = currentPlayingPlaylist.songs;
+
+    let i = 0;
+    for (i = 0; i < songList.length; i++) {
+      if (currentSong.id === songList[i].id) {
+        if (i > 0) {
+          return songList[i - 1];
+        } else return songList[songList.length - 1];
+      }
     }
   };
 
   render() {
-    const { artistName, trackName, albumName, error, playing } = this.state;
+    const { artistName, trackName, error, playing } = this.state;
 
     return (
       <div className="App">
@@ -162,21 +233,22 @@ class SpotifyPlayer extends Component {
         <div>
           <p>Artist: {artistName}</p>
           <p>Track: {trackName}</p>
-          <p>Album: {albumName}</p>
-          <p>
-            <button>Previous</button>
+          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div>
+            <button onClick={() => this.onPrevClick()}>Previous</button>
             <button onClick={() => this.onPlayClick()}>
               {playing ? "Pause" : "Play"}
             </button>
-            <button>Next</button>
+            <button onClick={() => this.onNextClick()}>Next</button>
             {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}
                 parentCallback={this.seekbarCallback}
                 paused={!this.state.playing}
+                endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
-          </p>
+          </div>
         </div>
       </div>
     );

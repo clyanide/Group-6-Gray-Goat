@@ -159,12 +159,12 @@ class SpotifyPlayer extends Component {
   };
 
   onPrevClick() {
-    // this.props.setSong(
-    //   this.getPrevSong(
-    //     this.props.currentSong,
-    //     this.props.currentPlayingPlaylist
-    //   )
-    // );
+    this.props.setSong(
+      this.getPrevSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   onPlayClick() {
@@ -172,12 +172,12 @@ class SpotifyPlayer extends Component {
   }
 
   onNextClick() {
-    // this.props.setSong(
-    //   this.getNextSong(
-    //     this.props.currentSong,
-    //     this.props.currentPlayingPlaylist
-    //   )
-    // );
+    this.props.setSong(
+      this.getNextSong(
+        this.props.currentSong,
+        this.props.currentPlayingPlaylist
+      )
+    );
   }
 
   seekbarCallback = (childData) => {
@@ -236,11 +236,11 @@ class SpotifyPlayer extends Component {
           <p>Track: {trackName}</p>
           <p>Album: {albumName}</p>
           <p>
-            <button onClick={this.onPrevClick()}>Previous</button>
+            <button onClick={() => this.onPrevClick()}>Previous</button>
             <button onClick={() => this.onPlayClick()}>
               {playing ? "Pause" : "Play"}
             </button>
-            <button onClick={this.onNextClick()}>Next</button>
+            <button onClick={() => this.onNextClick()}>Next</button>
             {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}

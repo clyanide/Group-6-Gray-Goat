@@ -11,6 +11,7 @@ const initialState = {
     isOwner: false,
     creator: "",
     songs: [],
+    following: false,
   },
 };
 
@@ -22,7 +23,14 @@ const playlistReducer = (state = initialState, action) => {
         userPlaylist: action.userPlaylist,
       };
     case playlistActionType.CREATE_PLAYLIST_SUCCESS: {
-      const playlist = Object.assign({}, action.userPlaylist);
+      let playlist = Object.assign({}, action.userPlaylist);
+      playlist = {
+        ...playlist,
+        creator: localStorage.getItem("username"),
+        isOwner: true,
+        songs: [],
+        following: true,
+      };
       return {
         ...state,
         userPlaylist: [...state.userPlaylist, playlist],
@@ -68,10 +76,22 @@ const playlistReducer = (state = initialState, action) => {
         },
       };
     }
+    case playlistActionType.GET_PROFILE_PLAYLIST: {
+      return {
+        ...state,
+        profilePlaylist: initialState.profilePlaylist,
+      };
+    }
     case playlistActionType.GET_PROFILE_PLAYLIST_SUCCESS: {
       return {
         ...state,
         profilePlaylist: action.profilePlaylist,
+      };
+    }
+    case playlistActionType.GET_SINGLE_PLAYLIST_SUCCESS: {
+      return {
+        ...state,
+        currentPlaylist: action.playlist,
       };
     }
     case userActionType.LOGOUT_USER: {

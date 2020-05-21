@@ -5,7 +5,7 @@ import {
   deleteSong,
   refreshAccessToken,
 } from "../utility/API";
-
+import { setAccessToken, logoutUser } from "./User";
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
 
 export const songActionType = {
@@ -38,8 +38,14 @@ const addSongToPlaylist = (song) => {
         })
         .catch((err) => {
           if (err.response.status === 401) {
-            const user = state.userReducer.currentUser;
-            dispatch(refreshAccessToken(user.name, addSongToPlaylist));
+            refreshAccessToken(localStorage.getItem("username"))
+              .then((res) => {
+                dispatch(setAccessToken(res));
+                dispatch(addSongToPlaylist(song));
+              })
+              .catch(() => {
+                dispatch(logoutUser());
+              });
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -58,14 +64,14 @@ const addSongToPlaylist = (song) => {
         .catch((err) => {
           console.log(err);
           if (err.response.status === 401) {
-            const user = state.userReducer.currentUser;
-            dispatch(
-              refreshAccessToken(
-                user.name,
-                addSongToPlaylist,
-                addSongToPlaylistFail
-              )
-            );
+            refreshAccessToken(localStorage.getItem("username"))
+              .then((res) => {
+                dispatch(setAccessToken(res));
+                dispatch(addSongToPlaylist(song));
+              })
+              .catch(() => {
+                dispatch(logoutUser());
+              });
           } else {
             dispatch(addSongToPlaylistFail(err.message));
           }
@@ -91,7 +97,7 @@ const addSongToPlaylistFail = (error) => ({
 });
 
 const updatePendingSong = (song) => {
-  return (dispatch, getState) => {
+  return (dispatch) => {
     dispatch(updatePendingSongStart());
     updateSong(localStorage.getItem("token"), song)
       .then((res) => {
@@ -99,9 +105,14 @@ const updatePendingSong = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          const state = getState();
-          const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(user.name, updatePendingSong));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(updatePendingSong(song));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
         } else {
           dispatch(updatePendingSongFail(err.message));
         }
@@ -136,8 +147,14 @@ const deleteSongFromPlaylist = (song) => {
       })
       .catch((err) => {
         if (err.response.status === 401) {
-          const user = state.userReducer.currentUser;
-          dispatch(refreshAccessToken(user.name, deleteSongFromPlaylist));
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(deleteSongFromPlaylist(song));
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
         } else {
           dispatch(deleteSongFromPlaylistFail(err.message));
         }

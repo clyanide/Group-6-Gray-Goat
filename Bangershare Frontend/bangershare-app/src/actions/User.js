@@ -61,9 +61,14 @@ const getUserInfo = () => {
           dispatch(getUserInfoSuccess(res.data));
         })
         .catch(() => {
-          dispatch(
-            refreshAccessToken(localStorage.getItem("username"), getUserInfo)
-          );
+          refreshAccessToken(localStorage.getItem("username"))
+            .then((res) => {
+              dispatch(setAccessToken(res));
+              dispatch(getUserInfo());
+            })
+            .catch(() => {
+              dispatch(logoutUser());
+            });
         });
     }
   };
@@ -135,11 +140,21 @@ const setAccessToken = (payload) => ({
   accessToken: payload.data.accessToken,
 });
 
-const setUserProfile = (username) => ({
-  type: userActionType.SET_USER_PROFILE,
-  fetching: true,
-  username,
-});
+const setUserProfile = (username) => {
+  return (dispatch) => {
+    dispatch({
+      type: userActionType.SET_USER_PROFILE,
+      fetching: true,
+      username,
+    });
+    dispatch(
+      push({
+        pathname: "/profile",
+        search: "?username=" + username,
+      })
+    );
+  };
+};
 
 const setCurrentUser = (username) => ({
   type: userActionType.SET_CURRENT_USER,

@@ -1,6 +1,11 @@
 import { connect } from "react-redux";
 import HomePage from "../../components/HomePage";
-import { getPlaylist, setCurrentPlaylist } from "../../actions/Playlists";
+import {
+  getPlaylist,
+  setCurrentPlaylist,
+  followPlaylistHomePage,
+  unfollowPlaylistHomePage,
+} from "../../actions/Playlists";
 import { getFriends } from "../../actions/Friends";
 import { push } from "connected-react-router";
 
@@ -22,6 +27,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   push: (url) => {
     dispatch(push(url));
+  },
+  followPlaylist: (playlistId) => {
+    dispatch(followPlaylistHomePage(playlistId));
+  },
+  unfollowPlaylist: (playlistId) => {
+    dispatch(unfollowPlaylistHomePage(playlistId));
   },
 });
 

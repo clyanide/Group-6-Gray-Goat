@@ -9,7 +9,6 @@ const FriendsPage = (props) => {
 
   const handleProfileClick = (username) => {
     setProfileUser(username);
-    props.push("/profile");
   };
 
   useEffect(() => {

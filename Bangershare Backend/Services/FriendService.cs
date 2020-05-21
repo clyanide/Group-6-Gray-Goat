@@ -124,7 +124,7 @@ namespace Bangershare_Backend.Services
 
                 FriendSong friendSong = new FriendSong { Username = otherUser.Username };
 
-                friendSong.PlaylistSongs = await _playlistService.GetPlaylistUserOwns(otherUser.Id);
+                friendSong.PlaylistSongs = await _playlistService.GetPlaylistUserOwns(otherUser.Id, userId);
 
                 friendSongs.Add(friendSong);
             }

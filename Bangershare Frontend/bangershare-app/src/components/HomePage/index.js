@@ -15,6 +15,8 @@ const HomeScreen = (props) => {
     loadFriends,
     friendPlaylist,
     setCurrentPlaylist,
+    followPlaylist,
+    unfollowPlaylist,
   } = props;
 
   const [modalOpen, setModal] = useState(false);
@@ -30,7 +32,15 @@ const HomeScreen = (props) => {
 
   const handleOnPlaylistClick = (playlist) => {
     setCurrentPlaylist(playlist);
-    props.push("/playlist");
+  };
+
+  const handleOnFollowClick = (playlistId) => {
+    followPlaylist(playlistId);
+  };
+
+  const handleUnfollowClick = (playlistId) => {
+    console.log(playlistId);
+    unfollowPlaylist(playlistId);
   };
 
   return (
@@ -41,14 +51,20 @@ const HomeScreen = (props) => {
           <RecentPlaylists
             playlists={userPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
+            handleOnFollowClick={handleOnFollowClick}
+            handleUnfollowClick={handleUnfollowClick}
           />
           <MyPlaylists
             playlists={userPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
+            handleOnFollowClick={handleOnFollowClick}
+            handleUnfollowClick={handleUnfollowClick}
           />
           <Explore
             playlists={friendPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
+            handleOnFollowClick={handleOnFollowClick}
+            handleUnfollowClick={handleUnfollowClick}
           />
         </>
       ) : (

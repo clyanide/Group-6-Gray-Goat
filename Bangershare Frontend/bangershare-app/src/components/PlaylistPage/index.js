@@ -2,8 +2,8 @@ import React, { useState, useEffect } from "react";
 import SongList from "./SongsList";
 import CreateSongModal from "../../containers/PlaylistPage/CreateSongModal";
 import { Typography, Divider, IconButton, Tooltip } from "@material-ui/core";
-import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
-import AddCircleIcon from '@material-ui/icons/AddCircle';
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
 
 const PlaylistPage = (props) => {
   const { currentPlaylist, isFetching, search, getPlaylist } = props;
@@ -27,13 +27,19 @@ const PlaylistPage = (props) => {
       <Typography variant="h3" style={{ marginTop: "2vh", marginLeft: "4vw" }}>
         {currentPlaylist.name}
       </Typography>
-      <Typography color="textSecondary" variant="subtitle1" style={{ marginLeft: "4vw", marginBottom: "2vh" }}>
+      <Typography
+        color="textSecondary"
+        variant="subtitle1"
+        style={{ marginLeft: "4vw", marginBottom: "2vh" }}
+      >
         Created by {currentPlaylist.creator}
       </Typography>
       <div style={{ marginLeft: "3vw" }}>
         <Tooltip title="Play Playlist">
           <IconButton color="primary">
-            <PlayCircleFilledWhiteIcon style={{ width: "45px", height: "45px" }} />
+            <PlayCircleFilledWhiteIcon
+              style={{ width: "45px", height: "45px" }}
+            />
           </IconButton>
         </Tooltip>
         <Tooltip title="Add Song">
@@ -46,22 +52,25 @@ const PlaylistPage = (props) => {
       {!isFetching ? (
         <>
           {currentPlaylist &&
-            currentPlaylist.songs &&
-            currentPlaylist.songs.length > 0 ? (
-              <SongList
-                isOwner={currentPlaylist.isOwner}
-                songs={currentPlaylist.songs}
-              />
-            ) : (
-              <Typography style={{ marginTop: "2vh", marginLeft: "4vw" }} variant="h4">
-                Playlist has no songs.
-              </Typography>
-            )}
+          currentPlaylist.songs &&
+          currentPlaylist.songs.length > 0 ? (
+            <SongList
+              isOwner={currentPlaylist.isOwner}
+              songs={currentPlaylist.songs}
+            />
+          ) : (
+            <Typography
+              style={{ marginTop: "2vh", marginLeft: "4vw" }}
+              variant="h4"
+            >
+              Playlist has no songs.
+            </Typography>
+          )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-          <p> Loading </p>
-        )}
+        <p> Loading </p>
+      )}
     </>
   );
 };

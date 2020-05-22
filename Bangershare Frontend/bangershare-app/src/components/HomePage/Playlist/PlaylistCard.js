@@ -44,14 +44,20 @@ const PlaylistCard = (props) => {
       <Divider style={{ backgroundColor: "#5e35b1" }} />
       <CardActions>
         {playlist.following ? (
-          <IconButton color="secondary" onClick={() => unfollowPlaylist(playlist.id)}>
+          <IconButton
+            color="secondary"
+            onClick={() => unfollowPlaylist(playlist.id)}
+          >
             <FavoriteIcon fontSize="default" />
           </IconButton>
         ) : (
-            <IconButton color="secondary" onClick={() => followPlaylist(playlist.id)}>
-              <FavoriteBorderIcon fontSize="defualt" />
-            </IconButton>
-          )}
+          <IconButton
+            color="secondary"
+            onClick={() => followPlaylist(playlist.id)}
+          >
+            <FavoriteBorderIcon fontSize="defualt" />
+          </IconButton>
+        )}
         <IconButton onClick={() => handlePlayClick(playlist)}>
           <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>

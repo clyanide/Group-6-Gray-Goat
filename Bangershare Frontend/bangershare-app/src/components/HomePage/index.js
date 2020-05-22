@@ -76,8 +76,8 @@ const HomeScreen = (props) => {
           </Tooltip>
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
     </div>
   );

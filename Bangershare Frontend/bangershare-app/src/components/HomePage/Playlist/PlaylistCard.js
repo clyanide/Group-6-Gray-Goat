@@ -27,7 +27,7 @@ const PlaylistCard = (props) => {
         <CardContent>
           <Typography variant="h5">{playlist.name}</Typography>
           <Typography color="textSecondary" variant="subtitle1">
-            Created by <strong color="textPrimary">{playlist.creator}</strong>
+            Created by <strong>{playlist.creator}</strong>
           </Typography>
         </CardContent>
       </CardActionArea>

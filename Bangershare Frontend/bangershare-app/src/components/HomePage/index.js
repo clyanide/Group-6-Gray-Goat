@@ -43,7 +43,7 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Greeting />
       {!isFetching ? (
         <>
@@ -70,7 +70,7 @@ const HomeScreen = (props) => {
           <p>Loading</p>
         )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Fab color="primary" onClick={() => handleModal(true)}>
+      <Fab color="primary" onClick={() => handleModal(true)} style={{ position: "absolute", bottom: "0", right: "5vw" }}>
         <PlaylistAddIcon />
       </Fab>
     </div>

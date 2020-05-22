@@ -1,7 +1,7 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Grid, Typography } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
 import "./index.css"
 
 import PlaylistCard from "./PlaylistCard";
@@ -27,7 +27,7 @@ const createPlaylist = (
   handleFollowClick,
   handleUnfollowClick
 ) => (
-    <Grid item xs={12} spacing={5}>
+    <>
       {playlists && playlists.length > 0 ? (
         <Carousel
           swipeable={true}
@@ -50,7 +50,7 @@ const createPlaylist = (
       ) : (
           <Typography>There seems to be no playlists</Typography>
         )}
-    </Grid>
+    </>
   );
 
 export const createFriendPlaylist = (
@@ -59,7 +59,7 @@ export const createFriendPlaylist = (
   handleFollowClick,
   handleUnfollowClick
 ) => (
-    <Grid item xs={12} spacing={5}>
+    <>
       {playlists && playlists.length > 0 ? (
         <Carousel
           swipeable={true}
@@ -87,7 +87,7 @@ export const createFriendPlaylist = (
       ) : (
           <Typography>You have no friends</Typography>
         )}
-    </Grid>
+    </>
   );
 
 export default createPlaylist;

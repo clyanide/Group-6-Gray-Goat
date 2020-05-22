@@ -4,7 +4,7 @@ import { Typography } from "@material-ui/core";
 const Greeting = () => {
   return (
     <Typography variant="h6">
-      Hello <strong>{localStorage.getItem("username")}</strong>
+      Welcome <strong>{localStorage.getItem("username")}</strong>
     </Typography>
   );
 };

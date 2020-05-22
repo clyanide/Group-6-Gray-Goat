@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TextField, InputAdornment, Button, Paper } from "@material-ui/core";
+import { TextField, InputAdornment, Button } from "@material-ui/core";
 import EmailIcon from '@material-ui/icons/Email';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
@@ -48,7 +48,6 @@ const LoginForm = (props) => {
         <TextField
           variant="outlined"
           type="email"
-          label="Email"
           value={userInfo.email}
           onChange={(e) => setEmail(e)}
           placeholder="eg. xyz@email.com"
@@ -66,7 +65,6 @@ const LoginForm = (props) => {
       }
       <TextField
         variant="outlined"
-        label="Username"
         placeholder="Username"
         value={userInfo.username}
         onChange={(e) => setUsername(e)}
@@ -81,7 +79,6 @@ const LoginForm = (props) => {
       />
       <TextField
         variant="outlined"
-        label="Password"
         type="password"
         placeholder="Password"
         value={userInfo.password}

@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import { Button, Icon, Dropdown } from "semantic-ui-react";
 import { Link } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import Grid from "@material-ui/core/Grid";
-import { Typography, IconButton } from "@material-ui/core";
+import { Typography, IconButton, Button, Popper, Fade, Paper, MenuList, MenuItem, ClickAwayListener, ListItemIcon } from "@material-ui/core";
 import MenuIcon from "@material-ui/icons/Menu";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const AppHeader = (props) => {
   const {
@@ -16,6 +16,18 @@ const AppHeader = (props) => {
     signOut,
     setCurrentUser,
   } = props;
+
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const handleClickAway = () => {
+    setAnchorEl(null)
+  }
+
+  const open = Boolean(anchorEl);
 
   const onProfileClick = () => {
     setProfileUser(localStorage.getItem("username"));
@@ -28,65 +40,60 @@ const AppHeader = (props) => {
   }, [setCurrentUser]);
 
   return (
-    <AppBar position="static" style={{ backgroundColor: "#282828" }}>
-      <Toolbar>
+    <AppBar position="sticky" style={{ backgroundColor: "#282828", zIndex: "1" }}>
+      <Toolbar style={{ zIndex: "1" }}>
         {currentPath === "/login" ? (
           <Typography variant="h4" style={{ flexGrow: 1 }}>
             BangerShare
           </Typography>
         ) : (
-          <>
-            <IconButton
-              disabled={isFetching}
-              onClick={() => onMenuClick(true)}
-              edge="start"
-              style={{ marginRight: "1%" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h4" style={{ flexGrow: 1 }}>
-              <Link to="/home" style={{ color: "white" }}>
-                BangerShare
-              </Link>
-            </Typography>
-            <Grid container spacing={3} direction="row">
-              <Grid item xs={8} />
-              <Grid
-                direction="row"
-                xs={4}
-                container
-                alignItems="flex-start"
-                justify="flex-end"
+            <>
+              <IconButton
+                disabled={isFetching}
+                onClick={() => onMenuClick(true)}
+                edge="start"
+                style={{ marginRight: "1%" }}
               >
-                <Dropdown
-                  pointing="top left"
-                  icon={false}
-                  floated
-                  trigger={
-                    <Button icon labelPosition="left">
-                      <Icon name="user circle" />
-                      {localStorage.getItem("username")}
-                    </Button>
-                  }
-                >
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      icon="user"
-                      text={"Profile"}
-                      onClick={() => onProfileClick()}
-                    />
-                    <Dropdown.Item icon="settings" text={"Settings"} />
-                    <Dropdown.Item
-                      icon="sign out"
-                      text={"Sign out"}
-                      onClick={() => signOut()}
-                    />
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Grid>
-            </Grid>
-          </>
-        )}
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h4" style={{ flexGrow: 1 }}>
+                <Link to="/home" style={{ color: "white" }}>
+                  BangerShare
+              </Link>
+              </Typography>
+              <Button variant="contained" color="primary" onClick={(e) => handleClick(e)}>
+                {localStorage.getItem("username")}
+              </Button>
+              <Popper open={open} anchorEl={anchorEl} transition style={{ position: "relative", zIndex: "10" }} placement="bottom-end">
+                {({ TransitionProps }) => (
+                  <Fade {...TransitionProps} timeout={350}>
+                    <ClickAwayListener onClickAway={handleClickAway}>
+                      <Paper>
+                        <MenuList>
+                          <MenuItem onClick={() => { onProfileClick(); handleClickAway() }}>
+                            <ListItemIcon>
+                              <AccountCircleIcon color="primary" />
+                            </ListItemIcon>
+                            <Typography>
+                              Profile
+                            </Typography>
+                          </MenuItem>
+                          <MenuItem onClick={() => { signOut(); handleClickAway() }}>
+                            <ListItemIcon >
+                              <ExitToAppIcon color="secondary" />
+                            </ListItemIcon>
+                            <Typography>
+                              Logout
+                            </Typography>
+                          </MenuItem>
+                        </MenuList>
+                      </Paper>
+                    </ClickAwayListener>
+                  </Fade>
+                )}
+              </Popper>
+            </>
+          )}
       </Toolbar>
     </AppBar>
   );

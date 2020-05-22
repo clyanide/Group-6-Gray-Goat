@@ -70,7 +70,6 @@ const AppSideBar = (props) => {
           </Typography>
         </ListItemText>
       </ListItem>
-      <Divider />
       <ListItem>
         <ListItemIcon>
           <QueueMusicIcon color="primary" fontSize="large" />

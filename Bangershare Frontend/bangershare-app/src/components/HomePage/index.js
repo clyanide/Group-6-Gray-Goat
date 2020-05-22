@@ -42,7 +42,7 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
+    <div style={{ position: "relative", height: "100%" }}>
       {!isFetching ? (
         <>
           <RecentPlaylists
@@ -67,7 +67,7 @@ const HomeScreen = (props) => {
             <Fab
               color="primary"
               onClick={() => handleModal(true)}
-              style={{ position: "absolute", bottom: "0", right: "8vw" }}
+              style={{ position: "absolute", bottom: "12vh", right: "8vw" }}
             >
               <PlaylistAddIcon />
             </Fab>

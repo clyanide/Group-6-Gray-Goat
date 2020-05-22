@@ -32,7 +32,8 @@ const PlaylistCard = (props) => {
   };
 
   return (
-    <Card style={{ width: "100%", height: "100%" }}>
+    // <Card style={{ width: "100%", height: "100%", borderColor: "#5e35b1", borderStyle: "solid", borderWidth: "1px" }}>
+    <Card>
       <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
         <CardContent>
           <Typography variant="h5">{playlist.name}</Typography>
@@ -51,13 +52,13 @@ const PlaylistCard = (props) => {
             <FavoriteIcon fontSize="default" />
           </IconButton>
         ) : (
-          <IconButton
-            color="secondary"
-            onClick={() => followPlaylist(playlist.id)}
-          >
-            <FavoriteBorderIcon fontSize="defualt" />
-          </IconButton>
-        )}
+            <IconButton
+              color="secondary"
+              onClick={() => followPlaylist(playlist.id)}
+            >
+              <FavoriteBorderIcon fontSize="defualt" />
+            </IconButton>
+          )}
         <IconButton onClick={() => handlePlayClick(playlist)}>
           <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>

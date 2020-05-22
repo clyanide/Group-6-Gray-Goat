@@ -48,11 +48,11 @@ const PlaylistCard = (props) => {
             <FavoriteIcon fontSize="default" />
           </IconButton>
         ) : (
-          </IconButton>
-        )}
+            <IconButton color="secondary" onClick={() => followPlaylist(playlist.id)}>
+              <FavoriteBorderIcon fontSize="defualt" />
+            </IconButton>
+          )}
         <IconButton onClick={() => handlePlayClick(playlist)}>
-            <FavoriteBorderIcon fontSize="defualt" color="secondary" />
-          <IconButton onClick={() => followPlaylist(playlist.id)}>
           <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>
       </CardActions>

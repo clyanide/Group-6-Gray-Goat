@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Media, Player, controls } from "react-media-player";
 import SeekBar from "./SeekBar";
 import CustomPlayPause from "./CustomPlayPause";
+import { Button } from "semantic-ui-react";
 
 const { PlayPause } = controls;
 
@@ -72,9 +73,9 @@ class YoutubePlayer extends Component {
             <SeekBar endOfSongCallback={this.endOfSongCallback} />
           </div>
           <div>
-            <button onClick={() => this.handlePrevClick()}>Prev</button>
+            <Button onClick={() => this.handlePrevClick()}>Prev</Button>
             <CustomPlayPause />
-            <button onClick={() => this.handleNextClick()}>Next</button>
+            <Button onClick={() => this.handleNextClick()}>Next</Button>
           </div>
         </div>
       </Media>

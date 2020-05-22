@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
 import equal from "fast-deep-equal";
+import { Button } from "semantic-ui-react";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -234,11 +235,11 @@ class SpotifyPlayer extends Component {
           <p>Track: {trackName}</p>
           <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
           <div>
-            <button onClick={() => this.onPrevClick()}>Previous</button>
-            <button onClick={() => this.onPlayClick()}>
+            <Button onClick={() => this.onPrevClick()}>Previous</Button>
+            <Button onClick={() => this.onPlayClick()}>
               {playing ? "Pause" : "Play"}
-            </button>
-            <button onClick={() => this.onNextClick()}>Next</button>
+            </Button>
+            <Button onClick={() => this.onNextClick()}>Next</Button>
             {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}

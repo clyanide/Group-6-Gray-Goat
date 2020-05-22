@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { withMediaProps } from "react-media-player";
+import { Button } from "semantic-ui-react";
 
 class CustomPlayPause extends Component {
   shouldComponentUpdate({ media }) {
@@ -13,14 +14,9 @@ class CustomPlayPause extends Component {
   render() {
     const { className, style, media } = this.props;
     return (
-      <button
-        type="button"
-        className={className}
-        style={style}
-        onClick={this._handlePlayPause}
-      >
+      <Button onClick={this._handlePlayPause}>
         {media.isPlaying ? "Pause" : "Play"}
-      </button>
+      </Button>
     );
   }
 }

@@ -16,10 +16,24 @@ const MusicPlayer = ({ currentSong }) => {
 
   return (
     <div>
-      <div style={{ paddingLeft: cnm }}>
+      <div
+        style={{
+          paddingLeft: cnm,
+          position: "absolute",
+          bottom: "0%",
+          width: "100%",
+        }}
+      >
         <YoutubePlayer link={currentSong.link} />
       </div>
-      <div style={{ paddingLeft: nmsl }}>
+      <div
+        style={{
+          paddingLeft: nmsl,
+          position: "absolute",
+          bottom: "0%",
+          width: "100%",
+        }}
+      >
         {spotifyFirstLoad ? (
           <SpotifyPlayer
             uri={currentSong.link}

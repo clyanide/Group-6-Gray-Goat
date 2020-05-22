@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Media, Player, controls } from "react-media-player";
 import SeekBar from "./SeekBar";
+import CustomPlayPause from "./CustomPlayPause";
 
 const { PlayPause } = controls;
 
@@ -72,7 +73,7 @@ class YoutubePlayer extends Component {
           </div>
           <div>
             <button onClick={() => this.handlePrevClick()}>Prev</button>
-            <PlayPause />
+            <CustomPlayPause />
             <button onClick={() => this.handleNextClick()}>Next</button>
           </div>
         </div>

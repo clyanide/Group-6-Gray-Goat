@@ -48,7 +48,7 @@ const createPlaylist = (
           ))}
         </Carousel>
       ) : (
-          <Typography>There seems to be no playlists</Typography>
+          <Typography variant="h5" style={{ marginLeft: "1vw", marginTop: "1vh", marginBottom: "5vh" }}>There seems to be no playlists</Typography>
         )}
     </>
   );
@@ -85,7 +85,7 @@ export const createFriendPlaylist = (
           })}
         </Carousel>
       ) : (
-          <Typography>You have no friends</Typography>
+          <Typography variant="h5" style={{ marginLeft: "1vw", marginBottom: "5vh" }}>You have no friends</Typography>
         )}
     </>
   );

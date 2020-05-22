@@ -6,6 +6,7 @@ import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
 import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
 import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
+import { Typography } from "@material-ui/core";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -232,6 +233,16 @@ class SpotifyPlayer extends Component {
 
     return (
       <div>
+        <div
+          style={{
+            position: "absolute",
+            paddingLeft: "3vw",
+            paddingTop: "3vh",
+          }}
+        >
+          <Typography variant="h6">{trackName}</Typography>
+          <Typography variant="subtitle1">{artistName}</Typography>
+        </div>
         <div>
           <div
             style={{
@@ -255,16 +266,6 @@ class SpotifyPlayer extends Component {
             </IconButton>
           </div>
           <div>
-            <div
-              style={{
-                float: "left",
-                position: "absolute",
-                paddingLeft: "5vw",
-              }}
-            >
-              <p>{trackName}</p>
-              <p>{artistName}</p>
-            </div>
             <div>
               {this.state.trackName !== "" ? (
                 <SeekBar

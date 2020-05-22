@@ -5,6 +5,7 @@ import CustomPlayPause from "./CustomPlayPause";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
+import { Typography } from "@material-ui/core";
 
 const { PlayPause } = controls;
 
@@ -63,6 +64,18 @@ class YoutubePlayer extends Component {
         <div>
           <div
             style={{
+              position: "absolute",
+              paddingLeft: "3vw",
+              paddingTop: "3vh",
+            }}
+          >
+            <Typography variant="h6">{this.props.currentSong.name}</Typography>
+            <Typography variant="subtitle1">
+              {this.props.currentSong.artist}
+            </Typography>
+          </div>
+          <div
+            style={{
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
@@ -104,16 +117,6 @@ class YoutubePlayer extends Component {
             </div>
           </div>
           <div>
-            <div
-              style={{
-                float: "left",
-                position: "absolute",
-                paddingLeft: "5vw",
-              }}
-            >
-              <p>{this.props.currentSong.name}</p>
-              <p>{this.props.currentSong.artist}</p>
-            </div>
             <div>
               <SeekBar endOfSongCallback={this.endOfSongCallback} />
             </div>

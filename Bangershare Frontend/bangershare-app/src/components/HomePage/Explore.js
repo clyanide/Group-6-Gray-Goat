@@ -12,7 +12,9 @@ const Explore = (props) => {
 
   return (
     <div>
-      <Typography variant="h5" style={{ marginLeft: "1vw", marginTop: "1vh" }}>Explore</Typography>
+      <Typography variant="h5" style={{ marginLeft: "1vw", marginTop: "1vh" }}>
+        Explore
+      </Typography>
       {createFriendPlaylist(
         playlists,
         handleOnPlaylistClick,

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { TextField, InputAdornment, Button } from "@material-ui/core";
-import EmailIcon from '@material-ui/icons/Email';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import VpnKeyIcon from '@material-ui/icons/VpnKey';
+import EmailIcon from "@material-ui/icons/Email";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const LoginForm = (props) => {
   const { handleSignup, handleLogin, isSignUp, isFetching } = props;
@@ -44,7 +44,7 @@ const LoginForm = (props) => {
 
   return (
     <form>
-      {isSignUp ?
+      {isSignUp ? (
         <TextField
           variant="outlined"
           type="email"
@@ -60,9 +60,7 @@ const LoginForm = (props) => {
             ),
           }}
         />
-        :
-        null
-      }
+      ) : null}
       <TextField
         variant="outlined"
         placeholder="Username"
@@ -74,7 +72,7 @@ const LoginForm = (props) => {
             <InputAdornment>
               <AccountCircleIcon />
             </InputAdornment>
-          )
+          ),
         }}
       />
       <TextField
@@ -88,13 +86,19 @@ const LoginForm = (props) => {
             <InputAdornment>
               <VpnKeyIcon />
             </InputAdornment>
-          )
+          ),
         }}
       />
-      <Button variant="contained" color="primary" disabled={isFetching} onClick={() => handleSubmit()}>{isSignUp ? "Register" : "Login"}</Button>
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={isFetching}
+        onClick={() => handleSubmit()}
+      >
+        {isSignUp ? "Register" : "Login"}
+      </Button>
     </form>
   );
 };
-
 
 export default LoginForm;

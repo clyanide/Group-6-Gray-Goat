@@ -12,6 +12,7 @@ import {
   Paper,
   ListItemIcon,
   Typography,
+  Tooltip
 } from "@material-ui/core";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
@@ -65,25 +66,29 @@ export const CreateSongList = (props) => {
               {song.name}
             </Typography>
           } secondary={
-            <Typography style={{ width: "25vw", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
+            <Typography color="textSecondary" style={{ width: "25vw", whiteSpace: "nowrap", textOverflow: "ellipsis", overflow: "hidden" }}>
               {song.artist}
             </Typography>
           } />
           <ListItemSecondaryAction>
             {song.isPending ? (
               <>
-                <IconButton
-                  onClick={() => onUpdateSong(song, "isPending", false)}
-                >
-                  <AddCircleOutlineIcon style={{ color: green[500] }} />
-                </IconButton>
-                <IconButton onClick={() => onDeleteSong(song)}>
-                  <HighlightOffIcon color="secondary" />
-                </IconButton>
+                <Tooltip title="Add Song">
+                  <IconButton
+                    onClick={() => onUpdateSong(song, "isPending", false)}
+                  >
+                    <AddCircleOutlineIcon style={{ color: green[500] }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Remove Song">
+                  <IconButton color="secondary" onClick={() => onDeleteSong(song)}>
+                    <HighlightOffIcon />
+                  </IconButton>
+                </Tooltip>
               </>
             ) : (
                 <>
-                  <Typography variant="subtitle1" style={{ float: "left", marginTop: "10px", marginRight: "10px" }}>
+                  <Typography variant="subtitle1" style={{ float: "left", marginTop: "9.5px", marginRight: "10px" }}>
                     <strong>
                       {song.hearts}
                     </strong>
@@ -91,13 +96,17 @@ export const CreateSongList = (props) => {
                   {likedSongs &&
                     likedSongs.length > 0 &&
                     likedSongs.find((x) => x.id === song.id) !== undefined ? (
-                      <IconButton onClick={() => unlikeSong(song.id)}>
-                        <FavoriteIcon color="secondary" />
-                      </IconButton>
+                      <Tooltip title="Unlike Song">
+                        <IconButton color="secondary" onClick={() => unlikeSong(song.id)}>
+                          <FavoriteIcon />
+                        </IconButton>
+                      </Tooltip>
                     ) : (
-                      <IconButton onClick={() => likeSong(song.id)}>
-                        <FavoriteBorderOutlinedIcon color="secondary" />
-                      </IconButton>
+                      <Tooltip title="Like Song">
+                        <IconButton color="secondary" onClick={() => likeSong(song.id)}>
+                          <FavoriteBorderOutlinedIcon />
+                        </IconButton>
+                      </Tooltip>
                     )}
                   {isOwner ? (
                     <>

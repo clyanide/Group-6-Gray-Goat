@@ -47,152 +47,154 @@ export const CreateSongList = (props) => {
   const open = Boolean(anchorEl);
 
   return (
-    <List>
-      {songs.map((song) => (
-        <ListItem
-          button
-          onClick={() => {
-            handleSongClick(song);
-            handleCurrentPlayingPlaylist(currentPlaylist);
-          }}
-        >
-          <ListItemAvatar>
-            <Avatar
-              style={{
-                backgroundColor: song.songType === 0 ? "#7d12ff" : "#ff3d00",
-              }}
-            >
-              <MusicNoteIcon style={{ fill: "white" }} />
-            </Avatar>
-          </ListItemAvatar>
-          <ListItemText
-            primary={
-              <Typography
+    <div style={{ overflowY: "scroll", height: "72vh" }}>
+      <List>
+        {songs.map((song) => (
+          <ListItem
+            button
+            onClick={() => {
+              handleSongClick(song);
+              handleCurrentPlayingPlaylist(currentPlaylist);
+            }}
+          >
+            <ListItemAvatar>
+              <Avatar
                 style={{
-                  width: "25vw",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
+                  backgroundColor: song.songType === 0 ? "#7d12ff" : "#ff3d00",
                 }}
               >
-                {song.name}
-              </Typography>
-            }
-            secondary={
-              <Typography
-                color="textSecondary"
-                style={{
-                  width: "25vw",
-                  whiteSpace: "nowrap",
-                  textOverflow: "ellipsis",
-                  overflow: "hidden",
-                }}
-              >
-                {song.artist}
-              </Typography>
-            }
-          />
-          <ListItemSecondaryAction>
-            {song.isPending ? (
-              <>
-                <Tooltip title="Add Song">
-                  <IconButton
-                    onClick={() => onUpdateSong(song, "isPending", false)}
-                  >
-                    <AddCircleOutlineIcon style={{ color: green[500] }} />
-                  </IconButton>
-                </Tooltip>
-                <Tooltip title="Remove Song">
-                  <IconButton
-                    color="secondary"
-                    onClick={() => onDeleteSong(song)}
-                  >
-                    <HighlightOffIcon />
-                  </IconButton>
-                </Tooltip>
-              </>
-            ) : (
-              <>
+                <MusicNoteIcon style={{ fill: "white" }} />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText
+              primary={
                 <Typography
-                  variant="subtitle1"
                   style={{
-                    float: "left",
-                    marginTop: "9.5px",
-                    marginRight: "10px",
+                    width: "25vw",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
                   }}
                 >
-                  <strong>{song.hearts}</strong>
+                  {song.name}
                 </Typography>
-                {likedSongs &&
-                likedSongs.length > 0 &&
-                likedSongs.find((x) => x.id === song.id) !== undefined ? (
-                  <Tooltip title="Unlike Song">
+              }
+              secondary={
+                <Typography
+                  color="textSecondary"
+                  style={{
+                    width: "25vw",
+                    whiteSpace: "nowrap",
+                    textOverflow: "ellipsis",
+                    overflow: "hidden",
+                  }}
+                >
+                  {song.artist}
+                </Typography>
+              }
+            />
+            <ListItemSecondaryAction>
+              {song.isPending ? (
+                <>
+                  <Tooltip title="Add Song">
                     <IconButton
-                      color="secondary"
-                      onClick={() => unlikeSong(song.id)}
+                      onClick={() => onUpdateSong(song, "isPending", false)}
                     >
-                      <FavoriteIcon />
+                      <AddCircleOutlineIcon style={{ color: green[500] }} />
                     </IconButton>
                   </Tooltip>
-                ) : (
-                  <Tooltip title="Like Song">
+                  <Tooltip title="Remove Song">
                     <IconButton
                       color="secondary"
-                      onClick={() => likeSong(song.id)}
+                      onClick={() => onDeleteSong(song)}
                     >
-                      <FavoriteBorderOutlinedIcon />
+                      <HighlightOffIcon />
                     </IconButton>
                   </Tooltip>
-                )}
-                {isOwner ? (
+                </>
+              ) : (
                   <>
-                    <IconButton onClick={handleClick}>
-                      <MoreVertOutlinedIcon />
-                    </IconButton>
-                    <Popper
-                      open={open}
-                      anchorEl={anchorEl}
-                      placement="bottom-end"
-                      transition
+                    <Typography
+                      variant="subtitle1"
+                      style={{
+                        float: "left",
+                        marginTop: "9.5px",
+                        marginRight: "10px",
+                      }}
                     >
-                      {({ TransitionProps }) => (
-                        <Fade {...TransitionProps} timeout={350}>
-                          <Paper>
-                            <List>
-                              <ListItem button>
-                                <ListItemIcon>
-                                  <EditOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                  style={{ textAlign: "center" }}
-                                  primary="Edit"
-                                />
-                              </ListItem>
-                              <ListItem
-                                button
-                                onClick={() => onDeleteSong(song)}
-                              >
-                                <ListItemIcon>
-                                  <DeleteOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText
-                                  style={{ textAlign: "center" }}
-                                  primary="Delete"
-                                />
-                              </ListItem>
-                            </List>
-                          </Paper>
-                        </Fade>
+                      <strong>{song.hearts}</strong>
+                    </Typography>
+                    {likedSongs &&
+                      likedSongs.length > 0 &&
+                      likedSongs.find((x) => x.id === song.id) !== undefined ? (
+                        <Tooltip title="Unlike Song">
+                          <IconButton
+                            color="secondary"
+                            onClick={() => unlikeSong(song.id)}
+                          >
+                            <FavoriteIcon />
+                          </IconButton>
+                        </Tooltip>
+                      ) : (
+                        <Tooltip title="Like Song">
+                          <IconButton
+                            color="secondary"
+                            onClick={() => likeSong(song.id)}
+                          >
+                            <FavoriteBorderOutlinedIcon />
+                          </IconButton>
+                        </Tooltip>
                       )}
-                    </Popper>
+                    {isOwner ? (
+                      <>
+                        <IconButton onClick={handleClick}>
+                          <MoreVertOutlinedIcon />
+                        </IconButton>
+                        <Popper
+                          open={open}
+                          anchorEl={anchorEl}
+                          placement="bottom-end"
+                          transition
+                        >
+                          {({ TransitionProps }) => (
+                            <Fade {...TransitionProps} timeout={350}>
+                              <Paper>
+                                <List>
+                                  <ListItem button>
+                                    <ListItemIcon>
+                                      <EditOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                      style={{ textAlign: "center" }}
+                                      primary="Edit"
+                                    />
+                                  </ListItem>
+                                  <ListItem
+                                    button
+                                    onClick={() => onDeleteSong(song)}
+                                  >
+                                    <ListItemIcon>
+                                      <DeleteOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText
+                                      style={{ textAlign: "center" }}
+                                      primary="Delete"
+                                    />
+                                  </ListItem>
+                                </List>
+                              </Paper>
+                            </Fade>
+                          )}
+                        </Popper>
+                      </>
+                    ) : null}
                   </>
-                ) : null}
-              </>
-            )}
-          </ListItemSecondaryAction>
-        </ListItem>
-      ))}
-    </List>
+                )}
+            </ListItemSecondaryAction>
+          </ListItem>
+        ))}
+      </List>
+    </div>
   );
 };
 

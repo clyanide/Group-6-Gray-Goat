@@ -1,8 +1,11 @@
 import React, { Component } from "react";
-import { Media, Player, controls } from "react-media-player";
+import { Media, Player } from "react-media-player";
 import SeekBar from "./SeekBar";
-
-const { PlayPause } = controls;
+import CustomPlayPause from "./CustomPlayPause";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import IconButton from "@material-ui/core/IconButton";
+import { Typography } from "@material-ui/core";
 
 class YoutubePlayer extends Component {
   handleNextClick = () => {
@@ -57,23 +60,81 @@ class YoutubePlayer extends Component {
     return (
       <Media>
         <div>
-          <div>
-            <Player
-              style={{ width: 0, height: 0 }}
-              src={this.props.link}
-              autoPlay={true}
-            />
-            <p>Artist: {this.props.currentSong.artist}</p>
-            <p>Track: {this.props.currentSong.artist}</p>
-            <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div
+            style={{
+              position: "absolute",
+              paddingLeft: "3vw",
+              paddingTop: "3vh",
+            }}
+          >
+            <Typography
+              variant="h6"
+              style={{
+                width: "15vw",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
+              {this.props.currentSong.name}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{
+                width: "15vw",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
+              {this.props.currentSong.artist}
+            </Typography>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                display: "inline-block",
+              }}
+            >
+              <Player
+                style={{ width: 0, height: 0 }}
+                src={this.props.link}
+                autoPlay={true}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IconButton
+                color="secondary"
+                onClick={() => this.handlePrevClick()}
+              >
+                <SkipPreviousIcon fontSize="large" />
+              </IconButton>
+              <CustomPlayPause />
+              <IconButton
+                color="secondary"
+                onClick={() => this.handleNextClick()}
+              >
+                <SkipNextIcon fontSize="large" />
+              </IconButton>
+            </div>
           </div>
           <div>
-            <SeekBar endOfSongCallback={this.endOfSongCallback} />
-          </div>
-          <div>
-            <button onClick={() => this.handlePrevClick()}>Prev</button>
-            <PlayPause />
-            <button onClick={() => this.handleNextClick()}>Next</button>
+            <div>
+              <SeekBar endOfSongCallback={this.endOfSongCallback} />
+            </div>
           </div>
         </div>
       </Media>

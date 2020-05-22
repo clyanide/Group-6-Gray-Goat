@@ -35,6 +35,9 @@ function App() {
       <ThemeProvider theme={BangerShareTheme}>
         <CssBaseline />
         <BangerShareApp />
+        <div style={{ position: "fixed", bottom: "0%", width: "100%" }}>
+          <MusicPlayer />
+        </div>
       </ThemeProvider>
     </Provider>
   );

@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
 import equal from "fast-deep-equal";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import IconButton from "@material-ui/core/IconButton";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -226,19 +231,38 @@ class SpotifyPlayer extends Component {
     const { artistName, trackName, error, playing } = this.state;
 
     return (
-      <div className="App">
-        {error && <p>Error: {error}</p>}
-
+      <div>
         <div>
-          <p>Artist: {artistName}</p>
-          <p>Track: {trackName}</p>
-          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
           <div>
-            <button onClick={() => this.onPrevClick()}>Previous</button>
-            <button onClick={() => this.onPlayClick()}>
-              {playing ? "Pause" : "Play"}
-            </button>
-            <button onClick={() => this.onNextClick()}>Next</button>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Artist: {artistName}
+            </p>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Track: {trackName}
+            </p>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Playlist: {this.props.currentPlayingPlaylist.name}
+            </p>
+          </div>
+          <div>
             {this.state.trackName !== "" ? (
               <SeekBar
                 duration={this.props.duration / 1000}
@@ -247,6 +271,27 @@ class SpotifyPlayer extends Component {
                 endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IconButton color="primary" onClick={() => this.onPrevClick()}>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton color="primary" onClick={() => this.onPlayClick()}>
+                {playing ? (
+                  <PauseCircleFilledIcon />
+                ) : (
+                  <PlayCircleFilledWhiteIcon />
+                )}
+              </IconButton>
+              <IconButton color="primary" onClick={() => this.onNextClick()}>
+                <SkipNextIcon />
+              </IconButton>
+            </div>
           </div>
         </div>
       </div>

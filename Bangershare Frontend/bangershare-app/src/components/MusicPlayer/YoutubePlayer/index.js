@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import { Media, Player, controls } from "react-media-player";
 import SeekBar from "./SeekBar";
+import CustomPlayPause from "./CustomPlayPause";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import IconButton from "@material-ui/core/IconButton";
 
 const { PlayPause } = controls;
 
@@ -63,17 +67,53 @@ class YoutubePlayer extends Component {
               src={this.props.link}
               autoPlay={true}
             />
-            <p>Artist: {this.props.currentSong.artist}</p>
-            <p>Track: {this.props.currentSong.artist}</p>
-            <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+            <div>
+              <p
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Artist: {this.props.currentSong.artist}
+              </p>
+              <p
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Track: {this.props.currentSong.artist}
+              </p>
+              <p
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Playlist: {this.props.currentPlayingPlaylist.name}
+              </p>
+            </div>
           </div>
           <div>
             <SeekBar endOfSongCallback={this.endOfSongCallback} />
           </div>
-          <div>
-            <button onClick={() => this.handlePrevClick()}>Prev</button>
-            <PlayPause />
-            <button onClick={() => this.handleNextClick()}>Next</button>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconButton color="primary" onClick={() => this.handlePrevClick()}>
+              <SkipPreviousIcon />
+            </IconButton>
+            <CustomPlayPause />
+            <IconButton color="primary" onClick={() => this.handleNextClick()}>
+              <SkipNextIcon />
+            </IconButton>
           </div>
         </div>
       </Media>

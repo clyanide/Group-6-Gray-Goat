@@ -28,65 +28,65 @@ const AppHeader = (props) => {
   }, [setCurrentUser]);
 
   return (
-    <AppBar position="static" color="black">
+    <AppBar position="static" style={{ backgroundColor: "#282828" }}>
       <Toolbar>
         {currentPath === "/login" ? (
           <Typography variant="h4" style={{ flexGrow: 1 }}>
             BangerShare
           </Typography>
         ) : (
-          <>
-            <IconButton
-              disabled={isFetching}
-              onClick={() => onMenuClick(true)}
-              edge="start"
-              style={{ marginRight: "1%" }}
-            >
-              <MenuIcon />
-            </IconButton>
-            <Typography variant="h4" style={{ flexGrow: 1 }}>
-              <Link to="/home" style={{ color: "white" }}>
-                BangerShare
-              </Link>
-            </Typography>
-            <Grid container spacing={3} direction="row">
-              <Grid item xs={8} />
-              <Grid
-                direction="row"
-                xs={4}
-                container
-                alignItems="flex-start"
-                justify="flex-end"
+            <>
+              <IconButton
+                disabled={isFetching}
+                onClick={() => onMenuClick(true)}
+                edge="start"
+                style={{ marginRight: "1%" }}
               >
-                <Dropdown
-                  pointing="top left"
-                  icon={false}
-                  floated
-                  trigger={
-                    <Button icon labelPosition="left">
-                      <Icon name="user circle" />
-                      {localStorage.getItem("username")}
-                    </Button>
-                  }
+                <MenuIcon />
+              </IconButton>
+              <Typography variant="h4" style={{ flexGrow: 1 }}>
+                <Link to="/home" style={{ color: "white" }}>
+                  BangerShare
+              </Link>
+              </Typography>
+              <Grid container spacing={3} direction="row">
+                <Grid item xs={8} />
+                <Grid
+                  direction="row"
+                  xs={4}
+                  container
+                  alignItems="flex-start"
+                  justify="flex-end"
                 >
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      icon="user"
-                      text={"Profile"}
-                      onClick={() => onProfileClick()}
-                    />
-                    <Dropdown.Item icon="settings" text={"Settings"} />
-                    <Dropdown.Item
-                      icon="sign out"
-                      text={"Sign out"}
-                      onClick={() => signOut()}
-                    />
-                  </Dropdown.Menu>
-                </Dropdown>
+                  <Dropdown
+                    pointing="top left"
+                    icon={false}
+                    floated
+                    trigger={
+                      <Button icon labelPosition="left">
+                        <Icon name="user circle" />
+                        {localStorage.getItem("username")}
+                      </Button>
+                    }
+                  >
+                    <Dropdown.Menu>
+                      <Dropdown.Item
+                        icon="user"
+                        text={"Profile"}
+                        onClick={() => onProfileClick()}
+                      />
+                      <Dropdown.Item icon="settings" text={"Settings"} />
+                      <Dropdown.Item
+                        icon="sign out"
+                        text={"Sign out"}
+                        onClick={() => signOut()}
+                      />
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </Grid>
               </Grid>
-            </Grid>
-          </>
-        )}
+            </>
+          )}
       </Toolbar>
     </AppBar>
   );

@@ -34,9 +34,7 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={BangerShareTheme}>
         <CssBaseline />
-        <div style={{ paddingBottom: "10%" }}>
-          <BangerShareApp />
-        </div>
+        <BangerShareApp />
         <div
           style={{
             position: "fixed",

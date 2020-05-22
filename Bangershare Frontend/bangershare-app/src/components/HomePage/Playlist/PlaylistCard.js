@@ -23,9 +23,11 @@ const PlaylistCard = (props) => {
   } = props;
 
   const handlePlayClick = (playlist) => {
-    if (playlist.songs.length != 0) {
+    if (playlist.songs.length !== 0) {
       setCurrentPlayingPlaylist(playlist);
       setCurrentSong(playlist.songs[0]);
+    } else {
+      alert("This playlist is empty.");
     }
   };
 

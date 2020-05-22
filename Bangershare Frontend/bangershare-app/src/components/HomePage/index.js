@@ -65,14 +65,14 @@ const HomeScreen = (props) => {
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
+          <Fab color="primary" onClick={() => handleModal(true)} style={{ position: "absolute", bottom: "0", right: "8vw" }}>
+            <PlaylistAddIcon />
+          </Fab>
         </>
       ) : (
           <p>Loading</p>
         )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Fab color="primary" onClick={() => handleModal(true)} style={{ position: "absolute", bottom: "0", right: "5vw" }}>
-        <PlaylistAddIcon />
-      </Fab>
     </div>
   );
 };

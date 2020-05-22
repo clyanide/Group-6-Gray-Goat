@@ -67,10 +67,10 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-        <p>Loading</p>
-      )}
+          <p>Loading</p>
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Fab onClick={() => handleModal(true)}>
+      <Fab color="primary" onClick={() => handleModal(true)}>
         <PlaylistAddIcon />
       </Fab>
     </div>

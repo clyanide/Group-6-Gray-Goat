@@ -53,7 +53,9 @@ const PlaylistPage = (props) => {
                 songs={currentPlaylist.songs}
               />
             ) : (
-              <div>You have no songs.</div>
+              <Typography style={{ marginTop: "2vh", marginLeft: "4vw" }} variant="h4">
+                Playlist has no songs.
+              </Typography>
             )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>

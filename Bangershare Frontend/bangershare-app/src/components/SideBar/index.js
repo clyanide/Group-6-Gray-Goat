@@ -1,10 +1,17 @@
 import React from "react";
-import { Sidebar, } from "semantic-ui-react";
+import { Sidebar } from "semantic-ui-react";
 import QueueMusicIcon from "@material-ui/icons/QueueMusic";
-import { Typography, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
-import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-import PeopleIcon from '@material-ui/icons/People';
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Divider,
+} from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import PeopleIcon from "@material-ui/icons/People";
 
 const AppSideBar = (props) => {
   const {
@@ -45,9 +52,7 @@ const AppSideBar = (props) => {
           <HomeIcon color="primary" fontSize="large" />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="h5">
-            Home
-          </Typography>
+          <Typography variant="h5">Home</Typography>
         </ListItemText>
       </ListItem>
       <ListItem button onClick={() => handleProfileClick()}>
@@ -55,9 +60,7 @@ const AppSideBar = (props) => {
           <AccountCircleIcon color="primary" fontSize="large" />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="h5">
-            Profile
-          </Typography>
+          <Typography variant="h5">Profile</Typography>
         </ListItemText>
       </ListItem>
       <ListItem button>
@@ -65,9 +68,7 @@ const AppSideBar = (props) => {
           <PeopleIcon color="primary" fontSize="large" />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="h5">
-            Friends
-          </Typography>
+          <Typography variant="h5">Friends</Typography>
         </ListItemText>
       </ListItem>
       <ListItem>
@@ -75,18 +76,14 @@ const AppSideBar = (props) => {
           <QueueMusicIcon color="primary" fontSize="large" />
         </ListItemIcon>
         <ListItemText>
-          <Typography variant="h5">
-            Your Playlists
-        </Typography>
+          <Typography variant="h5">Your Playlists</Typography>
         </ListItemText>
       </ListItem>
       <Divider />
-      {userPlaylists.map(playlist => (
+      {userPlaylists.map((playlist) => (
         <>
           <ListItem button onClick={() => handlePlaylistClick(playlist)}>
-            <ListItemText variant="h6">
-              {playlist.name}
-            </ListItemText>
+            <ListItemText variant="h6">{playlist.name}</ListItemText>
           </ListItem>
           <Divider />
         </>

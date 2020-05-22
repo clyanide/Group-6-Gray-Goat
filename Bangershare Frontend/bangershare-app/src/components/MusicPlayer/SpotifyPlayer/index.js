@@ -253,6 +253,7 @@ class SpotifyPlayer extends Component {
           </Typography>
           <Typography
             variant="subtitle1"
+            color="textSecondary"
             style={{
               width: "15vw",
               whiteSpace: "nowrap",
@@ -278,8 +279,8 @@ class SpotifyPlayer extends Component {
               {playing ? (
                 <PauseCircleFilledIcon fontSize="large" />
               ) : (
-                <PlayCircleFilledWhiteIcon fontSize="large" />
-              )}
+                  <PlayCircleFilledWhiteIcon fontSize="large" />
+                )}
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>
               <SkipNextIcon fontSize="large" />

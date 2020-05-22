@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import LoginForm from "../../containers/LoginPage/LoginForm";
-import { Button, ButtonGroup } from "@material-ui/core";
+import { Button, ButtonGroup, Paper } from "@material-ui/core";
 
 const LoginPage = () => {
   const [isSignUp, setSignUp] = useState(false);
@@ -10,7 +10,7 @@ const LoginPage = () => {
   };
 
   return (
-    <>
+    <Paper variant="outlined" elevation={2}>
       <ButtonGroup color="primary" variant="contained">
         <Button disabled={!isSignUp} onClick={() => handleToggle(false)} color="primary">
           Login
@@ -20,7 +20,7 @@ const LoginPage = () => {
       </Button>
       </ButtonGroup>
       <LoginForm isSignUp={isSignUp} />
-    </>
+    </Paper>
   );
 };
 

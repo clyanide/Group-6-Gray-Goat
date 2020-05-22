@@ -13,6 +13,20 @@ import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
 import { Sidebar } from "semantic-ui-react";
+import MusicPlayer from "./containers/MusicPlayer";
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import { purple } from '@material-ui/core/colors';
+
+const darkTheme = createMuiTheme({
+  palette: {
+    type: 'dark',
+  },
+  primary: {
+    // Purple and green play nicely together.
+    main: purple[500],
+  },
+});
 
 const BangerShareApp = () => {
   const [open, setOpen] = useState(false);
@@ -24,20 +38,23 @@ const BangerShareApp = () => {
   return (
     <ConnectedRouter history={history}>
       <AppHeader onMenuClick={handleSetOpen} />
-      <Sidebar.Pushable>
-        <AppSideBar open={open} onClose={handleSetOpen} />
-        <RequireLogin />
-        <Sidebar.Pusher dimmed={open}>
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/spotifyauth" component={SpotifyLoginPage} />
-            <Route path="/home" component={HomePage} />
-            <Route path="/friends" component={FriendsPage} />
-            <Route path="/playlist" component={PlaylistPage} />
-            <Route path="/profile" component={ProfilePage} />
-          </Switch>
-        </Sidebar.Pusher>
-      </Sidebar.Pushable>
+      <ThemeProvider theme={darkTheme}>
+        <Sidebar.Pushable>
+          <AppSideBar open={open} onClose={handleSetOpen} />
+          <RequireLogin />
+          <Sidebar.Pusher dimmed={open}>
+            <Switch>
+              <Route path="/login" component={LoginPage} />
+              <Route path="/spotifyauth" component={SpotifyLoginPage} />
+              <Route path="/home" component={HomePage} />
+              <Route path="/friends" component={FriendsPage} />
+              <Route path="/playlist" component={PlaylistPage} />
+              <Route path="/profile" component={ProfilePage} />
+            </Switch>
+          </Sidebar.Pusher>
+        </Sidebar.Pushable>
+        {<MusicPlayer />}
+      </ThemeProvider>
     </ConnectedRouter>
   );
 };

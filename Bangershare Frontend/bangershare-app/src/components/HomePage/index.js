@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Explore from "./Explore";
-import Greeting from "../../containers/HomePage/Greeting";
+import Greeting from "./Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
@@ -43,7 +43,7 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <div>
+    <div style={{ position: "relative" }}>
       <Greeting />
       {!isFetching ? (
         <>
@@ -65,14 +65,18 @@ const HomeScreen = (props) => {
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
+          <Fab
+            color="primary"
+            onClick={() => handleModal(true)}
+            style={{ position: "absolute", bottom: "0", right: "8vw" }}
+          >
+            <PlaylistAddIcon />
+          </Fab>
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
-      <Fab color="primary" onClick={() => handleModal(true)}>
-        <PlaylistAddIcon />
-      </Fab>
     </div>
   );
 };

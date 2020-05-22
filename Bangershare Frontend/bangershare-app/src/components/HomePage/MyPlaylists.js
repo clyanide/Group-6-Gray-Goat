@@ -1,5 +1,6 @@
 import React from "react";
 import createPlaylist from "./Playlist";
+import { Typography } from "@material-ui/core";
 
 const MyPlaylists = (props) => {
   const {
@@ -10,7 +11,9 @@ const MyPlaylists = (props) => {
   } = props;
   return (
     <div>
-      <p>My Playlists</p>
+      <Typography variant="h5" style={{ marginLeft: "1vw", marginTop: "1vh" }}>
+        My Playlists
+      </Typography>
       {createPlaylist(
         playlists,
         handleOnPlaylistClick,

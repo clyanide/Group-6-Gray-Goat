@@ -5,19 +5,23 @@ import "./App.css";
 import BangerShareApp from "./BangerShareApp";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
-import { deepPurple, deepOrange } from "@material-ui/core/colors";
-import MusicPlayer from "./containers/MusicPlayer";
+import CssBaseline from "@material-ui/core/CssBaseline";
 
 const BangerShareTheme = createMuiTheme({
   palette: {
     type: "dark",
+    text: {
+      primary: "#ffffff",
+      secondary: "#6e6e6e",
+    },
     primary: {
       // Purple and green play nicely together.
-      main: deepPurple[600],
+      main: "#7d12ff",
       contrastText: "#fff",
     },
     secondary: {
       main: "#ff3d00",
+      contrastText: "#fff",
     },
   },
   typography: {
@@ -29,6 +33,7 @@ function App() {
   return (
     <Provider store={store}>
       <ThemeProvider theme={BangerShareTheme}>
+        <CssBaseline />
         <BangerShareApp />
         <div style={{ position: "fixed", bottom: "0%", width: "100%" }}>
           <MusicPlayer />

@@ -11,7 +11,6 @@ import {
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { borders } from '@material-ui/system';
 
 const PlaylistCard = (props) => {
   const {
@@ -22,28 +21,28 @@ const PlaylistCard = (props) => {
   } = props;
 
   return (
-    <Card>
+    <Card style={{ width: "100%", height: "100%" }}>
       <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
         <CardContent>
           <Typography variant="h5">{playlist.name}</Typography>
-          <Typography variant="subtitle1">
-            Created by {playlist.creator}
+          <Typography color="textSecondary" variant="subtitle1">
+            Created by <strong>{playlist.creator}</strong>
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Divider />
+      <Divider style={{ backgroundColor: "#5e35b1" }} />
       <CardActions>
         {playlist.following ? (
           <IconButton onClick={() => unfollowPlaylist(playlist.id)}>
-            <FavoriteIcon fontSize="small" color="secondary" />
+            <FavoriteIcon fontSize="default" color="secondary" />
           </IconButton>
         ) : (
-            <IconButton onClick={() => followPlaylist(playlist.id)}>
-              <FavoriteBorderIcon fontSize="small" color="secondary" />
-            </IconButton>
-          )}
-        <IconButton >
-          <PlayCircleOutlineIcon borderColor="#fff" color="primary" fontSize="large" />
+          <IconButton onClick={() => followPlaylist(playlist.id)}>
+            <FavoriteBorderIcon fontSize="defualt" color="secondary" />
+          </IconButton>
+        )}
+        <IconButton>
+          <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>
       </CardActions>
     </Card>

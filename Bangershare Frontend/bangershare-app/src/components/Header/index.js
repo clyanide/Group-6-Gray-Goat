@@ -45,7 +45,7 @@ const AppHeader = (props) => {
               <MenuIcon />
             </IconButton>
             <Typography variant="h4" style={{ flexGrow: 1 }}>
-              <Link to="/home" style={{ color: "black" }}>
+              <Link to="/home" style={{ color: "white" }}>
                 BangerShare
               </Link>
             </Typography>

@@ -1,13 +1,11 @@
 import React, { Component } from "react";
-import { Media, Player, controls } from "react-media-player";
+import { Media, Player } from "react-media-player";
 import SeekBar from "./SeekBar";
 import CustomPlayPause from "./CustomPlayPause";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
 import { Typography } from "@material-ui/core";
-
-const { PlayPause } = controls;
 
 class YoutubePlayer extends Component {
   handleNextClick = () => {
@@ -69,8 +67,26 @@ class YoutubePlayer extends Component {
               paddingTop: "3vh",
             }}
           >
-            <Typography variant="h6">{this.props.currentSong.name}</Typography>
-            <Typography variant="subtitle1">
+            <Typography
+              variant="h6"
+              style={{
+                width: "15vw",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
+              {this.props.currentSong.name}
+            </Typography>
+            <Typography
+              variant="subtitle1"
+              style={{
+                width: "15vw",
+                whiteSpace: "nowrap",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+              }}
+            >
               {this.props.currentSong.artist}
             </Typography>
           </div>
@@ -98,7 +114,6 @@ class YoutubePlayer extends Component {
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
-                display: "inline-block",
               }}
             >
               <IconButton

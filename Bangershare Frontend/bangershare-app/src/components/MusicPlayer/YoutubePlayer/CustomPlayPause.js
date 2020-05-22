@@ -14,7 +14,7 @@ class CustomPlayPause extends Component {
   };
 
   render() {
-    const { className, style, media } = this.props;
+    const { media } = this.props;
     return (
       <IconButton onClick={this._handlePlayPause} color="secondary">
         {media.isPlaying ? (

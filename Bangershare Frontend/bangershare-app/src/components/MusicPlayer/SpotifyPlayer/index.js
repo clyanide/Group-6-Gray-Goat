@@ -229,7 +229,7 @@ class SpotifyPlayer extends Component {
   };
 
   render() {
-    const { artistName, trackName, error, playing } = this.state;
+    const { artistName, trackName, playing } = this.state;
 
     return (
       <div>
@@ -240,8 +240,28 @@ class SpotifyPlayer extends Component {
             paddingTop: "3vh",
           }}
         >
-          <Typography variant="h6">{trackName}</Typography>
-          <Typography variant="subtitle1">{artistName}</Typography>
+          <Typography
+            variant="h6"
+            style={{
+              width: "15vw",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {trackName}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            style={{
+              width: "15vw",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {artistName}
+          </Typography>
         </div>
         <div>
           <div

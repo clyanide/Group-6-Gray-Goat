@@ -35,6 +35,7 @@ const SeekBar = (props) => {
   return (
     <div>
       <Slider
+        color="primary"
         value={counter}
         onChange={(event, value) => set(value)}
         max={duration}

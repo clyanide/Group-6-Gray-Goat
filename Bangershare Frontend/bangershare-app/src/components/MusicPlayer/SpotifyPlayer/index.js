@@ -278,17 +278,17 @@ class SpotifyPlayer extends Component {
                 alignItems: "center",
               }}
             >
-              <IconButton onClick={() => this.onPrevClick()}>
+              <IconButton color="primary" onClick={() => this.onPrevClick()}>
                 <SkipPreviousIcon />
               </IconButton>
-              <IconButton onClick={() => this.onPlayClick()}>
+              <IconButton color="primary" onClick={() => this.onPlayClick()}>
                 {playing ? (
                   <PauseCircleFilledIcon />
                 ) : (
                   <PlayCircleFilledWhiteIcon />
                 )}
               </IconButton>
-              <IconButton onClick={() => this.onNextClick()}>
+              <IconButton color="primary" onClick={() => this.onNextClick()}>
                 <SkipNextIcon />
               </IconButton>
             </div>

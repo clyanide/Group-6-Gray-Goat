@@ -107,11 +107,11 @@ class YoutubePlayer extends Component {
               alignItems: "center",
             }}
           >
-            <IconButton onClick={() => this.handlePrevClick()}>
+            <IconButton color="primary" onClick={() => this.handlePrevClick()}>
               <SkipPreviousIcon />
             </IconButton>
             <CustomPlayPause />
-            <IconButton onClick={() => this.handleNextClick()}>
+            <IconButton color="primary" onClick={() => this.handleNextClick()}>
               <SkipNextIcon />
             </IconButton>
           </div>

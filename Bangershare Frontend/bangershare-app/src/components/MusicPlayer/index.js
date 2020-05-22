@@ -19,7 +19,7 @@ const MusicPlayer = ({ currentSong }) => {
       <div
         style={{
           left: cnm,
-          position: "absolute",
+          position: "fixed",
           bottom: "0%",
           width: "100%",
         }}
@@ -29,7 +29,7 @@ const MusicPlayer = ({ currentSong }) => {
       <div
         style={{
           left: nmsl,
-          position: "absolute",
+          position: "fixed",
           bottom: "0%",
           width: "100%",
         }}

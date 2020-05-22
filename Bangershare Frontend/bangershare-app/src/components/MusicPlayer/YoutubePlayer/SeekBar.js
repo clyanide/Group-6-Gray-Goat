@@ -30,6 +30,7 @@ class SeekBar extends Component {
     return (
       <div>
         <Slider
+          color="primary"
           onChange={(event, value) => this.props.media.seekTo(value)}
           max={this.props.media.duration}
           value={this.props.media.currentTime}

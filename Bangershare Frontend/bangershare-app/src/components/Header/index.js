@@ -28,7 +28,7 @@ const AppHeader = (props) => {
   }, [setCurrentUser]);
 
   return (
-    <AppBar position="static" color="black">
+    <AppBar position="static" style={{ backgroundColor: "#282828" }}>
       <Toolbar>
         {currentPath === "/login" ? (
           <Typography variant="h4" style={{ flexGrow: 1 }}>

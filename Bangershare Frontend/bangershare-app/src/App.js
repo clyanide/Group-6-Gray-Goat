@@ -16,7 +16,6 @@ const BangerShareTheme = createMuiTheme({
       secondary: "#6e6e6e",
     },
     primary: {
-      // Purple and green play nicely together.
       main: "#7d12ff",
       contrastText: "#fff",
     },

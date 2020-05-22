@@ -11,6 +11,8 @@ import {
   Fade,
   Paper,
   ListItemIcon,
+  Typography,
+  Tooltip,
 } from "@material-ui/core";
 import MusicNoteIcon from "@material-ui/icons/MusicNote";
 import FavoriteBorderOutlinedIcon from "@material-ui/icons/FavoriteBorderOutlined";
@@ -49,43 +51,98 @@ export const CreateSongList = (props) => {
       {songs.map((song) => (
         <ListItem
           button
-          divider
           onClick={() => {
             handleSongClick(song);
             handleCurrentPlayingPlaylist(currentPlaylist);
           }}
         >
           <ListItemAvatar>
-            <Avatar>
-              <MusicNoteIcon />
+            <Avatar
+              style={{
+                backgroundColor: song.songType === 0 ? "#7d12ff" : "#ff3d00",
+              }}
+            >
+              <MusicNoteIcon style={{ fill: "white" }} />
             </Avatar>
           </ListItemAvatar>
-          <ListItemText primary={song.name} secondary={song.artist} />
+          <ListItemText
+            primary={
+              <Typography
+                style={{
+                  width: "25vw",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
+                {song.name}
+              </Typography>
+            }
+            secondary={
+              <Typography
+                color="textSecondary"
+                style={{
+                  width: "25vw",
+                  whiteSpace: "nowrap",
+                  textOverflow: "ellipsis",
+                  overflow: "hidden",
+                }}
+              >
+                {song.artist}
+              </Typography>
+            }
+          />
           <ListItemSecondaryAction>
             {song.isPending ? (
               <>
-                <IconButton
-                  onClick={() => onUpdateSong(song, "isPending", false)}
-                >
-                  <AddCircleOutlineIcon style={{ color: green[500] }} />
-                </IconButton>
-                <IconButton onClick={() => onDeleteSong(song)}>
-                  <HighlightOffIcon color="secondary" />
-                </IconButton>
+                <Tooltip title="Add Song">
+                  <IconButton
+                    onClick={() => onUpdateSong(song, "isPending", false)}
+                  >
+                    <AddCircleOutlineIcon style={{ color: green[500] }} />
+                  </IconButton>
+                </Tooltip>
+                <Tooltip title="Remove Song">
+                  <IconButton
+                    color="secondary"
+                    onClick={() => onDeleteSong(song)}
+                  >
+                    <HighlightOffIcon />
+                  </IconButton>
+                </Tooltip>
               </>
             ) : (
               <>
-                {song.hearts}
+                <Typography
+                  variant="subtitle1"
+                  style={{
+                    float: "left",
+                    marginTop: "9.5px",
+                    marginRight: "10px",
+                  }}
+                >
+                  <strong>{song.hearts}</strong>
+                </Typography>
                 {likedSongs &&
                 likedSongs.length > 0 &&
                 likedSongs.find((x) => x.id === song.id) !== undefined ? (
-                  <IconButton onClick={() => unlikeSong(song.id)}>
-                    <FavoriteIcon color="secondary" />
-                  </IconButton>
+                  <Tooltip title="Unlike Song">
+                    <IconButton
+                      color="secondary"
+                      onClick={() => unlikeSong(song.id)}
+                    >
+                      <FavoriteIcon />
+                    </IconButton>
+                  </Tooltip>
                 ) : (
-                  <IconButton onClick={() => likeSong(song.id)}>
-                    <FavoriteBorderOutlinedIcon color="secondary" />
-                  </IconButton>
+                  <Tooltip title="Like Song">
+                    <IconButton
+                      color="secondary"
+                      onClick={() => likeSong(song.id)}
+                    >
+                      <FavoriteBorderOutlinedIcon />
+                    </IconButton>
+                  </Tooltip>
                 )}
                 {isOwner ? (
                   <>

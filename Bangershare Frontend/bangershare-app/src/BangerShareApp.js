@@ -13,7 +13,6 @@ import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
 import { Sidebar } from "semantic-ui-react";
-import MusicPlayer from "./containers/MusicPlayer";
 
 const BangerShareApp = () => {
   const [open, setOpen] = useState(false);
@@ -39,7 +38,6 @@ const BangerShareApp = () => {
           </Switch>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
-      {<MusicPlayer />}
     </ConnectedRouter>
   );
 };

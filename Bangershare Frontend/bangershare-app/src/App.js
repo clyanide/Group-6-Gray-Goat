@@ -6,6 +6,7 @@ import BangerShareApp from "./BangerShareApp";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import MusicPlayer from "./containers/MusicPlayer";
 
 const BangerShareTheme = createMuiTheme({
   palette: {
@@ -34,8 +35,16 @@ function App() {
     <Provider store={store}>
       <ThemeProvider theme={BangerShareTheme}>
         <CssBaseline />
-        <BangerShareApp />
-        <div style={{ position: "fixed", bottom: "0%", width: "100%" }}>
+        <div style={{ paddingBottom: "10%" }}>
+          <BangerShareApp />
+        </div>
+        <div
+          style={{
+            position: "fixed",
+            bottom: "0%",
+            width: "100%",
+          }}
+        >
           <MusicPlayer />
         </div>
       </ThemeProvider>

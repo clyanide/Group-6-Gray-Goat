@@ -61,45 +61,6 @@ class YoutubePlayer extends Component {
     return (
       <Media>
         <div>
-          <div>
-            <Player
-              style={{ width: 0, height: 0 }}
-              src={this.props.link}
-              autoPlay={true}
-            />
-            <div>
-              <p
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Artist: {this.props.currentSong.artist}
-              </p>
-              <p
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Track: {this.props.currentSong.artist}
-              </p>
-              <p
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                Playlist: {this.props.currentPlayingPlaylist.name}
-              </p>
-            </div>
-          </div>
-          <div>
-            <SeekBar endOfSongCallback={this.endOfSongCallback} />
-          </div>
           <div
             style={{
               display: "flex",
@@ -107,13 +68,55 @@ class YoutubePlayer extends Component {
               alignItems: "center",
             }}
           >
-            <IconButton color="primary" onClick={() => this.handlePrevClick()}>
-              <SkipPreviousIcon />
-            </IconButton>
-            <CustomPlayPause />
-            <IconButton color="primary" onClick={() => this.handleNextClick()}>
-              <SkipNextIcon />
-            </IconButton>
+            <div
+              style={{
+                display: "inline-block",
+              }}
+            >
+              <Player
+                style={{ width: 0, height: 0 }}
+                src={this.props.link}
+                autoPlay={true}
+              />
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                display: "inline-block",
+              }}
+            >
+              <IconButton
+                color="secondary"
+                onClick={() => this.handlePrevClick()}
+              >
+                <SkipPreviousIcon fontSize="large" />
+              </IconButton>
+              <CustomPlayPause />
+              <IconButton
+                color="secondary"
+                onClick={() => this.handleNextClick()}
+              >
+                <SkipNextIcon fontSize="large" />
+              </IconButton>
+            </div>
+          </div>
+          <div>
+            <div
+              style={{
+                float: "left",
+                position: "absolute",
+                paddingLeft: "5vw",
+              }}
+            >
+              <p>{this.props.currentSong.name}</p>
+              <p>{this.props.currentSong.artist}</p>
+            </div>
+            <div>
+              <SeekBar endOfSongCallback={this.endOfSongCallback} />
+            </div>
           </div>
         </div>
       </Media>

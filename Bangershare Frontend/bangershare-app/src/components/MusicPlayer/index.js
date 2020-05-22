@@ -22,6 +22,7 @@ const MusicPlayer = ({ currentSong }) => {
           position: "fixed",
           bottom: "0%",
           width: "100%",
+          backgroundColor: "#282828",
         }}
       >
         <YoutubePlayer link={currentSong.link} />
@@ -32,6 +33,7 @@ const MusicPlayer = ({ currentSong }) => {
           position: "fixed",
           bottom: "0%",
           width: "100%",
+          backgroundColor: "#282828",
         }}
       >
         {spotifyFirstLoad ? (

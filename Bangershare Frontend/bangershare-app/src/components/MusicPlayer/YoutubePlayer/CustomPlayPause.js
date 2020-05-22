@@ -16,11 +16,11 @@ class CustomPlayPause extends Component {
   render() {
     const { className, style, media } = this.props;
     return (
-      <IconButton onClick={this._handlePlayPause} color="primary">
+      <IconButton onClick={this._handlePlayPause} color="secondary">
         {media.isPlaying ? (
-          <PauseCircleFilledIcon />
+          <PauseCircleFilledIcon fontSize="large" />
         ) : (
-          <PlayCircleFilledWhiteIcon />
+          <PlayCircleFilledWhiteIcon fontSize="large" />
         )}
       </IconButton>
     );

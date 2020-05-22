@@ -5,7 +5,7 @@ import "./App.css";
 import BangerShareApp from "./BangerShareApp";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { deepPurple, deepOrange } from '@material-ui/core/colors';
+import { deepPurple } from '@material-ui/core/colors';
 
 const BangerShareTheme = createMuiTheme({
   palette: {
@@ -21,8 +21,9 @@ const BangerShareTheme = createMuiTheme({
   },
   typography: {
     fontFamily: "Segoe UI"
-  }
+  },
 });
+
 
 function App() {
   return (

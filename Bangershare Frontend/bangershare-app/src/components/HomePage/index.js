@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Explore from "./Explore";
-import Greeting from "../../containers/HomePage/Greeting";
+import Greeting from "./Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";

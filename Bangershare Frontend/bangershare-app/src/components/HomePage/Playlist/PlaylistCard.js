@@ -11,7 +11,7 @@ import {
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteIcon from "@material-ui/icons/Favorite";
-import { borders } from '@material-ui/system';
+
 
 const PlaylistCard = (props) => {
   const {
@@ -35,15 +35,15 @@ const PlaylistCard = (props) => {
       <CardActions>
         {playlist.following ? (
           <IconButton onClick={() => unfollowPlaylist(playlist.id)}>
-            <FavoriteIcon fontSize="small" color="secondary" />
+            <FavoriteIcon fontSize="default" color="secondary" />
           </IconButton>
         ) : (
             <IconButton onClick={() => followPlaylist(playlist.id)}>
-              <FavoriteBorderIcon fontSize="small" color="secondary" />
+              <FavoriteBorderIcon fontSize="defualt" color="secondary" />
             </IconButton>
           )}
-        <IconButton >
-          <PlayCircleOutlineIcon borderColor="#fff" color="primary" fontSize="large" />
+        <IconButton  >
+          <PlayCircleOutlineIcon color="white" fontSize="large" />
         </IconButton>
       </CardActions>
     </Card>

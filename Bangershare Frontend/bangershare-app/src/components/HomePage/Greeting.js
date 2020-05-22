@@ -1,11 +1,11 @@
 import React from "react";
+import { Typography } from "@material-ui/core";
 
-const Greeting = (props) => {
-  const { name } = props;
+const Greeting = () => {
   return (
-    <div>
-      <p>Hello {name}</p>
-    </div>
+    <Typography variant="h6">
+      Hello <strong>{localStorage.getItem("username")}</strong>
+    </Typography>
   );
 };
 

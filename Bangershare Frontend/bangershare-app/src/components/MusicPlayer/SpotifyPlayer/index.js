@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
 import equal from "fast-deep-equal";
-import { Button } from "semantic-ui-react";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import IconButton from "@material-ui/core/IconButton";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -229,10 +233,34 @@ class SpotifyPlayer extends Component {
     return (
       <div>
         <div>
-          <div style={{ position: "relative", left: "48.5%" }}>
-            <p>Artist: {artistName}</p>
-            <p>Track: {trackName}</p>
-            <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Artist: {artistName}
+            </p>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Track: {trackName}
+            </p>
+            <p
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              Playlist: {this.props.currentPlayingPlaylist.name}
+            </p>
           </div>
           <div>
             {this.state.trackName !== "" ? (
@@ -243,12 +271,26 @@ class SpotifyPlayer extends Component {
                 endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
-            <div style={{ position: "relative", left: "45%" }}>
-              <Button onClick={() => this.onPrevClick()}>Previous</Button>
-              <Button onClick={() => this.onPlayClick()}>
-                {playing ? "Pause" : "Play"}
-              </Button>
-              <Button onClick={() => this.onNextClick()}>Next</Button>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <IconButton onClick={() => this.onPrevClick()}>
+                <SkipPreviousIcon />
+              </IconButton>
+              <IconButton onClick={() => this.onPlayClick()}>
+                {playing ? (
+                  <PauseCircleFilledIcon />
+                ) : (
+                  <PlayCircleFilledWhiteIcon />
+                )}
+              </IconButton>
+              <IconButton onClick={() => this.onNextClick()}>
+                <SkipNextIcon />
+              </IconButton>
             </div>
           </div>
         </div>

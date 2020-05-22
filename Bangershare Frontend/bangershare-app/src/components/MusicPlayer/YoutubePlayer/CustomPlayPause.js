@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import { withMediaProps } from "react-media-player";
-import { Button } from "semantic-ui-react";
+import IconButton from "@material-ui/core/IconButton";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
 
 class CustomPlayPause extends Component {
   shouldComponentUpdate({ media }) {
@@ -14,9 +16,13 @@ class CustomPlayPause extends Component {
   render() {
     const { className, style, media } = this.props;
     return (
-      <Button onClick={this._handlePlayPause}>
-        {media.isPlaying ? "Pause" : "Play"}
-      </Button>
+      <IconButton icon onClick={this._handlePlayPause}>
+        {media.isPlaying ? (
+          <PauseCircleFilledIcon />
+        ) : (
+          <PlayCircleFilledWhiteIcon />
+        )}
+      </IconButton>
     );
   }
 }

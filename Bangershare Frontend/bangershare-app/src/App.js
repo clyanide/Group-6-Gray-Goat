@@ -5,16 +5,23 @@ import "./App.css";
 import BangerShareApp from "./BangerShareApp";
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
-import { purple } from '@material-ui/core/colors';
+import { deepPurple, deepOrange } from '@material-ui/core/colors';
 
 const BangerShareTheme = createMuiTheme({
   palette: {
     type: 'dark',
     primary: {
       // Purple and green play nicely together.
-      main: purple[500],
+      main: deepPurple[600],
+      contrastText: "#fff",
     },
+    secondary: {
+      main: "#ff3d00"
+    }
   },
+  typography: {
+    fontFamily: "Segoe UI"
+  }
 });
 
 function App() {

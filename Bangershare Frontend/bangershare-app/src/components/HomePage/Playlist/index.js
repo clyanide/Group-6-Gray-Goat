@@ -1,7 +1,8 @@
 import React from "react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { Grid } from "@material-ui/core";
+import { Typography } from "@material-ui/core";
+import "./index.css";
 
 import PlaylistCard from "./PlaylistCard";
 
@@ -26,7 +27,7 @@ const createPlaylist = (
   handleFollowClick,
   handleUnfollowClick
 ) => (
-  <Grid item xs={12} spacing={5}>
+  <>
     {playlists && playlists.length > 0 ? (
       <Carousel
         swipeable={true}
@@ -35,7 +36,7 @@ const createPlaylist = (
         infinite={true}
         keyBoardControl={true}
         containerClass="carousel-container"
-        itemClass="carousel-item-padding-40-px"
+        itemClass="image-item"
       >
         {playlists.map((playlist) => (
           <PlaylistCard
@@ -47,9 +48,14 @@ const createPlaylist = (
         ))}
       </Carousel>
     ) : (
-      <div>There seems to be no playlists</div>
+      <Typography
+        variant="h5"
+        style={{ marginLeft: "1vw", marginTop: "1vh", marginBottom: "5vh" }}
+      >
+        There seems to be no playlists
+      </Typography>
     )}
-  </Grid>
+  </>
 );
 
 export const createFriendPlaylist = (
@@ -58,7 +64,7 @@ export const createFriendPlaylist = (
   handleFollowClick,
   handleUnfollowClick
 ) => (
-  <Grid item xs={12} spacing={5}>
+  <>
     {playlists && playlists.length > 0 ? (
       <Carousel
         swipeable={true}
@@ -67,7 +73,7 @@ export const createFriendPlaylist = (
         infinite={true}
         keyBoardControl={true}
         containerClass="carousel-container"
-        itemClass="carousel-item-padding-40-px"
+        itemClass="image-item"
       >
         {playlists.map((playlist) => {
           if (playlist.playlistSongs.length > 0) {
@@ -84,9 +90,14 @@ export const createFriendPlaylist = (
         })}
       </Carousel>
     ) : (
-      <div>You have no friends</div>
+      <Typography
+        variant="h5"
+        style={{ marginLeft: "1vw", marginBottom: "5vh" }}
+      >
+        You have no friends
+      </Typography>
     )}
-  </Grid>
+  </>
 );
 
 export default createPlaylist;

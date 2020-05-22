@@ -1,5 +1,8 @@
 import React, { useState } from "react";
-import { Button, Form } from "semantic-ui-react";
+import { TextField, InputAdornment, Button } from "@material-ui/core";
+import EmailIcon from "@material-ui/icons/Email";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
+import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const LoginForm = (props) => {
   const { handleSignup, handleLogin, isSignUp, isFetching } = props;
@@ -40,39 +43,61 @@ const LoginForm = (props) => {
   };
 
   return (
-    <Form loading={isFetching} onSubmit={() => handleSubmit()}>
+    <form>
       {isSignUp ? (
-        <Form.Field>
-          <label>Email</label>
-          <Form.Input
-            placeholder="eg. xyz@email.com"
-            type="email"
-            value={userInfo.email}
-            onChange={(e) => setEmail(e)}
-          />
-        </Form.Field>
+        <TextField
+          variant="outlined"
+          type="email"
+          value={userInfo.email}
+          onChange={(e) => setEmail(e)}
+          placeholder="eg. xyz@email.com"
+          color="primary"
+          InputProps={{
+            startAdornment: (
+              <InputAdornment>
+                <EmailIcon />
+              </InputAdornment>
+            ),
+          }}
+        />
       ) : null}
-      <Form.Field>
-        <label>Username</label>
-        <Form.Input
-          placeholder="Username"
-          value={userInfo.username}
-          onChange={(e) => setUsername(e)}
-        />
-      </Form.Field>
-      <Form.Field>
-        <label>Password</label>
-        <Form.Input
-          type="password"
-          placeholder="Password"
-          value={userInfo.password}
-          onChange={(e) => setPassword(e)}
-        />
-      </Form.Field>
-      <Form.Field control={Button}>
+      <TextField
+        variant="outlined"
+        placeholder="Username"
+        value={userInfo.username}
+        onChange={(e) => setUsername(e)}
+        color="primary"
+        InputProps={{
+          startAdornment: (
+            <InputAdornment>
+              <AccountCircleIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+      <TextField
+        variant="outlined"
+        type="password"
+        placeholder="Password"
+        value={userInfo.password}
+        onChange={(e) => setPassword(e)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment>
+              <VpnKeyIcon />
+            </InputAdornment>
+          ),
+        }}
+      />
+      <Button
+        variant="contained"
+        color="primary"
+        disabled={isFetching}
+        onClick={() => handleSubmit()}
+      >
         {isSignUp ? "Register" : "Login"}
-      </Form.Field>
-    </Form>
+      </Button>
+    </form>
   );
 };
 

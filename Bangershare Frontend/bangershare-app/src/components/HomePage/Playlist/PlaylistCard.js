@@ -21,28 +21,28 @@ const PlaylistCard = (props) => {
   } = props;
 
   return (
-    <Card>
+    <Card style={{ width: "100%", height: "100%" }}>
       <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
         <CardContent>
           <Typography variant="h5">{playlist.name}</Typography>
-          <Typography variant="subtitle1">
-            Created by {playlist.creator}
+          <Typography color="textSecondary" variant="subtitle1">
+            Created by <strong>{playlist.creator}</strong>
           </Typography>
         </CardContent>
       </CardActionArea>
-      <Divider />
+      <Divider style={{ backgroundColor: "#5e35b1" }} />
       <CardActions>
         {playlist.following ? (
           <IconButton onClick={() => unfollowPlaylist(playlist.id)}>
-            <FavoriteIcon fontSize="small" color="secondary" />
+            <FavoriteIcon fontSize="default" color="secondary" />
           </IconButton>
         ) : (
           <IconButton onClick={() => followPlaylist(playlist.id)}>
-            <FavoriteBorderIcon fontSize="small" color="secondary" />
+            <FavoriteBorderIcon fontSize="defualt" color="secondary" />
           </IconButton>
         )}
         <IconButton>
-          <PlayCircleOutlineIcon fontSize="small" />
+          <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>
       </CardActions>
     </Card>

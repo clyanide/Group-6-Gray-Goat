@@ -10,10 +10,10 @@ import { purple } from '@material-ui/core/colors';
 const BangerShareTheme = createMuiTheme({
   palette: {
     type: 'dark',
-  },
-  primary: {
-    // Purple and green play nicely together.
-    main: purple[500],
+    primary: {
+      // Purple and green play nicely together.
+      main: purple[500],
+    },
   },
 });
 

@@ -18,7 +18,18 @@ const PlaylistCard = (props) => {
     handleOnPlaylistClick,
     followPlaylist,
     unfollowPlaylist,
+    setCurrentPlayingPlaylist,
+    setCurrentSong,
   } = props;
+
+  const handlePlayClick = (playlist) => {
+    if (playlist.songs.length !== 0) {
+      setCurrentPlayingPlaylist(playlist);
+      setCurrentSong(playlist.songs[0]);
+    } else {
+      alert("This playlist is empty.");
+    }
+  };
 
   return (
     <Card style={{ width: "100%", height: "100%" }}>
@@ -37,11 +48,11 @@ const PlaylistCard = (props) => {
             <FavoriteIcon fontSize="default" />
           </IconButton>
         ) : (
-            <IconButton color="secondary" onClick={() => followPlaylist(playlist.id)}>
-              <FavoriteBorderIcon fontSize="defualt" />
-            </IconButton>
-          )}
-        <IconButton>
+          </IconButton>
+        )}
+        <IconButton onClick={() => handlePlayClick(playlist)}>
+            <FavoriteBorderIcon fontSize="defualt" color="secondary" />
+          <IconButton onClick={() => followPlaylist(playlist.id)}>
           <PlayCircleOutlineIcon color="white" fontSize="inherit" />
         </IconButton>
       </CardActions>

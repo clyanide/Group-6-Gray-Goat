@@ -29,25 +29,50 @@ class SeekBar extends Component {
   render() {
     return (
       <div>
-        <Slider
-          onChange={(event, value) => this.props.media.seekTo(value)}
-          max={this.props.media.duration}
-          value={this.props.media.currentTime}
-        />
-        <p>
-          {this.convertToTimestamp(this.props.media.currentTime).m} :{" "}
-          {this.convertToTimestamp(this.props.media.currentTime).s < 10
-            ? "0"
-            : null}
-          {this.convertToTimestamp(this.props.media.currentTime).s}
-        </p>
-        <p>
-          {this.convertToTimestamp(this.props.media.duration).m} :{" "}
-          {this.convertToTimestamp(this.props.media.duration).s < 10
-            ? "0"
-            : null}
-          {this.convertToTimestamp(this.props.media.duration).s}
-        </p>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            width: "80vw",
+            paddingLeft: "20vw",
+          }}
+        >
+          <Slider
+            color="secondary"
+            onChange={(event, value) => this.props.media.seekTo(value)}
+            max={this.props.media.duration}
+            value={this.props.media.currentTime}
+          />
+        </div>
+        <div>
+          <p
+            style={{
+              position: "relative",
+              left: "20vw",
+              display: "inline-block",
+            }}
+          >
+            {this.convertToTimestamp(this.props.media.currentTime).m} :{" "}
+            {this.convertToTimestamp(this.props.media.currentTime).s < 10
+              ? "0"
+              : null}
+            {this.convertToTimestamp(this.props.media.currentTime).s}
+          </p>
+          <p
+            style={{
+              position: "relative",
+              left: "20.3vw",
+              display: "inline-block",
+            }}
+          >
+            / {this.convertToTimestamp(this.props.media.duration).m} :{" "}
+            {this.convertToTimestamp(this.props.media.duration).s < 10
+              ? "0"
+              : null}
+            {this.convertToTimestamp(this.props.media.duration).s}
+          </p>
+        </div>
       </div>
     );
   }

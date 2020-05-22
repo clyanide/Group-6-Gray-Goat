@@ -3,7 +3,7 @@ import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import { Typography } from "@material-ui/core";
 import "./index.css";
-import PlaylistCard from "./PlaylistCard";
+import PlaylistCard from "../../../containers/HomePage/Playlist/PlaylistCard";
 
 const responsive = {
   desktop: {

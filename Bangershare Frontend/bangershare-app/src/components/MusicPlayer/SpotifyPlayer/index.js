@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import SeekBar from "./SeekBar";
 import equal from "fast-deep-equal";
+import SkipNextIcon from "@material-ui/icons/SkipNext";
+import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
+import IconButton from "@material-ui/core/IconButton";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
+import { Typography } from "@material-ui/core";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -223,30 +229,73 @@ class SpotifyPlayer extends Component {
   };
 
   render() {
-    const { artistName, trackName, error, playing } = this.state;
+    const { artistName, trackName, playing } = this.state;
 
     return (
-      <div className="App">
-        {error && <p>Error: {error}</p>}
-
+      <div>
+        <div
+          style={{
+            position: "absolute",
+            paddingLeft: "3vw",
+            paddingTop: "3vh",
+          }}
+        >
+          <Typography
+            variant="h6"
+            style={{
+              width: "15vw",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {trackName}
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            style={{
+              width: "15vw",
+              whiteSpace: "nowrap",
+              textOverflow: "ellipsis",
+              overflow: "hidden",
+            }}
+          >
+            {artistName}
+          </Typography>
+        </div>
         <div>
-          <p>Artist: {artistName}</p>
-          <p>Track: {trackName}</p>
-          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <IconButton color="primary" onClick={() => this.onPrevClick()}>
+              <SkipPreviousIcon fontSize="large" />
+            </IconButton>
+            <IconButton color="primary" onClick={() => this.onPlayClick()}>
+              {playing ? (
+                <PauseCircleFilledIcon fontSize="large" />
+              ) : (
+                <PlayCircleFilledWhiteIcon fontSize="large" />
+              )}
+            </IconButton>
+            <IconButton color="primary" onClick={() => this.onNextClick()}>
+              <SkipNextIcon fontSize="large" />
+            </IconButton>
+          </div>
           <div>
-            <button onClick={() => this.onPrevClick()}>Previous</button>
-            <button onClick={() => this.onPlayClick()}>
-              {playing ? "Pause" : "Play"}
-            </button>
-            <button onClick={() => this.onNextClick()}>Next</button>
-            {this.state.trackName !== "" ? (
-              <SeekBar
-                duration={this.props.duration / 1000}
-                parentCallback={this.seekbarCallback}
-                paused={!this.state.playing}
-                endOfSongCallback={this.endOfSongCallback}
-              />
-            ) : null}
+            <div>
+              {this.state.trackName !== "" ? (
+                <SeekBar
+                  duration={this.props.duration / 1000}
+                  parentCallback={this.seekbarCallback}
+                  paused={!this.state.playing}
+                  endOfSongCallback={this.endOfSongCallback}
+                />
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

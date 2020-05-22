@@ -43,61 +43,98 @@ const LoginForm = (props) => {
   };
 
   return (
-    <form>
-      {isSignUp ? (
+    <div style={{
+      margin: "30px",
+    }}>
+      <form style={{
+        textAlign: "center",
+        margin: "0 auto",
+        marginBottom: "20px",
+        maxWidth: "500px",
+      }}>
+        {isSignUp ? (
+          <TextField
+            variant="outlined"
+            type="email"
+            value={userInfo.email}
+            onChange={(e) => setEmail(e)}
+            placeholder=" eg. xyz@email.com"
+            color="primary"
+            InputProps={{
+              startAdornment: (
+                <InputAdornment>
+                  <EmailIcon />
+                </InputAdornment>
+              ),
+            }}
+            fullWidth
+          />
+        ) : null}
+      </form>
+      <form style={{
+        textAlign: "center",
+        margin: "0 auto",
+        marginBottom: "20px",
+        maxWidth: "500px",
+      }}>
         <TextField
           variant="outlined"
-          type="email"
-          value={userInfo.email}
-          onChange={(e) => setEmail(e)}
-          placeholder="eg. xyz@email.com"
+          placeholder=" Username"
+          value={userInfo.username}
+          onChange={(e) => setUsername(e)}
           color="primary"
           InputProps={{
             startAdornment: (
               <InputAdornment>
-                <EmailIcon />
+                <AccountCircleIcon />
               </InputAdornment>
             ),
           }}
+          fullWidth
         />
-      ) : null}
-      <TextField
-        variant="outlined"
-        placeholder="Username"
-        value={userInfo.username}
-        onChange={(e) => setUsername(e)}
-        color="primary"
-        InputProps={{
-          startAdornment: (
-            <InputAdornment>
-              <AccountCircleIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <TextField
-        variant="outlined"
-        type="password"
-        placeholder="Password"
-        value={userInfo.password}
-        onChange={(e) => setPassword(e)}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment>
-              <VpnKeyIcon />
-            </InputAdornment>
-          ),
-        }}
-      />
-      <Button
-        variant="contained"
-        color="primary"
-        disabled={isFetching}
-        onClick={() => handleSubmit()}
-      >
-        {isSignUp ? "Register" : "Login"}
-      </Button>
-    </form>
+      </form>
+      <form style={{
+        textAlign: "center",
+        margin: "0 auto",
+        marginBottom: "30px",
+        maxWidth: "500px",
+      }}>
+        <TextField
+          variant="outlined"
+          type="password"
+          placeholder=" Password"
+          value={userInfo.password}
+          onChange={(e) => setPassword(e)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment>
+                <VpnKeyIcon />
+              </InputAdornment>
+            ),
+          }}
+          fullWidth
+        />
+      </form>
+      <form style={{
+        textAlign: "center",
+        margin: "0 auto",
+        marginBottom: "30px",
+        maxWidth: "300px",
+      }}>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={isFetching}
+          onClick={() => handleSubmit()}
+          style={{
+            width: "100%"
+          }}
+          size="large"
+        >
+          {isSignUp ? "Register" : "Login"}
+        </Button>
+      </form>
+    </div>
   );
 };
 

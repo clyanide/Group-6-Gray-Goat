@@ -10,12 +10,21 @@ const LoginPage = () => {
   };
 
   return (
-    <Paper variant="outlined" elevation={2}>
-      <ButtonGroup color="primary" variant="contained">
+    <Paper variant="outlined" elevation={2} style={{
+      textAlign:"center"
+    }}>
+      <ButtonGroup color="primary" variant="contained" style={{
+          marginTop: "50px",
+          width:"100%",
+          maxWidth:"200px"
+        }}>
         <Button
           disabled={!isSignUp}
           onClick={() => handleToggle(false)}
           color="primary"
+          style={{
+            width:"50%"
+          }}
         >
           Login
         </Button>
@@ -23,6 +32,9 @@ const LoginPage = () => {
           disabled={isSignUp}
           onClick={() => handleToggle(true)}
           color="primary"
+          style={{
+            width:"50%"
+          }}
         >
           Register
         </Button>

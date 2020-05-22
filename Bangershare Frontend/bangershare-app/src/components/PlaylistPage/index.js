@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import SongList from "./SongsList";
 import CreateSongModal from "../../containers/PlaylistPage/CreateSongModal";
-import { Button } from "semantic-ui-react";
-import { Typography, Divider } from "@material-ui/core";
+import { Typography, Divider, IconButton, Tooltip } from "@material-ui/core";
+import PlayCircleFilledWhiteIcon from '@material-ui/icons/PlayCircleFilledWhite';
+import AddCircleIcon from '@material-ui/icons/AddCircle';
 
 const PlaylistPage = (props) => {
   const { currentPlaylist, isFetching, search, getPlaylist } = props;
@@ -29,6 +30,18 @@ const PlaylistPage = (props) => {
       <Typography color="textSecondary" variant="subtitle1" style={{ marginLeft: "4vw", marginBottom: "2vh" }}>
         Created by {currentPlaylist.creator}
       </Typography>
+      <div style={{ marginLeft: "3vw" }}>
+        <Tooltip title="Play Playlist">
+          <IconButton color="primary">
+            <PlayCircleFilledWhiteIcon style={{ width: "45px", height: "45px" }} />
+          </IconButton>
+        </Tooltip>
+        <Tooltip title="Add Song">
+          <IconButton color="primary" onClick={() => handleSetModal(true)}>
+            <AddCircleIcon style={{ width: "45px", height: "45px" }} />
+          </IconButton>
+        </Tooltip>
+      </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
         <>
@@ -42,9 +55,7 @@ const PlaylistPage = (props) => {
             ) : (
               <div>You have no songs.</div>
             )}
-
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
-          <Button onClick={() => handleSetModal(true)}>Add song</Button>
         </>
       ) : (
           <p> Loading </p>

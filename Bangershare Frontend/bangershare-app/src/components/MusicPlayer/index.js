@@ -18,7 +18,7 @@ const MusicPlayer = ({ currentSong }) => {
     <div>
       <div
         style={{
-          paddingLeft: cnm,
+          left: cnm,
           position: "absolute",
           bottom: "0%",
           width: "100%",
@@ -28,7 +28,7 @@ const MusicPlayer = ({ currentSong }) => {
       </div>
       <div
         style={{
-          paddingLeft: nmsl,
+          left: nmsl,
           position: "absolute",
           bottom: "0%",
           width: "100%",

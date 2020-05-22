@@ -39,13 +39,13 @@ const SeekBar = (props) => {
         onChange={(event, value) => set(value)}
         max={duration}
       />
-      <p>
+      <p style={{ position: "relative", left: "20px" }}>
         {convertToTimestamp(counter).m} :{" "}
         {convertToTimestamp(counter).s < 10 ? "0" : null}
         {convertToTimestamp(counter).s}
       </p>
-      <p>
-        {convertToTimestamp(duration).m} :{" "}
+      <p style={{ position: "relative", left: "60px", bottom: "33px" }}>
+        / {convertToTimestamp(duration).m} :{" "}
         {convertToTimestamp(duration).s < 10 ? "0" : null}
         {convertToTimestamp(duration).s}
       </p>

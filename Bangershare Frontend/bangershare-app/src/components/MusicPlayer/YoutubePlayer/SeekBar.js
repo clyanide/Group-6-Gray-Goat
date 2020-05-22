@@ -34,15 +34,15 @@ class SeekBar extends Component {
           max={this.props.media.duration}
           value={this.props.media.currentTime}
         />
-        <p>
+        <p style={{ position: "relative", left: "20px" }}>
           {this.convertToTimestamp(this.props.media.currentTime).m} :{" "}
           {this.convertToTimestamp(this.props.media.currentTime).s < 10
             ? "0"
             : null}
           {this.convertToTimestamp(this.props.media.currentTime).s}
         </p>
-        <p>
-          {this.convertToTimestamp(this.props.media.duration).m} :{" "}
+        <p style={{ position: "relative", left: "60px", bottom: "33px" }}>
+          / {this.convertToTimestamp(this.props.media.duration).m} :{" "}
           {this.convertToTimestamp(this.props.media.duration).s < 10
             ? "0"
             : null}

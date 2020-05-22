@@ -227,13 +227,13 @@ class SpotifyPlayer extends Component {
     const { artistName, trackName, error, playing } = this.state;
 
     return (
-      <div className="App">
-        {error && <p>Error: {error}</p>}
-
+      <div>
         <div>
-          <p>Artist: {artistName}</p>
-          <p>Track: {trackName}</p>
-          <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          <div style={{ position: "relative", left: "48.5%" }}>
+            <p>Artist: {artistName}</p>
+            <p>Track: {trackName}</p>
+            <p>Playlist: {this.props.currentPlayingPlaylist.name}</p>
+          </div>
           <div>
             {this.state.trackName !== "" ? (
               <SeekBar
@@ -243,7 +243,7 @@ class SpotifyPlayer extends Component {
                 endOfSongCallback={this.endOfSongCallback}
               />
             ) : null}
-            <div>
+            <div style={{ position: "relative", left: "45%" }}>
               <Button onClick={() => this.onPrevClick()}>Previous</Button>
               <Button onClick={() => this.onPlayClick()}>
                 {playing ? "Pause" : "Play"}

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Explore from "./Explore";
-import Greeting from "./Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
@@ -44,7 +43,6 @@ const HomeScreen = (props) => {
 
   return (
     <div style={{ position: "relative" }}>
-      <Greeting />
       {!isFetching ? (
         <>
           <RecentPlaylists
@@ -76,8 +74,8 @@ const HomeScreen = (props) => {
           </Tooltip>
         </>
       ) : (
-        <p>Loading</p>
-      )}
+          <p>Loading</p>
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
     </div>
   );

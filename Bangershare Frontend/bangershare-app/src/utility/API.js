@@ -97,10 +97,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return bangerShareClient.post(
     baseURL +
-      "Song/spotify?playlistId=" +
-      playlistId +
-      "&spotifySongId=" +
-      spotifySongId,
+    "Song/spotify?playlistId=" +
+    playlistId +
+    "&spotifySongId=" +
+    spotifySongId,
     {},
     {
       headers: {
@@ -118,10 +118,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return bangerShareClient.post(
     baseURL +
-      "Song/youtube?playlistId=" +
-      playlistId +
-      "&youtubeId=" +
-      youtubeId,
+    "Song/youtube?playlistId=" +
+    playlistId +
+    "&youtubeId=" +
+    youtubeId,
     {
       id: 0,
       isPending: true,

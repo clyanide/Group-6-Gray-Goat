@@ -3,10 +3,6 @@ import { Button, Paper } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-js";
 import Logo from "./spotifyLogo.png";
-import Svg from "./spotifyLogo.svg";
-import Icon from "@material-ui/core/Icon";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Label } from "semantic-ui-react";
 
 const spotifyApi = new SpotifyWebApi();
 

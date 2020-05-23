@@ -136,9 +136,29 @@ const HomeScreen = (props) => {
                   {skeletonCols.map((col) => (
                     <Card style={{ height: "15vh" }}>
                       <CardActionArea>
-                        <Skeleton />
                         <CardContent>
-                          <Skeleton />
+                          <Skeleton height="3vh" width="80%" />
+                          <Skeleton width="60%" />
+                          <div
+                            style={{
+                              paddingTop: "4vh",
+                              display: "flex",
+                              flexDirection: "row",
+                            }}
+                          >
+                            <Skeleton
+                              variant="circle"
+                              width="2vh"
+                              height="2vh"
+                            />
+                            <div style={{ paddingLeft: "3vh" }}>
+                              <Skeleton
+                                variant="circle"
+                                width="2vh"
+                                height="2vh"
+                              />
+                            </div>
+                          </div>
                         </CardContent>
                       </CardActionArea>
                     </Card>

@@ -2,10 +2,8 @@ import {
   getUserFriends,
   updateFriendRequest,
   deleteUserFriendRequest,
-  refreshAccessToken,
 } from "../utility/API";
 
-import { setAccessToken, logoutUser } from "./User";
 
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
@@ -25,18 +23,7 @@ const getFriends = () => {
         dispatch(getFriendsSuccess(res));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getFriends());
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getFriendsFail(err));
-        }
+        dispatch(getFriendsFail(err));
       });
   };
 };
@@ -50,6 +37,7 @@ const getFriendsSuccess = (payload) => ({
   type: friendActionType.GET_FRIENDS_SUCCESS,
   friends: payload.data.friendSongs,
   pendingFriends: payload.data.pendingFriends,
+  sentRequests: payload.data.sentRequests,
   fetching: false,
 });
 
@@ -70,18 +58,7 @@ const acceptPendingRequest = (otherUsername) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(acceptPendingRequest(otherUsername));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(acceptPendingRequestFail(err));
-        }
+        dispatch(acceptPendingRequestFail(err));
       });
   };
 };
@@ -104,18 +81,7 @@ const deleteFriendRequest = (username) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(deleteFriendRequest(username));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(deleteFriendRequestFail(err));
-        }
+        dispatch(deleteFriendRequestFail(err));
       });
   };
 };

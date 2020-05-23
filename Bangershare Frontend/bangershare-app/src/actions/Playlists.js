@@ -1,14 +1,12 @@
 import {
   postPlaylist,
   getUserPlaylists,
-  refreshAccessToken,
   getPlaylistForUsername,
   getPlaylistFromId,
   followUserPlaylist,
   unfollowUserPlaylist,
 } from "../utility/API";
 import { push } from "connected-react-router";
-import { setAccessToken, logoutUser } from "./User";
 import { getFriends } from "./Friends";
 import { getLikeSong } from "./Song";
 
@@ -40,18 +38,7 @@ const getPlaylist = () => {
         dispatch(getPlaylistSuccess(res));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getPlaylist());
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getPlaylistFail(err.message));
-        }
+        dispatch(getPlaylistFail(err.message));
       });
   };
 };
@@ -82,18 +69,7 @@ const createPlaylist = (name) => {
         );
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(createPlaylist(name));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(createPlaylistFail(err.message));
-        }
+        dispatch(createPlaylistFail(err.message));
       });
   };
 };
@@ -139,18 +115,7 @@ const getPlaylistForProfile = (username) => {
         dispatch(getPlaylistForProfileSucces(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getPlaylistForProfile(username));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getPlaylistForProfileFail(err.message));
-        }
+        dispatch(getPlaylistForProfileFail(err.message));
       });
   };
 };
@@ -180,18 +145,7 @@ const getSinglePlaylist = (playlistId) => {
         dispatch(getSinglePlaylistSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getSinglePlaylist(playlistId));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getSinglePlaylistFail(err.message));
-        }
+        dispatch(getSinglePlaylistFail(err.message));
       });
   };
 };
@@ -221,18 +175,7 @@ const followPlaylistHomePage = (playlistId) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(followPlaylistHomePage(playlistId));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(followUserPlaylistFail(err.message));
-        }
+        dispatch(followUserPlaylistFail(err.message));
       });
   };
 };
@@ -245,18 +188,7 @@ const followPlaylistProfilePage = (playlistId, username) => {
         dispatch(getPlaylistForProfile(username));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(followPlaylistProfilePage(playlistId, username));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(followUserPlaylistFail(err.message));
-        }
+        dispatch(followUserPlaylistFail(err.message));
       });
   };
 };
@@ -280,18 +212,7 @@ const unfollowPlaylistHomePage = (playlistId) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(unfollowPlaylistHomePage(playlistId));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(unfollowUserPlaylistFail(err.message));
-        }
+        dispatch(unfollowUserPlaylistFail(err.message));
       });
   };
 };
@@ -304,18 +225,7 @@ const unfollowPlaylistProfilePage = (playlistId, username) => {
         dispatch(getPlaylistForProfile(username));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(unfollowPlaylistProfilePage(playlistId, username));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(unfollowUserPlaylistFail(err.message));
-        }
+        dispatch(unfollowUserPlaylistFail(err.message));
       });
   };
 };

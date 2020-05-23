@@ -43,15 +43,19 @@ const LoginForm = (props) => {
   };
 
   return (
-    <div style={{
-      margin: "30px",
-    }}>
-      <form style={{
-        textAlign: "center",
-        margin: "0 auto",
-        marginBottom: "20px",
-        maxWidth: "500px",
-      }}>
+    <div
+      style={{
+        margin: "30px",
+      }}
+    >
+      <form
+        style={{
+          textAlign: "center",
+          margin: "0 auto",
+          marginBottom: "20px",
+          maxWidth: "500px",
+        }}
+      >
         {isSignUp ? (
           <TextField
             variant="outlined"
@@ -71,12 +75,14 @@ const LoginForm = (props) => {
           />
         ) : null}
       </form>
-      <form style={{
-        textAlign: "center",
-        margin: "0 auto",
-        marginBottom: "20px",
-        maxWidth: "500px",
-      }}>
+      <form
+        style={{
+          textAlign: "center",
+          margin: "0 auto",
+          marginBottom: "20px",
+          maxWidth: "500px",
+        }}
+      >
         <TextField
           variant="outlined"
           placeholder=" Username"
@@ -93,12 +99,14 @@ const LoginForm = (props) => {
           fullWidth
         />
       </form>
-      <form style={{
-        textAlign: "center",
-        margin: "0 auto",
-        marginBottom: "30px",
-        maxWidth: "500px",
-      }}>
+      <form
+        style={{
+          textAlign: "center",
+          margin: "0 auto",
+          marginBottom: "30px",
+          maxWidth: "500px",
+        }}
+      >
         <TextField
           variant="outlined"
           type="password"
@@ -115,12 +123,14 @@ const LoginForm = (props) => {
           fullWidth
         />
       </form>
-      <form style={{
-        textAlign: "center",
-        margin: "0 auto",
-        marginBottom: "30px",
-        maxWidth: "300px",
-      }}>
+      <form
+        style={{
+          textAlign: "center",
+          margin: "0 auto",
+          marginBottom: "30px",
+          maxWidth: "300px",
+        }}
+      >
         <Button
           variant="contained"
           color="primary"
@@ -128,7 +138,7 @@ const LoginForm = (props) => {
           onClick={() => handleSubmit()}
           style={{
             width: "100%",
-            borderRadius: "30px"
+            borderRadius: "30px",
           }}
           size="large"
         >

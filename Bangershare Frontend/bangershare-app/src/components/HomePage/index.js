@@ -14,9 +14,6 @@ import {
   CardActionArea,
   CardContent,
   Typography,
-  CardActions,
-  IconButton,
-  Divider,
 } from "@material-ui/core";
 
 const HomeScreen = (props) => {

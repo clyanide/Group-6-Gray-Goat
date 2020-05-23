@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import AppHeader from "./containers/Header";
 import AppSideBar from "./containers/SideBar";
 import HomePage from "./containers/HomePage";
@@ -9,6 +9,7 @@ import PlaylistPage from "./containers/PlaylistPage";
 import RequireLogin from "./components/LoginPage/RequireLogin";
 import ProfilePage from "./containers/ProfilePage";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
+import PrivateRoute from "./components/general/PrivateRoute"
 import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
@@ -32,10 +33,13 @@ const BangerShareApp = () => {
             <Switch>
               <Route path="/login" component={LoginPage} />
               <Route path="/spotifyauth" component={SpotifyLoginPage} />
-              <Route path="/home" component={HomePage} />
-              <Route path="/friends" component={FriendsPage} />
-              <Route path="/playlist" component={PlaylistPage} />
-              <Route path="/profile" component={ProfilePage} />
+              <PrivateRoute path="/friends" component={FriendsPage} />
+              <PrivateRoute path="/playlist" component={PlaylistPage} />
+              <PrivateRoute path="/profile" component={ProfilePage} />
+              <PrivateRoute
+                path="/home" component={HomePage}
+              />
+              <Redirect exact from="/" to="/home" />
             </Switch>
           </div>
         </Sidebar.Pusher>

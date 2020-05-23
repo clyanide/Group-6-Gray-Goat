@@ -4,9 +4,9 @@ import equal from "fast-deep-equal";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
-import { Typography } from "@material-ui/core";
+import { Typography, Avatar } from "@material-ui/core";
+import PlayArrowIcon from '@material-ui/icons/PlayArrow';
+import PauseIcon from '@material-ui/icons/Pause';
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -276,11 +276,13 @@ class SpotifyPlayer extends Component {
               <SkipPreviousIcon fontSize="large" />
             </IconButton>
             <IconButton color="primary" onClick={() => this.onPlayClick()}>
-              {playing ? (
-                <PauseCircleFilledIcon fontSize="large" />
-              ) : (
-                <PlayCircleFilledWhiteIcon fontSize="large" />
-              )}
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                {playing ? (
+                  <PauseIcon style={{ fill: "white" }} fontSize="default" />
+                ) : (
+                    <PlayArrowIcon style={{ fill: "white" }} fontSize="large" />
+                  )}
+              </Avatar>
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>
               <SkipNextIcon fontSize="large" />

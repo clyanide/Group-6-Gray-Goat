@@ -1,5 +1,5 @@
 import { actionTypes } from "../actions/MusicPlayer";
-
+import { userActionType } from "../actions/User"
 const initialState = {
   currentSong: {
     id: 0,
@@ -33,7 +33,11 @@ const musicPlayerReducer = (state = initialState, action) => {
         ...state,
         currentPlayingPlaylist: action.playlist,
       };
-
+    case userActionType.LOGOUT_USER: {
+      return {
+        initialState
+      }
+    }
     default:
       return state;
   }

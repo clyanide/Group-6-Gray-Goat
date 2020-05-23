@@ -67,7 +67,7 @@ const AppSideBar = (props) => {
           <Typography variant="h5">Profile</Typography>
         </ListItemText>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => goTo("/friends")}>
         <ListItemAvatar>
           <Avatar style={{ backgroundColor: "#7d12ff" }}>
             <PeopleIcon style={{ fill: "white" }} />

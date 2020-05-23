@@ -127,7 +127,8 @@ const LoginForm = (props) => {
           disabled={isFetching}
           onClick={() => handleSubmit()}
           style={{
-            width: "100%"
+            width: "100%",
+            borderRadius: "30px"
           }}
           size="large"
         >

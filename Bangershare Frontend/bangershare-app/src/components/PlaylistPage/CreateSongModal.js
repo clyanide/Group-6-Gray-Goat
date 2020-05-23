@@ -4,6 +4,7 @@ import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
+import { Paper } from "@material-ui/core";
 
 const CreateSongModal = (props) => {
   const { open, handleModal, postSong } = props;
@@ -42,30 +43,25 @@ const CreateSongModal = (props) => {
   };
 
   const body = (
-    <div
+    <Paper
+      variant="outlined"
+      elevation={2}
       style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: "column",
-        position: "absolute",
-        width: "35vw",
-        height: "55vh",
-        flex: 9,
+        textAlign: "center",
       }}
     >
       <div style={{ paddingTop: "1vh" }}>
         <h2>Add a song</h2>
       </div>
       <div style={{ paddingTop: "2vh" }}>
-        <ButtonGroup  color="primary"
+        <ButtonGroup color="primary"
           variant="contained"
           style={{
             width: "100%",
             maxWidth: "200px",
             borderRadius: "30px",
           }}>
-        <div
+          <div
             style={{
               width: "100%",
               maxWidth: "200px",
@@ -83,37 +79,37 @@ const CreateSongModal = (props) => {
                 transition: ".5s",
               }}
             ></div>
-          <Button
-            disabled={!spotify}
-            onClick={() => {
-              toggleSpotify();
-              setSongDetail("songType", 2);
-            }}
-            color="primary"
-            style={{
-              width: "50%",
-              padding: "10px 30px",
-              borderRadius: "30px",
-              color: "#FFFFFF"
-            }}
-          >
-            Youtube
+            <Button
+              disabled={!spotify}
+              onClick={() => {
+                toggleSpotify();
+                setSongDetail("songType", 2);
+              }}
+              color="primary"
+              style={{
+                width: "50%",
+                padding: "10px 30px",
+                borderRadius: "30px",
+                color: "#FFFFFF"
+              }}
+            >
+              Youtube
           </Button>
-          <Button
-            disabled={spotify}
-            onClick={() => {
-              toggleSpotify();
-              setSongDetail("songType", 0);
-            }}
-            color="primary"
-            style={{
-              width: "50%",
-              padding: "10px 30px",
-              borderRadius: "30px",
-              color: "#FFFFFF"
-            }}
-          >
-            Spotify
+            <Button
+              disabled={spotify}
+              onClick={() => {
+                toggleSpotify();
+                setSongDetail("songType", 0);
+              }}
+              color="primary"
+              style={{
+                width: "50%",
+                padding: "10px 30px",
+                borderRadius: "30px",
+                color: "#FFFFFF"
+              }}
+            >
+              Spotify
           </Button>
           </div>
         </ButtonGroup>
@@ -121,7 +117,7 @@ const CreateSongModal = (props) => {
       <div style={{ width: "100%" }}>
         {!spotify ? (
           <div style={{ flex: 6 }}>
-            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+            <div style={{ flex: 2, paddingTop: "2vh" }}>
               <h4>Song Name</h4>
               <form>
                 <TextField
@@ -132,7 +128,7 @@ const CreateSongModal = (props) => {
                 />
               </form>
             </div>
-            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+            <div style={{ flex: 2, paddingTop: "2vh" }}>
               <h4>Artist Name</h4>
               <form>
                 <TextField
@@ -143,7 +139,7 @@ const CreateSongModal = (props) => {
                 />
               </form>
             </div>
-            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+            <div style={{ flex: 2, paddingTop: "2vh" }}>
               <h4>Youtube URL</h4>
               <form>
                 <TextField
@@ -156,21 +152,21 @@ const CreateSongModal = (props) => {
             </div>
           </div>
         ) : (
-          <div style={{ flex: 6, marginLeft: "20%", paddingTop: "2vh" }}>
-            <h4>Spotify Song ID</h4>
-            <form>
-              <TextField
-                label="e.g. https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw"
-                variant="outlined"
-                onChange={(e) => setSongDetail("link", e.target.value)}
-                style={{ width: "80%" }}
-              />
-            </form>
-          </div>
-        )}
+            <div style={{ flex: 6, paddingTop: "2vh" }}>
+              <h4>Spotify Song ID</h4>
+              <form>
+                <TextField
+                  label="e.g. https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw"
+                  variant="outlined"
+                  onChange={(e) => setSongDetail("link", e.target.value)}
+                  style={{ width: "80%" }}
+                />
+              </form>
+            </div>
+          )}
       </div>
       <div style={{ flex: 1, paddingTop: "2vh" }}>
-        <ButtonGroup>
+        <ButtonGroup style={{marginBottom:"1vh"}}>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
           <Button
             color="secondary"
@@ -181,15 +177,21 @@ const CreateSongModal = (props) => {
           </Button>
         </ButtonGroup>
       </div>
-    </div>
+    </Paper>
   );
   return (
-    <div>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Modal
         open={open}
         onClose={() => handleModal(false)}
         style={{
-          backgroundColor: "gray",
           width: "35vw",
           height: "55vh",
           position: "absolute",

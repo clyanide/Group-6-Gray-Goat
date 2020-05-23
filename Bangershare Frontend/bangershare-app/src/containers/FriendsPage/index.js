@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import FriendsPage from "../../components/FriendsPage";
 import { push } from "connected-react-router";
-import { setUserProfile } from "../../actions/User";
+import { setUserProfile, getAllUsers } from "../../actions/User";
 import { getFriends } from "../../actions/Friends";
 
 const mapStateToProps = (state) => ({
@@ -17,6 +17,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getFriends: () => {
     dispatch(getFriends());
+  },
+  getUsers: () => {
+    dispatch(getAllUsers());
   },
 });
 

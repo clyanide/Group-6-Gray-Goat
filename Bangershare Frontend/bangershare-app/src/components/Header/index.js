@@ -101,7 +101,7 @@ const AppHeader = (props) => {
                           }}
                         >
                           <ListItemIcon>
-                            <AccountCircleIcon color="primary" />
+                            <AccountCircleIcon />
                           </ListItemIcon>
                           <Typography>Profile</Typography>
                         </MenuItem>

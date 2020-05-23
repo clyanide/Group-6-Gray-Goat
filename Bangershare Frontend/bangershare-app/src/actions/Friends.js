@@ -2,10 +2,8 @@ import {
   getUserFriends,
   updateFriendRequest,
   deleteUserFriendRequest,
-  refreshAccessToken,
+  postFriendRequest,
 } from "../utility/API";
-
-import { setAccessToken, logoutUser } from "./User";
 
 export const friendActionType = {
   GET_FRIENDS: "GET_FRIENDS",
@@ -15,6 +13,9 @@ export const friendActionType = {
   ACCEPT_PENDING_REQUEST_FAIL: "ACCEPT_PENDING_REQUEST_FAIL",
   DELETE_FRIEND_REQUEST: "DELETE_FRIEND_REQUEST",
   DELETE_FRIEND_REQUEST_FAIL: "DELETE_FRIEND_REQUEST_FAIL",
+  ADD_FRIEND: "ADD_FRIEND",
+  ADD_FRIEND_SUCCESS: "ADD_FRIEND_SUCCESS",
+  ADD_FRIEND_FAIL: "ADD_FRIEND_FAIL",
 };
 
 const getFriends = () => {
@@ -25,18 +26,7 @@ const getFriends = () => {
         dispatch(getFriendsSuccess(res));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getFriends());
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getFriendsFail(err));
-        }
+        dispatch(getFriendsFail(err));
       });
   };
 };
@@ -50,6 +40,7 @@ const getFriendsSuccess = (payload) => ({
   type: friendActionType.GET_FRIENDS_SUCCESS,
   friends: payload.data.friendSongs,
   pendingFriends: payload.data.pendingFriends,
+  sentRequests: payload.data.sentRequests,
   fetching: false,
 });
 
@@ -70,18 +61,7 @@ const acceptPendingRequest = (otherUsername) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(acceptPendingRequest(otherUsername));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(acceptPendingRequestFail(err));
-        }
+        dispatch(acceptPendingRequestFail(err));
       });
   };
 };
@@ -104,18 +84,7 @@ const deleteFriendRequest = (username) => {
         dispatch(getFriends());
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(deleteFriendRequest(username));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(deleteFriendRequestFail(err));
-        }
+        dispatch(deleteFriendRequestFail(err));
       });
   };
 };
@@ -130,4 +99,26 @@ const deleteFriendRequestFail = (error) => ({
   error,
 });
 
-export { getFriends, acceptPendingRequest, deleteFriendRequest };
+const addFriend = (username) => {
+  return (dispatch) => {
+    dispatch(addFriendStart());
+    postFriendRequest(localStorage.getItem("token"), username)
+      .then(() => {
+        dispatch(getFriends());
+      })
+      .catch((err) => {
+        dispatch(addFriendFail(err.message));
+      });
+  };
+};
+
+const addFriendStart = () => ({
+  type: friendActionType.ADD_FRIEND,
+  fetching: true,
+});
+
+const addFriendFail = (error) => ({
+  type: friendActionType.ADD_FRIEND_FAIL,
+  error,
+});
+export { getFriends, acceptPendingRequest, deleteFriendRequest, addFriend };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Sidebar } from "semantic-ui-react";
 import {
   Typography,
@@ -20,7 +20,14 @@ const AppSideBar = (props) => {
     userPlaylists,
     setCurrentPlaylist,
     setProfileUser,
+    getPlaylist,
   } = props;
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      getPlaylist();
+    }
+  }, [getPlaylist]);
 
   const goTo = (link) => {
     props.push(link);
@@ -67,7 +74,7 @@ const AppSideBar = (props) => {
           <Typography variant="h5">Profile</Typography>
         </ListItemText>
       </ListItem>
-      <ListItem button>
+      <ListItem button onClick={() => goTo("/friends")}>
         <ListItemAvatar>
           <Avatar style={{ backgroundColor: "#7d12ff" }}>
             <PeopleIcon style={{ fill: "white" }} />
@@ -83,14 +90,23 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <Divider />
-      {userPlaylists.map((playlist) => (
-        <>
-          <ListItem button onClick={() => handlePlaylistClick(playlist)}>
-            <ListItemText variant="h6">{playlist.name}</ListItemText>
-          </ListItem>
-          <Divider />
-        </>
-      ))}
+      <div
+        style={{
+          overflowY: "scroll",
+          height: "58vh",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {userPlaylists.map((playlist) => (
+          <>
+            <ListItem button onClick={() => handlePlaylistClick(playlist)}>
+              <ListItemText variant="h6">{playlist.name}</ListItemText>
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </div>
     </Sidebar>
   );
 };

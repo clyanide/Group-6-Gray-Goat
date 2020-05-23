@@ -114,6 +114,8 @@ namespace Bangershare_Backend.Services
                                             .ToList();
 
             List<Friend> pendingFriends = user.Receieved.Where(r => r.FriendType.Equals(FriendType.Pending)).ToList();
+
+            List<Friend> sentRequests = user.Sent.Where(r => r.FriendType.Equals(FriendType.Pending)).ToList();
           
             List<FriendSong> friendSongs = new List<FriendSong>();
 
@@ -129,10 +131,11 @@ namespace Bangershare_Backend.Services
                 friendSongs.Add(friendSong);
             }
 
-            UserFriends userFriends = new UserFriends 
-            { 
+            UserFriends userFriends = new UserFriends
+            {
                 FriendSongs = friendSongs,
                 PendingFriends = pendingFriends,
+                SentRequests = sentRequests
             };
 
             return new BaseResponse<UserFriends>(userFriends);

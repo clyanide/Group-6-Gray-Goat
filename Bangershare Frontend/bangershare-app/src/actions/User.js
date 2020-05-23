@@ -4,7 +4,7 @@ import {
   register,
   revokeToken,
   getUser,
-  refreshAccessToken,
+  getUsers,
 } from "../utility/API";
 
 export const userActionType = {
@@ -20,6 +20,9 @@ export const userActionType = {
   GET_USER: "GET_USER",
   GET_USER_SUCCESS: "GET_USER_SUCCESS",
   SET_CURRENT_USER: "SET_CURRENT_USER",
+  GET_ALL_USERS: "GET_ALL_USERS",
+  GET_ALL_USERS_SUCCESS: "GET_ALL_USERS_SUCCESS",
+  GET_ALL_USERS_FAIL: "GET_ALL_USERS_FAIL",
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -45,7 +48,6 @@ const loginUser = ({ username, password }) => {
       .then((res) => {
         dispatch(loginUserSuccess(res, username));
         dispatch(push("/spotifyauth"));
-        // dispatch(push("/home"));
       })
       .catch((err) => {
         dispatch(loginUserFail(err.message));
@@ -61,15 +63,8 @@ const getUserInfo = () => {
         .then((res) => {
           dispatch(getUserInfoSuccess(res.data));
         })
-        .catch(() => {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getUserInfo());
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
+        .catch((err) => {
+          console.log(err);
         });
     }
   };
@@ -163,6 +158,35 @@ const setCurrentUser = (username) => ({
   username,
 });
 
+const getAllUsers = () => {
+  return (dispatch) => {
+    dispatch(getAllUsersStart());
+    getUsers(localStorage.getItem("token"))
+      .then((res) => {
+        dispatch(getAllUsersSuccess(res.data));
+      })
+      .catch((err) => {
+        dispatch(getAllUsersFail(err.message));
+      });
+  };
+};
+
+const getAllUsersStart = () => ({
+  type: userActionType.GET_ALL_USERS,
+  fetching: true,
+});
+
+const getAllUsersSuccess = (payload) => ({
+  type: userActionType.GET_ALL_USERS_SUCCESS,
+  fetching: false,
+  users: payload,
+});
+
+const getAllUsersFail = (error) => ({
+  type: userActionType.GET_ALL_USERS_FAIL,
+  error,
+});
+
 export {
   registerUser,
   loginUser,
@@ -171,4 +195,5 @@ export {
   logoutUser,
   getUserInfo,
   setCurrentUser,
+  getAllUsers,
 };

@@ -1,7 +1,7 @@
 import { connect } from "react-redux";
 import AppSideBar from "../../components/SideBar";
 import { push } from "connected-react-router";
-import { setCurrentPlaylist } from "../../actions/Playlists";
+import { setCurrentPlaylist, getPlaylist } from "../../actions/Playlists";
 import { setUserProfile } from "../../actions/User";
 
 const mapStateToProps = (state) => ({
@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setProfileUser: (username) => {
     dispatch(setUserProfile(username));
+  },
+  getPlaylist: () => {
+    dispatch(getPlaylist());
   },
 });
 

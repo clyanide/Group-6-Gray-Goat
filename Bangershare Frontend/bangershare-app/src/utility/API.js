@@ -1,9 +1,34 @@
 import axios from "axios";
+import { store } from "../store";
+import { logoutUser } from "../actions/User";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
+const bangerShareClient = axios.create({});
+
+const refreshAuthLogic = (failedRequest) => {
+  axios
+    .post(baseURL + "User/token/refresh", {
+      token: localStorage.getItem("refreshToken"),
+      username: localStorage.getItem("username"),
+    })
+    .then((res) => {
+      localStorage.setItem("token", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      failedRequest.config.headers["Authorization"] =
+        "Bearer " + res.data.accessToken;
+      return Promise.resolve;
+    })
+    .catch((err) => {
+      store.dispatch(logoutUser());
+    });
+};
+
+createAuthRefreshInterceptor(bangerShareClient, refreshAuthLogic);
+
 export const login = (username, password) => {
-  return axios.post(baseURL + "User/login", {
+  return bangerShareClient.post(baseURL + "User/login", {
     email: "",
     username: username,
     password: password,
@@ -11,7 +36,7 @@ export const login = (username, password) => {
 };
 
 export const register = (email, username, password) => {
-  return axios.post(baseURL + "User/register", {
+  return bangerShareClient.post(baseURL + "User/register", {
     email,
     username,
     password,
@@ -19,7 +44,7 @@ export const register = (email, username, password) => {
 };
 
 export const getUser = (accessToken) => {
-  return axios.get(baseURL + "/User", {
+  return bangerShareClient.get(baseURL + "/User", {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -27,7 +52,7 @@ export const getUser = (accessToken) => {
 };
 
 export const getUserFriends = (accessToken) => {
-  return axios.get(baseURL + "Friend", {
+  return bangerShareClient.get(baseURL + "Friend", {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -35,7 +60,7 @@ export const getUserFriends = (accessToken) => {
 };
 
 export const getUserPlaylists = (accessToken) => {
-  return axios.get(baseURL + "Playlist", {
+  return bangerShareClient.get(baseURL + "Playlist", {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -43,7 +68,7 @@ export const getUserPlaylists = (accessToken) => {
 };
 
 export const getPlaylistForUsername = (accessToken, username) => {
-  return axios.get(baseURL + "Playlist/" + username, {
+  return bangerShareClient.get(baseURL + "Playlist/" + username, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -51,7 +76,7 @@ export const getPlaylistForUsername = (accessToken, username) => {
 };
 
 export const postPlaylist = (accessToken, name) => {
-  return axios.post(
+  return bangerShareClient.post(
     baseURL + "Playlist",
     {
       id: 0,
@@ -70,7 +95,7 @@ export const postSpotifySongToPlaylist = (
   spotifySongId,
   playlistId
 ) => {
-  return axios.post(
+  return bangerShareClient.post(
     baseURL +
       "Song/spotify?playlistId=" +
       playlistId +
@@ -91,7 +116,7 @@ export const postYoutubeSongToPlaylist = (
   playlistId,
   youtubeId
 ) => {
-  return axios.post(
+  return bangerShareClient.post(
     baseURL +
       "Song/youtube?playlistId=" +
       playlistId +
@@ -115,7 +140,7 @@ export const postYoutubeSongToPlaylist = (
 };
 
 export const updateSong = (accessToken, song) => {
-  return axios.put(
+  return bangerShareClient.put(
     baseURL + "Song/" + song.id,
     {
       id: song.id,
@@ -135,7 +160,7 @@ export const updateSong = (accessToken, song) => {
 };
 
 export const deleteSong = (accessToken, song, playlistId) => {
-  return axios.delete(
+  return bangerShareClient.delete(
     baseURL + "Song/" + song.id + "?playlistId=" + playlistId,
     {
       headers: {
@@ -146,7 +171,7 @@ export const deleteSong = (accessToken, song, playlistId) => {
 };
 
 export const updateFriendRequest = (accessToken, username, senderName) => {
-  return axios.put(
+  return bangerShareClient.put(
     baseURL + "Friend",
     {
       senderUsername: senderName,
@@ -162,7 +187,7 @@ export const updateFriendRequest = (accessToken, username, senderName) => {
 };
 
 export const deleteUserFriendRequest = (accessToken, username) => {
-  return axios.delete(baseURL + "Friend?username=" + username, {
+  return bangerShareClient.delete(baseURL + "Friend?username=" + username, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -170,15 +195,18 @@ export const deleteUserFriendRequest = (accessToken, username) => {
 };
 
 export const getPlaylistFromId = (accessToken, playlistId) => {
-  return axios.get(baseURL + "Playlist/single?playlistId=" + playlistId, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-    },
-  });
+  return bangerShareClient.get(
+    baseURL + "Playlist/single?playlistId=" + playlistId,
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
 };
 
 export const followUserPlaylist = async (accessToken, playlistId) => {
-  return await axios.post(
+  return await bangerShareClient.post(
     baseURL + "Playlist/follow/" + playlistId,
     {},
     {
@@ -190,7 +218,7 @@ export const followUserPlaylist = async (accessToken, playlistId) => {
 };
 
 export const unfollowUserPlaylist = (accessToken, playlistId) => {
-  return axios.delete(baseURL + "Playlist/unfollow/" + playlistId, {
+  return bangerShareClient.delete(baseURL + "Playlist/unfollow/" + playlistId, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -198,7 +226,7 @@ export const unfollowUserPlaylist = (accessToken, playlistId) => {
 };
 
 export const postLikeSong = (accessToken, songId) => {
-  return axios.post(
+  return bangerShareClient.post(
     baseURL + "Song/like?songId=" + songId,
     {},
     {
@@ -210,7 +238,7 @@ export const postLikeSong = (accessToken, songId) => {
 };
 
 export const deleteLikeSong = (accessToken, songId) => {
-  return axios.delete(baseURL + "Song/dislike?songId=" + songId, {
+  return bangerShareClient.delete(baseURL + "Song/dislike?songId=" + songId, {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
@@ -218,23 +246,35 @@ export const deleteLikeSong = (accessToken, songId) => {
 };
 
 export const getUserLikeSong = (accessToken) => {
-  return axios.get(baseURL + "Song/like", {
+  return bangerShareClient.get(baseURL + "Song/like", {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
   });
 };
 
-export const revokeToken = (accessToken) => {
-  return axios.post(baseURL + "User/token/revoke", {
-    token: accessToken,
+export const getUsers = (accessToken) => {
+  return bangerShareClient.get(baseURL + "User/all", {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
   });
 };
 
-export const refreshAccessToken = async (username) => {
-  console.log(username);
-  return await axios.post(baseURL + "/User/token/refresh", {
-    token: localStorage.getItem("refreshToken"),
-    username: username,
+export const postFriendRequest = (accessToken, username) => {
+  return bangerShareClient.post(
+    baseURL + "Friend?username=" + username,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
+
+export const revokeToken = (accessToken) => {
+  return bangerShareClient.post(baseURL + "User/token/revoke", {
+    token: accessToken,
   });
 };

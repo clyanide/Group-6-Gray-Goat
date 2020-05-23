@@ -7,6 +7,7 @@ const initialState = {
   },
   userProfile: "",
   likedSongs: [],
+  users: [],
 };
 
 const setUserDetail = (state, action) => {
@@ -81,6 +82,13 @@ const userReducer = (state = initialState, action) => {
       return {
         ...state,
         likedSongs: songList,
+      };
+    }
+    case userActionType.GET_ALL_USERS_SUCCESS: {
+      const usernameList = action.users.map((user) => user.username);
+      return {
+        ...state,
+        users: usernameList,
       };
     }
     default:

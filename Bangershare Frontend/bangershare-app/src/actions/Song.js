@@ -3,12 +3,10 @@ import {
   postYoutubeSongToPlaylist,
   updateSong,
   deleteSong,
-  refreshAccessToken,
   postLikeSong,
   getUserLikeSong,
   deleteLikeSong,
 } from "../utility/API";
-import { setAccessToken, logoutUser } from "./User";
 import { getYoutubeVideoID, getSpotifyTrackId } from "../utility/InputParser";
 
 export const songActionType = {
@@ -49,18 +47,7 @@ const addSongToPlaylist = (song) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
-          if (err.response.status === 401) {
-            refreshAccessToken(localStorage.getItem("username"))
-              .then((res) => {
-                dispatch(setAccessToken(res));
-                dispatch(addSongToPlaylist(song));
-              })
-              .catch(() => {
-                dispatch(logoutUser());
-              });
-          } else {
-            dispatch(addSongToPlaylistFail(err.message));
-          }
+          dispatch(addSongToPlaylistFail(err.message));
         });
     } else {
       const youtubeId = getYoutubeVideoID(song.link);
@@ -74,18 +61,7 @@ const addSongToPlaylist = (song) => {
           dispatch(addSongToPlaylistSuccess(res.data));
         })
         .catch((err) => {
-          if (err.response.status === 401) {
-            refreshAccessToken(localStorage.getItem("username"))
-              .then((res) => {
-                dispatch(setAccessToken(res));
-                dispatch(addSongToPlaylist(song));
-              })
-              .catch(() => {
-                dispatch(logoutUser());
-              });
-          } else {
-            dispatch(addSongToPlaylistFail(err.message));
-          }
+          dispatch(addSongToPlaylistFail(err.message));
         });
     }
   };
@@ -115,18 +91,7 @@ const updatePendingSong = (song) => {
         dispatch(updatePendingSongSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(updatePendingSong(song));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(updatePendingSongFail(err.message));
-        }
+        dispatch(updatePendingSongFail(err.message));
       });
   };
 };
@@ -157,18 +122,7 @@ const deleteSongFromPlaylist = (song) => {
         dispatch(deleteSongFromPlaylistSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(deleteSongFromPlaylist(song));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(deleteSongFromPlaylistFail(err.message));
-        }
+        dispatch(deleteSongFromPlaylistFail(err.message));
       });
   };
 };
@@ -197,18 +151,7 @@ const likeSong = (songId) => {
         dispatch(likeSongSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(likeSong(songId));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(likeSongFail(err.message));
-        }
+        dispatch(likeSongFail(err.message));
       });
   };
 };
@@ -237,18 +180,7 @@ const getLikeSong = () => {
         dispatch(getLikeSongSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(getLikeSong());
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(getLikeSongFail(err.message));
-        }
+        dispatch(getLikeSongFail(err.message));
       });
   };
 };
@@ -277,18 +209,7 @@ const removeLikeFromSong = (songId) => {
         dispatch(removeLikeFromSongSuccess(res.data));
       })
       .catch((err) => {
-        if (err.response.status === 401) {
-          refreshAccessToken(localStorage.getItem("username"))
-            .then((res) => {
-              dispatch(setAccessToken(res));
-              dispatch(removeLikeFromSong(songId));
-            })
-            .catch(() => {
-              dispatch(logoutUser());
-            });
-        } else {
-          dispatch(removeLikeFromSongFail(err.message));
-        }
+        dispatch(removeLikeFromSongFail(err.message));
       });
   };
 };

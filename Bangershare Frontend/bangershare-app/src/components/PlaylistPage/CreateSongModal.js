@@ -69,8 +69,8 @@ const CreateSongModal = (props) => {
       style={{
         textAlign: "center",
         minWidth: "500px",
-        borderRadius:"30px",
-        outline:"none"
+        borderRadius: "30px",
+        outline: "none",
       }}
     >
       <div style={{ paddingTop: "1vh" }}>

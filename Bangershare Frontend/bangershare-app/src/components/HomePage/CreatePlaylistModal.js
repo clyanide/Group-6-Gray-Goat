@@ -26,8 +26,8 @@ const CreatePlaylistModal = (props) => {
       style={{
         textAlign: "center",
         minWidth: "500px",
-        borderRadius:"30px",
-        outline:"none"
+        borderRadius: "30px",
+        outline: "none",
       }}
     >
       <div style={{ flex: 1, paddingTop: "2vh" }}>
@@ -39,12 +39,12 @@ const CreatePlaylistModal = (props) => {
             label="Please enter a name"
             variant="outlined"
             onChange={(e) => handleNameOnChange(e)}
-            style={{ width:"80%" }}
+            style={{ width: "80%" }}
           />
         </form>
       </div>
       <div style={{ flex: 1, paddingTop: "2vh" }}>
-        <ButtonGroup style={{marginBottom: "2vh"}}>
+        <ButtonGroup style={{ marginBottom: "2vh" }}>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
           <Button
             color="secondary"
@@ -58,12 +58,14 @@ const CreatePlaylistModal = (props) => {
     </Paper>
   );
   return (
-    <div style={{
-      height: "100%",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-    }}>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
       <Modal
         open={open}
         onClose={() => handleModal(false)}

@@ -19,6 +19,14 @@ const CreateSongModal = (props) => {
 
   const toggleSpotify = () => {
     setSpotify(!spotify);
+
+    var x = document.getElementById("btn");
+
+    if (!spotify) {
+      x.style.marginLeft = "100px";
+    } else {
+      x.style.marginLeft = "0px";
+    }
   };
 
   const setSongDetail = (key, value) => {
@@ -42,7 +50,7 @@ const CreateSongModal = (props) => {
         flexDirection: "column",
         position: "absolute",
         width: "35vw",
-        height: "50vh",
+        height: "55vh",
         flex: 9,
       }}
     >
@@ -50,7 +58,31 @@ const CreateSongModal = (props) => {
         <h2>Add a song</h2>
       </div>
       <div style={{ paddingTop: "2vh" }}>
-        <ButtonGroup>
+        <ButtonGroup  color="primary"
+          variant="contained"
+          style={{
+            width: "100%",
+            maxWidth: "200px",
+            borderRadius: "30px",
+          }}>
+        <div
+            style={{
+              width: "100%",
+              maxWidth: "200px",
+              textAlign: "center",
+            }}
+          >
+            <div
+              id="btn"
+              style={{
+                position: "absolute",
+                width: "100px",
+                height: "40px",
+                background: "linear-gradient(to right, #7d12ff, #5E35B1)",
+                borderRadius: "30px",
+                transition: ".5s",
+              }}
+            ></div>
           <Button
             disabled={!spotify}
             onClick={() => {
@@ -58,7 +90,12 @@ const CreateSongModal = (props) => {
               setSongDetail("songType", 2);
             }}
             color="primary"
-            variant="contained"
+            style={{
+              width: "50%",
+              padding: "10px 30px",
+              borderRadius: "30px",
+              color: "#FFFFFF"
+            }}
           >
             Youtube
           </Button>
@@ -69,10 +106,16 @@ const CreateSongModal = (props) => {
               setSongDetail("songType", 0);
             }}
             color="primary"
-            variant="contained"
+            style={{
+              width: "50%",
+              padding: "10px 30px",
+              borderRadius: "30px",
+              color: "#FFFFFF"
+            }}
           >
             Spotify
           </Button>
+          </div>
         </ButtonGroup>
       </div>
       <div style={{ width: "100%" }}>
@@ -148,7 +191,7 @@ const CreateSongModal = (props) => {
         style={{
           backgroundColor: "gray",
           width: "35vw",
-          height: "50vh",
+          height: "55vh",
           position: "absolute",
           left: "32.5vw",
           top: "20vh",

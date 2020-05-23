@@ -8,6 +8,7 @@ import { Typography, Avatar } from "@material-ui/core";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
 import { playSong } from "../../../utility/SpotifyAPI";
+import DummySeekBar from "./DummySeekBar";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -291,7 +292,9 @@ class SpotifyPlayer extends Component {
                   paused={!this.state.playing}
                   endOfSongCallback={this.endOfSongCallback}
                 />
-              ) : null}
+              ) : (
+                <DummySeekBar />
+              )}
             </div>
           </div>
         </div>

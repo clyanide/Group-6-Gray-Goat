@@ -99,12 +99,14 @@ const LoginForm = (props) => {
           fullWidth
         />
       </form>
-      <form style={{
-        textAlign: "left",
-        margin: "0 auto",
-        marginBottom: "20px",
-        maxWidth: "500px",
-      }}>
+      <form
+        style={{
+          textAlign: "left",
+          margin: "0 auto",
+          marginBottom: "20px",
+          maxWidth: "500px",
+        }}
+      >
         <TextField
           variant="outlined"
           type="password"
@@ -120,15 +122,21 @@ const LoginForm = (props) => {
           }}
           fullWidth
           style={{
-            paddingBottom: "10px"
+            paddingBottom: "10px",
           }}
         />
-        {error ? (!isSignUp ? (<label style={{
-          marginLeft: "10px",
-          color: "red"
-        }}>
-         Invalid Username or Password
-        </label>) : null) : null}
+        {error ? (
+          !isSignUp ? (
+            <label
+              style={{
+                marginLeft: "10px",
+                color: "red",
+              }}
+            >
+              Invalid Username or Password
+            </label>
+          ) : null
+        ) : null}
       </form>
       <form
         style={{

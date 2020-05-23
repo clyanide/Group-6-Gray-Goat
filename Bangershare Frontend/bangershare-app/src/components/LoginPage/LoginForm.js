@@ -89,8 +89,8 @@ const LoginForm = (props) => {
           value={userInfo.username}
           onChange={(e) => {
             const re = /^[a-zA-Z0-9_]+$/;
-            if (e.target.value === '' || re.test(e.target.value)) {
-              setUsername(e)
+            if (e.target.value === "" || re.test(e.target.value)) {
+              setUsername(e);
             }
           }}
           color="primary"

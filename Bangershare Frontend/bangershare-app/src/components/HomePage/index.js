@@ -3,7 +3,7 @@ import Explore from "./Explore";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
-import { Fab, Tooltip, Button } from "@material-ui/core";
+import { Tooltip, Button } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 const HomeScreen = (props) => {

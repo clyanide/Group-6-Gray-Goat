@@ -3,7 +3,7 @@ import Explore from "./Explore";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
-import { Fab, Tooltip } from "@material-ui/core";
+import { Tooltip, Button } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 
 const HomeScreen = (props) => {
@@ -57,26 +57,27 @@ const HomeScreen = (props) => {
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
+          <Tooltip title="Create Playlist">
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={() => handleModal(true)}
+              startIcon={<PlaylistAddIcon />}
+              style={{
+                position: "absolute",
+                bottom: "2vh",
+                right: "47vw",
+              }}
+            >
+              New Playlist
+            </Button>
+          </Tooltip>
           <Explore
             playlists={friendPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
-          <Tooltip title="Create Playlist">
-            <Fab
-              color="primary"
-              onClick={() => handleModal(true)}
-              style={{
-                position: "absolute",
-                bottomMargin: "5%",
-                bottom: "5%",
-                right: "10vw",
-              }}
-            >
-              <PlaylistAddIcon />
-            </Fab>
-          </Tooltip>
         </>
       ) : (
         <p>Loading</p>

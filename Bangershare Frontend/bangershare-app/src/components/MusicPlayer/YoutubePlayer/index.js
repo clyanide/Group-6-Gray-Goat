@@ -79,6 +79,7 @@ class YoutubePlayer extends Component {
               {this.props.currentSong.name}
             </Typography>
             <Typography
+              color="textSecondary"
               variant="subtitle1"
               style={{
                 width: "15vw",

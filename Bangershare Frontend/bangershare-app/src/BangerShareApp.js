@@ -28,14 +28,16 @@ const BangerShareApp = () => {
         <AppSideBar open={open} onClose={handleSetOpen} />
         <RequireLogin />
         <Sidebar.Pusher dimmed={open}>
-          <Switch>
-            <Route path="/login" component={LoginPage} />
-            <Route path="/spotifyauth" component={SpotifyLoginPage} />
-            <Route path="/home" component={HomePage} />
-            <Route path="/friends" component={FriendsPage} />
-            <Route path="/playlist" component={PlaylistPage} />
-            <Route path="/profile" component={ProfilePage} />
-          </Switch>
+          <div style={{ height: "85vh" }}>
+            <Switch>
+              <Route path="/login" component={LoginPage} />
+              <Route path="/spotifyauth" component={SpotifyLoginPage} />
+              <Route path="/home" component={HomePage} />
+              <Route path="/friends" component={FriendsPage} />
+              <Route path="/playlist" component={PlaylistPage} />
+              <Route path="/profile" component={ProfilePage} />
+            </Switch>
+          </div>
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     </ConnectedRouter>

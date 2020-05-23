@@ -8,7 +8,10 @@ const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 const bangerShareClient = axios.create({});
 
 const refreshAuthLogic = failedRequest => {
-  axios.post(baseURL + "User/token/refresh")
+  axios.post(baseURL + "User/token/refresh", {
+    token: localStorage.getItem("refreshToken"),
+    username: localStorage.getItem("username")
+  })
     .then((res) => {
       localStorage.setItem("token", res.data.accessToken)
       localStorage.setItem("refreshToken", res.data.refreshToken)
@@ -16,7 +19,6 @@ const refreshAuthLogic = failedRequest => {
       return Promise.resolve
     })
     .catch((err) => {
-      console.log(err)
       store.dispatch(logoutUser())
     })
 }
@@ -247,7 +249,6 @@ export const getUserLikeSong = (accessToken) => {
 };
 
 export const getUsers = (accessToken) => {
-  console.log(accessToken)
   return bangerShareClient.get(baseURL + "User/all", {
     headers: {
       Authorization: "Bearer " + accessToken,

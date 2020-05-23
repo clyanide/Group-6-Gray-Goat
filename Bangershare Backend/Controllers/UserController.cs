@@ -103,5 +103,16 @@ namespace Bangershare_Backend.Controllers
 
             return NoContent();
         }
+
+        [HttpGet("all")]
+        [Authorize]
+        public async Task<IActionResult> GetUsers()
+        {
+            var result = await _userService.GetAll();
+
+            var usersDto = _mapper.Map<ICollection<User>, ICollection<UserDto>>(result);
+
+            return Ok(usersDto);
+        }
     }
 }

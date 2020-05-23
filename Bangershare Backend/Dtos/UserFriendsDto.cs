@@ -9,5 +9,6 @@ namespace Bangershare_Backend.Dtos
     {
         public ICollection<FriendSongDto> FriendSongs { get; set; }
         public ICollection<FriendDto> PendingFriends { get; set; }
+        public ICollection<FriendDto> SentRequests { get; set; }
     }
 }

@@ -9,5 +9,7 @@ namespace Bangershare_Backend.Models
     {
         public ICollection<FriendSong> FriendSongs { get; set; }
         public ICollection<Friend> PendingFriends { get; set; }
+        public ICollection<Friend> SentRequests { get; set; }
+
     }
 }

@@ -42,7 +42,6 @@ const LoginPage = () => {
         borderRadius: "30px"
       }}>
         <div style={{
-          //borderRadius: "30px",
           width: "100%",
           maxWidth: "200px",
           textAlign: "center"

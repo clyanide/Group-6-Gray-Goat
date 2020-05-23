@@ -3,10 +3,6 @@ import { Button, Paper } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-js";
 import Logo from "./spotifyLogo.png";
-import Svg from "./spotifyLogo.svg";
-import Icon from "@material-ui/core/Icon";
-import AccountCircle from "@material-ui/icons/AccountCircle";
-import { Label } from "semantic-ui-react";
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -100,7 +96,11 @@ class App extends Component {
                 size="large"
                 href="https://bangershareauth.azurewebsites.net/login"
                 startIcon={
-                  <img src={Logo} style={{ width: "60px", height: "60px" }} />
+                  <img
+                    src={Logo}
+                    alt="logo"
+                    style={{ width: "60px", height: "60px" }}
+                  />
                 }
                 style={{
                   borderRadius: "30px",

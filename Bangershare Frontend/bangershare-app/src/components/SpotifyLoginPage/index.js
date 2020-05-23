@@ -96,7 +96,11 @@ class App extends Component {
                 size="large"
                 href="https://bangershareauth.azurewebsites.net/login"
                 startIcon={
-                  <img src={Logo} alt="logo" style={{ width: "60px", height: "60px" }} />
+                  <img
+                    src={Logo}
+                    alt="logo"
+                    style={{ width: "60px", height: "60px" }}
+                  />
                 }
                 style={{
                   borderRadius: "30px",

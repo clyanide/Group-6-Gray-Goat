@@ -52,7 +52,6 @@ const LoginPage = () => {
         >
           <div
             style={{
-              //borderRadius: "30px",
               width: "100%",
               maxWidth: "200px",
               textAlign: "center",
@@ -72,11 +71,11 @@ const LoginPage = () => {
             <Button
               disabled={!isSignUp}
               onClick={() => handleToggle(false)}
-              color="primary"
               style={{
                 width: "50%",
                 padding: "10px 30px",
                 borderRadius: "30px",
+                color: "#FFFFFF"
               }}
             >
               Login
@@ -89,6 +88,7 @@ const LoginPage = () => {
                 width: "50%",
                 padding: "10px 30px",
                 borderRadius: "30px",
+                color: "#FFFFFF"
               }}
             >
               Register

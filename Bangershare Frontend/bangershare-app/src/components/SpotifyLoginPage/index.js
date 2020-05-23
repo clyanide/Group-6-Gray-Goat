@@ -1,6 +1,11 @@
 import React, { Component } from "react";
+import { Button, Paper } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-js";
+import Logo from './spotifyLogo.svg';
+import Icon from '@material-ui/core/Icon';
+import AccountCircle from '@material-ui/icons/AccountCircle';
+
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
@@ -32,11 +37,44 @@ class App extends Component {
 
   render() {
     return (
+      <div
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Paper
+      variant="outlined"
+      elevation={2}
+      style={{
+        marginLeft: "20px",
+        marginRight: "20px",
+        marginBottom: "20vh",
+        maxWidth: "1000px",
+        width: "100%",
+        height: "300px"
+      }}
+    >
       <div className="App">
-        <a href="https://bangershareauth.azurewebsites.net/login">
-          {" "}
-          Login to Spotify{" "}
-        </a>
+        <Button
+        variant="contained"
+        color="primary"
+        size="large"
+        href="https://bangershareauth.azurewebsites.net/login"
+        style={{
+          borderRadius: "30px",
+          width: "250px",
+          height: "60px",
+          backgroundColor: "#1DB954",
+          fontSize: "15px"
+        }}
+      >
+        Login to Spotify
+      </Button>
+      </div>
+      </Paper>
       </div>
     );
   }

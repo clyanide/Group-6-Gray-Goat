@@ -5,6 +5,11 @@ import TextField from "@material-ui/core/TextField";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
 import Button from "@material-ui/core/Button";
 import { Paper } from "@material-ui/core";
+import Alert from "@material-ui/lab/Alert";
+import {
+  getSpotifyTrackId,
+  getYoutubeVideoID,
+} from "../../utility/InputParser";
 
 const CreateSongModal = (props) => {
   const { open, handleModal, postSong } = props;
@@ -17,6 +22,8 @@ const CreateSongModal = (props) => {
   });
 
   const [spotify, setSpotify] = useState(false);
+
+  const [alertVisible, setVisible] = useState(false);
 
   const toggleSpotify = () => {
     setSpotify(!spotify);
@@ -31,6 +38,7 @@ const CreateSongModal = (props) => {
   };
 
   const setSongDetail = (key, value) => {
+    setVisible(false);
     setSong({
       ...song,
       [key]: value,
@@ -38,8 +46,21 @@ const CreateSongModal = (props) => {
   };
 
   const createSong = () => {
-    postSong(song);
-    handleModal(false);
+    if (song.songType === 2) {
+      if (getYoutubeVideoID(song.link) === false) {
+        setVisible(true);
+      } else {
+        postSong(song);
+        handleModal(false);
+      }
+    } else {
+      if (getSpotifyTrackId(song.link) === false) {
+        setVisible(true);
+      } else {
+        postSong(song);
+        handleModal(false);
+      }
+    }
   };
 
   const body = (
@@ -48,7 +69,7 @@ const CreateSongModal = (props) => {
       elevation={2}
       style={{
         textAlign: "center",
-        minWidth: "400px",
+        minWidth: "500px",
       }}
     >
       <div style={{ paddingTop: "1vh" }}>
@@ -167,6 +188,13 @@ const CreateSongModal = (props) => {
             </form>
           </div>
         )}
+      </div>
+      <div style={{ paddingTop: "2vh" }}>
+        {alertVisible ? (
+          <Alert severity="error">
+            Unable to find song with that link. Please try again.
+          </Alert>
+        ) : null}
       </div>
       <div style={{ flex: 1, paddingTop: "2vh" }}>
         <ButtonGroup style={{ marginBottom: "1vh" }}>

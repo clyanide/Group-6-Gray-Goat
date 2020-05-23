@@ -90,14 +90,23 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <Divider />
-      {userPlaylists.map((playlist) => (
-        <>
-          <ListItem button onClick={() => handlePlaylistClick(playlist)}>
-            <ListItemText variant="h6">{playlist.name}</ListItemText>
-          </ListItem>
-          <Divider />
-        </>
-      ))}
+      <div
+        style={{
+          overflowY: "scroll",
+          height: "58vh",
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
+        {userPlaylists.map((playlist) => (
+          <>
+            <ListItem button onClick={() => handlePlaylistClick(playlist)}>
+              <ListItemText variant="h6">{playlist.name}</ListItemText>
+            </ListItem>
+            <Divider />
+          </>
+        ))}
+      </div>
     </Sidebar>
   );
 };

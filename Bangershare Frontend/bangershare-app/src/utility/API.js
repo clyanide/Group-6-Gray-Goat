@@ -256,6 +256,14 @@ export const getUsers = (accessToken) => {
   })
 }
 
+export const postFriendRequest = (accessToken, username) => {
+  return bangerShareClient.post(baseURL + "Friend?username=" + username, {}, {
+    headers: {
+      Authorization: "Bearer " + accessToken,
+    },
+  })
+}
+
 export const revokeToken = (accessToken) => {
   return bangerShareClient.post(baseURL + "User/token/revoke", {
     token: accessToken,

@@ -161,13 +161,11 @@ const setCurrentUser = (username) => ({
 const getAllUsers = () => {
   return (dispatch) => {
     dispatch(getAllUsersStart())
-    console.log(localStorage.getItem("token"))
     getUsers(localStorage.getItem("token"))
       .then((res) => {
         dispatch(getAllUsersSuccess(res.data))
       })
       .catch((err) => {
-        console.log(err)
         dispatch(getAllUsersFail(err.message))
       })
   }

@@ -2,6 +2,7 @@ import {
   getUserFriends,
   updateFriendRequest,
   deleteUserFriendRequest,
+  postFriendRequest
 } from "../utility/API";
 
 
@@ -13,6 +14,9 @@ export const friendActionType = {
   ACCEPT_PENDING_REQUEST_FAIL: "ACCEPT_PENDING_REQUEST_FAIL",
   DELETE_FRIEND_REQUEST: "DELETE_FRIEND_REQUEST",
   DELETE_FRIEND_REQUEST_FAIL: "DELETE_FRIEND_REQUEST_FAIL",
+  ADD_FRIEND: "ADD_FRIEND",
+  ADD_FRIEND_SUCCESS: "ADD_FRIEND_SUCCESS",
+  ADD_FRIEND_FAIL: "ADD_FRIEND_FAIL"
 };
 
 const getFriends = () => {
@@ -96,4 +100,26 @@ const deleteFriendRequestFail = (error) => ({
   error,
 });
 
-export { getFriends, acceptPendingRequest, deleteFriendRequest };
+const addFriend = (username) => {
+  return (dispatch) => {
+    dispatch(addFriendStart())
+    postFriendRequest(localStorage.getItem("token"), username)
+      .then(() => {
+        dispatch(getFriends())
+      })
+      .catch((err) => {
+        dispatch(addFriendFail(err.message))
+      })
+  }
+}
+
+const addFriendStart = () => ({
+  type: friendActionType.ADD_FRIEND,
+  fetching: true
+})
+
+const addFriendFail = (error) => ({
+  type: friendActionType.ADD_FRIEND_FAIL,
+  error
+})
+export { getFriends, acceptPendingRequest, deleteFriendRequest, addFriend };

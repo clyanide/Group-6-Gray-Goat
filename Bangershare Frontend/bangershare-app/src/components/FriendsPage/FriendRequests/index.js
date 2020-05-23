@@ -57,7 +57,7 @@ const FriendRequests = (props) => {
           </ListItem>
         ))
       ) : (
-          <Typography>No Friend Requests</Typography>
+          <Typography variant="h4" style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}>You have no friend requests.</Typography>
         )}
     </List>
   );

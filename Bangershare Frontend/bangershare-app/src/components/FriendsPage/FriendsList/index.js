@@ -40,7 +40,7 @@ const FriendsList = (props) => {
           </ListItem>
         ))
       ) : (
-          <Typography>You have no friends</Typography>
+          <Typography variant="h4" style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}>You seem to have no friends. Try adding some.</Typography>
         )}
     </List>
   );

@@ -96,6 +96,7 @@ const logoutUser = () => {
       })
       .then(() => {
         dispatch(push("/login"));
+        window.location.reload();
       });
   };
 };

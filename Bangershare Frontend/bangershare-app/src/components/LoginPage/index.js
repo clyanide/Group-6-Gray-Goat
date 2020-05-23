@@ -17,23 +17,29 @@ const LoginPage = () => {
   };
 
   return (
-    <div style={{
-      height: "100%",
-      display:"flex",
-      alignItems: "center",
-      justifyContent: "center"
-    }}>
-    <Paper variant="outlined" elevation={2} style={{
-      textAlign: "center",
-      marginLeft: "20px",
-      marginRight: "20px",
-      marginBottom: "12vh",
-      marginTop: "12vh",
-      maxWidth: "1000px",
-      width: "100%",
-      maxHeight: "1000px",
-      height: "450px"
-    }}>
+    <div
+      style={{
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <Paper
+        variant="outlined"
+        elevation={2}
+        style={{
+          textAlign: "center",
+          marginLeft: "20px",
+          marginRight: "20px",
+          marginBottom: "12vh",
+          marginTop: "12vh",
+          maxWidth: "1000px",
+          width: "100%",
+          maxHeight: "1000px",
+          height: "450px",
+        }}
+      >
         <ButtonGroup
           color="primary"
           variant="contained"

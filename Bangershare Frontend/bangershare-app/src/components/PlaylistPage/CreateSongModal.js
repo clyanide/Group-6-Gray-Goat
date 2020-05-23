@@ -46,10 +46,10 @@ const CreateSongModal = (props) => {
         flex: 9,
       }}
     >
-      <div style={{ flex: 1, paddingTop: "1vh" }}>
+      <div style={{ paddingTop: "1vh" }}>
         <h2>Add a song</h2>
       </div>
-      <div style={{ flex: 1 }}>
+      <div style={{ paddingTop: "2vh" }}>
         <ButtonGroup>
           <Button
             disabled={!spotify}
@@ -113,7 +113,7 @@ const CreateSongModal = (props) => {
             </div>
           </div>
         ) : (
-          <div style={{ flex: 6, marginLeft: "20%" }}>
+          <div style={{ flex: 6, marginLeft: "20%", paddingTop: "2vh" }}>
             <h4>Spotify Song ID</h4>
             <form>
               <TextField

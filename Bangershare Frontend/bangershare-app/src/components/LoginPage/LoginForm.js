@@ -5,7 +5,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
 
 const LoginForm = (props) => {
-  const { handleSignup, handleLogin, isSignUp, isFetching } = props;
+  const { handleSignup, handleLogin, isSignUp, isFetching, error } = props;
 
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -94,9 +94,9 @@ const LoginForm = (props) => {
         />
       </form>
       <form style={{
-        textAlign: "center",
+        textAlign: "left",
         margin: "0 auto",
-        marginBottom: "30px",
+        marginBottom: "20px",
         maxWidth: "500px",
       }}>
         <TextField
@@ -113,7 +113,16 @@ const LoginForm = (props) => {
             ),
           }}
           fullWidth
+          style={{
+            paddingBottom: "10px"
+          }}
         />
+        {error ? (!isSignUp ? (<label style={{
+          marginLeft: "10px",
+          color: "red"
+        }}>
+         Invalid Username or Password
+        </label>) : null) : null}
       </form>
       <form style={{
         textAlign: "center",

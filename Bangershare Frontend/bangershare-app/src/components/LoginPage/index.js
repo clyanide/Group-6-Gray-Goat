@@ -62,6 +62,7 @@ const LoginPage = () => {
             style={{
               width: "50%",
               padding: "10px 30px",
+              borderRadius: "30px",
             }}
           >
             Login
@@ -72,7 +73,8 @@ const LoginPage = () => {
             color="primary"
             style={{
               width: "50%",
-              padding: "10px 30px"
+              padding: "10px 30px",
+              borderRadius: "30px",
             }}
           >
             Register

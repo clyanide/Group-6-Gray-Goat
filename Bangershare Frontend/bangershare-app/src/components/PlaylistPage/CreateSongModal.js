@@ -41,14 +41,15 @@ const CreateSongModal = (props) => {
         justifyContent: "center",
         flexDirection: "column",
         position: "absolute",
-        width: "30vw",
-        height: "20vh",
+        width: "35vw",
+        height: "50vh",
+        flex: 9,
       }}
     >
-      <div>
+      <div style={{ flex: 1, paddingTop: "1vh" }}>
         <h2>Add a song</h2>
       </div>
-      <div>
+      <div style={{ flex: 1 }}>
         <ButtonGroup>
           <Button
             disabled={!spotify}
@@ -70,50 +71,58 @@ const CreateSongModal = (props) => {
           </Button>
         </ButtonGroup>
       </div>
-      <div>
+      <div style={{ width: "100%" }}>
         {!spotify ? (
-          <div>
-            <div>
+          <div style={{ flex: 6 }}>
+            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+              <h4>Song Name</h4>
               <form>
                 <TextField
-                  label="Song Name"
+                  label="Enter a name of a song"
                   variant="outlined"
                   onChange={(e) => setSongDetail("name", e.target.value)}
+                  style={{ width: "80%" }}
                 />
               </form>
             </div>
-            <div>
+            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+              <h4>Artist Name</h4>
               <form>
                 <TextField
-                  label="Artist Name"
+                  label="Enter the name of the artist"
                   variant="outlined"
                   onChange={(e) => setSongDetail("artist", e.target.value)}
+                  style={{ width: "80%" }}
                 />
               </form>
             </div>
-            <div>
+            <div style={{ flex: 2, marginLeft: "20%", paddingTop: "2vh" }}>
+              <h4>Youtube URL</h4>
               <form>
                 <TextField
-                  label="Youtube URL (e.g. https://www.youtube.com/watch?v=S0twBO8l3pI)"
+                  label="e.g. https://www.youtube.com/watch?v=S0twBO8l3pI"
                   variant="outlined"
                   onChange={(e) => setSongDetail("link", e.target.value)}
+                  style={{ width: "80%" }}
                 />
               </form>
             </div>
           </div>
         ) : (
-          <div>
+          <div style={{ flex: 6, marginLeft: "20%" }}>
+            <h4>Spotify Song ID</h4>
             <form>
               <TextField
-                label="Spotify Song ID (e.g. https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw)"
+                label="e.g. https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw"
                 variant="outlined"
                 onChange={(e) => setSongDetail("link", e.target.value)}
+                style={{ width: "80%" }}
               />
             </form>
           </div>
         )}
       </div>
-      <div>
+      <div style={{ flex: 1, paddingTop: "2vh" }}>
         <ButtonGroup>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
           <Button onClick={() => createSong()}>Create</Button>
@@ -128,11 +137,11 @@ const CreateSongModal = (props) => {
         onClose={() => handleModal(false)}
         style={{
           backgroundColor: "gray",
-          width: "30vw",
-          height: "20vh",
+          width: "35vw",
+          height: "50vh",
           position: "absolute",
-          left: "35vw",
-          top: "40vh",
+          left: "32.5vw",
+          top: "20vh",
         }}
       >
         {body}

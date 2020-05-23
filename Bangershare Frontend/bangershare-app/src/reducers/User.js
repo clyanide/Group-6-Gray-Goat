@@ -85,11 +85,11 @@ const userReducer = (state = initialState, action) => {
       };
     }
     case userActionType.GET_ALL_USERS_SUCCESS: {
-      const usernameList = action.users.map(user => user.username)
+      const usernameList = action.users.map((user) => user.username);
       return {
         ...state,
-        users: usernameList
-      }
+        users: usernameList,
+      };
     }
     default:
       return { ...state };

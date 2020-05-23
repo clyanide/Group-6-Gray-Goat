@@ -1,29 +1,31 @@
 import axios from "axios";
-import { store } from "../store"
-import { logoutUser } from "../actions/User"
-import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import { store } from "../store";
+import { logoutUser } from "../actions/User";
+import createAuthRefreshInterceptor from "axios-auth-refresh";
 
 const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
 const bangerShareClient = axios.create({});
 
-const refreshAuthLogic = failedRequest => {
-  axios.post(baseURL + "User/token/refresh", {
-    token: localStorage.getItem("refreshToken"),
-    username: localStorage.getItem("username")
-  })
+const refreshAuthLogic = (failedRequest) => {
+  axios
+    .post(baseURL + "User/token/refresh", {
+      token: localStorage.getItem("refreshToken"),
+      username: localStorage.getItem("username"),
+    })
     .then((res) => {
-      localStorage.setItem("token", res.data.accessToken)
-      localStorage.setItem("refreshToken", res.data.refreshToken)
-      failedRequest.config.headers['Authorization'] = 'Bearer ' + res.data.accessToken;
-      return Promise.resolve
+      localStorage.setItem("token", res.data.accessToken);
+      localStorage.setItem("refreshToken", res.data.refreshToken);
+      failedRequest.config.headers["Authorization"] =
+        "Bearer " + res.data.accessToken;
+      return Promise.resolve;
     })
     .catch((err) => {
-      store.dispatch(logoutUser())
-    })
-}
+      store.dispatch(logoutUser());
+    });
+};
 
-createAuthRefreshInterceptor(bangerShareClient, refreshAuthLogic)
+createAuthRefreshInterceptor(bangerShareClient, refreshAuthLogic);
 
 export const login = (username, password) => {
   return bangerShareClient.post(baseURL + "User/login", {
@@ -95,10 +97,10 @@ export const postSpotifySongToPlaylist = (
 ) => {
   return bangerShareClient.post(
     baseURL +
-    "Song/spotify?playlistId=" +
-    playlistId +
-    "&spotifySongId=" +
-    spotifySongId,
+      "Song/spotify?playlistId=" +
+      playlistId +
+      "&spotifySongId=" +
+      spotifySongId,
     {},
     {
       headers: {
@@ -116,10 +118,10 @@ export const postYoutubeSongToPlaylist = (
 ) => {
   return bangerShareClient.post(
     baseURL +
-    "Song/youtube?playlistId=" +
-    playlistId +
-    "&youtubeId=" +
-    youtubeId,
+      "Song/youtube?playlistId=" +
+      playlistId +
+      "&youtubeId=" +
+      youtubeId,
     {
       id: 0,
       isPending: true,
@@ -193,11 +195,14 @@ export const deleteUserFriendRequest = (accessToken, username) => {
 };
 
 export const getPlaylistFromId = (accessToken, playlistId) => {
-  return bangerShareClient.get(baseURL + "Playlist/single?playlistId=" + playlistId, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-    },
-  });
+  return bangerShareClient.get(
+    baseURL + "Playlist/single?playlistId=" + playlistId,
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
 };
 
 export const followUserPlaylist = async (accessToken, playlistId) => {
@@ -253,21 +258,23 @@ export const getUsers = (accessToken) => {
     headers: {
       Authorization: "Bearer " + accessToken,
     },
-  })
-}
+  });
+};
 
 export const postFriendRequest = (accessToken, username) => {
-  return bangerShareClient.post(baseURL + "Friend?username=" + username, {}, {
-    headers: {
-      Authorization: "Bearer " + accessToken,
-    },
-  })
-}
+  return bangerShareClient.post(
+    baseURL + "Friend?username=" + username,
+    {},
+    {
+      headers: {
+        Authorization: "Bearer " + accessToken,
+      },
+    }
+  );
+};
 
 export const revokeToken = (accessToken) => {
   return bangerShareClient.post(baseURL + "User/token/revoke", {
     token: accessToken,
   });
 };
-
-

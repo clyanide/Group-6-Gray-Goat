@@ -12,9 +12,8 @@ import {
 } from "@material-ui/core";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
-import PersonIcon from '@material-ui/icons/Person';
-import { green } from '@material-ui/core/colors';
-
+import PersonIcon from "@material-ui/icons/Person";
+import { green } from "@material-ui/core/colors";
 
 const FriendRequests = (props) => {
   const { pendingFriends, onFriendClick, acceptRequest, deleteRequest } = props;
@@ -33,23 +32,25 @@ const FriendRequests = (props) => {
                 <PersonIcon style={{ fill: "white" }} />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={<Typography style={{ paddingLeft: "12px" }} variant="h6">{friend.senderUsername}</Typography>} />
+            <ListItemText
+              primary={
+                <Typography style={{ paddingLeft: "12px" }} variant="h6">
+                  {friend.senderUsername}
+                </Typography>
+              }
+            />
             <ListItemSecondaryAction>
               <ListItemIcon
                 onClick={() => acceptRequest(friend.senderUsername)}
               >
-                <IconButton
-                  style={{ color: green[500] }}
-                >
+                <IconButton style={{ color: green[500] }}>
                   <PersonAddIcon />
                 </IconButton>
               </ListItemIcon>
               <ListItemIcon
                 onClick={() => deleteRequest(friend.senderUsername)}
               >
-                <IconButton
-                  color="secondary"
-                >
+                <IconButton color="secondary">
                   <PersonAddDisabledIcon />
                 </IconButton>
               </ListItemIcon>
@@ -57,8 +58,13 @@ const FriendRequests = (props) => {
           </ListItem>
         ))
       ) : (
-          <Typography variant="h4" style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}>You have no friend requests.</Typography>
-        )}
+        <Typography
+          variant="h4"
+          style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}
+        >
+          You have no friend requests.
+        </Typography>
+      )}
     </List>
   );
 };

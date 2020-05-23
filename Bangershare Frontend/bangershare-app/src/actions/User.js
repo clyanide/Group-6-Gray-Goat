@@ -4,7 +4,7 @@ import {
   register,
   revokeToken,
   getUser,
-  getUsers
+  getUsers,
 } from "../utility/API";
 
 export const userActionType = {
@@ -22,7 +22,7 @@ export const userActionType = {
   SET_CURRENT_USER: "SET_CURRENT_USER",
   GET_ALL_USERS: "GET_ALL_USERS",
   GET_ALL_USERS_SUCCESS: "GET_ALL_USERS_SUCCESS",
-  GET_ALL_USERS_FAIL: "GET_ALL_USERS_FAIL"
+  GET_ALL_USERS_FAIL: "GET_ALL_USERS_FAIL",
 };
 
 const registerUser = ({ username, email, password }) => {
@@ -64,7 +64,7 @@ const getUserInfo = () => {
           dispatch(getUserInfoSuccess(res.data));
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err);
         });
     }
   };
@@ -160,33 +160,32 @@ const setCurrentUser = (username) => ({
 
 const getAllUsers = () => {
   return (dispatch) => {
-    dispatch(getAllUsersStart())
+    dispatch(getAllUsersStart());
     getUsers(localStorage.getItem("token"))
       .then((res) => {
-        dispatch(getAllUsersSuccess(res.data))
+        dispatch(getAllUsersSuccess(res.data));
       })
       .catch((err) => {
-        dispatch(getAllUsersFail(err.message))
-      })
-  }
-}
+        dispatch(getAllUsersFail(err.message));
+      });
+  };
+};
 
 const getAllUsersStart = () => ({
   type: userActionType.GET_ALL_USERS,
   fetching: true,
-})
+});
 
 const getAllUsersSuccess = (payload) => ({
   type: userActionType.GET_ALL_USERS_SUCCESS,
   fetching: false,
-  users: payload
-})
+  users: payload,
+});
 
 const getAllUsersFail = (error) => ({
   type: userActionType.GET_ALL_USERS_FAIL,
-  error
-})
-
+  error,
+});
 
 export {
   registerUser,
@@ -196,5 +195,5 @@ export {
   logoutUser,
   getUserInfo,
   setCurrentUser,
-  getAllUsers
+  getAllUsers,
 };

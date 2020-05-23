@@ -11,7 +11,7 @@ import {
   Avatar,
 } from "@material-ui/core";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
-import PersonIcon from '@material-ui/icons/Person';
+import PersonIcon from "@material-ui/icons/Person";
 
 const FriendsList = (props) => {
   const { friends, onFriendClick, deleteFriend } = props;
@@ -29,7 +29,13 @@ const FriendsList = (props) => {
                 <PersonIcon style={{ fill: "white" }} />
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={<Typography style={{ paddingLeft: "12px" }} variant="h6">{friend.username}</Typography>} />
+            <ListItemText
+              primary={
+                <Typography style={{ paddingLeft: "12px" }} variant="h6">
+                  {friend.username}
+                </Typography>
+              }
+            />
             <ListItemSecondaryAction>
               <ListItemIcon onClick={() => deleteFriend(friend.username)}>
                 <IconButton color="secondary">
@@ -40,8 +46,13 @@ const FriendsList = (props) => {
           </ListItem>
         ))
       ) : (
-          <Typography variant="h4" style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}>You seem to have no friends. Try adding some.</Typography>
-        )}
+        <Typography
+          variant="h4"
+          style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}
+        >
+          You seem to have no friends. Try adding some.
+        </Typography>
+      )}
     </List>
   );
 };

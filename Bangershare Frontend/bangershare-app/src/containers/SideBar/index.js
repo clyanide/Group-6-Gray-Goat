@@ -20,8 +20,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(setUserProfile(username));
   },
   getPlaylist: () => {
-    dispatch(getPlaylist())
-  }
+    dispatch(getPlaylist());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AppSideBar);

@@ -61,69 +61,69 @@ const AppHeader = (props) => {
             BangerShare
           </Typography>
         ) : (
-            <>
-              <IconButton
-                disabled={isFetching}
-                onClick={() => onMenuClick(true)}
-                edge="start"
-                style={{ marginRight: "1%" }}
-              >
-                <MenuIcon />
-              </IconButton>
-              <Typography variant="h4" style={{ flexGrow: 1 }}>
-                <Link to="/home" style={{ color: "white" }}>
-                  BangerShare
+          <>
+            <IconButton
+              disabled={isFetching}
+              onClick={() => onMenuClick(true)}
+              edge="start"
+              style={{ marginRight: "1%" }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h4" style={{ flexGrow: 1 }}>
+              <Link to="/home" style={{ color: "white" }}>
+                BangerShare
               </Link>
-              </Typography>
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={(e) => handleClick(e)}
-              >
-                {localStorage.getItem("username")}
-              </Button>
-              <Popper
-                open={open}
-                anchorEl={anchorEl}
-                transition
-                style={{ position: "relative", zIndex: "10" }}
-                placement="bottom-end"
-              >
-                {({ TransitionProps }) => (
-                  <Fade {...TransitionProps} timeout={350}>
-                    <ClickAwayListener onClickAway={handleClickAway}>
-                      <Paper>
-                        <MenuList>
-                          <MenuItem
-                            onClick={() => {
-                              onProfileClick();
-                              handleClickAway();
-                            }}
-                          >
-                            <ListItemIcon>
-                              <AccountCircleIcon />
-                            </ListItemIcon>
-                            <Typography>Profile</Typography>
-                          </MenuItem>
-                          <MenuItem
-                            onClick={() => {
-                              signOut();
-                              handleClickAway();
-                            }}
-                          >
-                            <ListItemIcon>
-                              <ExitToAppIcon color="secondary" />
-                            </ListItemIcon>
-                            <Typography>Logout</Typography>
-                          </MenuItem>
-                        </MenuList>
-                      </Paper>
-                    </ClickAwayListener>
-                  </Fade>
-                )}
-              </Popper>
-            </>
-          )}
+            </Typography>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={(e) => handleClick(e)}
+            >
+              {localStorage.getItem("username")}
+            </Button>
+            <Popper
+              open={open}
+              anchorEl={anchorEl}
+              transition
+              style={{ position: "relative", zIndex: "10" }}
+              placement="bottom-end"
+            >
+              {({ TransitionProps }) => (
+                <Fade {...TransitionProps} timeout={350}>
+                  <ClickAwayListener onClickAway={handleClickAway}>
+                    <Paper>
+                      <MenuList>
+                        <MenuItem
+                          onClick={() => {
+                            onProfileClick();
+                            handleClickAway();
+                          }}
+                        >
+                          <ListItemIcon>
+                            <AccountCircleIcon />
+                          </ListItemIcon>
+                          <Typography>Profile</Typography>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            signOut();
+                            handleClickAway();
+                          }}
+                        >
+                          <ListItemIcon>
+                            <ExitToAppIcon color="secondary" />
+                          </ListItemIcon>
+                          <Typography>Logout</Typography>
+                        </MenuItem>
+                      </MenuList>
+                    </Paper>
+                  </ClickAwayListener>
+                </Fade>
+              )}
+            </Popper>
+          </>
+        )}
       </Toolbar>
     </AppBar>
   );

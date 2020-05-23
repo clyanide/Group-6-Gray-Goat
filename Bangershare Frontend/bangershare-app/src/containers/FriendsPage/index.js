@@ -19,8 +19,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getFriends());
   },
   getUsers: () => {
-    dispatch(getAllUsers())
-  }
+    dispatch(getAllUsers());
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FriendsPage);

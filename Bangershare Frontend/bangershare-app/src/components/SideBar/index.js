@@ -25,9 +25,9 @@ const AppSideBar = (props) => {
 
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
-      getPlaylist()
+      getPlaylist();
     }
-  }, [getPlaylist])
+  }, [getPlaylist]);
 
   const goTo = (link) => {
     props.push(link);

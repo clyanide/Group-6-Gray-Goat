@@ -11,7 +11,7 @@ import {
   addFriend,
   acceptPendingRequest,
   deleteFriendRequest,
-} from "../../actions/Friends"
+} from "../../actions/Friends";
 import { push } from "connected-react-router";
 
 const mapStateToProps = (state) => ({
@@ -21,7 +21,7 @@ const mapStateToProps = (state) => ({
   isFetching: state.bangerShareReducer.fetching,
   sentRequests: state.friendsReducer.sentRequests,
   pendingRequests: state.friendsReducer.pendingFriends,
-  friends: state.friendsReducer.friends
+  friends: state.friendsReducer.friends,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -41,17 +41,17 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(unfollowPlaylistProfilePage(playlistId, username));
   },
   getFriends: () => {
-    dispatch(getFriends())
+    dispatch(getFriends());
   },
   addFriend: (username) => {
-    dispatch(addFriend(username))
+    dispatch(addFriend(username));
   },
   acceptRequest: (username) => {
-    dispatch(acceptPendingRequest(username))
+    dispatch(acceptPendingRequest(username));
   },
   deleteRequest: (username) => {
-    dispatch(deleteFriendRequest(username))
-  }
+    dispatch(deleteFriendRequest(username));
+  },
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfilePage);

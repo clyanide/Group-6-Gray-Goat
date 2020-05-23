@@ -4,9 +4,10 @@ import equal from "fast-deep-equal";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
-import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
-import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
-import { Typography } from "@material-ui/core";
+import { Typography, Avatar } from "@material-ui/core";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import PauseIcon from "@material-ui/icons/Pause";
+import { playSong } from "../../../utility/SpotifyAPI";
 import DummySeekBar from "./DummySeekBar";
 
 class SpotifyPlayer extends Component {
@@ -14,7 +15,7 @@ class SpotifyPlayer extends Component {
     super(props);
 
     this.state = {
-      token: this.props.spotifyToken,
+      token: localStorage.getItem("spotifyToken"),
       deviceId: "",
       loggedIn: true,
       error: "",
@@ -153,14 +154,7 @@ class SpotifyPlayer extends Component {
     },
   }) => {
     getOAuthToken((access_token) => {
-      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-        method: "PUT",
-        body: JSON.stringify({ uris: [spotify_uri] }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
+      playSong(id, access_token, spotify_uri);
     });
   };
 
@@ -277,11 +271,13 @@ class SpotifyPlayer extends Component {
               <SkipPreviousIcon fontSize="large" />
             </IconButton>
             <IconButton color="primary" onClick={() => this.onPlayClick()}>
-              {playing ? (
-                <PauseCircleFilledIcon fontSize="large" />
-              ) : (
-                <PlayCircleFilledWhiteIcon fontSize="large" />
-              )}
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                {playing ? (
+                  <PauseIcon style={{ fill: "white" }} fontSize="default" />
+                ) : (
+                  <PlayArrowIcon style={{ fill: "white" }} fontSize="large" />
+                )}
+              </Avatar>
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>
               <SkipNextIcon fontSize="large" />

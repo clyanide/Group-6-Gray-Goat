@@ -72,17 +72,20 @@ const PlaylistPage = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h3" style={{ marginTop: "2vh", marginLeft: "4vw" }}>
+      <Typography
+        variant="h3"
+        style={{ marginTop: "20px", marginLeft: "80px" }}
+      >
         {currentPlaylist.name}
       </Typography>
       <Typography
         color="textSecondary"
         variant="subtitle1"
-        style={{ marginLeft: "4vw", marginBottom: "2vh" }}
+        style={{ marginLeft: "85px", marginBottom: "20px" }}
       >
         Created by {currentPlaylist.creator}
       </Typography>
-      <div style={{ marginLeft: "3vw" }}>
+      <div style={{ marginLeft: "70px", marginBottom: "20px" }}>
         <Tooltip title="Play Playlist">
           <IconButton color="primary" onClick={() => handleOnPlay()}>
             <Avatar style={{ backgroundColor: "#7d12ff" }}>
@@ -110,7 +113,7 @@ const PlaylistPage = (props) => {
             />
           ) : (
             <Typography
-              style={{ marginTop: "2vh", marginLeft: "4vw" }}
+              style={{ marginTop: "35px", marginLeft: "80px" }}
               variant="h4"
             >
               Playlist has no songs.

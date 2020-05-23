@@ -11,6 +11,11 @@ import {
 import FavoriteBorderIcon from "@material-ui/icons/FavoriteBorder";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
 
 const PlaylistCard = (props) => {
   const {
@@ -22,6 +27,15 @@ const PlaylistCard = (props) => {
     setCurrentSong,
   } = props;
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   const handlePlayClick = (playlist) => {
     if (playlist.songs.length !== 0) {
       setCurrentPlayingPlaylist(playlist);

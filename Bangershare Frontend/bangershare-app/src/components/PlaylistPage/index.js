@@ -12,13 +12,29 @@ import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import AddIcon from "@material-ui/icons/Add";
 
 const PlaylistPage = (props) => {
-  const { currentPlaylist, isFetching, search, getPlaylist } = props;
+  const {
+    currentPlaylist,
+    isFetching,
+    search,
+    getPlaylist,
+    setCurrentPlayingPlaylist,
+    setCurrentSong,
+  } = props;
   const [openModal, setModal] = useState(false);
 
   const queryString = require("query-string");
 
   const handleSetModal = (bool) => {
     setModal(bool);
+  };
+
+  const handleOnPlay = () => {
+    if (currentPlaylist.songs.length !== 0) {
+      setCurrentPlayingPlaylist(currentPlaylist);
+      setCurrentSong(currentPlaylist.songs[0]);
+    } else {
+      alert("No songs in playlist");
+    }
   };
 
   useEffect(() => {
@@ -42,7 +58,7 @@ const PlaylistPage = (props) => {
       </Typography>
       <div style={{ marginLeft: "3vw" }}>
         <Tooltip title="Play Playlist">
-          <IconButton color="primary">
+          <IconButton color="primary" onClick={() => handleOnPlay()}>
             <Avatar style={{ backgroundColor: "#7d12ff" }}>
               <PlayArrowIcon fontSize="large" style={{ fill: "white" }} />
             </Avatar>

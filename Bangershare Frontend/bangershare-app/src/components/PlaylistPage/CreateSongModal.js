@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// import { Button, Header, Form, Modal } from "semantic-ui-react";
 import Modal from "@material-ui/core/Modal";
 import TextField from "@material-ui/core/TextField";
 import ButtonGroup from "@material-ui/core/ButtonGroup";
@@ -233,86 +232,6 @@ const CreateSongModal = (props) => {
         {body}
       </Modal>
     </div>
-
-    // <Modal open={open} onClose={() => handleModal(false)}>
-    //   <Header
-    //     icon="music"
-    //     content={
-    //       <>
-    //         Add a song
-    //         <Button.Group>
-    //           <Button
-    //             disabled={!spotify}
-    //             onClick={() => {
-    //               toggleSpotify();
-    //               setSongDetail("songType", 2);
-    //             }}
-    //           >
-    //             Youtube
-    //           </Button>
-    //           <Button
-    //             disabled={spotify}
-    //             onClick={() => {
-    //               toggleSpotify();
-    //               setSongDetail("songType", 0);
-    //             }}
-    //           >
-    //             Spotify
-    //           </Button>
-    //         </Button.Group>
-    //       </>
-    //     }
-    //   />
-    //   <Modal.Content>
-    //     <Form>
-    //       {!spotify ? (
-    //         <>
-    //           <Form.Field>
-    //             <label>Song name</label>
-    //             <input
-    //               placeholder={"Enter a name of a song"}
-    //               onChange={(e) => setSongDetail("name", e.target.value)}
-    //             />
-    //           </Form.Field>
-    //           <Form.Field>
-    //             <label>Artist Name</label>
-    //             <input
-    //               placeholder={"Enter the artist of the song"}
-    //               onChange={(e) => setSongDetail("artist", e.target.value)}
-    //             />
-    //           </Form.Field>
-    //           <Form.Field>
-    //             <label>{"URL of Youtube Song"}</label>
-    //             <input
-    //               placeholder={
-    //                 'e.g. "https://www.youtube.com/watch?v=S0twBO8l3pI"'
-    //               }
-    //               onChange={(e) => setSongDetail("link", e.target.value)}
-    //             />
-    //           </Form.Field>
-    //         </>
-    //       ) : (
-    //         <Form.Field>
-    //           <label>{"Spotify Song ID"}</label>
-    //           <input
-    //             placeholder={
-    //               'e.g. "https://open.spotify.com/track/3c7peg169veVaJRzlbCaKw"'
-    //             }
-    //             onChange={(e) => setSongDetail("link", e.target.value)}
-    //           />
-    //         </Form.Field>
-    //       )}
-    //     </Form>
-    //   </Modal.Content>
-    //   <Modal.Actions>
-    //     <Button.Group>
-    //       <Button onClick={() => handleModal(false)}>Cancel</Button>
-    //       <Button positive onClick={() => createSong()}>
-    //         Create
-    //       </Button>
-    //     </Button.Group>
-    //   </Modal.Actions>
-    // </Modal>
   );
 };
 

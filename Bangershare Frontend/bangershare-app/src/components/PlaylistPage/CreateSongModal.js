@@ -57,6 +57,8 @@ const CreateSongModal = (props) => {
               toggleSpotify();
               setSongDetail("songType", 2);
             }}
+            color="primary"
+            variant="contained"
           >
             Youtube
           </Button>
@@ -66,6 +68,8 @@ const CreateSongModal = (props) => {
               toggleSpotify();
               setSongDetail("songType", 0);
             }}
+            color="primary"
+            variant="contained"
           >
             Spotify
           </Button>
@@ -125,7 +129,13 @@ const CreateSongModal = (props) => {
       <div style={{ flex: 1, paddingTop: "2vh" }}>
         <ButtonGroup>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
-          <Button onClick={() => createSong()}>Create</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => createSong()}
+          >
+            Create
+          </Button>
         </ButtonGroup>
       </div>
     </div>

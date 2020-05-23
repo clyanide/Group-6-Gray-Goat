@@ -45,7 +45,13 @@ const CreatePlaylistModal = (props) => {
       <div style={{ flex: 1, paddingTop: "2vh" }}>
         <ButtonGroup>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
-          <Button onClick={() => handleOnCreate()}>Create</Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => handleOnCreate()}
+          >
+            Create
+          </Button>
         </ButtonGroup>
       </div>
     </div>

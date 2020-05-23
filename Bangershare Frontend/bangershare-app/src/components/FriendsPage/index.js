@@ -48,68 +48,68 @@ const FriendsPage = (props) => {
               Friends
             </Typography>
             <row>
-            <ButtonGroup
-              color="primary"
-              variant="contained"
-              style={{
-                width: "100%",
-                borderRadius: "30px",
-                width: "200px",
-              }}
-            >
-              <div
+              <ButtonGroup
+                color="primary"
+                variant="contained"
                 style={{
                   width: "100%",
-                  width: "200px",
-                  minWidth: "200px",
-                  textAlign: "center",
-                  background: "#a8a6a5",
                   borderRadius: "30px",
-                  height: "40px"
+                  width: "200px",
                 }}
               >
                 <div
-                  id="btn"
                   style={{
-                    position: "absolute",
-                    width: "100px",
-                    minWidth: "100px",
+                    width: "100%",
+                    width: "200px",
+                    minWidth: "200px",
+                    textAlign: "center",
+                    background: "#a8a6a5",
+                    borderRadius: "30px",
                     height: "40px",
-                    background: "linear-gradient(to right, #7d12ff, #5E35B1)",
-                    borderRadius: "30px",
-                    transition: ".5s",
-                  }}
-                ></div>
-                <Button
-                  disabled={!isFriendRequest}
-                  onClick={() => handleToggle(false)}
-                  style={{
-                    width: "50%",
-                    padding: "10px 30px",
-                    borderRadius: "30px",
-                    color: "#FFFFFF",
-                    height: '40px',
-                    overflow: "hidden"
                   }}
                 >
-                  List
-            </Button>
-                <Button
-                  disabled={isFriendRequest}
-                  onClick={() => handleToggle(true)}
-                  style={{
-                    width: "50%",
-                    padding: "10px 30px",
-                    borderRadius: "30px",
-                    color: "#FFFFFF",
-                    height: '40px',
-                    overflow: "hidden"
-                  }}
-                >
-                  Requests
-            </Button>
-              </div>
-            </ButtonGroup>
+                  <div
+                    id="btn"
+                    style={{
+                      position: "absolute",
+                      width: "100px",
+                      minWidth: "100px",
+                      height: "40px",
+                      background: "linear-gradient(to right, #7d12ff, #5E35B1)",
+                      borderRadius: "30px",
+                      transition: ".5s",
+                    }}
+                  ></div>
+                  <Button
+                    disabled={!isFriendRequest}
+                    onClick={() => handleToggle(false)}
+                    style={{
+                      width: "50%",
+                      padding: "10px 30px",
+                      borderRadius: "30px",
+                      color: "#FFFFFF",
+                      height: "40px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    List
+                  </Button>
+                  <Button
+                    disabled={isFriendRequest}
+                    onClick={() => handleToggle(true)}
+                    style={{
+                      width: "50%",
+                      padding: "10px 30px",
+                      borderRadius: "30px",
+                      color: "#FFFFFF",
+                      height: "40px",
+                      overflow: "hidden",
+                    }}
+                  >
+                    Requests
+                  </Button>
+                </div>
+              </ButtonGroup>
             </row>
           </Grid>
           <Grid item xs={6} md={8} lg={9}>
@@ -121,8 +121,8 @@ const FriendsPage = (props) => {
         {visibleList ? (
           <FriendsList onFriendClick={handleProfileClick} />
         ) : (
-            <FriendRequests onFriendClick={handleProfileClick} />
-          )}
+          <FriendRequests onFriendClick={handleProfileClick} />
+        )}
       </div>
     </div>
   );

@@ -8,7 +8,7 @@ import "./index.css";
 const FriendsPage = (props) => {
   const [visibleList, setVisible] = useState(true);
   const [isFriendRequest, setFriendRequest] = useState(false);
-  const { isFetching, setProfileUser, getFriends, getUsers } = props;
+  const { setProfileUser, getFriends, getUsers } = props;
 
   const handleProfileClick = (username) => {
     setProfileUser(username);
@@ -52,14 +52,12 @@ const FriendsPage = (props) => {
                 color="primary"
                 variant="contained"
                 style={{
-                  width: "100%",
                   borderRadius: "30px",
                   width: "200px",
                 }}
               >
                 <div
                   style={{
-                    width: "100%",
                     width: "200px",
                     minWidth: "200px",
                     textAlign: "center",

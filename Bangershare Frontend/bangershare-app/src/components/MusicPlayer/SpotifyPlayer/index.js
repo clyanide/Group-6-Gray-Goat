@@ -279,8 +279,8 @@ class SpotifyPlayer extends Component {
               {playing ? (
                 <PauseCircleFilledIcon fontSize="large" />
               ) : (
-                  <PlayCircleFilledWhiteIcon fontSize="large" />
-                )}
+                <PlayCircleFilledWhiteIcon fontSize="large" />
+              )}
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>
               <SkipNextIcon fontSize="large" />

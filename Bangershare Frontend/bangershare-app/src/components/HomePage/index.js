@@ -67,15 +67,20 @@ const HomeScreen = (props) => {
             <Fab
               color="primary"
               onClick={() => handleModal(true)}
-              style={{ position: "absolute", bottomMargin: "5%", bottom: "5%", right: "10vw" }}
+              style={{
+                position: "absolute",
+                bottomMargin: "5%",
+                bottom: "5%",
+                right: "10vw",
+              }}
             >
               <PlaylistAddIcon />
             </Fab>
           </Tooltip>
         </>
       ) : (
-          <p>Loading</p>
-        )}
+        <p>Loading</p>
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
     </div>
   );

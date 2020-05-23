@@ -46,9 +46,7 @@ const AppSideBar = (props) => {
           </Avatar>
         </ListItemAvatar>
         <ListItemText>
-          <Typography variant="h5">
-            Home
-          </Typography>
+          <Typography variant="h5">Home</Typography>
         </ListItemText>
       </ListItem>
       <ListItem button onClick={() => handleProfileClick()}>
@@ -58,9 +56,7 @@ const AppSideBar = (props) => {
           </Avatar >
         </ListItemAvatar>
         <ListItemText>
-          <Typography variant="h5">
-            Profile
-          </Typography>
+          <Typography variant="h5">Profile</Typography>
         </ListItemText>
       </ListItem>
       <ListItem button>
@@ -70,32 +66,24 @@ const AppSideBar = (props) => {
           </Avatar>
         </ListItemAvatar>
         <ListItemText>
-          <Typography variant="h5">
-            Friends
-          </Typography>
+          <Typography variant="h5">Friends</Typography>
         </ListItemText>
       </ListItem>
       <ListItem>
         <ListItemText>
-          <Typography variant="h5">
-            Your Playlists
-        </Typography>
+          <Typography variant="h5">Your Playlists</Typography>
         </ListItemText>
       </ListItem>
       <Divider />
-      {
-        userPlaylists.map(playlist => (
-          <>
-            <ListItem button onClick={() => handlePlaylistClick(playlist)}>
-              <ListItemText variant="h6">
-                {playlist.name}
-              </ListItemText>
-            </ListItem>
-            <Divider />
-          </>
-        ))
-      }
-    </Sidebar >
+      {userPlaylists.map((playlist) => (
+        <>
+          <ListItem button onClick={() => handlePlaylistClick(playlist)}>
+            <ListItemText variant="h6">{playlist.name}</ListItemText>
+          </ListItem>
+          <Divider />
+        </>
+      ))}
+    </Sidebar>
   );
 };
 

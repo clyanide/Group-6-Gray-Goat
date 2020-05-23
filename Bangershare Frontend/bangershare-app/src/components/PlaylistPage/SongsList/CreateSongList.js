@@ -47,7 +47,7 @@ export const CreateSongList = (props) => {
   const open = Boolean(anchorEl);
 
   return (
-    <div style={{ overflowY: "scroll", height: "72vh" }}>
+    <div style={{ overflowY: "scroll", height: "72vh", scrollbarWidth: "none", msOverflowStyle: "none" }}>
       <List>
         {songs.map((song) => (
           <ListItem

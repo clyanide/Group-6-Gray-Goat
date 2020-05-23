@@ -1,9 +1,8 @@
 import React from "react";
 import { Sidebar, } from "semantic-ui-react";
-import QueueMusicIcon from "@material-ui/icons/QueueMusic";
-import { Typography, List, ListItem, ListItemIcon, ListItemText, Divider } from "@material-ui/core";
+import { Typography, List, ListItem, ListItemText, Divider, ListItemAvatar, Avatar } from "@material-ui/core";
 import HomeIcon from '@material-ui/icons/Home';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import PersonIcon from '@material-ui/icons/Person';
 import PeopleIcon from '@material-ui/icons/People';
 
 const AppSideBar = (props) => {
@@ -41,9 +40,11 @@ const AppSideBar = (props) => {
       onHide={() => onClose(false)}
     >
       <ListItem button onClick={() => goTo("/home")}>
-        <ListItemIcon>
-          <HomeIcon color="primary" fontSize="large" />
-        </ListItemIcon>
+        <ListItemAvatar >
+          <Avatar style={{ backgroundColor: "#7d12ff" }}>
+            <HomeIcon style={{ fill: "white" }} />
+          </Avatar>
+        </ListItemAvatar>
         <ListItemText>
           <Typography variant="h5">
             Home
@@ -51,9 +52,11 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <ListItem button onClick={() => handleProfileClick()}>
-        <ListItemIcon>
-          <AccountCircleIcon color="primary" fontSize="large" />
-        </ListItemIcon>
+        <ListItemAvatar>
+          <Avatar style={{ backgroundColor: "#7d12ff" }}  >
+            <PersonIcon style={{ fill: "white" }} />
+          </Avatar >
+        </ListItemAvatar>
         <ListItemText>
           <Typography variant="h5">
             Profile
@@ -61,9 +64,11 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <ListItem button>
-        <ListItemIcon>
-          <PeopleIcon color="primary" fontSize="large" />
-        </ListItemIcon>
+        <ListItemAvatar  >
+          <Avatar style={{ backgroundColor: "#7d12ff" }} >
+            <PeopleIcon style={{ fill: "white" }} />
+          </Avatar>
+        </ListItemAvatar>
         <ListItemText>
           <Typography variant="h5">
             Friends
@@ -71,9 +76,6 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <ListItem>
-        <ListItemIcon>
-          <QueueMusicIcon color="primary" fontSize="large" />
-        </ListItemIcon>
         <ListItemText>
           <Typography variant="h5">
             Your Playlists
@@ -81,17 +83,19 @@ const AppSideBar = (props) => {
         </ListItemText>
       </ListItem>
       <Divider />
-      {userPlaylists.map(playlist => (
-        <>
-          <ListItem button onClick={() => handlePlaylistClick(playlist)}>
-            <ListItemText variant="h6">
-              {playlist.name}
-            </ListItemText>
-          </ListItem>
-          <Divider />
-        </>
-      ))}
-    </Sidebar>
+      {
+        userPlaylists.map(playlist => (
+          <>
+            <ListItem button onClick={() => handlePlaylistClick(playlist)}>
+              <ListItemText variant="h6">
+                {playlist.name}
+              </ListItemText>
+            </ListItem>
+            <Divider />
+          </>
+        ))
+      }
+    </Sidebar >
   );
 };
 

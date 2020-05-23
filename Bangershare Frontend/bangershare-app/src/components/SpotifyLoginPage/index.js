@@ -1,6 +1,13 @@
 import React, { Component } from "react";
+import { Button, Paper } from "@material-ui/core";
 
 import SpotifyWebApi from "spotify-web-api-js";
+import Logo from "./spotifyLogo.png";
+import Svg from "./spotifyLogo.svg";
+import Icon from "@material-ui/core/Icon";
+import AccountCircle from "@material-ui/icons/AccountCircle";
+import { Label } from "semantic-ui-react";
+
 const spotifyApi = new SpotifyWebApi();
 
 class App extends Component {
@@ -32,11 +39,95 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <a href="https://bangershareauth.azurewebsites.net/login">
-          {" "}
-          Login to Spotify{" "}
-        </a>
+      <div
+        style={{
+          height: "100%",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Paper
+          variant="outlined"
+          elevation={2}
+          style={{
+            marginLeft: "20px",
+            marginRight: "20px",
+            marginBottom: "20vh",
+            maxWidth: "1000px",
+            width: "100%",
+            //height: "300px"
+          }}
+        >
+          <div className="App">
+            <div>
+              <h1
+                style={{
+                  fontSize: "50px",
+                  marginTop: "20px",
+                  marginBottom: "20px",
+                }}
+              >
+                Welcome to Bangershare!
+              </h1>
+            </div>
+            <div>
+              <h2
+                style={{
+                  marginBottom: "20px",
+                  fontWeight: "lighter",
+                }}
+              >
+                A &nbsp;<strong>N</strong>ew &nbsp;
+                <strong>M</strong>usic &nbsp;<strong>S</strong>haring &nbsp;
+                <strong>L</strong>ifestyle
+              </h2>
+            </div>
+            <div>
+              <h3
+                style={{
+                  marginBottom: "20px",
+                  fontWeight: "lighter",
+                }}
+              >
+                To continue, please link your account to Spotify
+              </h3>
+            </div>
+            <div>
+              <Button
+                variant="contained"
+                color="primary"
+                size="large"
+                href="https://bangershareauth.azurewebsites.net/login"
+                startIcon={
+                  <img src={Logo} style={{ width: "60px", height: "60px" }} />
+                }
+                style={{
+                  borderRadius: "30px",
+                  width: "250px",
+                  height: "60px",
+                  backgroundColor: "#1DB954",
+                  fontSize: "16px",
+                  fontWeight: "bold",
+                  marginBottom: "20px",
+                }}
+              >
+                Login to Spotify
+              </Button>
+              <div>
+                <h5
+                  style={{
+                    marginBottom: "20px",
+                    fontWeight: "lighter",
+                  }}
+                >
+                  Important note: A Spotify premium account is needed to access
+                  full features of BangerShare
+                </h5>
+              </div>
+            </div>
+          </div>
+        </Paper>
       </div>
     );
   }

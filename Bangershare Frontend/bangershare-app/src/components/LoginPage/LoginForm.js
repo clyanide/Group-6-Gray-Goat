@@ -66,7 +66,7 @@ const LoginForm = (props) => {
             color="primary"
             InputProps={{
               startAdornment: (
-                <InputAdornment>
+                <InputAdornment position="start">
                   <EmailIcon />
                 </InputAdornment>
               ),
@@ -91,7 +91,7 @@ const LoginForm = (props) => {
           color="primary"
           InputProps={{
             startAdornment: (
-              <InputAdornment>
+              <InputAdornment position="start">
                 <AccountCircleIcon />
               </InputAdornment>
             ),
@@ -115,7 +115,7 @@ const LoginForm = (props) => {
           onChange={(e) => setPassword(e)}
           InputProps={{
             startAdornment: (
-              <InputAdornment>
+              <InputAdornment position="start">
                 <VpnKeyIcon />
               </InputAdornment>
             ),

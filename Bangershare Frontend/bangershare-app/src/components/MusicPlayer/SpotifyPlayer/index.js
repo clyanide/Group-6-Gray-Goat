@@ -4,9 +4,10 @@ import equal from "fast-deep-equal";
 import SkipNextIcon from "@material-ui/icons/SkipNext";
 import SkipPreviousIcon from "@material-ui/icons/SkipPrevious";
 import IconButton from "@material-ui/core/IconButton";
-import { Typography, Avatar } from "@material-ui/core";
-import PlayArrowIcon from "@material-ui/icons/PlayArrow";
-import PauseIcon from "@material-ui/icons/Pause";
+import PlayCircleFilledWhiteIcon from "@material-ui/icons/PlayCircleFilledWhite";
+import PauseCircleFilledIcon from "@material-ui/icons/PauseCircleFilled";
+import { Typography } from "@material-ui/core";
+import DummySeekBar from "./DummySeekBar";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
@@ -276,13 +277,11 @@ class SpotifyPlayer extends Component {
               <SkipPreviousIcon fontSize="large" />
             </IconButton>
             <IconButton color="primary" onClick={() => this.onPlayClick()}>
-              <Avatar style={{ backgroundColor: "#7d12ff" }}>
-                {playing ? (
-                  <PauseIcon style={{ fill: "white" }} fontSize="default" />
-                ) : (
-                  <PlayArrowIcon style={{ fill: "white" }} fontSize="large" />
-                )}
-              </Avatar>
+              {playing ? (
+                <PauseCircleFilledIcon fontSize="large" />
+              ) : (
+                <PlayCircleFilledWhiteIcon fontSize="large" />
+              )}
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>
               <SkipNextIcon fontSize="large" />
@@ -297,7 +296,9 @@ class SpotifyPlayer extends Component {
                   paused={!this.state.playing}
                   endOfSongCallback={this.endOfSongCallback}
                 />
-              ) : null}
+              ) : (
+                <DummySeekBar />
+              )}
             </div>
           </div>
         </div>

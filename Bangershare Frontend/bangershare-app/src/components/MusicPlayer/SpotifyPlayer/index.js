@@ -60,7 +60,6 @@ class SpotifyPlayer extends Component {
 
   checkForPlayer() {
     const { token } = this.state;
-    console.log(token)
 
     if (window.Spotify !== null) {
       this.player = new window.Spotify.Player({

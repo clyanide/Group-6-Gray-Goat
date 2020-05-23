@@ -75,7 +75,7 @@ const LoginPage = () => {
                 width: "50%",
                 padding: "10px 30px",
                 borderRadius: "30px",
-                color: "#FFFFFF"
+                color: "#FFFFFF",
               }}
             >
               Login
@@ -88,7 +88,7 @@ const LoginPage = () => {
                 width: "50%",
                 padding: "10px 30px",
                 borderRadius: "30px",
-                color: "#FFFFFF"
+                color: "#FFFFFF",
               }}
             >
               Register

@@ -1,7 +1,17 @@
 import React from "react";
-import { Icon, Menu, Sidebar, List } from "semantic-ui-react";
-import QueueMusicIcon from "@material-ui/icons/QueueMusic";
-import { Typography } from "@material-ui/core";
+import { Sidebar } from "semantic-ui-react";
+import {
+  Typography,
+  List,
+  ListItem,
+  ListItemText,
+  Divider,
+  ListItemAvatar,
+  Avatar,
+} from "@material-ui/core";
+import HomeIcon from "@material-ui/icons/Home";
+import PersonIcon from "@material-ui/icons/Person";
+import PeopleIcon from "@material-ui/icons/People";
 
 const AppSideBar = (props) => {
   const {
@@ -29,42 +39,58 @@ const AppSideBar = (props) => {
 
   return (
     <Sidebar
-      as={Menu}
+      as={List}
       animation="push"
       direction="left"
       icon="labeled"
       visible={open}
-      width="thin"
       vertical
       onHide={() => onClose(false)}
     >
-      <Menu.Item as="a" onClick={() => goTo("/home")}>
-        <Icon name="home" />
-        Home
-      </Menu.Item>
-      <Menu.Item as="a" onClick={() => handleProfileClick()}>
-        <Icon name="user" />
-        Profile
-      </Menu.Item>
-      <Menu.Item as="a" onClick={() => goTo("/friends")}>
-        <Icon name="group" />
-        Friends
-      </Menu.Item>
-      <Menu.Item>
-        <QueueMusicIcon />
-        <Menu.Header>Your Playlists</Menu.Header>
-        <List>
-          {userPlaylists && userPlaylists.length > 0 ? (
-            userPlaylists.map((playlist) => (
-              <List.Item as="a" onClick={() => handlePlaylistClick(playlist)}>
-                <Typography as="a">{playlist.name}</Typography>
-              </List.Item>
-            ))
-          ) : (
-            <p>You have no playlist</p>
-          )}
-        </List>
-      </Menu.Item>
+      <ListItem button onClick={() => goTo("/home")}>
+        <ListItemAvatar>
+          <Avatar style={{ backgroundColor: "#7d12ff" }}>
+            <HomeIcon style={{ fill: "white" }} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText>
+          <Typography variant="h5">Home</Typography>
+        </ListItemText>
+      </ListItem>
+      <ListItem button onClick={() => handleProfileClick()}>
+        <ListItemAvatar>
+          <Avatar style={{ backgroundColor: "#7d12ff" }}>
+            <PersonIcon style={{ fill: "white" }} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText>
+          <Typography variant="h5">Profile</Typography>
+        </ListItemText>
+      </ListItem>
+      <ListItem button>
+        <ListItemAvatar>
+          <Avatar style={{ backgroundColor: "#7d12ff" }}>
+            <PeopleIcon style={{ fill: "white" }} />
+          </Avatar>
+        </ListItemAvatar>
+        <ListItemText>
+          <Typography variant="h5">Friends</Typography>
+        </ListItemText>
+      </ListItem>
+      <ListItem>
+        <ListItemText>
+          <Typography variant="h5">Your Playlists</Typography>
+        </ListItemText>
+      </ListItem>
+      <Divider />
+      {userPlaylists.map((playlist) => (
+        <>
+          <ListItem button onClick={() => handlePlaylistClick(playlist)}>
+            <ListItemText variant="h6">{playlist.name}</ListItemText>
+          </ListItem>
+          <Divider />
+        </>
+      ))}
     </Sidebar>
   );
 };

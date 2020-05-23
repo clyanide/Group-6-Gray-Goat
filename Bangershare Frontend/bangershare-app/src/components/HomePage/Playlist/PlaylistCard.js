@@ -32,7 +32,8 @@ const PlaylistCard = (props) => {
   };
 
   return (
-    <Card style={{ width: "100%", height: "100%" }}>
+    // <Card style={{ width: "100%", height: "100%", borderColor: "#5e35b1", borderStyle: "solid", borderWidth: "1px" }}>
+    <Card>
       <CardActionArea onClick={() => handleOnPlaylistClick(playlist)}>
         <CardContent>
           <Typography variant="h5">{playlist.name}</Typography>

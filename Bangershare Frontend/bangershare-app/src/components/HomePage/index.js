@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import Explore from "./Explore";
-import Greeting from "./Greeting";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
@@ -43,8 +42,7 @@ const HomeScreen = (props) => {
   };
 
   return (
-    <div style={{ position: "relative" }}>
-      <Greeting />
+    <div style={{ position: "relative", height: "90%" }}>
       {!isFetching ? (
         <>
           <RecentPlaylists
@@ -69,7 +67,12 @@ const HomeScreen = (props) => {
             <Fab
               color="primary"
               onClick={() => handleModal(true)}
-              style={{ position: "absolute", bottom: "0", right: "8vw" }}
+              style={{
+                position: "absolute",
+                bottomMargin: "5%",
+                bottom: "5%",
+                right: "10vw",
+              }}
             >
               <PlaylistAddIcon />
             </Fab>

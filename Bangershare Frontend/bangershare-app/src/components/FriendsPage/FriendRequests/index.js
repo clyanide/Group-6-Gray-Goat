@@ -7,10 +7,14 @@ import {
   ListItemText,
   ListItemSecondaryAction,
   IconButton,
+  ListItemAvatar,
+  Avatar,
 } from "@material-ui/core";
-import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
+import PersonIcon from '@material-ui/icons/Person';
+import { green } from '@material-ui/core/colors';
+
 
 const FriendRequests = (props) => {
   const { pendingFriends, onFriendClick, acceptRequest, deleteRequest } = props;
@@ -24,22 +28,28 @@ const FriendRequests = (props) => {
             onClick={() => onFriendClick(friend.senderUsername)}
             divider
           >
-            <ListItemIcon>
-              <AccountCircleIcon />
-            </ListItemIcon>
-            <ListItemText primary={friend.senderUsername} />
+            <ListItemAvatar style={{ paddingLeft: "0.5vw" }}>
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                <PersonIcon style={{ fill: "white" }} />
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={<Typography style={{ paddingLeft: "12px" }} variant="h6">{friend.senderUsername}</Typography>} />
             <ListItemSecondaryAction>
               <ListItemIcon
                 onClick={() => acceptRequest(friend.senderUsername)}
               >
-                <IconButton>
+                <IconButton
+                  style={{ color: green[500] }}
+                >
                   <PersonAddIcon />
                 </IconButton>
               </ListItemIcon>
               <ListItemIcon
                 onClick={() => deleteRequest(friend.senderUsername)}
               >
-                <IconButton>
+                <IconButton
+                  color="secondary"
+                >
                   <PersonAddDisabledIcon />
                 </IconButton>
               </ListItemIcon>
@@ -47,8 +57,8 @@ const FriendRequests = (props) => {
           </ListItem>
         ))
       ) : (
-        <Typography>No Friend Requests</Typography>
-      )}
+          <Typography>No Friend Requests</Typography>
+        )}
     </List>
   );
 };

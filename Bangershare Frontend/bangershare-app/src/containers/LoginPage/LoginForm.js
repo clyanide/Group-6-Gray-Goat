@@ -4,6 +4,7 @@ import LoginForm from "./../../components/LoginPage/LoginForm";
 
 const mapStateToProps = (state) => ({
   isFetching: state.bangerShareReducer.fetching,
+  error: state.bangerShareReducer.error,
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import SongList from "./SongsList";
 import CreateSongModal from "../../containers/PlaylistPage/CreateSongModal";
-import { Typography, Divider, IconButton, Tooltip, Avatar } from "@material-ui/core";
-import PlayArrowIcon from '@material-ui/icons/PlayArrow';
-import AddIcon from '@material-ui/icons/Add';
+import {
+  Typography,
+  Divider,
+  IconButton,
+  Tooltip,
+  Avatar,
+} from "@material-ui/core";
+import PlayArrowIcon from "@material-ui/icons/PlayArrow";
+import AddIcon from "@material-ui/icons/Add";
 
 const PlaylistPage = (props) => {
   const { currentPlaylist, isFetching, search, getPlaylist } = props;
@@ -38,8 +44,7 @@ const PlaylistPage = (props) => {
         <Tooltip title="Play Playlist">
           <IconButton color="primary">
             <Avatar style={{ backgroundColor: "#7d12ff" }}>
-              <PlayArrowIcon fontSize="large" style={{ fill: "white" }}
-              />
+              <PlayArrowIcon fontSize="large" style={{ fill: "white" }} />
             </Avatar>
           </IconButton>
         </Tooltip>
@@ -55,25 +60,25 @@ const PlaylistPage = (props) => {
       {!isFetching ? (
         <>
           {currentPlaylist &&
-            currentPlaylist.songs &&
-            currentPlaylist.songs.length > 0 ? (
-              <SongList
-                isOwner={currentPlaylist.isOwner}
-                songs={currentPlaylist.songs}
-              />
-            ) : (
-              <Typography
-                style={{ marginTop: "2vh", marginLeft: "4vw" }}
-                variant="h4"
-              >
-                Playlist has no songs.
-              </Typography>
-            )}
+          currentPlaylist.songs &&
+          currentPlaylist.songs.length > 0 ? (
+            <SongList
+              isOwner={currentPlaylist.isOwner}
+              songs={currentPlaylist.songs}
+            />
+          ) : (
+            <Typography
+              style={{ marginTop: "2vh", marginLeft: "4vw" }}
+              variant="h4"
+            >
+              Playlist has no songs.
+            </Typography>
+          )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-          <p> Loading </p>
-        )}
+        <p> Loading </p>
+      )}
     </>
   );
 };

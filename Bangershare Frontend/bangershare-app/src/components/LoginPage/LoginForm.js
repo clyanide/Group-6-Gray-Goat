@@ -87,7 +87,12 @@ const LoginForm = (props) => {
           variant="outlined"
           placeholder=" Username"
           value={userInfo.username}
-          onChange={(e) => setUsername(e)}
+          onChange={(e) => {
+            const re = /^[a-zA-Z0-9_]+$/;
+            if (e.target.value === '' || re.test(e.target.value)) {
+              setUsername(e)
+            }
+          }}
           color="primary"
           InputProps={{
             startAdornment: (

@@ -198,7 +198,7 @@ const CreateSongModal = (props) => {
         ) : null}
       </div>
       <div style={{ flex: 1, paddingTop: "2vh" }}>
-        <ButtonGroup style={{ marginBottom: "1vh" }}>
+        <ButtonGroup style={{ marginBottom: "2vh" }}>
           <Button onClick={() => handleModal(false)}>Cancel</Button>
           <Button
             color="secondary"

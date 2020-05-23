@@ -253,6 +253,7 @@ class SpotifyPlayer extends Component {
           </Typography>
           <Typography
             variant="subtitle1"
+            color="textSecondary"
             style={{
               width: "15vw",
               whiteSpace: "nowrap",

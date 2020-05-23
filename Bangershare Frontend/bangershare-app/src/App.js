@@ -13,7 +13,7 @@ const BangerShareTheme = createMuiTheme({
     type: "dark",
     text: {
       primary: "#ffffff",
-      secondary: "#6e6e6e",
+      secondary: "#a8a6a5",
     },
     primary: {
       main: "#7d12ff",

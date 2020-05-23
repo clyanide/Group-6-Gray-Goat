@@ -10,6 +10,12 @@ import {
 } from "@material-ui/core";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import AddIcon from "@material-ui/icons/Add";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import Button from "@material-ui/core/Button";
 
 const PlaylistPage = (props) => {
   const {
@@ -20,6 +26,13 @@ const PlaylistPage = (props) => {
     setCurrentPlayingPlaylist,
     setCurrentSong,
   } = props;
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const [open, setOpen] = React.useState(false);
+
   const [openModal, setModal] = useState(false);
 
   const queryString = require("query-string");
@@ -33,7 +46,7 @@ const PlaylistPage = (props) => {
       setCurrentPlayingPlaylist(currentPlaylist);
       setCurrentSong(currentPlaylist.songs[0]);
     } else {
-      alert("No songs in playlist");
+      setOpen(true);
     }
   };
 
@@ -46,6 +59,19 @@ const PlaylistPage = (props) => {
 
   return (
     <>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>{"Empty Playlist"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            This playlist is currently empty. Please add a song first.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="secondary" autoFocus>
+            OK
+          </Button>
+        </DialogActions>
+      </Dialog>
       <Typography variant="h3" style={{ marginTop: "2vh", marginLeft: "4vw" }}>
         {currentPlaylist.name}
       </Typography>

@@ -89,7 +89,7 @@ const logoutUser = () => {
         localStorage.removeItem("refreshToken");
         localStorage.removeItem("username");
         localStorage.removeItem("spotifyToken");
-        localStorage.removeItem("spotifyRefreshToken")
+        localStorage.removeItem("spotifyRefreshToken");
       })
       .then(() => {
         dispatch(push("/login"));

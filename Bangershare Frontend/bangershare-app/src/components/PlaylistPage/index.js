@@ -72,7 +72,10 @@ const PlaylistPage = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h3" style={{ marginTop: "20px", marginLeft: "80px" }}>
+      <Typography
+        variant="h3"
+        style={{ marginTop: "20px", marginLeft: "80px" }}
+      >
         {currentPlaylist.name}
       </Typography>
       <Typography
@@ -102,25 +105,25 @@ const PlaylistPage = (props) => {
       {!isFetching ? (
         <>
           {currentPlaylist &&
-            currentPlaylist.songs &&
-            currentPlaylist.songs.length > 0 ? (
-              <SongList
-                isOwner={currentPlaylist.isOwner}
-                songs={currentPlaylist.songs}
-              />
-            ) : (
-              <Typography
-                style={{ marginTop: "35px", marginLeft: "80px" }}
-                variant="h4"
-              >
-                Playlist has no songs.
-              </Typography>
-            )}
+          currentPlaylist.songs &&
+          currentPlaylist.songs.length > 0 ? (
+            <SongList
+              isOwner={currentPlaylist.isOwner}
+              songs={currentPlaylist.songs}
+            />
+          ) : (
+            <Typography
+              style={{ marginTop: "35px", marginLeft: "80px" }}
+              variant="h4"
+            >
+              Playlist has no songs.
+            </Typography>
+          )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-          <p> Loading </p>
-        )}
+        <p> Loading </p>
+      )}
     </>
   );
 };

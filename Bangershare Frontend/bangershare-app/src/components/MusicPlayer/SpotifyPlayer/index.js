@@ -153,7 +153,7 @@ class SpotifyPlayer extends Component {
     },
   }) => {
     getOAuthToken((access_token) => {
-      playSong(id, access_token, spotify_uri)
+      playSong(id, access_token, spotify_uri);
     });
   };
 
@@ -274,8 +274,8 @@ class SpotifyPlayer extends Component {
                 {playing ? (
                   <PauseIcon style={{ fill: "white" }} fontSize="default" />
                 ) : (
-                    <PlayArrowIcon style={{ fill: "white" }} fontSize="large" />
-                  )}
+                  <PlayArrowIcon style={{ fill: "white" }} fontSize="large" />
+                )}
               </Avatar>
             </IconButton>
             <IconButton color="primary" onClick={() => this.onNextClick()}>

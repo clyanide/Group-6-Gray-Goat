@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Sidebar } from "semantic-ui-react";
 import {
   Typography,
@@ -20,7 +20,14 @@ const AppSideBar = (props) => {
     userPlaylists,
     setCurrentPlaylist,
     setProfileUser,
+    getPlaylist,
   } = props;
+
+  useEffect(() => {
+    if (localStorage.getItem("token") !== null) {
+      getPlaylist()
+    }
+  }, [getPlaylist])
 
   const goTo = (link) => {
     props.push(link);

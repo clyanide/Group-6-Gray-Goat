@@ -16,35 +16,39 @@ const MusicPlayer = ({ currentSong }) => {
 
   return (
     <div>
-      <div
-        style={{
-          left: cnm,
-          position: "fixed",
-          bottom: "0%",
-          width: "100%",
-          backgroundColor: "#282828",
-        }}
-      >
-        <YoutubePlayer link={currentSong.link} />
-      </div>
-      <div
-        style={{
-          left: nmsl,
-          position: "fixed",
-          bottom: "0%",
-          width: "100%",
-          backgroundColor: "#282828",
-        }}
-      >
-        {spotifyFirstLoad ? (
-          <SpotifyPlayer
-            uri={currentSong.link}
-            duration={currentSong.duration}
-            type={currentSong.songType}
-            currentSong={currentSong}
-          />
-        ) : null}
-      </div>
+      {localStorage.getItem("token") != null ? (
+        <div>
+          <div
+            style={{
+              left: cnm,
+              position: "fixed",
+              bottom: "0%",
+              width: "100%",
+              backgroundColor: "#282828",
+            }}
+          >
+            <YoutubePlayer link={currentSong.link} />
+          </div>
+          <div
+            style={{
+              left: nmsl,
+              position: "fixed",
+              bottom: "0%",
+              width: "100%",
+              backgroundColor: "#282828",
+            }}
+          >
+            {spotifyFirstLoad ? (
+              <SpotifyPlayer
+                uri={currentSong.link}
+                duration={currentSong.duration}
+                type={currentSong.songType}
+                currentSong={currentSong}
+              />
+            ) : null}
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };

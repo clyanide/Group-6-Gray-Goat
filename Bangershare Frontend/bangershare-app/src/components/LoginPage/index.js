@@ -9,6 +9,7 @@ const LoginPage = () => {
     setSignUp(boolean);
     var x = document.getElementById("btn");
 
+    //On button toggle, slides the coloured div to cover the correct button
     if (boolean) {
       x.style.marginLeft = "100px";
     } else {
@@ -57,6 +58,10 @@ const LoginPage = () => {
               textAlign: "center",
             }}
           >
+            {/*
+            Create div component shader which shades the button for the current page
+            the user is on 
+            */}
             <div
               id="btn"
               style={{

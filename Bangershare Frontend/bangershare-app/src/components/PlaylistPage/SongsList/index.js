@@ -10,7 +10,7 @@ const SongList = (props) => {
     <div
       style={{
         overflowY: "scroll",
-        height: "72vh",
+        height: "60vh",
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}

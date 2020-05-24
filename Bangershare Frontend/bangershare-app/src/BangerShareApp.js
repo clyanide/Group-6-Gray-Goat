@@ -36,8 +36,9 @@ const BangerShareApp = () => {
               <PrivateRoute path="/playlist" component={PlaylistPage} />
               <PrivateRoute path="/profile" component={ProfilePage} />
               <PrivateRoute path="/home" component={HomePage} />
+              <Redirect exact path="/" to="/home" />
+
               <Route component={ErrorPage} />
-              <Redirect exact from="/" to="/home" />
             </Switch>
           </div>
         </Sidebar.Pusher>

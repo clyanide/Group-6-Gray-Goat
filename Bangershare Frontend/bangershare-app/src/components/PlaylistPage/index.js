@@ -75,18 +75,18 @@ const PlaylistPage = (props) => {
       </Dialog>
       <Typography
         variant="h3"
-        style={{ marginTop: "20px", marginLeft: "80px" }}
+        style={{ marginTop: "20px", marginLeft: "4vw" }}
       >
         {currentPlaylist.name}
       </Typography>
       <Typography
         color="textSecondary"
         variant="subtitle1"
-        style={{ marginLeft: "80px", marginBottom: "20px" }}
+        style={{ marginLeft: "4vw", marginBottom: "20px" }}
       >
         Created by {currentPlaylist.creator}
       </Typography>
-      <div style={{ marginLeft: "70px", marginBottom: "20px" }}>
+      <div style={{ marginLeft: "3.5vw", marginBottom: "20px" }}>
         <Tooltip title="Play Playlist">
           <IconButton color="primary" onClick={() => handleOnPlay()}>
             <Avatar style={{ backgroundColor: "#7d12ff" }}>
@@ -103,37 +103,37 @@ const PlaylistPage = (props) => {
             </IconButton>
           </Tooltip>
         ) : (
-          <Typography
-            variant="h6"
-            style={{ display: "inline", paddingLeft: "15px" }}
-          >
-            Follow the playlist to start adding songs.
-          </Typography>
-        )}
+            <Typography
+              variant="h6"
+              style={{ display: "inline", paddingLeft: "15px" }}
+            >
+              Follow the playlist to start adding songs.
+            </Typography>
+          )}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
         <>
           {currentPlaylist &&
-          currentPlaylist.songs &&
-          currentPlaylist.songs.length > 0 ? (
-            <SongList
-              isOwner={currentPlaylist.isOwner}
-              songs={currentPlaylist.songs}
-            />
-          ) : (
-            <Typography
-              style={{ marginTop: "35px", marginLeft: "80px" }}
-              variant="h4"
-            >
-              Playlist has no songs.
-            </Typography>
-          )}
+            currentPlaylist.songs &&
+            currentPlaylist.songs.length > 0 ? (
+              <SongList
+                isOwner={currentPlaylist.isOwner}
+                songs={currentPlaylist.songs}
+              />
+            ) : (
+              <Typography
+                style={{ marginTop: "35px", marginLeft: "4vw" }}
+                variant="h4"
+              >
+                Playlist has no songs.
+              </Typography>
+            )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-        <SongListLoader int={10} />
-      )}
+          <SongListLoader int={10} />
+        )}
     </>
   );
 };

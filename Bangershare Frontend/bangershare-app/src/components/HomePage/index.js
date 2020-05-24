@@ -3,7 +3,7 @@ import Explore from "./Explore";
 import MyPlaylists from "./MyPlaylists";
 import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
-import { Tooltip, Button } from "@material-ui/core";
+import { Tooltip, Fab } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import "./Playlist/index.css";
 import PlaylistLoader from "../general/PlaylistLoader"
@@ -47,7 +47,7 @@ const HomeScreen = (props) => {
   return (
     <div style={{ position: "relative", height: "90%" }}>
       {!isFetching ? (
-        <>
+        <div style={{ marginTop: "3vh" }}>
           <RecentPlaylists
             playlists={random(userPlaylist)}
             handleOnPlaylistClick={handleOnPlaylistClick}
@@ -60,32 +60,26 @@ const HomeScreen = (props) => {
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
-          <Tooltip title="Create Playlist">
-            <Button
-              variant="contained"
-              color="primary"
-              onClick={() => handleModal(true)}
-              startIcon={<PlaylistAddIcon />}
-              style={{
-                position: "absolute",
-                bottom: "2vh",
-                right: "47vw",
-              }}
-            >
-              New Playlist
-            </Button>
-          </Tooltip>
           <Explore
             playlists={friendPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}
           />
-        </>
+        </div>
       ) : (
           <PlaylistLoader skeletons={3} num={5} />
         )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
+      <Tooltip title="Create Playlist">
+        <Fab
+          color="primary"
+          style={{ position: "absolute", right: "10vw", bottom: "5vh" }}
+          onClick={() => handleModal(true)}
+        >
+          <PlaylistAddIcon />
+        </Fab>
+      </Tooltip>
     </div>
   );
 };

@@ -62,7 +62,7 @@ const ProfilePage = (props) => {
       <Grid direction="column" container spacing={5}>
         <Grid container direction="row" item xs={12} spacing={3}>
           <Grid item>
-            <div style={{ paddingLeft: "80px", paddingTop: "16px" }}>
+            <div style={{ paddingLeft: "4vw", paddingTop: "16px" }}>
               <Typography variant="subtitle1">Profile</Typography>
               <Typography variant="h3">
                 <strong>{username}</strong>

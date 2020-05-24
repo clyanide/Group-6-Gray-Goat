@@ -11,7 +11,7 @@ const MyPlaylists = (props) => {
   } = props;
   return (
     <div>
-      <Typography variant="h5" style={{ marginLeft: "1vw", marginTop: "1vh" }}>
+      <Typography variant="h5" style={{ marginLeft: "20px", marginTop: "1vh" }}>
         My Playlists
       </Typography>
       {createPlaylist(

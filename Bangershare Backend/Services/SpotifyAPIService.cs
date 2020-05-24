@@ -92,6 +92,7 @@ namespace Bangershare_Backend.Services
         }
     }
 
+    // internal classes used to deserailize JSON of spotify requests 
     internal class SpotifyToken
     {
         public string access_token { get; set; }

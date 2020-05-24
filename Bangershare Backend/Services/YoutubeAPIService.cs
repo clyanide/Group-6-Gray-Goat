@@ -34,6 +34,8 @@ namespace Bangershare_Backend.Services
             {
                 var jsonString = await response.Content.ReadAsStringAsync();
                 YoutubeVideo youtubeVideo = JsonConvert.DeserializeObject<YoutubeVideo>(jsonString);
+
+                // converts from a XML time span to ms 
                 var duration = Convert.ToInt32(System.Xml.XmlConvert.ToTimeSpan(youtubeVideo.items[0].contentDetails.duration).TotalMilliseconds);
 
                 song.Duration = duration;

@@ -56,10 +56,7 @@ namespace Bangershare_Backend
                 Configuration.GetConnectionString("AWS"));
 
             services.AddDbContextPool<BangerShareContext>(options => options
-                .UseMySql(builder.ConnectionString
-                //.UseMySql(builder.ConnectionString, mySqlOptions => mySqlOptions
-                //    .ServerVersion(new Version("5.7.22"), ServerType.MySql)
-            ));
+                .UseMySql(builder.ConnectionString));
 
             services.AddScoped<UserService>();
             services.AddScoped<PlaylistService>();
@@ -95,6 +92,7 @@ namespace Bangershare_Backend
             var signingConfigurations = new SigningConfigurations();
             services.AddSingleton(signingConfigurations);
 
+            // middleware used to validate access token in header of requests 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(jwtBearerOptions =>
                 {
@@ -116,7 +114,8 @@ namespace Bangershare_Backend
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "BangerShare API", Version = "v1" });
-
+                
+                // allows for authorization in swagger 
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Description = "JWT Authorization header using the Bearer scheme. " + Environment.NewLine +
@@ -145,9 +144,6 @@ namespace Bangershare_Backend
                             new List<string>()
                     }
                 });
-                //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                //c.IncludeXmlComments(xmlPath);
             });
         }
 

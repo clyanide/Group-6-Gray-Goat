@@ -51,6 +51,7 @@ const PlaylistPage = (props) => {
     }
   };
 
+  // grabs the playlist information if the user refreshes on thi page or navigates to it from a link
   useEffect(() => {
     if (currentPlaylist.id === 0) {
       const playlistId = queryString.parse(search).id;

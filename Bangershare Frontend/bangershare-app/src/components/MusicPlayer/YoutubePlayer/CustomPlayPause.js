@@ -6,6 +6,7 @@ import PauseIcon from "@material-ui/icons/Pause";
 import { Avatar } from "@material-ui/core";
 
 class CustomPlayPause extends Component {
+  // Rerender compnent if props changes
   shouldComponentUpdate({ media }) {
     return this.props.media.isPlaying !== media.isPlaying;
   }

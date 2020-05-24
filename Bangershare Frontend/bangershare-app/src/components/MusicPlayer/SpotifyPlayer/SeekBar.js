@@ -18,6 +18,7 @@ const SeekBar = (props) => {
 
   const [counter, setCounter] = React.useState(0);
 
+  // Increments seekbar position as song progresses
   React.useEffect(() => {
     let interval = null;
     if (!paused && counter < duration) {
@@ -25,6 +26,7 @@ const SeekBar = (props) => {
         setCounter((counter) => counter + 1);
       }, 1000);
 
+      // Reset seek bar if song has ended
       endOfSongCallback(counter);
     } else if (paused && counter !== 0) {
       clearInterval(interval);

@@ -5,6 +5,7 @@ import YoutubePlayer from "../../containers/YoutubePlayer";
 const MusicPlayer = ({ currentSong }) => {
   const [spotifyFirstLoad, setspotifyFirstLoad] = useState(false);
 
+  // Render spotify player when spotify song is selected
   useEffect(() => {
     if (currentSong.songType === 0) {
       setspotifyFirstLoad(true);

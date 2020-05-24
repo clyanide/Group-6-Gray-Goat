@@ -7,6 +7,8 @@ const baseURL = "https://bangersharebackend.azurewebsites.net/api/";
 
 const bangerShareClient = axios.create({});
 
+// this function is used to referesh the access token when it expires
+// if the refresh toke is expired as well the user is logged out and redirected to the sign in page
 const refreshAuthLogic = (failedRequest) => {
   axios
     .post(baseURL + "User/token/refresh", {
@@ -25,6 +27,8 @@ const refreshAuthLogic = (failedRequest) => {
     });
 };
 
+// this 3rd party library acts as an interceptor to check whether requests have failed
+// once the refresh token action is complete the same method is called again
 createAuthRefreshInterceptor(bangerShareClient, refreshAuthLogic);
 
 export const login = (username, password) => {

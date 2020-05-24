@@ -17,6 +17,7 @@ const setError = (state, action) => {
   };
 };
 
+// central app management reducedr used for loading and error checking
 const bangerShareReducer = (state = initialState, action) => {
   if (action.fetching === true) {
     return setLoading(state, true);

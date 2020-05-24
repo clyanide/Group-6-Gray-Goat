@@ -76,6 +76,8 @@ const ProfilePage = (props) => {
               !isFetching ? (
                 <>
                   {(() => {
+                    // following if statements are used to render different buttons depending on the realtion
+                    // between the current user and the profile user
                     if (
                       sentRequests.find(
                         (request) => request.receiverUsername === username

@@ -16,6 +16,7 @@ Before contributing to the repository, make sure to read the [license](https://g
 To get the project running, follow these steps:
 
 ### Prerequisites
+
 - Visual Studio (for editing C# code) [or the equivalent `dotnet` command line tools, or JetBrains Rider]
 - Make sure you've installed the `ASP.NET and Web Development Tools package` in Visual Studio
 - Visual Studio Code [or equivalent frontend tooling]
@@ -28,12 +29,15 @@ To get the project running, follow these steps:
 3. It'll take some time the first run (as Visual Studio should install all dependencies). Once the backend server is running, a new window will open displaying Swagger, which is a tool used for testing the API endpoints.
 4. Open the frontend folder (Bangershare Frontend\bangershare-app) in a command line tool.
 5. Run `npm install` to download and install all dependencies.
-6. Run `npm start` to start the React development server. 
-7. Your browser should open (or you may have to open a link from the React command line tool). You should see the home page, and it should successfully connect to the backend. 
+6. Run `npm start` to start the React development server.
+7. Your browser should open (or you may have to open a link from the React command line tool). You should see the home page, and it should successfully connect to the backend.
 
 ## Testing
+
 To test the project, follow these steps:
+
 ### Steps
+
 1. Navigate to the root frontend project folder `Group-6-Gray-Goat` -> `Bangershare Frontend` -> `bangershare-app`.
 2. In the terminal, enter the command `npm run test`
 

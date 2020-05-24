@@ -7,7 +7,7 @@ const refreshAuthLogic = (failedRequest) => {
   axios
     .get(
       "https://bangershareauth.azurewebsites.net/refresh_token?refresh_token=" +
-        localStorage.getItem("spotifyRefreshToken")
+      localStorage.getItem("spotifyRefreshToken")
     )
     .then((res) => {
       const access_token = res.data.access_token;
@@ -16,6 +16,8 @@ const refreshAuthLogic = (failedRequest) => {
       return Promise.resolve;
     })
     .catch(() => {
+      localStorage.removeItem("spotifyToken")
+      localStorage.removeItem("spotifyRefreshToken")
       store.dispatch(push("/spotifyauth"));
     });
 };

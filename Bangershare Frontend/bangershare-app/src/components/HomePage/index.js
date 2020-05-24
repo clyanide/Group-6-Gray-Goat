@@ -67,8 +67,8 @@ const HomeScreen = (props) => {
           />
         </div>
       ) : (
-          <PlaylistLoader skeletons={3} num={5} />
-        )}
+        <PlaylistLoader skeletons={3} num={5} />
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Tooltip title="Create Playlist">
         <Fab

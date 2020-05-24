@@ -21,9 +21,24 @@ const SongList = (props) => {
       />
       {isOwner ? (
         <>
-          <Typography variant="h6" style={{ paddingLeft: "25px", paddingTop: "3vh" }}> Pending Songs </Typography>
-          <Typography color="textSecondary" variant="subtitle" style={{ paddingLeft: "25px", paddingTop: "3vh" }}> Suggested by others </Typography>
-          <PendingSongs songs={songs.filter((song) => song.isPending === true)} />
+          <Typography
+            variant="h6"
+            style={{ paddingLeft: "25px", paddingTop: "3vh" }}
+          >
+            {" "}
+            Pending Songs{" "}
+          </Typography>
+          <Typography
+            color="textSecondary"
+            variant="subtitle"
+            style={{ paddingLeft: "25px", paddingTop: "3vh" }}
+          >
+            {" "}
+            Suggested by others{" "}
+          </Typography>
+          <PendingSongs
+            songs={songs.filter((song) => song.isPending === true)}
+          />
         </>
       ) : null}
     </div>

@@ -19,10 +19,7 @@ const SongList = (props) => {
         songs={songs.filter((song) => song.isPending === false)}
       />
       {isOwner ? (
-        <PendingSongs
-          songs={songs.filter((song) =>
-            song.isPending === true)}
-        />
+        <PendingSongs songs={songs.filter((song) => song.isPending === true)} />
       ) : null}
     </div>
   );

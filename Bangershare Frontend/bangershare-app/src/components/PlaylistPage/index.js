@@ -16,6 +16,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import SongListLoader from "../general/SongListLoader";
 
 const PlaylistPage = (props) => {
   const {
@@ -72,17 +73,20 @@ const PlaylistPage = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Typography variant="h3" style={{ marginTop: "2vh", marginLeft: "4vw" }}>
+      <Typography
+        variant="h3"
+        style={{ marginTop: "20px", marginLeft: "80px" }}
+      >
         {currentPlaylist.name}
       </Typography>
       <Typography
         color="textSecondary"
         variant="subtitle1"
-        style={{ marginLeft: "4vw", marginBottom: "2vh" }}
+        style={{ marginLeft: "80px", marginBottom: "20px" }}
       >
         Created by {currentPlaylist.creator}
       </Typography>
-      <div style={{ marginLeft: "3vw" }}>
+      <div style={{ marginLeft: "70px", marginBottom: "20px" }}>
         <Tooltip title="Play Playlist">
           <IconButton color="primary" onClick={() => handleOnPlay()}>
             <Avatar style={{ backgroundColor: "#7d12ff" }}>
@@ -90,13 +94,22 @@ const PlaylistPage = (props) => {
             </Avatar>
           </IconButton>
         </Tooltip>
-        <Tooltip title="Add Song">
-          <IconButton color="primary" onClick={() => handleSetModal(true)}>
-            <Avatar style={{ backgroundColor: "#7d12ff" }}>
-              <AddIcon style={{ fill: "white" }} fontSize="large" />
-            </Avatar>
-          </IconButton>
-        </Tooltip>
+        {currentPlaylist.following ? (
+          <Tooltip title="Add Song">
+            <IconButton color="primary" onClick={() => handleSetModal(true)}>
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                <AddIcon style={{ fill: "white" }} fontSize="large" />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Typography
+            variant="h6"
+            style={{ display: "inline", paddingLeft: "15px" }}
+          >
+            Follow the playlist to start adding songs.
+          </Typography>
+        )}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
@@ -110,7 +123,7 @@ const PlaylistPage = (props) => {
             />
           ) : (
             <Typography
-              style={{ marginTop: "2vh", marginLeft: "4vw" }}
+              style={{ marginTop: "35px", marginLeft: "80px" }}
               variant="h4"
             >
               Playlist has no songs.
@@ -119,7 +132,7 @@ const PlaylistPage = (props) => {
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-        <p> Loading </p>
+        <SongListLoader int={10} />
       )}
     </>
   );

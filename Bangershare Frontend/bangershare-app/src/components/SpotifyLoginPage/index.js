@@ -1,36 +1,31 @@
 import React, { Component } from "react";
 import { Button, Paper } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import SpotifyWebApi from "spotify-web-api-js";
 import Logo from "./spotifyLogo.png";
 
 const spotifyApi = new SpotifyWebApi();
+const queryString = require("query-string");
 
 class App extends Component {
   constructor(props) {
     super(props);
-    const params = this.getHashParams();
-    const token = params.access_token;
+    const parsedHash = queryString.parse(this.props.location.hash);
+    const token = parsedHash.access_token;
+    const refreshToken = parsedHash.refresh_token;
+
     if (token) {
+      localStorage.setItem("spotifyToken", token);
+      localStorage.setItem("spotifyRefreshToken", refreshToken);
       spotifyApi.setAccessToken(token);
       this.props.setSpotifyToken(token);
       this.props.push("/home");
     }
     this.state = {
       loggedIn: token ? true : false,
+      isFetching: false,
     };
-  }
-  getHashParams() {
-    var hashParams = {};
-    var e,
-      r = /([^&;=]+)=?([^&;]*)/g,
-      q = window.location.hash.substring(1);
-    e = r.exec(q);
-    while (e) {
-      hashParams[e[1]] = decodeURIComponent(e[2]);
-      e = r.exec(q);
-    }
-    return hashParams;
   }
 
   render() {
@@ -90,30 +85,38 @@ class App extends Component {
               </h3>
             </div>
             <div>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                href="https://bangershareauth.azurewebsites.net/login"
-                startIcon={
-                  <img
-                    src={Logo}
-                    alt="logo"
-                    style={{ width: "60px", height: "60px" }}
-                  />
-                }
-                style={{
-                  borderRadius: "30px",
-                  width: "250px",
-                  height: "60px",
-                  backgroundColor: "#1DB954",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginBottom: "20px",
-                }}
-              >
-                Login to Spotify
-              </Button>
+              {this.state.isFetching ? (
+                <>
+                  <CircularProgress color="secondary" size={70} />
+                </>
+              ) : (
+                <Button
+                  onClick={() => this.setState({ isFetching: true })}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  href="https://bangershareauth.azurewebsites.net/login"
+                  startIcon={
+                    <img
+                      src={Logo}
+                      alt="logo"
+                      style={{ width: "60px", height: "60px" }}
+                    />
+                  }
+                  style={{
+                    borderRadius: "30px",
+                    width: "250px",
+                    height: "60px",
+                    backgroundColor: "#1DB954",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Login to Spotify
+                </Button>
+              )}
+
               <div>
                 <h5
                   style={{

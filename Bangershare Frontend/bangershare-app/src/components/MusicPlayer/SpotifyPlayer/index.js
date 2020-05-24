@@ -7,13 +7,15 @@ import IconButton from "@material-ui/core/IconButton";
 import { Typography, Avatar } from "@material-ui/core";
 import PlayArrowIcon from "@material-ui/icons/PlayArrow";
 import PauseIcon from "@material-ui/icons/Pause";
+import { playSong } from "../../../utility/SpotifyAPI";
+import DummySeekBar from "./DummySeekBar";
 
 class SpotifyPlayer extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      token: this.props.spotifyToken,
+      token: localStorage.getItem("spotifyToken"),
       deviceId: "",
       loggedIn: true,
       error: "",
@@ -152,14 +154,7 @@ class SpotifyPlayer extends Component {
     },
   }) => {
     getOAuthToken((access_token) => {
-      fetch(`https://api.spotify.com/v1/me/player/play?device_id=${id}`, {
-        method: "PUT",
-        body: JSON.stringify({ uris: [spotify_uri] }),
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${access_token}`,
-        },
-      });
+      playSong(id, access_token, spotify_uri);
     });
   };
 
@@ -297,7 +292,9 @@ class SpotifyPlayer extends Component {
                   paused={!this.state.playing}
                   endOfSongCallback={this.endOfSongCallback}
                 />
-              ) : null}
+              ) : (
+                <DummySeekBar />
+              )}
             </div>
           </div>
         </div>

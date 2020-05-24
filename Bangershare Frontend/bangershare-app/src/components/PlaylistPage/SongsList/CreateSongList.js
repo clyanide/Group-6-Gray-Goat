@@ -21,8 +21,6 @@ import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
-import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { green } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const CreateSongList = (props) => {
@@ -48,14 +46,7 @@ export const CreateSongList = (props) => {
   const open = Boolean(anchorEl);
 
   return (
-    <div
-      style={{
-        overflowY: "scroll",
-        height: "72vh",
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
-    >
+    <div>
       <List>
         {songs.map((song) => (
           <ListItem
@@ -88,13 +79,57 @@ export const CreateSongList = (props) => {
               }
             />
             <ListItemSecondaryAction>
-              {song.isPending ? (
+              {likedSongs &&
+              likedSongs.length > 0 &&
+              likedSongs.find((x) => x.id === song.id) !== undefined ? (
+                <div style={{ marginRight: "8px", display: "inline" }}>
+                  <Tooltip title="Unlike Song">
+                    <Badge
+                      badgeContent={
+                        <Typography variant="subtitle1">
+                          {song.hearts}
+                        </Typography>
+                      }
+                      color="secondary"
+                      showZero={true}
+                    >
+                      <IconButton
+                        color="secondary"
+                        onClick={() => unlikeSong(song.id)}
+                      >
+                        <FavoriteIcon />
+                      </IconButton>
+                    </Badge>
+                  </Tooltip>
+                </div>
+              ) : (
+                <div style={{ marginRight: "8px", display: "inline" }}>
+                  <Tooltip title="Like Song">
+                    <Badge
+                      badgeContent={
+                        <Typography variant="subtitle1">
+                          {song.hearts}
+                        </Typography>
+                      }
+                      color="secondary"
+                    >
+                      <IconButton
+                        color="secondary"
+                        onClick={() => likeSong(song.id)}
+                      >
+                        <FavoriteBorderOutlinedIcon />
+                      </IconButton>
+                    </Badge>
+                  </Tooltip>
+                </div>
+              )}
+              {song.isPending && isOwner ? (
                 <>
                   <Tooltip title="Add Song">
                     <IconButton
                       onClick={() => onUpdateSong(song, "isPending", false)}
                     >
-                      <AddCircleOutlineIcon style={{ color: green[500] }} />
+                      <AddCircleOutlineIcon style={{ color: "#00e676" }} />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Remove Song">
@@ -108,49 +143,6 @@ export const CreateSongList = (props) => {
                 </>
               ) : (
                 <>
-                  {likedSongs &&
-                  likedSongs.length > 0 &&
-                  likedSongs.find((x) => x.id === song.id) !== undefined ? (
-                    <div style={{ marginRight: "8px", display: "inline" }}>
-                      <Tooltip title="Unlike Song">
-                        <Badge
-                          badgeContent={
-                            <Typography variant="subtitle1">
-                              {song.hearts}
-                            </Typography>
-                          }
-                          color="secondary"
-                        >
-                          <IconButton
-                            color="secondary"
-                            onClick={() => unlikeSong(song.id)}
-                          >
-                            <FavoriteIcon />
-                          </IconButton>
-                        </Badge>
-                      </Tooltip>
-                    </div>
-                  ) : (
-                    <div style={{ marginRight: "8px", display: "inline" }}>
-                      <Tooltip title="Like Song">
-                        <Badge
-                          badgeContent={
-                            <Typography variant="subtitle1">
-                              {song.hearts}
-                            </Typography>
-                          }
-                          color="secondary"
-                        >
-                          <IconButton
-                            color="secondary"
-                            onClick={() => likeSong(song.id)}
-                          >
-                            <FavoriteBorderOutlinedIcon />
-                          </IconButton>
-                        </Badge>
-                      </Tooltip>
-                    </div>
-                  )}
                   {isOwner ? (
                     <>
                       <IconButton onClick={handleClick}>
@@ -166,15 +158,6 @@ export const CreateSongList = (props) => {
                           <Fade {...TransitionProps} timeout={350}>
                             <Paper>
                               <List>
-                                <ListItem button>
-                                  <ListItemIcon>
-                                    <EditOutlinedIcon />
-                                  </ListItemIcon>
-                                  <ListItemText
-                                    style={{ textAlign: "center" }}
-                                    primary="Edit"
-                                  />
-                                </ListItem>
                                 <ListItem
                                   button
                                   onClick={() => onDeleteSong(song)}

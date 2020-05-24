@@ -6,21 +6,23 @@ const SongList = (props) => {
   const { songs, isOwner } = props;
 
   return (
-    <>
+    <div
+      style={{
+        overflowY: "scroll",
+        height: "60vh",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+      }}
+    >
       <Songs
         isOwner={isOwner}
-        songs={songs.filter((song) => {
-          return song.isPending === false;
-        })}
+        songs={songs.filter((song) => song.isPending === false)}
       />
-      {isOwner ? (
-        <PendingSongs
-          songs={songs.filter((song) => {
-            return song.isPending === true;
-          })}
-        />
-      ) : null}
-    </>
+      <PendingSongs
+        isOwner={isOwner}
+        songs={songs.filter((song) => song.isPending === true)}
+      />
+    </div>
   );
 };
 

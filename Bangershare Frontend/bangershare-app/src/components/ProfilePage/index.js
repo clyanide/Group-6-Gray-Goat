@@ -129,11 +129,8 @@ const ProfilePage = (props) => {
                       return (
                         <>
                           <Tooltip title="Accept Request">
-                            <IconButton
-                              color="primary"
-                              onClick={() => acceptRequest(username)}
-                            >
-                              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                            <IconButton onClick={() => acceptRequest(username)}>
+                              <Avatar style={{ backgroundColor: "#00e676" }}>
                                 <PersonAddIcon style={{ fill: "white" }} />
                               </Avatar>
                             </IconButton>
@@ -155,11 +152,8 @@ const ProfilePage = (props) => {
                     } else {
                       return (
                         <Tooltip title="Add Friend">
-                          <IconButton
-                            color="primary"
-                            onClick={() => addFriend(username)}
-                          >
-                            <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                          <IconButton onClick={() => addFriend(username)}>
+                            <Avatar style={{ backgroundColor: "#00e676" }}>
                               <GroupAddIcon style={{ fill: "white" }} />
                             </Avatar>
                           </IconButton>
@@ -209,9 +203,9 @@ const ProfilePage = (props) => {
                 <Grid item xs={12}>
                   <Typography
                     variant="h4"
-                    style={{ paddingLeft: "5vw", paddingTop: "24px" }}
+                    style={{ paddingLeft: "4.5vw", paddingTop: "24px" }}
                   >
-                    Sorry the user has no playlists
+                    Sorry {username} has no playlists
                   </Typography>
                 </Grid>
               )}

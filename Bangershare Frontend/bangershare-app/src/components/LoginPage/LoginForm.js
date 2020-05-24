@@ -3,6 +3,7 @@ import { TextField, InputAdornment, Button } from "@material-ui/core";
 import EmailIcon from "@material-ui/icons/Email";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const LoginForm = (props) => {
   const { handleSignup, handleLogin, isSignUp, isFetching, error } = props;
@@ -42,13 +43,22 @@ const LoginForm = (props) => {
     }
   };
 
+  const onEnter = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit();
+    }
+  };
   return (
     <div
+      onKeyDown={(e) => onEnter(e)}
       style={{
         margin: "30px",
       }}
     >
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -76,6 +86,9 @@ const LoginForm = (props) => {
         ) : null}
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -105,6 +118,9 @@ const LoginForm = (props) => {
         />
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "left",
           margin: "0 auto",
@@ -144,6 +160,9 @@ const LoginForm = (props) => {
         ) : null}
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -152,6 +171,7 @@ const LoginForm = (props) => {
         }}
       >
         <Button
+          type="submit"
           variant="contained"
           color="primary"
           disabled={isFetching}
@@ -165,6 +185,11 @@ const LoginForm = (props) => {
           {isSignUp ? "Register" : "Login"}
         </Button>
       </form>
+      {isFetching ? (
+        <>
+          <CircularProgress color="secondary" size={60} />
+        </>
+      ) : null}
     </div>
   );
 };

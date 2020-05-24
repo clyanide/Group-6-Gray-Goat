@@ -3,21 +3,20 @@ import { Route, Redirect } from "react-router-dom";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const bangerShareToken = localStorage.getItem("token");
-  const spotifyToken = localStorage.getItem("spotifyToken");
   return (
     <Route
       {...rest}
       render={(props) =>
-        bangerShareToken !== null && spotifyToken !== null ? (
+        bangerShareToken !== null ? (
           <Component {...props} />
         ) : (
-          <Redirect
-            to={{
-              pathname: bangerShareToken === null ? "/login" : "/spotifyauth",
-              state: { from: props.location },
-            }}
-          />
-        )
+            <Redirect
+              to={{
+                pathname: "/login",
+                state: { from: props.location },
+              }}
+            />
+          )
       }
     />
   );

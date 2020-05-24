@@ -1,7 +1,6 @@
 import React from "react";
 import Songs from "../../../containers/PlaylistPage/SongsList/Songs";
 import PendingSongs from "../../../containers/PlaylistPage/SongsList/PendingSongs";
-import { Typography } from "@material-ui/core";
 
 const SongList = (props) => {
   const { songs, isOwner } = props;
@@ -10,7 +9,7 @@ const SongList = (props) => {
     <div
       style={{
         overflowY: "scroll",
-        height: "72vh",
+        height: "60vh",
         scrollbarWidth: "none",
         msOverflowStyle: "none",
       }}
@@ -19,28 +18,10 @@ const SongList = (props) => {
         isOwner={isOwner}
         songs={songs.filter((song) => song.isPending === false)}
       />
-      {isOwner ? (
-        <>
-          <Typography
-            variant="h6"
-            style={{ paddingLeft: "25px", paddingTop: "3vh" }}
-          >
-            {" "}
-            Pending Songs{" "}
-          </Typography>
-          <Typography
-            color="textSecondary"
-            variant="subtitle"
-            style={{ paddingLeft: "25px", paddingTop: "3vh" }}
-          >
-            {" "}
-            Suggested by others{" "}
-          </Typography>
-          <PendingSongs
-            songs={songs.filter((song) => song.isPending === true)}
-          />
-        </>
-      ) : null}
+      <PendingSongs
+        isOwner={isOwner}
+        songs={songs.filter((song) => song.isPending === true)}
+      />
     </div>
   );
 };

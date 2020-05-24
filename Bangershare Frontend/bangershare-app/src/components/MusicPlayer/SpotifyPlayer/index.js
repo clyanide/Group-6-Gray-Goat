@@ -45,7 +45,7 @@ class SpotifyPlayer extends Component {
     }
   }
 
-  // Starts the counter 
+  // Starts the counter
   componentDidMount() {
     this.interval = setInterval(() => this.checkSongChanged(), 1000);
   }

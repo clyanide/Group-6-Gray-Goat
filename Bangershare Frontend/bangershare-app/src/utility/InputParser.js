@@ -1,4 +1,4 @@
-// these helper functions check whether the given linksare in the correct format 
+// these helper functions check whether the given linksare in the correct format
 
 export const getYoutubeVideoID = (videoUrl) => {
   var regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;

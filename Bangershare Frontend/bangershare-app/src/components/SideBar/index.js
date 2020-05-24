@@ -23,7 +23,7 @@ const AppSideBar = (props) => {
     getPlaylist,
   } = props;
 
-  // fetches playlists of the user to populate list 
+  // fetches playlists of the user to populate list
   useEffect(() => {
     if (localStorage.getItem("token") !== null) {
       getPlaylist();

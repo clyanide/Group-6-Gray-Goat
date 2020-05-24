@@ -3,12 +3,13 @@ import FriendsList from "../../containers/FriendsPage/FriendsList";
 import FriendRequests from "../../containers/FriendsPage/FriendRequests";
 import SearchList from "../../containers/FriendsPage/SearchList";
 import { Typography, Grid, Button, ButtonGroup, row } from "@material-ui/core";
+import FriendsListLoader from "../general/FriendListLoader";
 import "./index.css";
 
 const FriendsPage = (props) => {
   const [visibleList, setVisible] = useState(true);
   const [isFriendRequest, setFriendRequest] = useState(false);
-  const { setProfileUser, getFriends, getUsers } = props;
+  const { setProfileUser, getFriends, getUsers, isFetching } = props;
 
   const handleProfileClick = (username) => {
     setProfileUser(username);
@@ -115,13 +116,35 @@ const FriendsPage = (props) => {
           </Grid>
         </Grid>
       </div>
-      <div style={{ paddingTop: "2vh" }}>
-        {visibleList ? (
-          <FriendsList onFriendClick={handleProfileClick} />
-        ) : (
-          <FriendRequests onFriendClick={handleProfileClick} />
-        )}
-      </div>
+      {!isFetching ? (
+        <div
+          style={{
+            overflowY: "scroll",
+            height: "72vh",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            paddingTop: "15px",
+          }}
+        >
+          {visibleList ? (
+            <FriendsList onFriendClick={handleProfileClick} />
+          ) : (
+            <FriendRequests onFriendClick={handleProfileClick} />
+          )}
+        </div>
+      ) : (
+        <div
+          style={{
+            overflowY: "scroll",
+            height: "70vh",
+            scrollbarWidth: "none",
+            msOverflowStyle: "none",
+            paddingTop: "2vh",
+          }}
+        >
+          <FriendsListLoader num={15} />
+        </div>
+      )}
     </div>
   );
 };

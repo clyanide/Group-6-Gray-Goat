@@ -16,6 +16,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
+import SongListLoader from "../general/SongListLoader";
 
 const PlaylistPage = (props) => {
   const {
@@ -81,7 +82,7 @@ const PlaylistPage = (props) => {
       <Typography
         color="textSecondary"
         variant="subtitle1"
-        style={{ marginLeft: "85px", marginBottom: "20px" }}
+        style={{ marginLeft: "80px", marginBottom: "20px" }}
       >
         Created by {currentPlaylist.creator}
       </Typography>
@@ -93,13 +94,22 @@ const PlaylistPage = (props) => {
             </Avatar>
           </IconButton>
         </Tooltip>
-        <Tooltip title="Add Song">
-          <IconButton color="primary" onClick={() => handleSetModal(true)}>
-            <Avatar style={{ backgroundColor: "#7d12ff" }}>
-              <AddIcon style={{ fill: "white" }} fontSize="large" />
-            </Avatar>
-          </IconButton>
-        </Tooltip>
+        {currentPlaylist.following ? (
+          <Tooltip title="Add Song">
+            <IconButton color="primary" onClick={() => handleSetModal(true)}>
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                <AddIcon style={{ fill: "white" }} fontSize="large" />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+        ) : (
+          <Typography
+            variant="h6"
+            style={{ display: "inline", paddingLeft: "15px" }}
+          >
+            Follow the playlist to start adding songs.
+          </Typography>
+        )}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
@@ -122,7 +132,7 @@ const PlaylistPage = (props) => {
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-        <p> Loading </p>
+        <SongListLoader int={10} />
       )}
     </>
   );

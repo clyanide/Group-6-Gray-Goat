@@ -16,6 +16,8 @@ const refreshAuthLogic = (failedRequest) => {
       return Promise.resolve;
     })
     .catch(() => {
+      localStorage.removeItem("spotifyToken");
+      localStorage.removeItem("spotifyRefreshToken");
       store.dispatch(push("/spotifyauth"));
     });
 };

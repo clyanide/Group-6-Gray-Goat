@@ -1,27 +1,26 @@
-import React from 'react';
+import React from "react";
 import Header from "./index.js";
-import { createShallow } from '@material-ui/core/test-utils';
-import { Typography } from '@material-ui/core';
+import { createShallow } from "@material-ui/core/test-utils";
+import { Typography } from "@material-ui/core";
 
-describe('<Header />', () => {
+describe("<Header />", () => {
+  let shallow;
 
-    let shallow;
+  beforeAll(() => {
+    shallow = createShallow();
+  });
 
-    beforeAll(() => { 
-        shallow = createShallow();
-    });
+  it("should show correct number of typography", () => {
+    const wrapper = shallow(<Header />);
 
-    it('should show correct number of typography', () => {
-        const wrapper = shallow(<Header />);
+    expect(wrapper).toContainMatchingElements(1, Typography);
+  });
 
-        expect(wrapper).toContainMatchingElements(1, Typography);
-    });
+  it("should show correct typography", () => {
+    const wrapper = shallow(<Header />);
 
-    it('should show correct typography', () => {
-        const wrapper = shallow(<Header />);
+    const text = wrapper.find(Typography);
 
-        const text = wrapper.find(Typography);
-
-        expect(text.text()).toBe('BangerShare');
-    });
+    expect(text.text()).toBe("BangerShare");
+  });
 });

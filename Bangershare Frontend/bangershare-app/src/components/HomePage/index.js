@@ -7,7 +7,6 @@ import { Tooltip, Fab } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import "./Playlist/index.css";
 import PlaylistLoader from "../general/PlaylistLoader";
-import { random } from "../../utility/Randomiser";
 
 const HomeScreen = (props) => {
   const {
@@ -49,7 +48,7 @@ const HomeScreen = (props) => {
       {!isFetching ? (
         <div style={{ marginTop: "3vh" }}>
           <RecentPlaylists
-            playlists={random(userPlaylist)}
+            playlists={userPlaylist}
             handleOnPlaylistClick={handleOnPlaylistClick}
             handleOnFollowClick={handleOnFollowClick}
             handleUnfollowClick={handleUnfollowClick}

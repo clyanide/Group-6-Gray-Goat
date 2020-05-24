@@ -31,6 +31,11 @@ To get the project running, follow these steps:
 6. Run `npm start` to start the React development server. 
 7. Your browser should open (or you may have to open a link from the React command line tool). You should see the home page, and it should successfully connect to the backend. 
 
+## Testing
+To test the project, follow these steps:
+### Steps
+1. Navigate to the root frontend project folder `Group-6-Gray-Goat` -> `Bangershare Frontend` -> `bangershare-app`.
+2. In the terminal, enter the command `npm run test`
 
 ## Further information
 

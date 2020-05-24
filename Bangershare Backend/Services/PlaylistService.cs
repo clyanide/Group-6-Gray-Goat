@@ -131,7 +131,7 @@ namespace Bangershare_Backend.Services
 
                 var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.PlaylistId.Equals(userPlaylist.PlaylistId) && u.UserId.Equals(currentUserId));
 
-                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, true, follows == null ? false : true));
+                playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, false, follows == null ? false : true));
             }
 
             return playlistSongs;

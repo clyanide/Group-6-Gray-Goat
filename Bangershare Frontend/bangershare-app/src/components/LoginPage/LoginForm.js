@@ -3,6 +3,7 @@ import { TextField, InputAdornment, Button } from "@material-ui/core";
 import EmailIcon from "@material-ui/icons/Email";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import VpnKeyIcon from "@material-ui/icons/VpnKey";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 const LoginForm = (props) => {
   const { handleSignup, handleLogin, isSignUp, isFetching, error } = props;
@@ -165,6 +166,11 @@ const LoginForm = (props) => {
           {isSignUp ? "Register" : "Login"}
         </Button>
       </form>
+      {isFetching ? (
+        <>
+          <CircularProgress color="secondary" size={60} />
+        </>
+      ) : null}
     </div>
   );
 };

@@ -51,6 +51,7 @@ const PlaylistPage = (props) => {
     }
   };
 
+  // grabs the playlist information if the user refreshes on thi page or navigates to it from a link
   useEffect(() => {
     if (currentPlaylist.id === 0) {
       const playlistId = queryString.parse(search).id;
@@ -100,13 +101,13 @@ const PlaylistPage = (props) => {
             </IconButton>
           </Tooltip>
         ) : (
-          <Typography
-            variant="h6"
-            style={{ display: "inline", paddingLeft: "15px" }}
-          >
-            Follow the playlist to start adding songs.
-          </Typography>
-        )}
+            <Typography
+              variant="h6"
+              style={{ display: "inline", paddingLeft: "15px" }}
+            >
+              Follow the playlist to start adding songs.
+            </Typography>
+          )}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
@@ -129,8 +130,8 @@ const PlaylistPage = (props) => {
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-        <SongListLoader int={10} />
-      )}
+          <SongListLoader int={10} />
+        )}
     </>
   );
 };

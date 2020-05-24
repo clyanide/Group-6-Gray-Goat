@@ -8,6 +8,7 @@ import { ThemeProvider } from "@material-ui/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import MusicPlayer from "./containers/MusicPlayer";
 
+// base theme of the application supplied to all components 
 const BangerShareTheme = createMuiTheme({
   palette: {
     type: "dark",

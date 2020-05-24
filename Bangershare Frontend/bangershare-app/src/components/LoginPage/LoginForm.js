@@ -43,13 +43,22 @@ const LoginForm = (props) => {
     }
   };
 
+  const onEnter = (event) => {
+    if (event.keyCode === 13) {
+      handleSubmit();
+    }
+  };
   return (
     <div
+      onKeyDown={(e) => onEnter(e)}
       style={{
         margin: "30px",
       }}
     >
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -77,6 +86,9 @@ const LoginForm = (props) => {
         ) : null}
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -106,6 +118,9 @@ const LoginForm = (props) => {
         />
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "left",
           margin: "0 auto",
@@ -145,6 +160,9 @@ const LoginForm = (props) => {
         ) : null}
       </form>
       <form
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
         style={{
           textAlign: "center",
           margin: "0 auto",
@@ -153,6 +171,7 @@ const LoginForm = (props) => {
         }}
       >
         <Button
+          type="submit"
           variant="contained"
           color="primary"
           disabled={isFetching}

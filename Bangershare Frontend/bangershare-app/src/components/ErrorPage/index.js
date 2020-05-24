@@ -3,7 +3,6 @@ import { Paper, Grid } from "@material-ui/core";
 import Error from "./Error.jpg";
 
 class App extends Component {
-
   render() {
     return (
       <div
@@ -23,7 +22,7 @@ class App extends Component {
             marginBottom: "20vh",
             maxWidth: "1000px",
             width: "100%",
-            height: "500px"
+            height: "500px",
           }}
         >
           <div className="App">
@@ -46,7 +45,7 @@ class App extends Component {
                     }}
                   >
                     Oops!
-              </h1>
+                  </h1>
                 </div>
                 <div>
                   <h2
@@ -57,7 +56,7 @@ class App extends Component {
                     }}
                   >
                     You seem to have lost your way :c
-              </h2>
+                  </h2>
                 </div>
                 <div>
                   <h2
@@ -69,7 +68,7 @@ class App extends Component {
                     }}
                   >
                     Don't feel bad, it happens to everyone.
-              </h2>
+                  </h2>
                 </div>
                 <div>
                   <h2
@@ -80,9 +79,9 @@ class App extends Component {
                       marginLeft: "40px",
                     }}
                   >
-                    Here is a picture of our dear friend Yin Wang
-                    when he lost his way to the barbershop.
-              </h2>
+                    Here is a picture of our dear friend Yin Wang when he lost
+                    his way to the barbershop.
+                  </h2>
                 </div>
                 <div>
                   <h3
@@ -98,15 +97,21 @@ class App extends Component {
                 </div>
               </Grid>
               <Grid item xs={6}>
-                <div style={{
-                  marginTop: "5vh",
-                  marginRight: "4vw",
-                  textAlign: "right"
-                }}>
+                <div
+                  style={{
+                    marginTop: "5vh",
+                    marginRight: "4vw",
+                    textAlign: "right",
+                  }}
+                >
                   <img
                     src={Error}
                     alt="logo"
-                    style={{ width: "450px", height: "400px", textAlign: "right" }}
+                    style={{
+                      width: "450px",
+                      height: "400px",
+                      textAlign: "right",
+                    }}
                   />
                 </div>
               </Grid>

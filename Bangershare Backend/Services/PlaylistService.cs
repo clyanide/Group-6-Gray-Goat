@@ -91,8 +91,12 @@ namespace Bangershare_Backend.Services
         public async Task<PlaylistSong> GetPlaylist(int playlistId, int userId)
         {
             var playlist = await _playlistRepository.FindFirstOrDefault(p => p.Id.Equals(playlistId), include: source => source.Include(p => p.Songs));
+
+            // finds the owner of the playlist 
             var owner = await _userPlaylistRepository.FindFirstOrDefault(u => u.IsOwner.Equals(true) && u.PlaylistId.Equals(playlistId), include: source => source.Include(u => u.User));
             var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.UserId.Equals(userId) && u.PlaylistId.Equals(playlistId));
+
+            // ternary operator is used to check whther the current user is the owner 
             var playlistSong = new PlaylistSong(owner.User.Username, playlist, owner.UserId.Equals(userId) ? true : false, follows == null ? false : true);
 
             return playlistSong;
@@ -129,6 +133,7 @@ namespace Bangershare_Backend.Services
                 var playlist = await FindFirstOrDefault(filter: p => p.Id.Equals(userPlaylist.PlaylistId),
                                         include: source => source.Include(p => p.Songs));
 
+                // Checks whether current user follows the playlist
                 var follows = await _userPlaylistRepository.FindFirstOrDefault(u => u.PlaylistId.Equals(userPlaylist.PlaylistId) && u.UserId.Equals(currentUserId));
 
                 playlistSongs.Add(new PlaylistSong(userPlaylist.User.Username, playlist, false, follows == null ? false : true));

@@ -109,6 +109,7 @@ namespace Bangershare_Backend.Services
                                                                 .Include(u => u.Receieved)
                                                                 .ThenInclude(r => r.Sender));
 
+            // finds all friend requests from sent and received 
             List<Friend> friends = user.Sent.Where(s => s.FriendType.Equals(FriendType.Friend))
                                             .Concat(user.Receieved.Where(r => r.FriendType.Equals(FriendType.Friend)))
                                             .ToList();
@@ -122,6 +123,7 @@ namespace Bangershare_Backend.Services
 
             foreach(Friend friend in friends)
             {
+                // gets the other users id
                 User otherUser = friend.SenderId != userId ? friend.Sender : friend.Receiver;
 
                 FriendSong friendSong = new FriendSong { Username = otherUser.Username };
@@ -143,6 +145,7 @@ namespace Bangershare_Backend.Services
 
         private async Task<Friend> CheckRequestExists(int id, string username)
         {
+            // checks whether a friend request exists between a user trying both combinations of them as the sender or receiver
             return await FindFirstOrDefault(
                 f => (f.SenderId.Equals(id) && f.Receiver.Username.Equals(username)) || f.Sender.Username.Equals(username) && f.Receiver.Id.Equals(id),
                 include: source => source.Include(s => s.Receiver).Include(s => s.Sender));

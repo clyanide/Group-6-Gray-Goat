@@ -13,7 +13,6 @@ import GroupIcon from "@material-ui/icons/Group";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 
-
 const ProfilePage = (props) => {
   const {
     profilePlaylist,
@@ -72,22 +71,46 @@ const ProfilePage = (props) => {
           <Grid item>
             <div style={{ paddingTop: "35px", paddingLeft: "15px" }}>
               {username &&
-                username !== localStorage.getItem("username") &&
-                !isFetching ? (
-                  <>
-                    {(() => {
-                      if (
-                        sentRequests.find(
-                          (request) => request.receiverUsername === username
-                        ) !== undefined &&
-                        sentRequests.length > 0
-                      ) {
-                        return (
-                          <Tooltip
-                            title="Cancel Request"
-                            onClick={() => deleteRequest(username)}
-                          >
-                            <IconButton color="primary">
+              username !== localStorage.getItem("username") &&
+              !isFetching ? (
+                <>
+                  {(() => {
+                    if (
+                      sentRequests.find(
+                        (request) => request.receiverUsername === username
+                      ) !== undefined &&
+                      sentRequests.length > 0
+                    ) {
+                      return (
+                        <Tooltip
+                          title="Cancel Request"
+                          onClick={() => deleteRequest(username)}
+                        >
+                          <IconButton color="primary">
+                            <Avatar style={{ backgroundColor: "#ff3d00" }}>
+                              <PersonAddDisabledIcon
+                                style={{ fill: "white" }}
+                              />
+                            </Avatar>
+                          </IconButton>
+                        </Tooltip>
+                      );
+                    } else if (
+                      friends.find((friend) => friend.username === username) !==
+                      undefined
+                    ) {
+                      return (
+                        <>
+                          <IconButton color="primary" disabled>
+                            <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                              <GroupIcon style={{ fill: "white" }} />
+                            </Avatar>
+                          </IconButton>
+                          <Tooltip title="Delete Friend">
+                            <IconButton
+                              color="primary"
+                              onClick={() => deleteRequest(username)}
+                            >
                               <Avatar style={{ backgroundColor: "#ff3d00" }}>
                                 <PersonAddDisabledIcon
                                   style={{ fill: "white" }}
@@ -95,79 +118,51 @@ const ProfilePage = (props) => {
                               </Avatar>
                             </IconButton>
                           </Tooltip>
-                        );
-                      } else if (
-                        friends.find((friend) => friend.username === username) !==
-                        undefined
-                      ) {
-                        return (
-                          <>
-                            <IconButton color="primary" disabled>
-                              <Avatar style={{ backgroundColor: "#7d12ff" }}>
-                                <GroupIcon style={{ fill: "white" }} />
-                              </Avatar>
-                            </IconButton>
-                            <Tooltip title="Delete Friend">
-                              <IconButton
-                                color="primary"
-                                onClick={() => deleteRequest(username)}
-                              >
-                                <Avatar style={{ backgroundColor: "#ff3d00" }}>
-                                  <PersonAddDisabledIcon
-                                    style={{ fill: "white" }}
-                                  />
-                                </Avatar>
-                              </IconButton>
-                            </Tooltip>
-                          </>
-                        );
-                      } else if (
-                        pendingRequests.find(
-                          (request) => request.senderUsername === username
-                        ) !== undefined &&
-                        pendingRequests.length > 0
-                      ) {
-                        return (
-                          <>
-                            <Tooltip title="Accept Request">
-                              <IconButton
-                                onClick={() => acceptRequest(username)}
-                              >
-                                <Avatar style={{ backgroundColor: "#00e676" }}>
-                                  <PersonAddIcon style={{ fill: "white" }} />
-                                </Avatar>
-                              </IconButton>
-                            </Tooltip>
-                            <Tooltip title="Delete Request">
-                              <IconButton
-                                color="primary"
-                                onClick={() => deleteRequest(username)}
-                              >
-                                <Avatar style={{ backgroundColor: "#ff3d00" }}>
-                                  <PersonAddDisabledIcon
-                                    style={{ fill: "white" }}
-                                  />
-                                </Avatar>
-                              </IconButton>
-                            </Tooltip>
-                          </>
-                        );
-                      } else {
-                        return (
-                          <Tooltip title="Add Friend">
-                            <IconButton
-                              onClick={() => addFriend(username)}
-                            >
+                        </>
+                      );
+                    } else if (
+                      pendingRequests.find(
+                        (request) => request.senderUsername === username
+                      ) !== undefined &&
+                      pendingRequests.length > 0
+                    ) {
+                      return (
+                        <>
+                          <Tooltip title="Accept Request">
+                            <IconButton onClick={() => acceptRequest(username)}>
                               <Avatar style={{ backgroundColor: "#00e676" }}>
-                                <GroupAddIcon style={{ fill: "white" }} />
+                                <PersonAddIcon style={{ fill: "white" }} />
                               </Avatar>
                             </IconButton>
                           </Tooltip>
-                        );
-                      }
-                    })()}
-                  </>
-                ) : null}
+                          <Tooltip title="Delete Request">
+                            <IconButton
+                              color="primary"
+                              onClick={() => deleteRequest(username)}
+                            >
+                              <Avatar style={{ backgroundColor: "#ff3d00" }}>
+                                <PersonAddDisabledIcon
+                                  style={{ fill: "white" }}
+                                />
+                              </Avatar>
+                            </IconButton>
+                          </Tooltip>
+                        </>
+                      );
+                    } else {
+                      return (
+                        <Tooltip title="Add Friend">
+                          <IconButton onClick={() => addFriend(username)}>
+                            <Avatar style={{ backgroundColor: "#00e676" }}>
+                              <GroupAddIcon style={{ fill: "white" }} />
+                            </Avatar>
+                          </IconButton>
+                        </Tooltip>
+                      );
+                    }
+                  })()}
+                </>
+              ) : null}
             </div>
           </Grid>
         </Grid>
@@ -205,19 +200,19 @@ const ProfilePage = (props) => {
                   </Grid>
                 </>
               ) : (
-                  <Grid item xs={12}>
-                    <Typography
-                      variant="h4"
-                      style={{ paddingLeft: "4.5vw", paddingTop: "24px" }}
-                    >
-                      Sorry {username} has no playlists
+                <Grid item xs={12}>
+                  <Typography
+                    variant="h4"
+                    style={{ paddingLeft: "4.5vw", paddingTop: "24px" }}
+                  >
+                    Sorry {username} has no playlists
                   </Typography>
-                  </Grid>
-                )}
+                </Grid>
+              )}
             </>
           ) : (
-              <p>loading</p>
-            )}
+            <p>loading</p>
+          )}
         </>
       </Grid>
     </>

@@ -16,7 +16,7 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Button from "@material-ui/core/Button";
-import SongListLoader from "../general/SongListLoader"
+import SongListLoader from "../general/SongListLoader";
 
 const PlaylistPage = (props) => {
   const {
@@ -94,7 +94,7 @@ const PlaylistPage = (props) => {
             </Avatar>
           </IconButton>
         </Tooltip>
-        {currentPlaylist.following ?
+        {currentPlaylist.following ? (
           <Tooltip title="Add Song">
             <IconButton color="primary" onClick={() => handleSetModal(true)}>
               <Avatar style={{ backgroundColor: "#7d12ff" }}>
@@ -102,31 +102,31 @@ const PlaylistPage = (props) => {
               </Avatar>
             </IconButton>
           </Tooltip>
-          : null}
+        ) : null}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
         <>
           {currentPlaylist &&
-            currentPlaylist.songs &&
-            currentPlaylist.songs.length > 0 ? (
-              <SongList
-                isOwner={currentPlaylist.isOwner}
-                songs={currentPlaylist.songs}
-              />
-            ) : (
-              <Typography
-                style={{ marginTop: "35px", marginLeft: "80px" }}
-                variant="h4"
-              >
-                Playlist has no songs.
-              </Typography>
-            )}
+          currentPlaylist.songs &&
+          currentPlaylist.songs.length > 0 ? (
+            <SongList
+              isOwner={currentPlaylist.isOwner}
+              songs={currentPlaylist.songs}
+            />
+          ) : (
+            <Typography
+              style={{ marginTop: "35px", marginLeft: "80px" }}
+              variant="h4"
+            >
+              Playlist has no songs.
+            </Typography>
+          )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-          <SongListLoader int={10} />
-        )}
+        <SongListLoader int={10} />
+      )}
     </>
   );
 };

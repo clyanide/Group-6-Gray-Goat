@@ -19,14 +19,14 @@ const PendingSongs = (props) => {
 
   return (
     <>
-      {songs && songs.length > 0 ?
+      {songs && songs.length > 0 ? (
         <>
           <Typography
             variant="h6"
             style={{ paddingLeft: "25px", paddingTop: "3vh" }}
           >
             {" "}
-                Pending Songs{" "}
+            Pending Songs{" "}
           </Typography>
           <Typography
             color="textSecondary"
@@ -34,7 +34,7 @@ const PendingSongs = (props) => {
             style={{ paddingLeft: "25px", paddingTop: "3vh" }}
           >
             {" "}
-                Suggested by others{" "}
+            Suggested by others{" "}
           </Typography>
           <CreateSongList
             songs={songs}
@@ -43,8 +43,7 @@ const PendingSongs = (props) => {
             isOwner={isOwner}
           />
         </>
-        :
-        null}
+      ) : null}
     </>
   );
 };

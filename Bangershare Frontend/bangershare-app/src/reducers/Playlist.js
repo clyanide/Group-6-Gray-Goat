@@ -95,7 +95,7 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case playlistActionType.GET_SINGLE_PLAYLIST_SUCCESS: {
-      console.log(action.playlist)
+      console.log(action.playlist);
       return {
         ...state,
         currentPlaylist: action.playlist,

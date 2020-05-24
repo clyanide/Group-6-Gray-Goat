@@ -5,16 +5,8 @@ import RecentPlaylists from "./RecentPlaylists";
 import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
 import { Tooltip, Button } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
-import Skeleton from "@material-ui/lab/Skeleton";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 import "./Playlist/index.css";
-import {
-  Card,
-  CardActionArea,
-  CardContent,
-  Typography,
-} from "@material-ui/core";
+import PlaylistLoader from "../general/PlaylistLoader"
 
 const HomeScreen = (props) => {
   const {
@@ -51,27 +43,9 @@ const HomeScreen = (props) => {
     unfollowPlaylist(playlistId);
   };
 
-  const responsive = {
-    desktop: {
-      breakpoint: { max: 3000, min: 1024 },
-      items: 5,
-    },
-    tablet: {
-      breakpoint: { max: 1024, min: 464 },
-      items: 2,
-    },
-    mobile: {
-      breakpoint: { max: 464, min: 0 },
-      items: 1,
-    },
-  };
-
-  const skeletonRows = ["Recent Playlists", "My Playlists", "Explore"];
-  const skeletonCols = [0, 1, 2, 3, 4];
-
   return (
     <div style={{ position: "relative", height: "90%" }}>
-      {!isFetching ? (
+      {isFetching ? (
         <>
           <RecentPlaylists
             playlists={userPlaylist}
@@ -108,64 +82,8 @@ const HomeScreen = (props) => {
           />
         </>
       ) : (
-        <div>
-          {skeletonRows.map((row) => (
-            <div>
-              <div>
-                <Typography
-                  variant="h5"
-                  style={{ marginLeft: "1vw", marginTop: "1vh" }}
-                >
-                  {row}
-                </Typography>
-              </div>
-              <div>
-                <Carousel
-                  swipeable={true}
-                  draggable={true}
-                  responsive={responsive}
-                  infinite={true}
-                  keyBoardControl={true}
-                  containerClass="carousel-container"
-                  itemClass="image-item"
-                  arrows={false}
-                >
-                  {skeletonCols.map((col) => (
-                    <Card style={{ height: "15vh" }}>
-                      <CardActionArea>
-                        <CardContent>
-                          <Skeleton height="3vh" width="80%" />
-                          <Skeleton width="60%" />
-                          <div
-                            style={{
-                              paddingTop: "4vh",
-                              display: "flex",
-                              flexDirection: "row",
-                            }}
-                          >
-                            <Skeleton
-                              variant="circle"
-                              width="2vh"
-                              height="2vh"
-                            />
-                            <div style={{ paddingLeft: "3vh" }}>
-                              <Skeleton
-                                variant="circle"
-                                width="2vh"
-                                height="2vh"
-                              />
-                            </div>
-                          </div>
-                        </CardContent>
-                      </CardActionArea>
-                    </Card>
-                  ))}
-                </Carousel>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+          <PlaylistLoader skeletons={3} num={5} />
+        )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
     </div>
   );

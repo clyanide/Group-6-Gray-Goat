@@ -43,16 +43,9 @@ const playlistReducer = (state = initialState, action) => {
       };
     }
     case playlistActionType.SET_CURRENT_PLAYLIST:
-      let playlist = action.playlist;
-      if (localStorage.getItem("username") !== playlist.creator) {
-        playlist = {
-          ...action.playlist,
-          isOwner: false
-        }
-      }
       return {
         ...state,
-        currentPlaylist: playlist,
+        currentPlaylist: action.playlist,
       };
     case songActionType.ADD_SONG_TO_PLAYLIST_SUCCESS: {
       const song = Object.assign({}, action.song);

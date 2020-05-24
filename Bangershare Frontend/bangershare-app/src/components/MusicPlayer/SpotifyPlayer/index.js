@@ -31,6 +31,7 @@ class SpotifyPlayer extends Component {
     this.checkForPlayer();
   }
 
+  // Checks if the song URI has changed
   componentDidUpdate(prevProps) {
     if (!equal(this.props.uri, prevProps.uri)) {
       // Check if it's a new user, you can also use some unique property, like the ID  (this.props.user.id !== prevProps.user.id)
@@ -44,10 +45,12 @@ class SpotifyPlayer extends Component {
     }
   }
 
+  // Starts the counter 
   componentDidMount() {
     this.interval = setInterval(() => this.checkSongChanged(), 1000);
   }
 
+  // Stop player if a Youtube song has started playing
   checkSongChanged() {
     if (this.props.currentSong.songType !== 0) {
       this.setState({ trackName: "" });
@@ -55,10 +58,12 @@ class SpotifyPlayer extends Component {
     }
   }
 
+  // Clear interval when component unmounts
   componentWillUnmount() {
     clearInterval(this.interval);
   }
 
+  // Instantiate and connect player object
   checkForPlayer() {
     const { token } = this.state;
 
@@ -132,21 +137,7 @@ class SpotifyPlayer extends Component {
     }
   }
 
-  // transferPlaybackHere() {
-  //   const { deviceId, token } = this.state;
-  //   fetch("https://api.spotify.com/v1/me/player", {
-  //     method: "PUT",
-  //     headers: {
-  //       authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       device_ids: [deviceId],
-  //       play: true,
-  //     }),
-  //   });
-  // }
-
+  // Play song with specified spotify URI
   playUri = ({
     spotify_uri,
     playerInstance: {
@@ -180,6 +171,7 @@ class SpotifyPlayer extends Component {
     );
   }
 
+  // Seek to the position of the seekbar
   seekbarCallback = (childData) => {
     if (this.state.trackName !== "") {
       this.player.seek(childData * 1000);

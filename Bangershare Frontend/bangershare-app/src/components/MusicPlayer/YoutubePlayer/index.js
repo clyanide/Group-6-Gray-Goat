@@ -52,6 +52,7 @@ class YoutubePlayer extends Component {
     }
   };
 
+  // Go to next song when current song ends
   endOfSongCallback = () => {
     this.handleNextClick();
   };

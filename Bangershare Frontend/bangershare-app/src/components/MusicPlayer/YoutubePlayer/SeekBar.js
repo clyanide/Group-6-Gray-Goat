@@ -3,6 +3,7 @@ import Slider from "@material-ui/core/Slider";
 import { withMediaProps } from "react-media-player";
 
 class SeekBar extends Component {
+  // Check if props has changed and update seekbar position
   componentDidUpdate(prevProps) {
     if (prevProps.media.currentTime !== this.props.media.currentTime) {
       if (

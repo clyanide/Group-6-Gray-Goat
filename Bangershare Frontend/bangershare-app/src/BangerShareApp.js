@@ -6,10 +6,10 @@ import HomePage from "./containers/HomePage";
 import LoginPage from "./containers/LoginPage";
 import FriendsPage from "./containers/FriendsPage";
 import PlaylistPage from "./containers/PlaylistPage";
-import RequireLogin from "./components/LoginPage/RequireLogin";
 import ProfilePage from "./containers/ProfilePage";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
 import PrivateRoute from "./components/general/PrivateRoute";
+import ErrorPage from "./components/ErrorPage";
 import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";
@@ -27,7 +27,6 @@ const BangerShareApp = () => {
       <AppHeader onMenuClick={handleSetOpen} />
       <Sidebar.Pushable>
         <AppSideBar open={open} onClose={handleSetOpen} />
-        <RequireLogin />
         <Sidebar.Pusher dimmed={open}>
           <div style={{ height: "85vh" }}>
             <Switch>
@@ -37,6 +36,7 @@ const BangerShareApp = () => {
               <PrivateRoute path="/playlist" component={PlaylistPage} />
               <PrivateRoute path="/profile" component={ProfilePage} />
               <PrivateRoute path="/home" component={HomePage} />
+              <Route component={ErrorPage} />
               <Redirect exact from="/" to="/home" />
             </Switch>
           </div>

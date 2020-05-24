@@ -12,6 +12,7 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import GroupIcon from "@material-ui/icons/Group";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import PlaylistLoader from "../general/PlaylistLoader";
 
 const ProfilePage = (props) => {
   const {
@@ -61,7 +62,7 @@ const ProfilePage = (props) => {
       <Grid direction="column" container spacing={5}>
         <Grid container direction="row" item xs={12} spacing={3}>
           <Grid item>
-            <div style={{ paddingLeft: "80px", paddingTop: "16px" }}>
+            <div style={{ paddingLeft: "4vw", paddingTop: "16px" }}>
               <Typography variant="subtitle1">Profile</Typography>
               <Typography variant="h3">
                 <strong>{username}</strong>
@@ -211,7 +212,14 @@ const ProfilePage = (props) => {
               )}
             </>
           ) : (
-            <p>loading</p>
+            <>
+              <Grid item xs={12} style={{ paddingTop: "6vh" }}>
+                <PlaylistLoader skeleton={1} num={5} />
+              </Grid>
+              <Grid item xs={12}>
+                <PlaylistLoader skeleton={1} num={5} />
+              </Grid>
+            </>
           )}
         </>
       </Grid>

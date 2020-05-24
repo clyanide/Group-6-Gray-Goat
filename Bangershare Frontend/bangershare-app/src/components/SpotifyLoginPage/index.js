@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Paper } from "@material-ui/core";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 import SpotifyWebApi from "spotify-web-api-js";
 import Logo from "./spotifyLogo.png";
@@ -23,6 +24,7 @@ class App extends Component {
     }
     this.state = {
       loggedIn: token ? true : false,
+      isFetching: false,
     };
   }
 
@@ -83,30 +85,38 @@ class App extends Component {
               </h3>
             </div>
             <div>
-              <Button
-                variant="contained"
-                color="primary"
-                size="large"
-                href="https://bangershareauth.azurewebsites.net/login"
-                startIcon={
-                  <img
-                    src={Logo}
-                    alt="logo"
-                    style={{ width: "60px", height: "60px" }}
-                  />
-                }
-                style={{
-                  borderRadius: "30px",
-                  width: "250px",
-                  height: "60px",
-                  backgroundColor: "#1DB954",
-                  fontSize: "16px",
-                  fontWeight: "bold",
-                  marginBottom: "20px",
-                }}
-              >
-                Login to Spotify
-              </Button>
+              {this.state.isFetching ? (
+                <>
+                  <CircularProgress color="secondary" size={70} />
+                </>
+              ) : (
+                <Button
+                  onClick={() => this.setState({ isFetching: true })}
+                  variant="contained"
+                  color="primary"
+                  size="large"
+                  href="https://bangershareauth.azurewebsites.net/login"
+                  startIcon={
+                    <img
+                      src={Logo}
+                      alt="logo"
+                      style={{ width: "60px", height: "60px" }}
+                    />
+                  }
+                  style={{
+                    borderRadius: "30px",
+                    width: "250px",
+                    height: "60px",
+                    backgroundColor: "#1DB954",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                    marginBottom: "20px",
+                  }}
+                >
+                  Login to Spotify
+                </Button>
+              )}
+
               <div>
                 <h5
                   style={{

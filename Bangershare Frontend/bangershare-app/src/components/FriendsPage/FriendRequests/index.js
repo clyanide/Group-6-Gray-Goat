@@ -13,7 +13,6 @@ import {
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import PersonAddDisabledIcon from "@material-ui/icons/PersonAddDisabled";
 import PersonIcon from "@material-ui/icons/Person";
-import { green } from "@material-ui/core/colors";
 
 const FriendRequests = (props) => {
   const { pendingFriends, onFriendClick, acceptRequest, deleteRequest } = props;
@@ -43,7 +42,7 @@ const FriendRequests = (props) => {
               <ListItemIcon
                 onClick={() => acceptRequest(friend.senderUsername)}
               >
-                <IconButton style={{ color: green[500] }}>
+                <IconButton style={{ color: "#00e676" }}>
                   <PersonAddIcon />
                 </IconButton>
               </ListItemIcon>
@@ -58,13 +57,13 @@ const FriendRequests = (props) => {
           </ListItem>
         ))
       ) : (
-        <Typography
-          variant="h4"
-          style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}
-        >
-          You have no friend requests.
-        </Typography>
-      )}
+          <Typography
+            variant="h4"
+            style={{ paddingLeft: "1.5vw", paddingTop: "1.5vh" }}
+          >
+            You have no friend requests.
+          </Typography>
+        )}
     </List>
   );
 };

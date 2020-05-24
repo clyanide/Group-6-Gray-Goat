@@ -94,13 +94,15 @@ const PlaylistPage = (props) => {
             </Avatar>
           </IconButton>
         </Tooltip>
-        <Tooltip title="Add Song">
-          <IconButton color="primary" onClick={() => handleSetModal(true)}>
-            <Avatar style={{ backgroundColor: "#7d12ff" }}>
-              <AddIcon style={{ fill: "white" }} fontSize="large" />
-            </Avatar>
-          </IconButton>
-        </Tooltip>
+        {currentPlaylist.following ?
+          <Tooltip title="Add Song">
+            <IconButton color="primary" onClick={() => handleSetModal(true)}>
+              <Avatar style={{ backgroundColor: "#7d12ff" }}>
+                <AddIcon style={{ fill: "white" }} fontSize="large" />
+              </Avatar>
+            </IconButton>
+          </Tooltip>
+          : null}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (

@@ -22,7 +22,6 @@ import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MoreVertOutlinedIcon from "@material-ui/icons/MoreVertOutlined";
 import DeleteOutlinedIcon from "@material-ui/icons/DeleteOutlined";
 import EditOutlinedIcon from "@material-ui/icons/EditOutlined";
-import { green } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 
 export const CreateSongList = (props) => {
@@ -49,12 +48,6 @@ export const CreateSongList = (props) => {
 
   return (
     <div
-      style={{
-        overflowY: "scroll",
-        height: "72vh",
-        scrollbarWidth: "none",
-        msOverflowStyle: "none",
-      }}
     >
       <List>
         {songs.map((song) => (
@@ -94,7 +87,7 @@ export const CreateSongList = (props) => {
                     <IconButton
                       onClick={() => onUpdateSong(song, "isPending", false)}
                     >
-                      <AddCircleOutlineIcon style={{ color: green[500] }} />
+                      <AddCircleOutlineIcon style={{ color: "#00e676" }} />
                     </IconButton>
                   </Tooltip>
                   <Tooltip title="Remove Song">

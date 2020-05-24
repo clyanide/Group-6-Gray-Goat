@@ -45,7 +45,7 @@ const HomeScreen = (props) => {
 
   return (
     <div style={{ position: "relative", height: "90%" }}>
-      {isFetching ? (
+      {!isFetching ? (
         <>
           <RecentPlaylists
             playlists={userPlaylist}

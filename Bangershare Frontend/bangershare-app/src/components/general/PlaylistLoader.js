@@ -32,7 +32,7 @@ const PlaylistLoader = (props) => {
                             variant="h5"
                             style={{ marginLeft: "1vw", marginTop: "2vh" }}
                         >
-                            <Skeleton width="250px" />
+                            <Skeleton width="280px" />
                         </Typography>
                     </div>
                     <div>

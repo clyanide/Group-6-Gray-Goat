@@ -6,8 +6,8 @@ import CreatePlaylistModal from "../../containers/HomePage/CreatePlaylistModal";
 import { Tooltip, Fab } from "@material-ui/core";
 import PlaylistAddIcon from "@material-ui/icons/PlaylistAdd";
 import "./Playlist/index.css";
-import PlaylistLoader from "../general/PlaylistLoader"
-import { random } from "../../utility/Randomiser"
+import PlaylistLoader from "../general/PlaylistLoader";
+import { random } from "../../utility/Randomiser";
 
 const HomeScreen = (props) => {
   const {
@@ -68,8 +68,8 @@ const HomeScreen = (props) => {
           />
         </div>
       ) : (
-          <PlaylistLoader skeletons={3} num={5} />
-        )}
+        <PlaylistLoader skeletons={3} num={5} />
+      )}
       <CreatePlaylistModal open={modalOpen} handleModal={setModal} />
       <Tooltip title="Create Playlist">
         <Fab

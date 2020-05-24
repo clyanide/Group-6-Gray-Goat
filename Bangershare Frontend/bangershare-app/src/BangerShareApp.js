@@ -9,7 +9,7 @@ import PlaylistPage from "./containers/PlaylistPage";
 import ProfilePage from "./containers/ProfilePage";
 import SpotifyLoginPage from "./containers/SpotifyLoginPage";
 import PrivateRoute from "./components/general/PrivateRoute";
-import ErrorPage from "./components/ErrorPage"
+import ErrorPage from "./components/ErrorPage";
 import "semantic-ui-css/semantic.min.css";
 import { history } from "./store";
 import { ConnectedRouter } from "connected-react-router";

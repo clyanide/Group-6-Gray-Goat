@@ -11,13 +11,13 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         bangerShareToken !== null && spotifyToken !== null ? (
           <Component {...props} />
         ) : (
-            <Redirect
-              to={{
-                pathname: bangerShareToken === null ? "/login" : "/spotifyauth",
-                state: { from: props.location },
-              }}
-            />
-          )
+          <Redirect
+            to={{
+              pathname: bangerShareToken === null ? "/login" : "/spotifyauth",
+              state: { from: props.location },
+            }}
+          />
+        )
       }
     />
   );

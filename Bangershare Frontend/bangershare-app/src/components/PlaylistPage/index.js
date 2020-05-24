@@ -73,10 +73,7 @@ const PlaylistPage = (props) => {
           </Button>
         </DialogActions>
       </Dialog>
-      <Typography
-        variant="h3"
-        style={{ marginTop: "20px", marginLeft: "4vw" }}
-      >
+      <Typography variant="h3" style={{ marginTop: "20px", marginLeft: "4vw" }}>
         {currentPlaylist.name}
       </Typography>
       <Typography
@@ -103,37 +100,37 @@ const PlaylistPage = (props) => {
             </IconButton>
           </Tooltip>
         ) : (
-            <Typography
-              variant="h6"
-              style={{ display: "inline", paddingLeft: "15px" }}
-            >
-              Follow the playlist to start adding songs.
-            </Typography>
-          )}
+          <Typography
+            variant="h6"
+            style={{ display: "inline", paddingLeft: "15px" }}
+          >
+            Follow the playlist to start adding songs.
+          </Typography>
+        )}
       </div>
       <Divider style={{ backgroundColor: "#7d12ff" }} />
       {!isFetching ? (
         <>
           {currentPlaylist &&
-            currentPlaylist.songs &&
-            currentPlaylist.songs.length > 0 ? (
-              <SongList
-                isOwner={currentPlaylist.isOwner}
-                songs={currentPlaylist.songs}
-              />
-            ) : (
-              <Typography
-                style={{ marginTop: "35px", marginLeft: "4vw" }}
-                variant="h4"
-              >
-                Playlist has no songs.
-              </Typography>
-            )}
+          currentPlaylist.songs &&
+          currentPlaylist.songs.length > 0 ? (
+            <SongList
+              isOwner={currentPlaylist.isOwner}
+              songs={currentPlaylist.songs}
+            />
+          ) : (
+            <Typography
+              style={{ marginTop: "35px", marginLeft: "4vw" }}
+              variant="h4"
+            >
+              Playlist has no songs.
+            </Typography>
+          )}
           <CreateSongModal open={openModal} handleModal={handleSetModal} />
         </>
       ) : (
-          <SongListLoader int={10} />
-        )}
+        <SongListLoader int={10} />
+      )}
     </>
   );
 };

@@ -53,10 +53,10 @@ namespace Bangershare_Backend
             services.AddControllers();
 
             var builder = new SqlConnectionStringBuilder(
-                Configuration.GetConnectionString("AWS"));
+                Configuration.GetConnectionString("DB"));
 
             services.AddDbContextPool<BangerShareContext>(options => options
-                .UseMySql(builder.ConnectionString));
+                .UseSqlServer(builder.ConnectionString));
 
             services.AddScoped<UserService>();
             services.AddScoped<PlaylistService>();

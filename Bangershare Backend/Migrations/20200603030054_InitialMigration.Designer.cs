@@ -2,21 +2,23 @@
 using Bangershare_Backend.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bangershare_Backend.Migrations
 {
     [DbContext(typeof(BangerShareContext))]
-    [Migration("20200519234959_FixMigration")]
-    partial class FixMigration
+    [Migration("20200603030054_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.3")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Bangershare_Backend.Models.Friend", b =>
                 {
@@ -28,7 +30,7 @@ namespace Bangershare_Backend.Migrations
 
                     b.Property<string>("FriendType")
                         .IsRequired()
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("SenderId", "ReceiverId");
@@ -42,10 +44,11 @@ namespace Bangershare_Backend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
@@ -57,10 +60,11 @@ namespace Bangershare_Backend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Artist")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.Property<int>("Duration")
@@ -70,14 +74,14 @@ namespace Bangershare_Backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsPending")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Link")
-                        .HasColumnType("varchar(300) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(300)")
                         .HasMaxLength(300);
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.Property<int>("PlaylistId")
@@ -85,7 +89,7 @@ namespace Bangershare_Backend.Migrations
 
                     b.Property<string>("SongType")
                         .IsRequired()
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
@@ -99,29 +103,47 @@ namespace Bangershare_Backend.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.Property<string>("Password")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.Property<string>("Username")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
 
                     b.HasIndex("Email")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
 
                     b.HasIndex("Username")
-                        .IsUnique();
+                        .IsUnique()
+                        .HasFilter("[Username] IS NOT NULL");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("Bangershare_Backend.Models.UserLike", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SongId")
+                        .HasColumnType("int");
+
+                    b.HasKey("UserId", "SongId");
+
+                    b.HasIndex("SongId");
+
+                    b.ToTable("UserLike");
                 });
 
             modelBuilder.Entity("Bangershare_Backend.Models.UserPlaylist", b =>
@@ -133,7 +155,7 @@ namespace Bangershare_Backend.Migrations
                         .HasColumnType("int");
 
                     b.Property<bool>("IsOwner")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("UserId", "PlaylistId");
 
@@ -144,13 +166,13 @@ namespace Bangershare_Backend.Migrations
 
             modelBuilder.Entity("Bangershare_Backend.Models.Friend", b =>
                 {
-                    b.HasOne("Bangershare_Backend.Models.User", "Sender")
-                        .WithMany("Sent")
+                    b.HasOne("Bangershare_Backend.Models.User", "Receiver")
+                        .WithMany("Receieved")
                         .HasForeignKey("ReceiverId")
                         .IsRequired();
 
-                    b.HasOne("Bangershare_Backend.Models.User", "Receiver")
-                        .WithMany("Receieved")
+                    b.HasOne("Bangershare_Backend.Models.User", "Sender")
+                        .WithMany("Sent")
                         .HasForeignKey("SenderId")
                         .IsRequired();
                 });
@@ -160,6 +182,21 @@ namespace Bangershare_Backend.Migrations
                     b.HasOne("Bangershare_Backend.Models.Playlist", "Playlist")
                         .WithMany("Songs")
                         .HasForeignKey("PlaylistId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Bangershare_Backend.Models.UserLike", b =>
+                {
+                    b.HasOne("Bangershare_Backend.Models.Song", "Song")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("SongId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Bangershare_Backend.Models.User", "User")
+                        .WithMany("UserLikes")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 

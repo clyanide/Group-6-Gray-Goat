@@ -6,13 +6,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200404031423_InitialMigration.cs" />
-    <Compile Remove="Migrations\20200404031423_InitialMigration.Designer.cs" />
-    <Compile Remove="Migrations\20200406022112_IdGenerationMigration.cs" />
-    <Compile Remove="Migrations\20200406022112_IdGenerationMigration.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper" Version="9.0.0" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.3" />
